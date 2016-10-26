@@ -1,0 +1,12 @@
+Makefile
+Makefile.old
+*.tar.gz
+*.bak
+pm_to_blib
+blib/
+Filter-signatures-*
+Filter-signatures-*/
+.releaserc
+cover_db
+firefox-versions/
+MYMETA.*

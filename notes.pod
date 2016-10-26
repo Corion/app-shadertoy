@@ -1,0 +1,22 @@
+Wireframe shader
+
+http://www.imm.dtu.dk/~janba/Wireframe/
+http://strattonbrazil.blogspot.de/2011/09/single-pass-wireframe-rendering_11.html
+
+NVidia Solid Wireframe whitepaper
+
+// Texture lookup for heightfield
+// RGB is surface normal
+// Alpha is height
+in vec4 position;
+uniform sampler2D terrain;
+
+void main(void){
+    vec2 texcoord = position.xy;
+    float height = texture(terrain, texcoord).a;
+    vec4 displaced = vec4(
+        position.x, position.y,
+        height, 1.0);
+    gl_Position = displaced;
+}
+

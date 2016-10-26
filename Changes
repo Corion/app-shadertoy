@@ -1,0 +1,6 @@
+Revision history for Perl extension OpenGL::Glew.
+
+0.01  Wed Oct 26 21:11:42 2016
+	- original version; created by h2xs 1.23 with options
+		glew.h -n OpenGL::Glew
+
