@@ -32,11 +32,12 @@ constant(sv)
 				   s));
           PUSHs(sv);
           break;
+	/* Uncomment this if you need to return IVs
         case PERL_constant_ISIV:
           EXTEND(SP, 1);
           PUSHs(&PL_sv_undef);
           PUSHi(iv);
-          break;
+          break; */
 	/* Uncomment this if you need to return NOs
         case PERL_constant_ISNO:
           EXTEND(SP, 1);
@@ -70,12 +71,11 @@ constant(sv)
 	/* Uncomment this if you need to return UNDEFs
         case PERL_constant_ISUNDEF:
           break; */
-	/* Uncomment this if you need to return UVs
         case PERL_constant_ISUV:
           EXTEND(SP, 1);
           PUSHs(&PL_sv_undef);
           PUSHu((UV)iv);
-          break; */
+          break;
 	/* Uncomment this if you need to return YESs
         case PERL_constant_ISYES:
           EXTEND(SP, 1);

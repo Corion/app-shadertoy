@@ -4035,7 +4035,7 @@ if  (eval {require ExtUtils::Constant; 1}) {
   ExtUtils::Constant::WriteConstants(
                                      NAME         => 'OpenGL::Glew',
                                      NAMES        => \@names,
-                                     DEFAULT_TYPE => 'IV',
+                                     DEFAULT_TYPE => 'UV',
                                      C_FILE       => 'const-c.inc',
                                      XS_FILE      => 'const-xs.inc',
                                   );
