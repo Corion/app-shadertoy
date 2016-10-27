@@ -88,7 +88,7 @@ sub glGetShaderInfoLog_p($shader) {
 sub Load($self, %shaders) {
   for my $shader (sort keys %shaders) {
     warn "Creating $shader shader";
-    my $id = glCreateShader($GL_shader_names{ $shader });
+    my $id = OpenGL::Glew::glCreateShader($GL_shader_names{ $shader });
     warn "Couldn't create a '$shader' shader?!"
         unless $id;
     return undef if (!$id);

@@ -16570,13 +16570,7 @@ sub AUTOLOAD {
     if ($error) { croak $error; }
     {
 	no strict 'refs';
-	# Fixed between 5.005_53 and 5.005_61
-#XXX	if ($] >= 5.00561) {
-#XXX	    *$AUTOLOAD = sub () { $val };
-#XXX	}
-#XXX	else {
 	    *$AUTOLOAD = sub { $val };
-#XXX	}
     }
     goto &$AUTOLOAD;
 }
