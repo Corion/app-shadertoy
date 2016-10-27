@@ -1,6 +1,7 @@
 #!perl -w
 use strict;
-use OpenGL ':all';
+use OpenGL qw(glClearColor glClear glCreateBuffer );
+use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima::OpenGL;
 use Prima qw( Application GLWidget );
@@ -57,7 +58,6 @@ no warnings 'experimental::signatures';
 my $pipeline = OpenGL::Shader::OpenGL4->new();
 $pipeline->Load(
     vertex => <<'VERTEX', fragment => <<'FRAGMENT',
-
 attribute vec2 pos;
 void main() {
 	gl_Position = vec4(pos.xy,0.0,1.0);
@@ -275,27 +275,28 @@ sub drawUnitQuad_XY($vpos) {
 }
 
 use Time::HiRes;
-sub updateShaderVariables($xres,$yres) {
+sub updateShaderVariables($pipeline,$xres,$yres) {
 	#my %variables = (
 	#    iGlobalTime => time,
 	#    iResolution => [],
 	#);
 	
-	glSetShaderConstant1F(  "iGlobalTime", time);
-    glSetShaderConstant3F(  "iResolution", $xres, $yres, 1.0);
-    glSetShaderConstant4FV( "iMouse", 0.0, 0.0);
-    glSetShaderConstant4FV( "iDate", 0, 0, 0, 0 );
-    glSetShaderConstant1F(  "iSampleRate", 0.0 ); #this.mSampleRate);
-    glSetShaderTextureUnit( "iChannel0", 0 );
-    glSetShaderTextureUnit( "iChannel1", 1 );
-    glSetShaderTextureUnit( "iChannel2", 2 );
-    glSetShaderTextureUnit( "iChannel3", 3 );
-    glSetShaderConstant1I(  "iFrame", 0 ); # this.mFrame );
-    glSetShaderConstant1F(  "iTimeDelta", 0 ); # dtime);
-    glSetShaderConstant1F(  "iFrameRate", 60 ); # weeeell
+	
+	$pipeline->setUniform1I( "iGlobalTime", time);
+    $pipeline->setUniform3F( "iResolution", $xres, $yres, 1.0);
+    $pipeline->setUniform2V("iMouse", 0.0, 0.0);
+    $pipeline->setUniform4F( "iDate", 0, 0, 0, 0 );
+    $pipeline->setUniform1F(  "iSampleRate", 0.0 ); #this.mSampleRate);
+    #glSetShaderTextureUnit( "iChannel0", 0 );
+    #glSetShaderTextureUnit( "iChannel1", 1 );
+    #glSetShaderTextureUnit( "iChannel2", 2 );
+    #glSetShaderTextureUnit( "iChannel3", 3 );
+    $pipeline->setUniform1I(  "iFrame", 0 ); # this.mFrame );
+    $pipeline->setUniform1F(  "iTimeDelta", 0 ); # dtime);
+    $pipeline->setUniform1F(  "iFrameRate", 60 ); # weeeell
 }
 
-my $pos = GetAttribLocation($pipeline->program, "pos");
+my $pos = glGetAttribLocation($pipeline->{program}, "pos");
 
 my $window = Prima::MainWindow->create;
 $window-> insert( GLWidget => 
@@ -308,7 +309,7 @@ $window-> insert( GLWidget =>
         $pipeline->Enable();
         
         # Well, we should only update these when resizing, later
-        updateShaderVariables($self->width,$self->height);
+        updateShaderVariables($pipeline,$self->width,$self->height);
         
 		drawUnitQuad_XY($pos);
         $pipeline->Disable();
