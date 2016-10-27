@@ -94,7 +94,7 @@ sub Load($self, %shaders) {
     glCompileShader($id);
     
     my $ok = "\0" x 8;
-    glGetShaderiv(shader, GL_COMPILE_STATUS, pack 'P', $ok);
+    glGetShaderiv($id, GL_COMPILE_STATUS, pack 'P', $ok);
     $ok = unpack 'I', $ok;
     if( $ok == GL_FALSE ) {
       my $stat = glGetShaderInfoLog($id);

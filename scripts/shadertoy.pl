@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use OpenGL qw(glClearColor glClear glCreateBuffer );
+use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima::OpenGL;
@@ -261,8 +261,10 @@ sub drawUnitQuad_XY($vpos) {
 
     # create a 2D quad Vertex Buffer
     my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
-    my $VBO_Quad = glCreateBuffer();
-    glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
+    my $buffer = "\0" x 8;
+    glGenBuffers(1, pack 'P', $buffer);
+    my $VBO_Quad = (unpack 'I', $buffer)[0];
+    glBindBuffer( $VBO_Quad, GL_ARRAY_BUFFER );
     glBufferData( GL_ARRAY_BUFFER, @vertices, GL_STATIC_DRAW );
     glBindBuffer( GL_ARRAY_BUFFER, undef );
 	
