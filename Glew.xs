@@ -22,15 +22,15 @@ OUTPUT:
 
 SV*
 glewGetString(what)
-    int what;
+    GLenum what;
 CODE:
     RETVAL = newSVpv(glewGetString(what),0);
 OUTPUT:
     RETVAL
 
-int
+GLint
 glCreateShader(what)
-    int what;
+    GLint what;
 CODE:
     RETVAL = glCreateShader(what);
 OUTPUT:
