@@ -17,3 +17,9 @@ glew/auto
 glew/build
 glew/config
 glew/doc
+glew/src/*.o
+glew/lib
+glew/glewinfo.txt
+glew/visualinfo.txt
+glew/bin
+glew/glew.pc.in
