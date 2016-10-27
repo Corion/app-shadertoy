@@ -317,24 +317,26 @@ $window-> insert( GLWidget =>
 		if( ! $pipeline ) {
 			OpenGL::Glew::glewInit() == GLEW_OK
 			    or die "Couldn't initialize Glew";
-			warn "Glew initialized";
+			print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
 			$pipeline = init_shaders;
 			die "Got no pipeline"
 			    unless $pipeline;
 		};
 		
-		glClearColor(0,0,0,1);
-		glClear(GL_COLOR_BUFFER_BIT);
-		
-		use Data::Dumper;
-		warn Dumper $pipeline;
-        $pipeline->Enable();
-        
-        # Well, we should only update these when resizing, later
-        updateShaderVariables($pipeline,$self->width,$self->height);
-        
-		drawUnitQuad_XY($pipeline);
-        $pipeline->Disable();
+		if( $pipeline ) {
+			glClearColor(0,0,0,1);
+			glClear(GL_COLOR_BUFFER_BIT);
+			
+			use Data::Dumper;
+			warn Dumper $pipeline;
+			$pipeline->Enable();
+			
+			# Well, we should only update these when resizing, later
+			updateShaderVariables($pipeline,$self->width,$self->height);
+			
+			drawUnitQuad_XY($pipeline);
+			$pipeline->Disable();
+		};
 	}
 );
 

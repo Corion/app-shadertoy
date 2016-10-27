@@ -20,4 +20,20 @@ CODE:
 OUTPUT:
     RETVAL
 
+SV*
+glewGetString(what)
+    int what;
+CODE:
+    RETVAL = newSVpv(glewGetString(what),0);
+OUTPUT:
+    RETVAL
+
+int
+glCreateShader(what)
+    int what;
+CODE:
+    RETVAL = glCreateShader(what);
+OUTPUT:
+    RETVAL
+
 INCLUDE: const-xs.inc
