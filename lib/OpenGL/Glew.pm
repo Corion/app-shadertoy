@@ -1,8 +1,5 @@
 package OpenGL::Glew;
-
-use 5.020001;
 use strict;
-use warnings;
 use Carp;
 
 require Exporter;
@@ -18,12 +15,6 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-	APIENTRY
-	CALLBACK
-	GLAPI
-	GLAPIENTRY
-	GLEWAPI
-	GLEWAPIENTRY
 	GLEW_3DFX_multisample
 	GLEW_3DFX_tbuffer
 	GLEW_3DFX_texture_compression_FXT1
@@ -5874,8 +5865,6 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 	GL_ZOOM_Y
 	GL_Z_EXT
 	MAX_VERTEX_TEXTURE_IMAGE_UNITS_ARB
-	WINGDIAPI
-	_W64
 	glActiveProgramEXT
 	glActiveShaderProgram
 	glActiveStencilFaceEXT
@@ -24897,8 +24886,6 @@ None by default.
   glWindowPos4svMESA
   glWindowRectanglesEXT
   glWriteMaskEXT
-
-
 
 =head1 SEE ALSO
 

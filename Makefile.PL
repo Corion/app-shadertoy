@@ -1,5 +1,8 @@
-use 5.020001;
+#!perl -w
+use strict;
 use ExtUtils::MakeMaker;
+use Config '%Config';
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
@@ -7,6 +10,7 @@ WriteMakefile(
     VERSION_FROM      => 'lib/OpenGL/Glew.pm',
     PREREQ_PM         => {
       'OpenGL' => '0.58',
+      'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
     AUTHOR            => 'Max Maischein <corion@cpan.org>',
@@ -15,7 +19,8 @@ WriteMakefile(
     #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
 
     # We build our own libglew (included), so we use it here
-    LIBS              => ['-Lglew-2.0.0/lib', '-lglew'], # e.g., '-lm'
+    LDFLAGS => $Config{LDDLFLAGS} . " -Lglew-2.0.0/lib",
+    LIBS              => ['-Lglew-2.0.0/lib -lglew -lopengl32'], # e.g., '-lm'
     DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
     INC               => '-I. -Iglew/include', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
