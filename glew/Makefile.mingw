@@ -1,0 +1,26 @@
+AR = ar
+CC = gcc
+LIB_EXT = .a
+OBJ_EXT = .o
+
+.PHONY: builddirs all
+.SUFFIXES : .c .o
+.USESHELL :
+
+CCFLAGS=-DSTATIC -DGLEW_STATIC -DGLEW_NO_GLU -O2
+# -D_WIN32 -DWIN32
+LDLOADLIBS = -Llib -lglew -lmoldname -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -lnetapi32 -luuid -lws2_32 -lmpr -lwinmm -lversion -lodbc32 -lodbccp32 -lcomctl32 -lopengl32
+
+# We want a static build here, because we don't want to dynaload dynaload dynaload
+
+all :: bin/visualinfo.exe bin/glewinfo.exe
+
+%.o : %.c
+	gcc $(CCFLAGS) -c -O2 -Wall -W -Iinclude  -o $@ $&
+
+lib/libglew.a: src/glew.o
+	$(AR) -ru $@ $<
+
+bin\%.exe : src\%.o 'lib/libglew.a'
+	gcc -o $@ $(LDDLFLAGS) $< $(LDLOADLIBS) -Wl,--enable-auto-image-base
+
