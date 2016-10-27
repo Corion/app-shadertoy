@@ -5,6 +5,8 @@ Makefile.old
 pm_to_blib
 blib/
 Glew.c
+Glew.o
+*.def
 *.bs
 Filter-signatures-*/
 .releaserc

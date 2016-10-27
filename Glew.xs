@@ -5,6 +5,8 @@
 
 #include "ppport.h"
 
+#define GLEW_STATIC
+#include "windows.h"
 #include <include/GL/glew.h>
 
 #include "const-c.inc"

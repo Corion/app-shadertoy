@@ -27,17 +27,6 @@ constant_4 (pTHX_ const char *name, IV *iv_return) {
      GL_Q GL_R GL_S GL_T _W64 */
   /* Offset 3 gives the best switch position.  */
   switch (name[3]) {
-  case '4':
-    if (memEQ(name, "_W6", 3)) {
-    /*                  4     */
-#ifdef _W64
-      *iv_return = (IV)_W64;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
-    break;
   case 'Q':
     if (memEQ(name, "GL_", 3)) {
     /*                  Q     */
@@ -640,15 +629,6 @@ constant_7 (pTHX_ const char *name, IV *iv_return) {
     }
     break;
   case 'I':
-    if (memEQ(name, "GLEWAP", 6)) {
-    /*                     I     */
-#ifdef GLEWAPI
-      *iv_return = (IV)GLEWAPI;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
     if (memEQ(name, "GL_R16", 6)) {
     /*                     I     */
 #ifdef GL_R16I
@@ -1012,17 +992,6 @@ constant_8 (pTHX_ const char *name, IV *iv_return) {
 #endif
     }
     break;
-  case 'C':
-    if (memEQ(name, "CALLBACK", 8)) {
-    /*                     ^       */
-#ifdef CALLBACK
-      *iv_return = (IV)CALLBACK;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
-    break;
   case 'D':
     if (memEQ(name, "GL_QUADS", 8)) {
     /*                     ^       */
@@ -1183,16 +1152,6 @@ constant_8 (pTHX_ const char *name, IV *iv_return) {
 #endif
     }
     break;
-  case 'R':
-    if (memEQ(name, "APIENTRY", 8)) {
-    /*                     ^       */
-#ifdef APIENTRY
-      *iv_return = (IV)APIENTRY;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
     if (memEQ(name, "GL_QUERY", 8)) {
     /*                     ^       */
 #ifdef GL_QUERY
@@ -1634,16 +1593,6 @@ constant_9 (pTHX_ const char *name, IV *iv_return) {
       return PERL_constant_NOTDEF;
 #endif
     }
-    if (memEQ(name, "WINGDIAP", 8)) {
-    /*                       I     */
-#ifdef WINGDIAPI
-      *iv_return = (IV)WINGDIAPI;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
-    break;
   case 'L':
     if (memEQ(name, "GL_GEQUA", 8)) {
     /*                       L     */
@@ -2309,16 +2258,6 @@ constant_10 (pTHX_ const char *name, IV *iv_return) {
 #endif
     }
     break;
-  case 'P':
-    if (memEQ(name, "GLAPIENTRY", 10)) {
-    /*                  ^             */
-#ifdef GLAPIENTRY
-      *iv_return = (IV)GLAPIENTRY;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
     if (memEQ(name, "GL_PATCHES", 10)) {
     /*                  ^             */
 #ifdef GL_PATCHES
@@ -4295,16 +4234,6 @@ constant_12 (pTHX_ const char *name, IV *iv_return) {
 #endif
     }
     break;
-  case 'E':
-    if (memEQ(name, "GLEWAPIENTRY", 12)) {
-    /*                      ^           */
-#ifdef GLEWAPIENTRY
-      *iv_return = (IV)GLEWAPIENTRY;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
     if (memEQ(name, "GL_DARKEN_NV", 12)) {
     /*                      ^           */
 #ifdef GL_DARKEN_NV
@@ -11902,24 +11831,6 @@ constant_15 (pTHX_ const char *name, IV *iv_return) {
     }
     break;
   case 'X':
-    if (memEQ(name, "GLEW_FUN_EXPORT", 15)) {
-    /*                         ^           */
-#ifdef GLEW_FUN_EXPORT
-      *iv_return = (IV)GLEW_FUN_EXPORT;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
-    if (memEQ(name, "GLEW_VAR_EXPORT", 15)) {
-    /*                         ^           */
-#ifdef GLEW_VAR_EXPORT
-      *iv_return = (IV)GLEW_VAR_EXPORT;
-      return PERL_constant_ISIV;
-#else
-      return PERL_constant_NOTDEF;
-#endif
-    }
     if (memEQ(name, "GL_OP_INDEX_EXT", 15)) {
     /*                         ^           */
 #ifdef GL_OP_INDEX_EXT
