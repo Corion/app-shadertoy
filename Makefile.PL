@@ -4,16 +4,20 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile(
     NAME              => 'OpenGL::Glew',
-    VERSION_FROM      => 'lib/OpenGL/Glew.pm', # finds $VERSION, requires EU::MM from perl >= 5.5
-    PREREQ_PM         => {}, # e.g., Module::Name => 1.1
+    VERSION_FROM      => 'lib/OpenGL/Glew.pm',
+    PREREQ_PM         => {
+      'OpenGL' => '0.58',
+    }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
-    AUTHOR            => 'A. U. Thor <a.u.thor@a.galaxy.far.far.away>',
-    #LICENSE           => 'perl',
+    AUTHOR            => 'Max Maischein <corion@cpan.org>',
+    LICENSE           => 'perl',
     #Value must be from legacy list of licenses here
     #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
-    LIBS              => [''], # e.g., '-lm'
+
+    # We build our own libglew (included), so we use it here
+    LIBS              => ['-Lglew-2.0.0/lib', '-lglew'], # e.g., '-lm'
     DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
-    INC               => '-I.', # e.g., '-I. -I/usr/include/other'
+    INC               => '-I. -Iglew/include', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
     # OBJECT            => '$(O_FILES)', # link all the C files too
 );
@@ -22,7 +26,7 @@ if  (eval {require ExtUtils::Constant; 1}) {
   # you will need to use the generated const-c.inc and const-xs.inc
   # files to replace their "fallback" counterparts before distributing your
   # changes.
-  my @names = (qw(APIENTRY CALLBACK GLAPI GLAPIENTRY GLEWAPI GLEWAPIENTRY
+  my @names = (qw(
 		 GLEW_3DFX_multisample GLEW_3DFX_tbuffer
 		 GLEW_3DFX_texture_compression_FXT1
 		 GLEW_AMD_blend_minmax_factor GLEW_AMD_conservative_depth
@@ -231,7 +235,7 @@ if  (eval {require ExtUtils::Constant; 1}) {
 		 GLEW_EXT_vertex_array GLEW_EXT_vertex_array_bgra
 		 GLEW_EXT_vertex_attrib_64bit GLEW_EXT_vertex_shader
 		 GLEW_EXT_vertex_weighting GLEW_EXT_window_rectangles
-		 GLEW_EXT_x11_sync_object GLEW_FUN_EXPORT
+		 GLEW_EXT_x11_sync_object
 		 GLEW_GREMEDY_frame_terminator GLEW_GREMEDY_string_marker
 		 GLEW_HP_convolution_border_modes GLEW_HP_image_transform
 		 GLEW_HP_occlusion_test GLEW_HP_texture_lighting
@@ -351,7 +355,7 @@ if  (eval {require ExtUtils::Constant; 1}) {
 		 GLEW_SUN_convolution_border_modes GLEW_SUN_global_alpha
 		 GLEW_SUN_mesh_array GLEW_SUN_read_video_pixels
 		 GLEW_SUN_slice_accum GLEW_SUN_triangle_list GLEW_SUN_vertex
-		 GLEW_VAR_EXPORT GLEW_VERSION GLEW_VERSION_1_1 GLEW_VERSION_1_2
+		 GLEW_VERSION GLEW_VERSION_1_1 GLEW_VERSION_1_2
 		 GLEW_VERSION_1_2_1 GLEW_VERSION_1_3 GLEW_VERSION_1_4
 		 GLEW_VERSION_1_5 GLEW_VERSION_2_0 GLEW_VERSION_2_1
 		 GLEW_VERSION_3_0 GLEW_VERSION_3_1 GLEW_VERSION_3_2
@@ -2993,7 +2997,7 @@ if  (eval {require ExtUtils::Constant; 1}) {
 		 GL_Z6Y10Z6CB10Z6A10Z6Y10Z6CR10Z6A10_4224_NV
 		 GL_Z6Y10Z6CB10Z6Y10Z6CR10_422_NV GL_ZERO GL_ZERO_EXT
 		 GL_ZERO_TO_ONE GL_ZOOM_X GL_ZOOM_Y GL_Z_EXT
-		 MAX_VERTEX_TEXTURE_IMAGE_UNITS_ARB WINGDIAPI _W64
+		 MAX_VERTEX_TEXTURE_IMAGE_UNITS_ARB 
 		 glActiveProgramEXT glActiveShaderProgram
 		 glActiveStencilFaceEXT glActiveTexture glActiveTextureARB
 		 glActiveVaryingNV glAddSwapHintRectWIN glAlphaFragmentOp1ATI
