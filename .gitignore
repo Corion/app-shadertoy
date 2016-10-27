@@ -13,3 +13,7 @@ Filter-signatures-*/
 cover_db
 firefox-versions/
 MYMETA.*
+glew/auto
+glew/build
+glew/config
+glew/doc
