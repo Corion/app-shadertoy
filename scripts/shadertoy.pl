@@ -315,6 +315,9 @@ $window-> insert( GLWidget =>
 		my $self = shift;
 		
 		if( ! $pipeline ) {
+			OpenGL::Glew::glewInit() == GLEW_OK
+			    or die "Couldn't initialize Glew";
+			warn "Glew initialized";
 			$pipeline = init_shaders;
 			die "Got no pipeline"
 			    unless $pipeline;

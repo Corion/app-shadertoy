@@ -13,4 +13,11 @@
 
 MODULE = OpenGL::Glew		PACKAGE = OpenGL::Glew		
 
+UV
+glewInit()
+CODE:
+    RETVAL = glewInit();
+OUTPUT:
+    RETVAL
+
 INCLUDE: const-xs.inc
