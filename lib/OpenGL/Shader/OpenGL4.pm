@@ -50,6 +50,7 @@ sub new ($this,@args) {
   $self->Load( %shaders )
       if scalar keys %shaders;
 
+  warn "Created $self";
   return $self;
 }
 
@@ -86,28 +87,30 @@ sub glGetShaderInfoLog_p($shader) {
 # Load shader strings
 sub Load($self, %shaders) {
   for my $shader (sort keys %shaders) {
-    my $name = $shader . "_id";
-    # Meh, where is it?
+    warn "Creating $shader shader";
     my $id = glCreateShader($GL_shader_names{ $shader });
+    warn "Couldn't create a '$shader' shader?!"
+        unless $id;
     return undef if (!$id);
     glShaderSource_p($id, 1, pack('P', $shaders{$shader}), undef);
     glCompileShader($id);
     
     my $ok = "\0" x 8;
     glGetShaderiv($id, GL_COMPILE_STATUS, pack 'P', $ok);
+    warn $ok;
     $ok = unpack 'I', $ok;
+    warn $ok;
     if( $ok == GL_FALSE ) {
       my $stat = glGetShaderInfoLog($id);
       return "$shader shader: $stat" if ($stat);
     };
-    $self->{$name} = $id;
+    $self->{$shader . "_id"} = $id;
   }
 
   # Link shaders
   my $sp = glCreateProgramObjectARB();
   for my $shader (sort keys %shaders) {
-    my $name = $shader . "_id";
-    glAttachObjectARB($sp, $self->{$name});
+    glAttachObjectARB($sp, $self->{$shader . "_id"});
   };
   glLinkProgramARB($sp);
   my $linked = glGetObjectParameterivARB_p($sp, GL_OBJECT_LINK_STATUS_ARB);

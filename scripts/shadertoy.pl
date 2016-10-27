@@ -3,7 +3,7 @@ use strict;
 use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
-use Prima::OpenGL;
+#use Prima::OpenGL;
 use Prima qw( Application GLWidget );
 
 use Filter::signatures;
@@ -55,8 +55,10 @@ no warnings 'experimental::signatures';
 
 =cut
 
-my $pipeline = OpenGL::Shader::OpenGL4->new();
-$pipeline->Load(
+sub init_shaders {
+	my $pipeline = OpenGL::Shader::OpenGL4->new();
+	warn ref $pipeline;
+	$pipeline->Load(
     vertex => <<'VERTEX', fragment => <<'FRAGMENT',
 attribute vec2 pos;
 void main() {
@@ -254,10 +256,16 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 	fragColor = vec4(pow(color,vec3(0.75)), 1.0);
 }
 FRAGMENT
-);
+) or die "Couldn't load shaders";
 
-sub drawUnitQuad_XY($vpos) {
+    warn ref $pipeline;
+    return $pipeline;
+};
+
+sub drawUnitQuad_XY($pipeline) {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
+
+	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
 
     # create a 2D quad Vertex Buffer
     my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
@@ -298,22 +306,31 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     $pipeline->setUniform1F(  "iFrameRate", 60 ); # weeeell
 }
 
-my $pos = glGetAttribLocation($pipeline->{program}, "pos");
+my $pipeline;
 
 my $window = Prima::MainWindow->create;
 $window-> insert( GLWidget => 
 	pack    => { expand => 1, fill => 'both'},
 	onPaint => sub {
 		my $self = shift;
+		
+		if( ! $pipeline ) {
+			$pipeline = init_shaders;
+			die "Got no pipeline"
+			    unless $pipeline;
+		};
+		
 		glClearColor(0,0,0,1);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
+		use Data::Dumper;
+		warn Dumper $pipeline;
         $pipeline->Enable();
         
         # Well, we should only update these when resizing, later
         updateShaderVariables($pipeline,$self->width,$self->height);
         
-		drawUnitQuad_XY($pos);
+		drawUnitQuad_XY($pipeline);
         $pipeline->Disable();
 	}
 );
