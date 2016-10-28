@@ -37,7 +37,8 @@ T_FASTPTROBJ
         $var = INT2PTR($type,SvIV($arg));
 
 T_U_INT_ARRAY
-        # Pack the Perl parameters into the C GLuint string
+        /* Pack the Perl parameters into the C $type string */
+        /* No, this should be an arrayref instead of varargs */
         SV* buf_$var = newSVpv(\"\",items * sizeof($type));
         $var = SvPV_nolen(buf_$var);
         int i;
