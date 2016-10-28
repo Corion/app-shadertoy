@@ -51,10 +51,34 @@ for my $file (@headers) {
 This is where we try to automatically infer a perlish API
 from C headers. Sure.
 
+If we find an argument of name C<n> and type C<GLsizei>, that indicates
+that a variable number of arguments is intended to be passed in.
+If these two arguments are at the end, we know to automatically
+convert that into a variable length XS sub:
+
+    glFoo( GLuint bar, GLsizei n, GLuint* shaders )
+
+gets automatically converted to
+
+    SV*
+    glFoo(bar, ...)
+    INIT:
+        GLsizei n = items;
+    PPCODE:
+        SV* buf_shaders = newSVpv("",items * sizeof(GLuint));
+        GLuint* shaders = (GLuint*) SvPV_nolen(buf_shaders);
+        int i;
+     
+        for( i = 0; i < items; i++ ) {
+            ids[i] = SvIV(ST(i));
+        };
+        glFoo(n, shaders);
+
 =cut
 
 sub munge_GL_args {
     my( @args ) = @_;
+    # If 
     # GLsizei n + 
 }
 

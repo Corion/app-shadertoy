@@ -10,6 +10,7 @@ GLclampf		T_FLOAT
 GLclampd		T_DOUBLE
 GLint			T_INT
 GLuint			T_U_INT
+GLuint *        T_U_INT_ARRAY
 GLushort		T_U_SHORT
 GLint			T_INT
 GLbyte			T_INT
@@ -20,7 +21,6 @@ GLenum			T_INT
 GLbitfield		T_INT
 GLcharARB		T_CHAR
 GLhandleARB		T_U_INT
-
 GLUnurbsObj *		T_PTROBJ
 GLUquadricObj *		T_PTROBJ
 PGLUtess *		T_PTROBJ
@@ -34,6 +34,16 @@ INPUT
 
 T_FASTPTROBJ
         $var = INT2PTR($type,SvIV($arg));
+
+T_U_INT_ARRAY
+        # Pack the Perl parameters into the C GLuint string
+        SV* buf_$var = newSVpv(\"\",items * sizeof($type));
+        $var = SvPV_nolen(buf_$var);
+        int i;
+        for( i = $argoff; i < items; i++ ) {
+            ids[i] = SvUV(ST(i));
+        };
+
 
 OUTPUT
 

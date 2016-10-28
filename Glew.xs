@@ -37,23 +37,28 @@ OUTPUT:
     RETVAL
 
 GLboolean
-glAreProgramsResidentNV_p(...);
+glAreProgramsResidentNV_p(GLuint* ids);
 PPCODE:
      /* Use a mortal SV to get automagic memory management */
-     SV* buf_ids = newSVpv("",items * sizeof(GLuint));
-     SV* buf_res = newSVpv("",items * sizeof(GLboolean));
+     /*
+     SV* buf_ids = sv_2mortal(newSVpv("",items * sizeof(GLuint)));
+     SV* buf_res = sv_2mortal(newSVpv("",items * sizeof(GLboolean)));
      GLuint* ids = (GLuint*) SvPV_nolen(buf_ids);
      GLboolean* residences = (GLboolean*) SvPV_nolen(buf_res);
      
      int i;
      
-     for( i = 0; i < items; i++ ) {
+     for( i = $argoff; i < items; i++ ) {
 	       ids[i] = SvIV(ST(i));
 	 };
+	 */
+     SV* buf_res = sv_2mortal(newSVpv("",items * sizeof(GLboolean)));
+     GLboolean* residences = (GLboolean*) SvPV_nolen(buf_res);
      glAreProgramsResidentNV(items, ids, residences);
      EXTEND(SP, items);
-     for( i = 0; i < items; i++ ) {
-        PUSHs(sv_2mortal(newSViv(residences[i])));
+     int i2;
+     for( i2 = 0; i2 < items; i2++ ) {
+        PUSHs(sv_2mortal(newSViv(residences[i2])));
 	 };
 
 INCLUDE: const-xs.inc
