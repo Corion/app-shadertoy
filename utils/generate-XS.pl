@@ -30,7 +30,7 @@ for my $file (@headers) {
             
         } elsif( $line =~ /^GLAPI void GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
-            my( $restype, $name, $sig ) = ($1,$2,$3);
+            my( $restype, $name, $sig ) = ('void', $1,$2);
             $signature{ $name } = { signature => $sig, restype => $restype };
             
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
@@ -46,40 +46,17 @@ for my $file (@headers) {
 
 =head1 Automagic Perlification
 
-=head2 munge_GL_args
-
-This is where we try to automatically infer a perlish API
-from C headers. Sure.
-
-If we find an argument of name C<n> and type C<GLsizei>, that indicates
-that a variable number of arguments is intended to be passed in.
-If these two arguments are at the end, we know to automatically
-convert that into a variable length XS sub:
-
-    glFoo( GLuint bar, GLsizei n, GLuint* shaders )
-
-gets automatically converted to
-
-    SV*
-    glFoo(bar, ...)
-    INIT:
-        GLsizei n = items;
-    PPCODE:
-        SV* buf_shaders = newSVpv("",items * sizeof(GLuint));
-        GLuint* shaders = (GLuint*) SvPV_nolen(buf_shaders);
-        int i;
-     
-        for( i = 0; i < items; i++ ) {
-            ids[i] = SvIV(ST(i));
-        };
-        glFoo(n, shaders);
+We should think about how to ideally enable the typemap
+to automatically perlify the API. Or just handwrite
+it for the _p functions?!
 
 =cut
 
 sub munge_GL_args {
     my( @args ) = @_;
     # If 
-    # GLsizei n + 
+    # GLsizei n
+    # GLsizei count
 }
 
 for my $upper (sort keys %signature) {
@@ -87,9 +64,11 @@ for my $upper (sort keys %signature) {
     my $name = $alias{ $impl } || $impl;
     warn "$upper -> $impl -> $name";
     my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
+    die "No args for $upper" unless $args;
     my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
     my $xs_args = $signature{ $upper }->{signature};
     $xs_args =~ s!,!;\n    !g;
+    $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint)\b!!g;
     print <<XS;
 $type
 $name($args);
