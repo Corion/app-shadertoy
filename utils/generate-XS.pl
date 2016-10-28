@@ -27,15 +27,31 @@ for my $file (@headers) {
         if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
+            
+        } elsif( $line =~ /^GLAPI void GLAPIENTRY (\w+) \((.*)\);/ ) {
+            # Some external function, likely imported from libopengl / opengl32
+            my( $restype, $name, $sig ) = ($1,$2,$3);
+            $signature{ $name } = { signature => $sig, restype => $restype };
+            
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
             my( $name, $impl ) = ($1,$2);
             $case_map{ $name } = $impl;
+
         } elsif( $line =~ /^#define (\w+) GLEW_GET_FUN\(__(\w+)\)/) {
             my( $name, $impl ) = ($1,$2);
             $alias{ $impl } = $name;
         };
     };
 }
+
+=head1 Automagic Perlification
+
+=head2 munge_GL_args
+
+This is where we try to automatically infer a perlish API
+from C headers. Sure.
+
+=cut
 
 sub munge_GL_args {
     my( @args ) = @_;
