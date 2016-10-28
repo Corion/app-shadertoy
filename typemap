@@ -9,6 +9,7 @@ GLdouble		T_DOUBLE
 GLclampf		T_FLOAT
 GLclampd		T_DOUBLE
 GLint			T_INT
+GLintptr        T_U_INT
 GLuint			T_U_INT
 GLuint *        T_U_INT_ARRAY
 GLushort		T_U_SHORT
