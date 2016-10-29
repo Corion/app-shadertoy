@@ -20,6 +20,7 @@ GLshort			T_SHORT
 GLboolean		T_BOOL
 GLenum			T_INT
 GLbitfield		T_INT
+GLchar *      	T_CHAR
 GLcharARB		T_CHAR
 GLhandleARB		T_U_INT
 GLUnurbsObj *		T_PTROBJ
@@ -37,15 +38,10 @@ T_FASTPTROBJ
         $var = INT2PTR($type,SvIV($arg));
 
 T_U_INT_ARRAY
-        /* Pack the Perl parameters into the C $type string */
-        /* No, this should be an arrayref instead of varargs */
-        SV* buf_$var = newSVpv(\"\",items * sizeof($type));
-        $var = SvPV_nolen(buf_$var);
-        int i;
-        for( i = $argoff; i < items; i++ ) {
-            ids[i] = SvUV(ST(i));
+        if( !SvPVOK($var)) {
+            croak("Need a packed string of GLuints");
         };
-
+        $var = SvPV_nolen($var);
 
 OUTPUT
 
