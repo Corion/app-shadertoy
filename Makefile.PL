@@ -19,12 +19,16 @@ WriteMakefile(
     #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
 
     # We build our own libglew (included), so we use it here
-    LDFLAGS => $Config{LDDLFLAGS} . " -Lglew-2.0.0/lib",
+    #LDFLAGS => $Config{LDDLFLAGS} . " -Lglew-2.0.0/lib",
     LIBS              => ['-Lglew-2.0.0/lib -lglew -lopengl32'], # e.g., '-lm'
-    DEFINE            => '', # e.g., '-DHAVE_SOMETHING'
-    INC               => '-I. -Iglew/include', # e.g., '-I. -I/usr/include/other'
+    DEFINE            => '-D_WIN32', # e.g., '-DHAVE_SOMETHING'
+    INC               => '-I. -Iinclude -Isrc', # e.g., '-I. -I/usr/include/other'
 	# Un-comment this if you add C files to link with later:
     # OBJECT            => '$(O_FILES)', # link all the C files too
+    XSPROTOARG => '-prototypes',
+    depend => {
+      'Glew.c' => 'Glew.xs auto-xs.inc src/glew.c include/GL/glew.h include/GL/wglew.h',
+    },
 );
 if  (eval {require ExtUtils::Constant; 1}) {
   # If you edit these definitions to change the constants used by this module,
