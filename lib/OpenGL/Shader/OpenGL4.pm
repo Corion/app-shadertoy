@@ -3,6 +3,8 @@ use strict;
 use OpenGL::Glew ':all';
 use OpenGL::Glew::Helpers qw(
     glGetShaderInfoLog_p
+    glGetProgramInfoLog_p
+    
     pack_ptr
     pack_GLstrings
     pack_GLint
@@ -97,12 +99,11 @@ sub Load($self, %shaders) {
     warn "Couldn't create a '$shader' shader?!"
         unless $id; 
     croak_on_gl_error;
-    #warn "Got $shader shader $id, setting source";
-    #return undef if (!$id);
+    warn "Got $shader shader $id, setting source";
     glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr(my $shader_length, 8));
     croak_on_gl_error;
 
-    #warn "Compiling $shader shader";
+    warn "Compiling $shader shader";
     glCompileShader($id);
     croak_on_gl_error;
     
@@ -115,24 +116,37 @@ sub Load($self, %shaders) {
     $self->{$shader . "_id"} = $id;
   }
 
-  # Link shaders
-  my $sp = glCreateProgram();
-  for my $shader (sort keys %shaders) {
-    glAttachShader($sp, $self->{$shader . "_id"});
-  };
-  glLinkProgram($sp);
-  glGetProgramiv($sp, GL_LINK_STATUS, xs_buffer(my $ok, 8));
-  $ok = unpack 'I', $ok;
-  if (!$ok) {
+    # Link shaders
+    warn "Attaching shaders to program";
+    my $sp = glCreateProgram();
+    return "Couldn't create shader program: " . glGetError()
+        unless $sp;
     my $log = glGetProgramInfoLog_p($sp);
+    warn $log if $log;
+    for my $shader (sort keys %shaders) {
+        warn sprintf "glAttachShader(%d,%d)\n", $sp,$self->{$shader . "_id"};
+        _glAttachShader($sp, $self->{$shader . "_id"});
+        my $err = glGetError;
+        warn glGetProgramInfoLog_p($sp) if $err;
+    };
+    glLinkProgram($sp);
+    warn "Program status";
+    my $err = glGetError;
+    warn glGetProgramInfoLog_p($sp) if $err;
+    warn _glGetProgramiv($sp, GL_LINK_STATUS, xs_buffer(my $linked, 8));
+    $linked = unpack 'I', $linked;
+    if ($linked != GL_TRUE) {
+        warn "Something went wrong, looking at log";
+        my $log = glGetProgramInfoLog_p($sp);
     
-    return "Link shader: $log" if ($log);
-    return 'Unable to link shader';
-  }
+        return "Link shader to program: $log" if ($log);
+        return 'Unable to link shader';
+    }
+    warn "Program status OK";
 
-  $self->{program} = $sp;
+    $self->{program} = $sp;
 
-  return '';
+    return '';
 }
 
 # Enable shader
@@ -168,41 +182,41 @@ sub Map {
   return $id;
 }
 
-sub setUniform1I( $self, $name, $value ) {
+sub setUniform1i( $self, $name, $value ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
   glProgramUniform1i( $self->{program}, $loc, $value );
 }
 
-sub setUniform1F( $self, $name, @values ) {
+sub setUniform1f( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform1F( $self->{program}, $loc, @values );
+  glProgramUniform1f( $self->{program}, $loc, @values );
 }
 
-sub setUniform2F( $self, $name, @values ) {
+sub setUniform2f( $self, $name, $x, $y) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform2F( $self->{program}, $loc, @values );
+  glProgramUniform2f( $self->{program}, $loc, $x, $y );
 }
 
-sub setUniform3F( $self, $name, @values ) {
+sub setUniform3f( $self, $name, $x,$y,$z ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform3F( $self->{program}, $loc, @values );
+  glProgramUniform3f( $self->{program}, $loc, $x,$y,$z );
 }
 
 
-sub setUniform4F( $self, $name, @values ) {
+sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform4F( $self->{program}, $loc, @values );
+  glProgramUniform4f( $self->{program}, $loc, $x,$y,$z,$w );
 }
 
-sub setUniform2V( $self, $name, @values ) {
+sub setUniform2v( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform2V( $self->{program}, $loc, @values );
+  glProgramUniform2v( $self->{program}, $loc, @values );
 }
 
 

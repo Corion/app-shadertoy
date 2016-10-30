@@ -39,6 +39,7 @@ $VERSION = '0.01';
 
 @EXPORT_OK = qw(
     pack_GLuint
+    pack_GLfloat
     pack_GLint
     pack_GLstrings
     pack_ptr
@@ -68,6 +69,10 @@ sub pack_GLuint(@gluints) {
 
 sub pack_GLint(@gluints) {
     pack 'I*', @gluints
+}
+
+sub pack_GLfloat(@glfloats) {
+    pack 'f*', @glfloats
 }
 
 # No parameter declaration because we don't want copies

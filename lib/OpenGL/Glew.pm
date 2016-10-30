@@ -19,6 +19,9 @@ glewGetErrorString
 glewIsSupported
 glGetString
 glewInit
+_glGetShaderInfoLog
+_glAttachShader
+_glGetProgramiv
 
 	GLEW_3DFX_multisample
 	GLEW_3DFX_tbuffer

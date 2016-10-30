@@ -4,7 +4,7 @@ use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima qw( Application GLWidget );
-use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint );
+use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -71,6 +71,10 @@ my $header = join "",
 		float time;
 	};
 	uniform Channel iChannel[4];
+	
+	uniform vec4 v;
+	uniform sampler2D t;
+	void main() { gl_FragColor = texture2D(t, gl_FragCoord.xy / v.zw, -100.0); }
 	"
 	;
 
@@ -280,56 +284,84 @@ FRAGMENT
     );
 
     die $err if $err;
+    warn "Shaders loaded";
 
     return $pipeline;
 };
+
+# We want static memory here
+my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
+my $vertices = pack_GLfloat(@vertices);
+my $VBO_Quad;
+
+# create a 2D quad Vertex Buffer
+sub createUnitQuad() {
+    #glGenBuffers(1, xs_buffer( my $buffer, 8 ));
+    glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
+    my $VBO_Quad = (unpack 'I', $buffer)[0];
+    warn $VBO_Quad;
+    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+    warn sprintf "%08x", glGetError;
+}
 
 sub drawUnitQuad_XY($pipeline) {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
 
 	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
-
-    # create a 2D quad Vertex Buffer
-    my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
-    glGenBuffers(1, xs_buffer( my $buffer, 8 ));
-    my $VBO_Quad = (unpack 'I', $buffer)[0];
-    #glBindBuffer( $VBO_Quad, GL_ARRAY_BUFFER );
-    my $vertices = pack_GLint(@vertices);
-    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+	
+	$VBO_Quad ||= createUnitQuad;
 	
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
+	warn "Bound";
 	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
 	glEnableVertexAttribArray( $vpos );
+	warn "Enabled";
 	glDrawArrays( GL_TRIANGLES, 0, 6 );
+	warn "Array drawn";
 	glDisableVertexAttribArray( $vpos );
-	glBindBuffer( GL_ARRAY_BUFFER, undef );
+	warn "Disabled array drawn";
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+	warn "Unbound";
 }
 
 use Time::HiRes;
+my $frame = 1;
 sub updateShaderVariables($pipeline,$xres,$yres) {
 	#my %variables = (
 	#    iGlobalTime => time,
 	#    iResolution => [],
 	#);
 	
-	
-	$pipeline->setUniform1I( "iGlobalTime", time);
-    $pipeline->setUniform3F( "iResolution", $xres, $yres, 1.0);
-    $pipeline->setUniform2V("iMouse", 0.0, 0.0);
-    $pipeline->setUniform4F( "iDate", 0, 0, 0, 0 );
-    $pipeline->setUniform1F(  "iSampleRate", 0.0 ); #this.mSampleRate);
+	my $time = time;
+	$pipeline->setUniform1i( "iGlobalTime", $time);
+    $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
+    $pipeline->setUniform2f( "iMouse", 0.0, 0.0);
+    $pipeline->setUniform4f( "iDate", 0, 0, 0, 0 );
+    $pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
     #glSetShaderTextureUnit( "iChannel0", 0 );
     #glSetShaderTextureUnit( "iChannel1", 1 );
     #glSetShaderTextureUnit( "iChannel2", 2 );
     #glSetShaderTextureUnit( "iChannel3", 3 );
-    $pipeline->setUniform1I(  "iFrame", 0 ); # this.mFrame );
-    $pipeline->setUniform1F(  "iTimeDelta", 0 ); # dtime);
-    $pipeline->setUniform1F(  "iFrameRate", 60 ); # weeeell
+    $pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
+    $pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
+    $pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
 }
 
 my $pipeline;
 
 my $window = Prima::MainWindow->create();
+
+# We want 60fps
+    my $timer = Prima::Timer-> create(
+        timeout => (1000/60), # milliseconds
+        onTick  => sub {
+           $window->invalidate_rect(
+               0,0,$window->width,$window->height
+           );
+        },
+    );
+
+    $timer-> start;
 
 $window->insert(
     GLWidget =>
@@ -341,6 +373,7 @@ $window->insert(
     },
     onPaint => sub {
 		my $self = shift;
+		warn "Paint";
 		
 		if( ! $pipeline ) {
 			my $err = OpenGL::Glew::glewInit();
@@ -366,7 +399,9 @@ $window->insert(
 			
 			drawUnitQuad_XY($pipeline);
 			$pipeline->Disable();
+			warn "Shader disabled";
 		};
+		warn "Leaving call";
 	}
 );
 
