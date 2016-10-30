@@ -212,6 +212,17 @@ CODE:
     printf("length value: %d\n", (int) *length);
     glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
 
+SV *
+_glGetProgramiv(program, pname, param);
+     GLuint program;
+     GLenum pname;
+     char*  param;
+CODE:
+    if(! __glewGetProgramiv) {
+        croak("glGetProgramiv not available on this machine");
+    };
+    glGetProgramiv(program, pname, param);
+
 GLint
 _glCreateShader(what)
     GLint what;
