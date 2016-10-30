@@ -54,17 +54,37 @@ no warnings 'experimental::signatures';
 
 =cut
 
+my $header = join "",
+	"uniform vec3      iResolution;\n",
+	"uniform float     iGlobalTime;\n",
+	"uniform float     iChannelTime[4];\n",
+	"uniform vec4      iMouse;\n",
+	"uniform vec4      iDate;\n",
+	"uniform float     iSampleRate;\n",
+	"uniform vec3      iChannelResolution[4];\n",
+	"uniform int       iFrame;\n",
+	"uniform float     iTimeDelta;\n",
+	"uniform float     iFrameRate;\n",
+	"struct Channel
+	{
+		vec3 resolution;
+		float time;
+	};
+	uniform Channel iChannel[4];
+	"
+	;
+
 sub init_shaders {
 	my $pipeline = OpenGL::Shader::OpenGL4->new();
-	$pipeline->Load(
-    vertex => <<'VERTEX', fragment => <<'FRAGMENT',
+	
+	my $v = <<'VERTEX';
 attribute vec2 pos;
 void main() {
 	gl_Position = vec4(pos.xy,0.0,1.0);
 }
-
 VERTEX
 
+	my $f = $header . <<'FRAGMENT';
 /*
 "Seascape" by Alexander Alekseev aka TDM - 2014
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -254,7 +274,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 	fragColor = vec4(pow(color,vec3(0.75)), 1.0);
 }
 FRAGMENT
-) or die "Couldn't load shaders";
+	
+	my $err = $pipeline->Load(
+		vertex => $v, fragment => $f,
+    );
+
+    die $err if $err;
 
     return $pipeline;
 };
@@ -270,7 +295,7 @@ sub drawUnitQuad_XY($pipeline) {
     my $VBO_Quad = (unpack 'I', $buffer)[0];
     #glBindBuffer( $VBO_Quad, GL_ARRAY_BUFFER );
     my $vertices = pack_GLint(@vertices);
-    glNamedBufferData( $buffer, length $vertices, $vertices, GL_STATIC_DRAW );
+    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
 	
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
 	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
