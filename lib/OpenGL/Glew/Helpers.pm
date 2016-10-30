@@ -17,6 +17,8 @@ use OpenGL::Glew qw(
     glGetError
     glGetShaderInfoLog
     glGetProgramInfoLog
+
+    _glGetShaderInfoLog
 );
 
 use feature 'signatures';
@@ -43,7 +45,7 @@ $VERSION = '0.01';
     xs_buffer
     
     glGetShaderInfoLog_p
-    glGetProgamInfoLog_p
+    glGetProgramInfoLog_p
     croak_on_gl_error
 );
 
@@ -76,12 +78,13 @@ sub pack_GLstrings {
 # No parameter declaration because we don't want copies
 sub pack_ptr {
     $_[0] = "\0" x $_[1];
-    pack 'P', $_[0];
+    return pack 'P', $_[0];
 }
 
 # No parameter declaration because we don't want copies
 sub xs_buffer {
     $_[0] = "\0" x $_[1];
+    $_[0];
 }
 
 sub glGetShaderInfoLog_p( $shader ) {
@@ -97,7 +100,6 @@ sub glGetProgramInfoLog_p( $program ) {
     $len = unpack 'I', $len;
     return substr $buffer, 0, $len;
 }
-
 
 sub croak_on_gl_error() {
     my $error = glGetError();
