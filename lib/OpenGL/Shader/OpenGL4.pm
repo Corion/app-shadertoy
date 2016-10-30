@@ -171,38 +171,38 @@ sub Map {
 sub setUniform1I( $self, $name, $value ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform1i( $loc, $value );
+  glProgramUniform1i( $self->{program}, $loc, $value );
 }
 
 sub setUniform1F( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform1F( $loc, @values );
+  glProgramUniform1F( $self->{program}, $loc, @values );
 }
 
 sub setUniform2F( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform2F( $loc, @values );
+  glProgramUniform2F( $self->{program}, $loc, @values );
 }
 
 sub setUniform3F( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform3F( $loc, @values );
+  glProgramUniform3F( $self->{program}, $loc, @values );
 }
 
 
 sub setUniform4F( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform4F( $loc, @values );
+  glProgramUniform4F( $self->{program}, $loc, @values );
 }
 
 sub setUniform2V( $self, $name, @values ) {
   return undef if (!$self->{program});
   my $loc = glGetUniformLocation($self->{program}, $name );
-  glProgramUniform2V( $loc, @values );
+  glProgramUniform2V( $self->{program}, $loc, @values );
 }
 
 
