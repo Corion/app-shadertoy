@@ -162,7 +162,6 @@ gl_context_create( Handle object, GLRequest * request)
 	case GLREQ_TARGET_WINDOW:
 		glbm = 0;
 		if ( apc_widget_surface_is_layered( object )) {
-			printf("%s\n", "Creating temp window");
         		const WCHAR wnull = 0;
 			wnd = CreateWindowExW(
 				WS_EX_TOOLWINDOW, L"Generic", &wnull,
@@ -176,7 +175,6 @@ gl_context_create( Handle object, GLRequest * request)
 			}
 			layered = true;
 		} else {
-			printf("%s\n", "Using existing window");
 			wnd = (HWND) var-> handle;
 			layered = false;
 		}
@@ -196,16 +194,48 @@ gl_context_create( Handle object, GLRequest * request)
   pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
   pfd.nVersion = 1;
   pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL;
-  int pixelformat = ChoosePixelFormat(dc, &pfd);
-  if (pixelformat == 0) {
-	  printf("No pixel format found\n");
-	  return GL_TRUE;
-  };
 
+
+	if ( request-> layer > 0)
+		pfd.iLayerType = PFD_OVERLAY_PLANE;
+	else if ( request-> layer < 0)
+		pfd.iLayerType = PFD_UNDERLAY_PLANE;
+  
+  	pfd.cColorBits      = request-> color_bits;
+	pfd.cAuxBuffers     = request-> aux_buffers;
+	pfd.cRedBits        = request-> red_bits;
+	pfd.cGreenBits      = request-> green_bits;
+	pfd.cBlueBits       = request-> blue_bits;
+	pfd.cAlphaBits      = request-> alpha_bits;
+	pfd.cDepthBits      = request-> depth_bits;
+	pfd.cStencilBits    = request-> stencil_bits;
+	pfd.cAccumRedBits   = request-> accum_red_bits;
+	pfd.cAccumGreenBits = request-> accum_green_bits;
+	pfd.cAccumBlueBits  = request-> accum_blue_bits;
+	pfd.cAccumAlphaBits = request-> accum_alpha_bits;
+
+	if ( pfd.cColorBits == 0) 
+		pfd.cColorBits = pfd.cRedBits + pfd.cGreenBits + pfd.cBlueBits;
+	pfd.cAccumBits = pfd.cAccumRedBits + pfd.cAccumGreenBits + pfd.cAccumBlueBits + pfd.cAccumAlphaBits;
+		
+	pfd.cColorBits = GetDeviceCaps(dc, BITSPIXEL);
+   
+	if ( !( pf = ChoosePixelFormat(dc, &pfd))) {
+		SET_ERROR("ChoosePixelFormat");
+		return (Handle)0;
+	}
+  
   /* set the pixel format for the dc */
-  if (FALSE == SetPixelFormat(dc, pixelformat, &pfd)) return GL_TRUE;
+  if (FALSE == SetPixelFormat(dc, pf, &pfd)) return GL_TRUE;
   /* create rendering context */
-  pfd.iPixelType = PFD_TYPE_RGBA;
+switch ( request-> pixels ) {
+	case GLREQ_PIXEL_RGBA:
+		pfd.iPixelType = PFD_TYPE_RGBA;
+		break;
+	case GLREQ_PIXEL_PALETTE:
+		pfd.iLayerType = PFD_TYPE_COLORINDEX;
+		break;
+	}
   pfd.cColorBits = GetDeviceCaps(dc, BITSPIXEL);
   int rc = wglCreateContext(dc);
   if (NULL == rc) return GL_TRUE;
