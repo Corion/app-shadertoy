@@ -23,8 +23,10 @@ my %alias;
 # These could also be read from Glew.xs, later maybe
 my @manual = qw(
     glGetError
+    glShaderSource
 );
-my %manual; @manual{@manual} = 1 x @manual;
+
+my %manual; @manual{@manual} = (1) x @manual;
 
 my @known_type = sort { $b cmp $a } qw(
     GLbitfield
@@ -121,7 +123,10 @@ for my $upper (@process) {
     my $impl = $case_map{ $upper } || $upper;
     my $name = $alias{ $impl } || $impl;
     
-    next if $manual{ $name };
+    if( $manual{ $name }) {
+        #warn "Skipping $name, already implemented in Glew.xs";
+        next
+    };
     
     # If we didn't see this, it's likely an OpenGL 1.1 function:
     my $aliased = exists $alias{ $impl };
