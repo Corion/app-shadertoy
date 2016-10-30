@@ -6,6 +6,11 @@ use strict;
 This script extracts the function signatures from glew-2.0.0/include/GL/glew.h
 and creates XS stubs for each.
 
+This should also autogenerate stub documentation by adding links
+to the OpenGL documentation for each function via
+
+L<https://www.opengl.org/sdk/docs/man/html/glShaderSource.xhtml>
+
 =cut
 
 my ($version) = @ARGV;
