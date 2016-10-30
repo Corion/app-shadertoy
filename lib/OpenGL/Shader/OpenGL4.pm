@@ -97,36 +97,36 @@ sub Load($self, %shaders) {
     warn "Couldn't create a '$shader' shader?!"
         unless $id; 
     croak_on_gl_error;
-    warn "Got $shader shader $id, setting source";
+    #warn "Got $shader shader $id, setting source";
     #return undef if (!$id);
     glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr(my $shader_length, 8));
     croak_on_gl_error;
 
-    warn "Compiling $shader shader";
+    #warn "Compiling $shader shader";
     glCompileShader($id);
     croak_on_gl_error;
     
-    warn "Looking for errors";
     glGetShaderiv($id, GL_COMPILE_STATUS, xs_buffer(my $ok,8));
     $ok = unpack 'I', $ok;
     if( $ok == GL_FALSE ) {
-      my $stat = glGetShaderInfoLog_p($id);
-      return "Bad $shader shader: $stat" if ($stat);
+      my $log = glGetShaderInfoLog_p($id);
+      return "Bad $shader shader: $log" if ($log);
     };
     $self->{$shader . "_id"} = $id;
   }
 
   # Link shaders
-  my $sp = glCreateProgramObjectARB();
+  my $sp = glCreateProgram();
   for my $shader (sort keys %shaders) {
-    glAttachObjectARB($sp, $self->{$shader . "_id"});
+    glAttachShader($sp, $self->{$shader . "_id"});
   };
-  glLinkProgramARB($sp);
-  my $linked = glGetObjectParameterivARB_p($sp, GL_OBJECT_LINK_STATUS_ARB);
-  if (!$linked) {
-    my $stat = glGetInfoLogARB_p($sp);
-    #print STDERR "Load shader: $stat\n";
-    return "Link shader: $stat" if ($stat);
+  glLinkProgram($sp);
+  glGetProgramiv($sp, GL_LINK_STATUS, xs_buffer(my $ok, 8));
+  $ok = unpack 'I', $ok;
+  if (!$ok) {
+    my $log = glGetProgramInfoLog_p($sp);
+    
+    return "Link shader: $log" if ($log);
     return 'Unable to link shader';
   }
 
