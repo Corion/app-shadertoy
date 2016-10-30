@@ -89,6 +89,13 @@ sub DESTROY {
     };
 }
 
+sub glGetShaderInfoLog_p( $shader ) {
+    my $bufsize = 1024*64;
+    glGetShaderInfoLog( $shader, $bufsize, pack_ptr(my $len, 8), pack_ptr(my $buffer, $bufsize));
+    $len = unpack 'I', $len;
+    return substr $buffer, $len;
+}
+
 # Load shader strings
 sub Load($self, %shaders) {
   for my $shader (sort keys %shaders) {
@@ -99,8 +106,7 @@ sub Load($self, %shaders) {
     croak_on_gl_error;
     warn "Got $shader shader $id, setting source";
     #return undef if (!$id);
-    my $shader_length;
-    glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr($shader_length));
+    glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr(my $shader_length, 8));
     croak_on_gl_error;
 
     warn "Compiling $shader shader";
