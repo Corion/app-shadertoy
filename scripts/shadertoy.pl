@@ -74,7 +74,9 @@ my $header = join "",
 	
 	uniform vec4 v;
 	uniform sampler2D t;
-	void main() { gl_FragColor = texture2D(t, gl_FragCoord.xy / v.zw, -100.0); }
+	// void main() { gl_FragColor = texture2D(t, gl_FragCoord.xy / v.zw, -100.0); }
+	void main() { gl_FragColor = vec4(1.,.0,.0,.0);
+	 }
 	"
 	;
 
@@ -82,13 +84,23 @@ sub init_shaders {
 	my $pipeline = OpenGL::Shader::OpenGL4->new();
 	
 	my $v = <<'VERTEX';
-attribute vec2 pos;
+#version 330 core
+layout(location = 0) in vec2 pos;
 void main() {
 	gl_Position = vec4(pos.xy,0.0,1.0);
 }
 VERTEX
 
-	my $f = $header . <<'FRAGMENT';
+    my $f = <<'FRAGMENT';
+#version 330 core
+out vec3 color;
+void main(){
+  color = vec3(1,0,0);
+}
+FRAGMENT
+
+
+	my $_f = $header . <<'FRAGMENT';
 /*
 "Seascape" by Alexander Alekseev aka TDM - 2014
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -280,7 +292,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 FRAGMENT
 	
 	my $err = $pipeline->Load(
-		vertex => $v, fragment => $f,
+		vertex => $v,
+		fragment => $f,
     );
 
     die $err if $err;
@@ -290,37 +303,69 @@ FRAGMENT
 };
 
 # We want static memory here
-my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
+# A 2x2 flat-screen set of coordinates for the triangles
+my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,    
+                  1.0, -1.0,   1.0,  1.0,    -1.0,  1.0 );
 my $vertices = pack_GLfloat(@vertices);
+my $VAO;
 my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad() {
     #glGenBuffers(1, xs_buffer( my $buffer, 8 ));
     glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
-    my $VBO_Quad = (unpack 'I', $buffer)[0];
+    $VAO = (unpack 'I', $buffer)[0];
+    glBindVertexArray($VAO);
+    
+    glGenBuffers( 1, xs_buffer($buffer, 8));
+    $VBO_Quad = (unpack 'I', $buffer)[0];
     warn $VBO_Quad;
-    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     warn sprintf "%08x", glGetError;
+    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
+    warn sprintf "%08x", glGetError;
+    # This didn't work at some time, need to revisit
+    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
 }
+
+=for OpenGL
+
+1. generate 2 VAOs vao0, vao1
+2. generate 2 buffers buf0, buf1
+3. bind buf0, fill with data
+4. bind buf1, fill with data
+5. bind vao0
+6. bind buf0, glVertexAttribPointer
+7. bind buf1
+8. bind vao1
+9. glVertexAttribPointer
+10. bind vao0, draw command -> using contents of b0
+11. bind vao1, draw command -> using contents of b1
+
+=cut
 
 sub drawUnitQuad_XY($pipeline) {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
 
-	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
-	
 	$VBO_Quad ||= createUnitQuad;
 	
-	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
-	warn "Bound";
-	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
+	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
+	warn "pos attribute location: $vpos";
+	
+	# Just for testing:
+	$vpos = 0;
+	
 	glEnableVertexAttribArray( $vpos );
 	warn "Enabled";
-	glDrawArrays( GL_TRIANGLES, 0, 6 );
+	glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
+	warn "Saving buffer etc.";
+	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
+	glDrawArrays( GL_TRIANGLES, 0, 6 ); # 6 times 2 elements
+	warn glGetError;
 	warn "Array drawn";
 	glDisableVertexAttribArray( $vpos );
 	warn "Disabled array drawn";
-	glBindBuffer( GL_ARRAY_BUFFER, 0 );
+	#glBindBuffer( GL_ARRAY_BUFFER, 0 );
 	warn "Unbound";
 }
 
@@ -353,7 +398,8 @@ my $window = Prima::MainWindow->create();
 
 # We want 60fps
     my $timer = Prima::Timer-> create(
-        timeout => (1000/60), # milliseconds
+        #timeout => (1000/60), # milliseconds
+        timeout => 1000, # milliseconds
         onTick  => sub {
            $window->invalidate_rect(
                0,0,$window->width,$window->height
@@ -389,9 +435,10 @@ $window->insert(
 		};
 		
 		if( $pipeline ) {
-			glClearColor(0,0,0,1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			glClearColor(0,0,0.2,1);
+			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 			
+			warn $pipeline->{program};
 			$pipeline->Enable();
 			
 			# Well, we should only update these when resizing, later

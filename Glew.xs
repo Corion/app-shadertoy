@@ -190,7 +190,7 @@ SV *
 _glBufferData( target,  size,   data,  usage);
      GLenum target;
      GLint size;
-      void* data;
+     const void* data;
      GLenum usage;
 CODE:
     if(! __glewBufferData) {
