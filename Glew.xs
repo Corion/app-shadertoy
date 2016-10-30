@@ -89,6 +89,18 @@ CODE:
     glGetShaderiv( shader,  pname, param);
     printf("Shader status: %d\n", (GLint) *param);
 
+SV *
+glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
+    GLuint shader;
+     GLsizei bufSize;
+     char* length;
+     char* infoLog
+CODE:
+    if(! __glewGetShaderInfoLog) {
+        croak("glGetShaderInfoLog not available on this machine");
+    };
+    glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
+
 GLint
 glCreateShader(what)
     GLint what;
