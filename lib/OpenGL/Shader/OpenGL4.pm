@@ -5,6 +5,8 @@ use OpenGL::Glew ':all';
 use OpenGL::Glew::Helpers qw(
     glGetShaderInfoLog_p
     pack_ptr
+    pack_GLstrings
+    pack_GLint
     croak_on_gl_error
 );
 use Filter::signatures;
@@ -97,20 +99,22 @@ sub Load($self, %shaders) {
     croak_on_gl_error;
     warn "Got $shader shader $id, setting source";
     #return undef if (!$id);
-    glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), undef);
+    my $shader_length;
+    glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr($shader_length));
     croak_on_gl_error;
 
     warn "Compiling $shader shader";
     glCompileShader($id);
     croak_on_gl_error;
     
-    my $ok;
-    glGetShaderiv($id, GL_COMPILE_STATUS, pack_ptr($ok, 8));
+    warn "Looking for errors";
+    my $ok = 0;
+    glGetShaderiv($id, GL_COMPILE_STATUS, pack_ptr($ok,8));
     warn $ok;
     $ok = unpack 'I', $ok;
     warn $ok;
     if( $ok == GL_FALSE ) {
-      my $stat = glGetShaderInfoLog($id);
+      my $stat = glGetShaderInfoLog_p($id);
       return "$shader shader: $stat" if ($stat);
     };
     $self->{$shader . "_id"} = $id;

@@ -36,6 +36,7 @@ $VERSION = '0.01';
 
 @EXPORT_OK = qw(
     pack_GLuint
+    pack_GLint
     pack_GLstrings
     pack_ptr
     
@@ -57,7 +58,11 @@ $VERSION = '0.01';
 
 
 sub pack_GLuint(@gluints) {
-    pack 'N*', @gluints
+    pack 'I*', @gluints
+}
+
+sub pack_GLint(@gluints) {
+    pack 'I*', @gluints
 }
 
 sub pack_GLstrings(@strings) {
