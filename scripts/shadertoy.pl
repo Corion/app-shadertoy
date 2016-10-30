@@ -1,6 +1,5 @@
 #!perl -w
 use strict;
-use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima qw( Application GLWidget );
