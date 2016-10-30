@@ -1,4 +1,11 @@
 SV *
+glAccum(op, value);
+     GLenum op;
+     GLfloat value;
+CODE:
+    glAccum(op, value);
+
+SV *
 glActiveProgramEXT(program);
      GLuint program;
 CODE:
@@ -118,6 +125,13 @@ CODE:
     glAlphaFragmentOp3ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
 
 SV *
+glAlphaFunc(func, ref);
+     GLenum func;
+     GLclampf ref;
+CODE:
+    glAlphaFunc(func, ref);
+
+SV *
 glAlphaFuncx(func, ref);
      GLenum func;
      GLclampx ref;
@@ -150,6 +164,16 @@ OUTPUT:
     RETVAL
 
 GLboolean
+glAreTexturesResident(n, textures, residences);
+     GLsizei n;
+     const GLuint *textures;
+     GLboolean *residences;
+CODE:
+    RETVAL = glAreTexturesResident(n, textures, residences);
+OUTPUT:
+    RETVAL
+
+GLboolean
 glAreTexturesResidentEXT(n, textures, residences);
      GLsizei n;
      const GLuint* textures;
@@ -161,6 +185,12 @@ CODE:
     RETVAL = glAreTexturesResidentEXT(n, textures, residences);
 OUTPUT:
     RETVAL
+
+SV *
+glArrayElement(i);
+     GLint i;
+CODE:
+    glArrayElement(i);
 
 SV *
 glArrayElementEXT(i);
@@ -213,6 +243,12 @@ CODE:
         croak("glAttachShader not available on this machine");
     };
     glAttachShader(program, shader);
+
+SV *
+glBegin(mode);
+     GLenum mode;
+CODE:
+    glBegin(mode);
 
 SV *
 glBeginConditionalRender(id, mode);
@@ -769,6 +805,13 @@ OUTPUT:
     RETVAL
 
 SV *
+glBindTexture(target, texture);
+     GLenum target;
+     GLuint texture;
+CODE:
+    glBindTexture(target, texture);
+
+SV *
 glBindTextureEXT(target, texture);
      GLenum target;
      GLuint texture;
@@ -920,6 +963,18 @@ CODE:
     glBinormalPointerEXT(type, stride, pointer);
 
 SV *
+glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
+     GLsizei width;
+     GLsizei height;
+     GLfloat xorig;
+     GLfloat yorig;
+     GLfloat xmove;
+     GLfloat ymove;
+     const GLubyte *bitmap;
+CODE:
+    glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
+
+SV *
 glBlendBarrierKHR();
 CODE:
     if(! __glewBlendBarrierKHR) {
@@ -1059,6 +1114,13 @@ CODE:
         croak("glBlendEquationSeparateIndexedAMD not available on this machine");
     };
     glBlendEquationSeparateIndexedAMD(buf, modeRGB, modeAlpha);
+
+SV *
+glBlendFunc(sfactor, dfactor);
+     GLenum sfactor;
+     GLenum dfactor;
+CODE:
+    glBlendFunc(sfactor, dfactor);
 
 SV *
 glBlendFunci(buf, src, dst);
@@ -1354,6 +1416,20 @@ CODE:
     };
     glCallCommandListNV(list);
 
+SV *
+glCallList(list);
+     GLuint list;
+CODE:
+    glCallList(list);
+
+SV *
+glCallLists(n, type, lists);
+     GLsizei n;
+     GLenum type;
+     const void *lists;
+CODE:
+    glCallLists(n, type, lists);
+
 GLenum
 glCheckFramebufferStatus(target);
      GLenum target;
@@ -1419,6 +1495,21 @@ CODE:
         croak("glClampColorARB not available on this machine");
     };
     glClampColorARB(target, clamp);
+
+SV *
+glClear(mask);
+     GLbitfield mask;
+CODE:
+    glClear(mask);
+
+SV *
+glClearAccum(red, green, blue, alpha);
+     GLfloat red;
+     GLfloat green;
+     GLfloat blue;
+     GLfloat alpha;
+CODE:
+    glClearAccum(red, green, blue, alpha);
 
 SV *
 glClearBufferData(target, internalformat, format, type, data);
@@ -1494,6 +1585,15 @@ CODE:
     glClearBufferuiv(buffer, drawBuffer, value);
 
 SV *
+glClearColor(red, green, blue, alpha);
+     GLclampf red;
+     GLclampf green;
+     GLclampf blue;
+     GLclampf alpha;
+CODE:
+    glClearColor(red, green, blue, alpha);
+
+SV *
 glClearColorIiEXT(red, green, blue, alpha);
      GLint red;
      GLint green;
@@ -1530,6 +1630,12 @@ CODE:
     glClearColorx(red, green, blue, alpha);
 
 SV *
+glClearDepth(depth);
+     GLclampd depth;
+CODE:
+    glClearDepth(depth);
+
+SV *
 glClearDepthdNV(depth);
      GLdouble depth;
 CODE:
@@ -1564,6 +1670,12 @@ CODE:
         croak("glClearDepthx not available on this machine");
     };
     glClearDepthx(depth);
+
+SV *
+glClearIndex(c);
+     GLfloat c;
+CODE:
+    glClearIndex(c);
 
 SV *
 glClearNamedBufferData(buffer, internalformat, format, type, data);
@@ -1671,6 +1783,12 @@ CODE:
     glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value);
 
 SV *
+glClearStencil(s);
+     GLint s;
+CODE:
+    glClearStencil(s);
+
+SV *
 glClearTexImage(texture, level, format, type, data);
      GLuint texture;
      GLint level;
@@ -1762,6 +1880,13 @@ CODE:
     glClipControl(origin, depth);
 
 SV *
+glClipPlane(plane, equation);
+     GLenum plane;
+     const GLdouble *equation;
+CODE:
+    glClipPlane(plane, equation);
+
+SV *
 glClipPlanef(plane, equation);
      GLenum plane;
      const GLfloat* equation;
@@ -1790,6 +1915,48 @@ CODE:
         croak("glClipPlanex not available on this machine");
     };
     glClipPlanex(plane, equation);
+
+SV *
+glColor3b(red, green, blue);
+     GLbyte red;
+     GLbyte green;
+     GLbyte blue;
+CODE:
+    glColor3b(red, green, blue);
+
+SV *
+glColor3bv(v);
+     const GLbyte *v;
+CODE:
+    glColor3bv(v);
+
+SV *
+glColor3d(red, green, blue);
+     GLdouble red;
+     GLdouble green;
+     GLdouble blue;
+CODE:
+    glColor3d(red, green, blue);
+
+SV *
+glColor3dv(v);
+     const GLdouble *v;
+CODE:
+    glColor3dv(v);
+
+SV *
+glColor3f(red, green, blue);
+     GLfloat red;
+     GLfloat green;
+     GLfloat blue;
+CODE:
+    glColor3f(red, green, blue);
+
+SV *
+glColor3fv(v);
+     const GLfloat *v;
+CODE:
+    glColor3fv(v);
 
 SV *
 glColor3fVertex3fSUN(r, g, b, x, y, z);
@@ -1836,6 +2003,115 @@ CODE:
     glColor3hvNV(v);
 
 SV *
+glColor3i(red, green, blue);
+     GLint red;
+     GLint green;
+     GLint blue;
+CODE:
+    glColor3i(red, green, blue);
+
+SV *
+glColor3iv(v);
+     const GLint *v;
+CODE:
+    glColor3iv(v);
+
+SV *
+glColor3s(red, green, blue);
+     GLshort red;
+     GLshort green;
+     GLshort blue;
+CODE:
+    glColor3s(red, green, blue);
+
+SV *
+glColor3sv(v);
+     const GLshort *v;
+CODE:
+    glColor3sv(v);
+
+SV *
+glColor3ub(red, green, blue);
+     GLubyte red;
+     GLubyte green;
+     GLubyte blue;
+CODE:
+    glColor3ub(red, green, blue);
+
+SV *
+glColor3ubv(v);
+     const GLubyte *v;
+CODE:
+    glColor3ubv(v);
+
+SV *
+glColor3ui(red, green, blue);
+     GLuint red;
+     GLuint green;
+     GLuint blue;
+CODE:
+    glColor3ui(red, green, blue);
+
+SV *
+glColor3uiv(v);
+     const GLuint *v;
+CODE:
+    glColor3uiv(v);
+
+SV *
+glColor3us(red, green, blue);
+     GLushort red;
+     GLushort green;
+     GLushort blue;
+CODE:
+    glColor3us(red, green, blue);
+
+SV *
+glColor3usv(v);
+     const GLushort *v;
+CODE:
+    glColor3usv(v);
+
+SV *
+glColor4b(red, green, blue, alpha);
+     GLbyte red;
+     GLbyte green;
+     GLbyte blue;
+     GLbyte alpha;
+CODE:
+    glColor4b(red, green, blue, alpha);
+
+SV *
+glColor4bv(v);
+     const GLbyte *v;
+CODE:
+    glColor4bv(v);
+
+SV *
+glColor4d(red, green, blue, alpha);
+     GLdouble red;
+     GLdouble green;
+     GLdouble blue;
+     GLdouble alpha;
+CODE:
+    glColor4d(red, green, blue, alpha);
+
+SV *
+glColor4dv(v);
+     const GLdouble *v;
+CODE:
+    glColor4dv(v);
+
+SV *
+glColor4f(red, green, blue, alpha);
+     GLfloat red;
+     GLfloat green;
+     GLfloat blue;
+     GLfloat alpha;
+CODE:
+    glColor4f(red, green, blue, alpha);
+
+SV *
 glColor4fNormal3fVertex3fSUN(r, g, b, a, nx, ny, nz, x, y, z);
      GLfloat r;
      GLfloat g;
@@ -1865,6 +2141,12 @@ CODE:
     glColor4fNormal3fVertex3fvSUN(c, n, v);
 
 SV *
+glColor4fv(v);
+     const GLfloat *v;
+CODE:
+    glColor4fv(v);
+
+SV *
 glColor4hNV(red, green, blue, alpha);
      GLhalf red;
      GLhalf green;
@@ -1884,6 +2166,51 @@ CODE:
         croak("glColor4hvNV not available on this machine");
     };
     glColor4hvNV(v);
+
+SV *
+glColor4i(red, green, blue, alpha);
+     GLint red;
+     GLint green;
+     GLint blue;
+     GLint alpha;
+CODE:
+    glColor4i(red, green, blue, alpha);
+
+SV *
+glColor4iv(v);
+     const GLint *v;
+CODE:
+    glColor4iv(v);
+
+SV *
+glColor4s(red, green, blue, alpha);
+     GLshort red;
+     GLshort green;
+     GLshort blue;
+     GLshort alpha;
+CODE:
+    glColor4s(red, green, blue, alpha);
+
+SV *
+glColor4sv(v);
+     const GLshort *v;
+CODE:
+    glColor4sv(v);
+
+SV *
+glColor4ub(red, green, blue, alpha);
+     GLubyte red;
+     GLubyte green;
+     GLubyte blue;
+     GLubyte alpha;
+CODE:
+    glColor4ub(red, green, blue, alpha);
+
+SV *
+glColor4ubv(v);
+     const GLubyte *v;
+CODE:
+    glColor4ubv(v);
 
 SV *
 glColor4ubVertex2fSUN(r, g, b, a, x, y);
@@ -1933,6 +2260,36 @@ CODE:
         croak("glColor4ubVertex3fvSUN not available on this machine");
     };
     glColor4ubVertex3fvSUN(c, v);
+
+SV *
+glColor4ui(red, green, blue, alpha);
+     GLuint red;
+     GLuint green;
+     GLuint blue;
+     GLuint alpha;
+CODE:
+    glColor4ui(red, green, blue, alpha);
+
+SV *
+glColor4uiv(v);
+     const GLuint *v;
+CODE:
+    glColor4uiv(v);
+
+SV *
+glColor4us(red, green, blue, alpha);
+     GLushort red;
+     GLushort green;
+     GLushort blue;
+     GLushort alpha;
+CODE:
+    glColor4us(red, green, blue, alpha);
+
+SV *
+glColor4usv(v);
+     const GLushort *v;
+CODE:
+    glColor4usv(v);
 
 SV *
 glColor4x(red, green, blue, alpha);
@@ -2012,6 +2369,15 @@ CODE:
     glColorFragmentOp3ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
 
 SV *
+glColorMask(red, green, blue, alpha);
+     GLboolean red;
+     GLboolean green;
+     GLboolean blue;
+     GLboolean alpha;
+CODE:
+    glColorMask(red, green, blue, alpha);
+
+SV *
 glColorMaski(buf, red, green, blue, alpha);
      GLuint buf;
      GLboolean red;
@@ -2036,6 +2402,13 @@ CODE:
         croak("glColorMaskIndexedEXT not available on this machine");
     };
     glColorMaskIndexedEXT(buf, r, g, b, a);
+
+SV *
+glColorMaterial(face, mode);
+     GLenum face;
+     GLenum mode;
+CODE:
+    glColorMaterial(face, mode);
 
 SV *
 glColorP3ui(type, color);
@@ -2076,6 +2449,15 @@ CODE:
         croak("glColorP4uiv not available on this machine");
     };
     glColorP4uiv(type, color);
+
+SV *
+glColorPointer(size, type, stride, pointer);
+     GLint size;
+     GLenum type;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glColorPointer(size, type, stride, pointer);
 
 SV *
 glColorPointerEXT(size, type, stride, count, pointer);
@@ -3257,6 +3639,28 @@ CODE:
     glCopyPathNV(resultPath, srcPath);
 
 SV *
+glCopyPixels(x, y, width, height, type);
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+     GLenum type;
+CODE:
+    glCopyPixels(x, y, width, height, type);
+
+SV *
+glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
+     GLenum target;
+     GLint level;
+     GLenum internalFormat;
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLint border;
+CODE:
+    glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
+
+SV *
 glCopyTexImage1DEXT(target, level, internalformat, x, y, width, border);
      GLenum target;
      GLint level;
@@ -3270,6 +3674,19 @@ CODE:
         croak("glCopyTexImage1DEXT not available on this machine");
     };
     glCopyTexImage1DEXT(target, level, internalformat, x, y, width, border);
+
+SV *
+glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
+     GLenum target;
+     GLint level;
+     GLenum internalFormat;
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+     GLint border;
+CODE:
+    glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
 
 SV *
 glCopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border);
@@ -3288,6 +3705,17 @@ CODE:
     glCopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border);
 
 SV *
+glCopyTexSubImage1D(target, level, xoffset, x, y, width);
+     GLenum target;
+     GLint level;
+     GLint xoffset;
+     GLint x;
+     GLint y;
+     GLsizei width;
+CODE:
+    glCopyTexSubImage1D(target, level, xoffset, x, y, width);
+
+SV *
 glCopyTexSubImage1DEXT(target, level, xoffset, x, y, width);
      GLenum target;
      GLint level;
@@ -3300,6 +3728,19 @@ CODE:
         croak("glCopyTexSubImage1DEXT not available on this machine");
     };
     glCopyTexSubImage1DEXT(target, level, xoffset, x, y, width);
+
+SV *
+glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
+     GLenum target;
+     GLint level;
+     GLint xoffset;
+     GLint yoffset;
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+CODE:
+    glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
 
 SV *
 glCopyTexSubImage2DEXT(target, level, xoffset, yoffset, x, y, width, height);
@@ -3753,6 +4194,12 @@ CODE:
     glCreateVertexArrays(n, arrays);
 
 SV *
+glCullFace(mode);
+     GLenum mode;
+CODE:
+    glCullFace(mode);
+
+SV *
 glCullParameterdvEXT(pname, params);
      GLenum pname;
      GLdouble* params;
@@ -3992,6 +4439,13 @@ CODE:
     glDeleteFramebuffersEXT(n, framebuffers);
 
 SV *
+glDeleteLists(list, range);
+     GLuint list;
+     GLsizei range;
+CODE:
+    glDeleteLists(list, range);
+
+SV *
 glDeleteNamedStringARB(namelen, name);
      GLint namelen;
      const GLchar* name;
@@ -4188,6 +4642,13 @@ CODE:
     glDeleteSync(GLsync);
 
 SV *
+glDeleteTextures(n, textures);
+     GLsizei n;
+     const GLuint *textures;
+CODE:
+    glDeleteTextures(n, textures);
+
+SV *
 glDeleteTexturesEXT(n, textures);
      GLsizei n;
      const GLuint* textures;
@@ -4265,6 +4726,25 @@ CODE:
         croak("glDepthBoundsEXT not available on this machine");
     };
     glDepthBoundsEXT(zmin, zmax);
+
+SV *
+glDepthFunc(func);
+     GLenum func;
+CODE:
+    glDepthFunc(func);
+
+SV *
+glDepthMask(flag);
+     GLboolean flag;
+CODE:
+    glDepthMask(flag);
+
+SV *
+glDepthRange(zNear, zFar);
+     GLclampd zNear;
+     GLclampd zFar;
+CODE:
+    glDepthRange(zNear, zFar);
 
 SV *
 glDepthRangeArrayv(first, count, v);
@@ -4358,6 +4838,18 @@ CODE:
         croak("glDetailTexFuncSGIS not available on this machine");
     };
     glDetailTexFuncSGIS(target, n, points);
+
+SV *
+glDisable(cap);
+     GLenum cap;
+CODE:
+    glDisable(cap);
+
+SV *
+glDisableClientState(array);
+     GLenum array;
+CODE:
+    glDisableClientState(array);
 
 SV *
 glDisableClientStateiEXT(array, index);
@@ -4501,6 +4993,14 @@ CODE:
     glDispatchComputeIndirect(indirect);
 
 SV *
+glDrawArrays(mode, first, count);
+     GLenum mode;
+     GLint first;
+     GLsizei count;
+CODE:
+    glDrawArrays(mode, first, count);
+
+SV *
 glDrawArraysEXT(mode, first, count);
      GLenum mode;
      GLint first;
@@ -4581,6 +5081,12 @@ CODE:
         croak("glDrawArraysInstancedEXT not available on this machine");
     };
     glDrawArraysInstancedEXT(mode, start, count, primcount);
+
+SV *
+glDrawBuffer(mode);
+     GLenum mode;
+CODE:
+    glDrawBuffer(mode);
 
 SV *
 glDrawBufferRegion(region, x, y, width, height, xDest, yDest);
@@ -4701,6 +5207,15 @@ CODE:
     glDrawElementArrayATI(mode, count);
 
 SV *
+glDrawElements(mode, count, type, indices);
+     GLenum mode;
+     GLsizei count;
+     GLenum type;
+     const void *indices;
+CODE:
+    glDrawElements(mode, count, type, indices);
+
+SV *
 glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
      GLenum mode;
      GLsizei count;
@@ -4818,6 +5333,16 @@ CODE:
         croak("glDrawElementsInstancedEXT not available on this machine");
     };
     glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
+
+SV *
+glDrawPixels(width, height, format, type, pixels);
+     GLsizei width;
+     GLsizei height;
+     GLenum format;
+     GLenum type;
+     const void *pixels;
+CODE:
+    glDrawPixels(width, height, format, type, pixels);
 
 SV *
 glDrawRangeElementArrayAPPLE(mode, start, end, first, count);
@@ -4980,6 +5505,12 @@ CODE:
     glDrawVkImageNV(vkImage, sampler, x0, y0, x1, y1, z, s0, t0, s1, t1);
 
 SV *
+glEdgeFlag(flag);
+     GLboolean flag;
+CODE:
+    glEdgeFlag(flag);
+
+SV *
 glEdgeFlagFormatNV(stride);
      GLsizei stride;
 CODE:
@@ -4987,6 +5518,13 @@ CODE:
         croak("glEdgeFlagFormatNV not available on this machine");
     };
     glEdgeFlagFormatNV(stride);
+
+SV *
+glEdgeFlagPointer(stride, pointer);
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glEdgeFlagPointer(stride, pointer);
 
 SV *
 glEdgeFlagPointerEXT(stride, count, pointer);
@@ -5011,6 +5549,12 @@ CODE:
     glEdgeFlagPointerListIBM(stride, pointer, ptrstride);
 
 SV *
+glEdgeFlagv(flag);
+     const GLboolean *flag;
+CODE:
+    glEdgeFlagv(flag);
+
+SV *
 glElementPointerAPPLE(type, pointer);
      GLenum type;
      const void *pointer;
@@ -5029,6 +5573,18 @@ CODE:
         croak("glElementPointerATI not available on this machine");
     };
     glElementPointerATI(type, pointer);
+
+SV *
+glEnable(cap);
+     GLenum cap;
+CODE:
+    glEnable(cap);
+
+SV *
+glEnableClientState(array);
+     GLenum array;
+CODE:
+    glEnableClientState(array);
 
 SV *
 glEnableClientStateiEXT(array, index);
@@ -5138,6 +5694,11 @@ CODE:
     glEnableVertexAttribArrayARB(index);
 
 SV *
+glEnd();
+CODE:
+    glEnd();
+
+SV *
 glEndConditionalRender();
 CODE:
     if(! __glewEndConditionalRender) {
@@ -5168,6 +5729,11 @@ CODE:
         croak("glEndFragmentShaderATI not available on this machine");
     };
     glEndFragmentShaderATI();
+
+SV *
+glEndList();
+CODE:
+    glEndList();
 
 SV *
 glEndOcclusionQueryNV();
@@ -5282,6 +5848,56 @@ CODE:
     glEndVideoCaptureNV(video_capture_slot);
 
 SV *
+glEvalCoord1d(u);
+     GLdouble u;
+CODE:
+    glEvalCoord1d(u);
+
+SV *
+glEvalCoord1dv(u);
+     const GLdouble *u;
+CODE:
+    glEvalCoord1dv(u);
+
+SV *
+glEvalCoord1f(u);
+     GLfloat u;
+CODE:
+    glEvalCoord1f(u);
+
+SV *
+glEvalCoord1fv(u);
+     const GLfloat *u;
+CODE:
+    glEvalCoord1fv(u);
+
+SV *
+glEvalCoord2d(u, v);
+     GLdouble u;
+     GLdouble v;
+CODE:
+    glEvalCoord2d(u, v);
+
+SV *
+glEvalCoord2dv(u);
+     const GLdouble *u;
+CODE:
+    glEvalCoord2dv(u);
+
+SV *
+glEvalCoord2f(u, v);
+     GLfloat u;
+     GLfloat v;
+CODE:
+    glEvalCoord2f(u, v);
+
+SV *
+glEvalCoord2fv(u);
+     const GLfloat *u;
+CODE:
+    glEvalCoord2fv(u);
+
+SV *
 glEvalMapsNV(target, mode);
      GLenum target;
      GLenum mode;
@@ -5290,6 +5906,37 @@ CODE:
         croak("glEvalMapsNV not available on this machine");
     };
     glEvalMapsNV(target, mode);
+
+SV *
+glEvalMesh1(mode, i1, i2);
+     GLenum mode;
+     GLint i1;
+     GLint i2;
+CODE:
+    glEvalMesh1(mode, i1, i2);
+
+SV *
+glEvalMesh2(mode, i1, i2, j1, j2);
+     GLenum mode;
+     GLint i1;
+     GLint i2;
+     GLint j1;
+     GLint j2;
+CODE:
+    glEvalMesh2(mode, i1, i2, j1, j2);
+
+SV *
+glEvalPoint1(i);
+     GLint i;
+CODE:
+    glEvalPoint1(i);
+
+SV *
+glEvalPoint2(i, j);
+     GLint i;
+     GLint j;
+CODE:
+    glEvalPoint2(i, j);
 
 SV *
 glExecuteProgramNV(target, id, params);
@@ -5312,6 +5959,14 @@ CODE:
         croak("glExtractComponentEXT not available on this machine");
     };
     glExtractComponentEXT(res, src, num);
+
+SV *
+glFeedbackBuffer(size, type, buffer);
+     GLsizei size;
+     GLenum type;
+     GLfloat *buffer;
+CODE:
+    glFeedbackBuffer(size, type, buffer);
 
 GLsync
 glFenceSync(condition,flags);
@@ -5336,6 +5991,11 @@ CODE:
         croak("glFinalCombinerInputNV not available on this machine");
     };
     glFinalCombinerInputNV(variable, input, mapping, componentUsage);
+
+SV *
+glFinish();
+CODE:
+    glFinish();
 
 GLint
 glFinishAsyncSGIX(markerp);
@@ -5383,6 +6043,11 @@ CODE:
         croak("glFinishTextureSUNX not available on this machine");
     };
     glFinishTextureSUNX();
+
+SV *
+glFlush();
+CODE:
+    glFlush();
 
 SV *
 glFlushMappedBufferRange(target, offset, length);
@@ -5598,6 +6263,13 @@ CODE:
     glFogCoordPointerListIBM(type, stride, pointer, ptrstride);
 
 SV *
+glFogf(pname, param);
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glFogf(pname, param);
+
+SV *
 glFogFuncSGIS(n, points);
      GLsizei n;
      const GLfloat* points;
@@ -5606,6 +6278,27 @@ CODE:
         croak("glFogFuncSGIS not available on this machine");
     };
     glFogFuncSGIS(n, points);
+
+SV *
+glFogfv(pname, params);
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glFogfv(pname, params);
+
+SV *
+glFogi(pname, param);
+     GLenum pname;
+     GLint param;
+CODE:
+    glFogi(pname, param);
+
+SV *
+glFogiv(pname, params);
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glFogiv(pname, params);
 
 SV *
 glFogx(pname, param);
@@ -6224,6 +6917,23 @@ CODE:
     glFreeObjectBufferATI(buffer);
 
 SV *
+glFrontFace(mode);
+     GLenum mode;
+CODE:
+    glFrontFace(mode);
+
+SV *
+glFrustum(left, right, bottom, top, zNear, zFar);
+     GLdouble left;
+     GLdouble right;
+     GLdouble bottom;
+     GLdouble top;
+     GLdouble zNear;
+     GLdouble zFar;
+CODE:
+    glFrustum(left, right, bottom, top, zNear, zFar);
+
+SV *
 glFrustumf(left, right, bottom, top, zNear, zFar);
      GLfloat left;
      GLfloat right;
@@ -6394,6 +7104,14 @@ CODE:
     };
     glGenFramebuffersEXT(n, framebuffers);
 
+GLuint
+glGenLists(range);
+     GLsizei range;
+CODE:
+    RETVAL = glGenLists(range);
+OUTPUT:
+    RETVAL
+
 SV *
 glGenNamesAMD(identifier, num, names);
      GLenum identifier;
@@ -6539,6 +7257,13 @@ CODE:
     RETVAL = glGenSymbolsEXT(dataType, storageType, range, components);
 OUTPUT:
     RETVAL
+
+SV *
+glGenTextures(n, textures);
+     GLsizei n;
+     GLuint *textures;
+CODE:
+    glGenTextures(n, textures);
 
 SV *
 glGenTexturesEXT(n, textures);
@@ -6873,6 +7598,13 @@ CODE:
     glGetBooleani_v(pname, index, data);
 
 SV *
+glGetBooleanv(pname, params);
+     GLenum pname;
+     GLboolean *params;
+CODE:
+    glGetBooleanv(pname, params);
+
+SV *
 glGetBufferParameteri64v(target, value, data);
      GLenum target;
      GLenum value;
@@ -6961,6 +7693,13 @@ CODE:
         croak("glGetBufferSubDataARB not available on this machine");
     };
     glGetBufferSubDataARB(target, offset, size, data);
+
+SV *
+glGetClipPlane(plane, equation);
+     GLenum plane;
+     GLdouble *equation;
+CODE:
+    glGetClipPlane(plane, equation);
 
 SV *
 glGetClipPlanef(pname, eqn);
@@ -7417,6 +8156,13 @@ CODE:
     };
     glGetDoublei_vEXT(pname, index, params);
 
+SV *
+glGetDoublev(pname, params);
+     GLenum pname;
+     GLdouble *params;
+CODE:
+    glGetDoublev(pname, params);
+
 GLboolean
 glGetExtensionREGAL(ext);
      const GLchar* ext;
@@ -7512,6 +8258,13 @@ CODE:
         croak("glGetFloati_vEXT not available on this machine");
     };
     glGetFloati_vEXT(pname, index, params);
+
+SV *
+glGetFloatv(pname, params);
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetFloatv(pname, params);
 
 SV *
 glGetFogFuncSGIS(points);
@@ -7922,6 +8675,13 @@ CODE:
     glGetIntegerui64vNV(value, result);
 
 SV *
+glGetIntegerv(pname, params);
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetIntegerv(pname, params);
+
+SV *
 glGetInternalformati64v(target, internalformat, pname, bufSize, params);
      GLenum target;
      GLenum internalformat;
@@ -7993,6 +8753,22 @@ CODE:
         croak("glGetInvariantIntegervEXT not available on this machine");
     };
     glGetInvariantIntegervEXT(id, value, data);
+
+SV *
+glGetLightfv(light, pname, params);
+     GLenum light;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetLightfv(light, pname, params);
+
+SV *
+glGetLightiv(light, pname, params);
+     GLenum light;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetLightiv(light, pname, params);
 
 SV *
 glGetLightxv(light, pname, params);
@@ -8078,6 +8854,30 @@ CODE:
     glGetMapControlPointsNV(target, index, type, ustride, vstride, packed, points);
 
 SV *
+glGetMapdv(target, query, v);
+     GLenum target;
+     GLenum query;
+     GLdouble *v;
+CODE:
+    glGetMapdv(target, query, v);
+
+SV *
+glGetMapfv(target, query, v);
+     GLenum target;
+     GLenum query;
+     GLfloat *v;
+CODE:
+    glGetMapfv(target, query, v);
+
+SV *
+glGetMapiv(target, query, v);
+     GLenum target;
+     GLenum query;
+     GLint *v;
+CODE:
+    glGetMapiv(target, query, v);
+
+SV *
 glGetMapParameterfvNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8098,6 +8898,22 @@ CODE:
         croak("glGetMapParameterivNV not available on this machine");
     };
     glGetMapParameterivNV(target, pname, params);
+
+SV *
+glGetMaterialfv(face, pname, params);
+     GLenum face;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetMaterialfv(face, pname, params);
+
+SV *
+glGetMaterialiv(face, pname, params);
+     GLenum face;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetMaterialiv(face, pname, params);
 
 SV *
 glGetMaterialxv(face, pname, params);
@@ -9338,6 +10154,27 @@ CODE:
     glGetPerfQueryInfoINTEL(queryId, queryNameLength, queryName, dataSize, noCounters, noInstances, capsMask);
 
 SV *
+glGetPixelMapfv(map, values);
+     GLenum map;
+     GLfloat *values;
+CODE:
+    glGetPixelMapfv(map, values);
+
+SV *
+glGetPixelMapuiv(map, values);
+     GLenum map;
+     GLuint *values;
+CODE:
+    glGetPixelMapuiv(map, values);
+
+SV *
+glGetPixelMapusv(map, values);
+     GLenum map;
+     GLushort *values;
+CODE:
+    glGetPixelMapusv(map, values);
+
+SV *
 glGetPixelTransformParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -9380,6 +10217,19 @@ CODE:
         croak("glGetPointeri_vEXT not available on this machine");
     };
     glGetPointeri_vEXT(pname, index, params);
+
+SV *
+glGetPointerv(pname, params);
+     GLenum pname;
+     void* *params;
+CODE:
+    glGetPointerv(pname, params);
+
+SV *
+glGetPolygonStipple(mask);
+     GLubyte *mask;
+CODE:
+    glGetPolygonStipple(mask);
 
 SV *
 glGetProgramBinary(program, bufSize, length, binaryFormat, binary);
@@ -10144,6 +10994,22 @@ CODE:
     glGetTexBumpParameterivATI(pname, param);
 
 SV *
+glGetTexEnvfv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetTexEnvfv(target, pname, params);
+
+SV *
+glGetTexEnviv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetTexEnviv(target, pname, params);
+
+SV *
 glGetTexEnvxv(env, pname, params);
      GLenum env;
      GLenum pname;
@@ -10164,6 +11030,66 @@ CODE:
         croak("glGetTexFilterFuncSGIS not available on this machine");
     };
     glGetTexFilterFuncSGIS(target, filter, weights);
+
+SV *
+glGetTexGendv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     GLdouble *params;
+CODE:
+    glGetTexGendv(coord, pname, params);
+
+SV *
+glGetTexGenfv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetTexGenfv(coord, pname, params);
+
+SV *
+glGetTexGeniv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetTexGeniv(coord, pname, params);
+
+SV *
+glGetTexImage(target, level, format, type, pixels);
+     GLenum target;
+     GLint level;
+     GLenum format;
+     GLenum type;
+     void *pixels;
+CODE:
+    glGetTexImage(target, level, format, type, pixels);
+
+SV *
+glGetTexLevelParameterfv(target, level, pname, params);
+     GLenum target;
+     GLint level;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetTexLevelParameterfv(target, level, pname, params);
+
+SV *
+glGetTexLevelParameteriv(target, level, pname, params);
+     GLenum target;
+     GLint level;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetTexLevelParameteriv(target, level, pname, params);
+
+SV *
+glGetTexParameterfv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     GLfloat *params;
+CODE:
+    glGetTexParameterfv(target, pname, params);
 
 SV *
 glGetTexParameterIiv(target, pname, params);
@@ -10208,6 +11134,14 @@ CODE:
         croak("glGetTexParameterIuivEXT not available on this machine");
     };
     glGetTexParameterIuivEXT(target, pname, params);
+
+SV *
+glGetTexParameteriv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     GLint *params;
+CODE:
+    glGetTexParameteriv(target, pname, params);
 
 SV *
 glGetTexParameterPointervAPPLE(target, pname, params);
@@ -11358,6 +12292,13 @@ CODE:
     glGlobalAlphaFactorusSUN(factor);
 
 SV *
+glHint(target, mode);
+     GLenum target;
+     GLenum mode;
+CODE:
+    glHint(target, mode);
+
+SV *
 glHistogram(target, width, internalformat, sink);
      GLenum target;
      GLsizei width;
@@ -11439,6 +12380,24 @@ OUTPUT:
     RETVAL
 
 SV *
+glIndexd(c);
+     GLdouble c;
+CODE:
+    glIndexd(c);
+
+SV *
+glIndexdv(c);
+     const GLdouble *c;
+CODE:
+    glIndexdv(c);
+
+SV *
+glIndexf(c);
+     GLfloat c;
+CODE:
+    glIndexf(c);
+
+SV *
 glIndexFormatNV(type, stride);
      GLenum type;
      GLsizei stride;
@@ -11459,6 +12418,30 @@ CODE:
     glIndexFuncEXT(func, ref);
 
 SV *
+glIndexfv(c);
+     const GLfloat *c;
+CODE:
+    glIndexfv(c);
+
+SV *
+glIndexi(c);
+     GLint c;
+CODE:
+    glIndexi(c);
+
+SV *
+glIndexiv(c);
+     const GLint *c;
+CODE:
+    glIndexiv(c);
+
+SV *
+glIndexMask(mask);
+     GLuint mask;
+CODE:
+    glIndexMask(mask);
+
+SV *
 glIndexMaterialEXT(face, mode);
      GLenum face;
      GLenum mode;
@@ -11467,6 +12450,14 @@ CODE:
         croak("glIndexMaterialEXT not available on this machine");
     };
     glIndexMaterialEXT(face, mode);
+
+SV *
+glIndexPointer(type, stride, pointer);
+     GLenum type;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glIndexPointer(type, stride, pointer);
 
 SV *
 glIndexPointerEXT(type, stride, count, pointer);
@@ -11493,6 +12484,35 @@ CODE:
     glIndexPointerListIBM(type, stride, pointer, ptrstride);
 
 SV *
+glIndexs(c);
+     GLshort c;
+CODE:
+    glIndexs(c);
+
+SV *
+glIndexsv(c);
+     const GLshort *c;
+CODE:
+    glIndexsv(c);
+
+SV *
+glIndexub(c);
+     GLubyte c;
+CODE:
+    glIndexub(c);
+
+SV *
+glIndexubv(c);
+     const GLubyte *c;
+CODE:
+    glIndexubv(c);
+
+SV *
+glInitNames();
+CODE:
+    glInitNames();
+
+SV *
 glInsertComponentEXT(res, src, num);
      GLuint res;
      GLuint src;
@@ -11512,6 +12532,14 @@ CODE:
         croak("glInsertEventMarkerEXT not available on this machine");
     };
     glInsertEventMarkerEXT(length, marker);
+
+SV *
+glInterleavedArrays(format, stride, pointer);
+     GLenum format;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glInterleavedArrays(format, stride, pointer);
 
 SV *
 glInterpolatePathsNV(resultPath, pathA, pathB, weight);
@@ -11679,6 +12707,14 @@ OUTPUT:
     RETVAL
 
 GLboolean
+glIsEnabled(cap);
+     GLenum cap;
+CODE:
+    RETVAL = glIsEnabled(cap);
+OUTPUT:
+    RETVAL
+
+GLboolean
 glIsEnabledi(cap, index);
      GLenum cap;
      GLuint index;
@@ -11765,6 +12801,14 @@ CODE:
         croak("glIsImageHandleResidentNV not available on this machine");
     };
     RETVAL = glIsImageHandleResidentNV(handle);
+OUTPUT:
+    RETVAL
+
+GLboolean
+glIsList(list);
+     GLuint list;
+CODE:
+    RETVAL = glIsList(list);
 OUTPUT:
     RETVAL
 
@@ -12018,6 +13062,14 @@ OUTPUT:
     RETVAL
 
 GLboolean
+glIsTexture(texture);
+     GLuint texture;
+CODE:
+    RETVAL = glIsTexture(texture);
+OUTPUT:
+    RETVAL
+
+GLboolean
 glIsTextureEXT(texture);
      GLuint texture;
 CODE:
@@ -12187,6 +13239,66 @@ CODE:
     glLightEnviEXT(pname, param);
 
 SV *
+glLightf(light, pname, param);
+     GLenum light;
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glLightf(light, pname, param);
+
+SV *
+glLightfv(light, pname, params);
+     GLenum light;
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glLightfv(light, pname, params);
+
+SV *
+glLighti(light, pname, param);
+     GLenum light;
+     GLenum pname;
+     GLint param;
+CODE:
+    glLighti(light, pname, param);
+
+SV *
+glLightiv(light, pname, params);
+     GLenum light;
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glLightiv(light, pname, params);
+
+SV *
+glLightModelf(pname, param);
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glLightModelf(pname, param);
+
+SV *
+glLightModelfv(pname, params);
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glLightModelfv(pname, params);
+
+SV *
+glLightModeli(pname, param);
+     GLenum pname;
+     GLint param;
+CODE:
+    glLightModeli(pname, param);
+
+SV *
+glLightModeliv(pname, params);
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glLightModeliv(pname, params);
+
+SV *
 glLightModelx(pname, param);
      GLenum pname;
      GLfixed param;
@@ -12229,6 +13341,19 @@ CODE:
     glLightxv(light, pname, params);
 
 SV *
+glLineStipple(factor, pattern);
+     GLint factor;
+     GLushort pattern;
+CODE:
+    glLineStipple(factor, pattern);
+
+SV *
+glLineWidth(width);
+     GLfloat width;
+CODE:
+    glLineWidth(width);
+
+SV *
 glLineWidthx(width);
      GLfixed width;
 CODE:
@@ -12256,6 +13381,12 @@ CODE:
     glLinkProgramARB(programObj);
 
 SV *
+glListBase(base);
+     GLuint base;
+CODE:
+    glListBase(base);
+
+SV *
 glListDrawCommandsStatesClientNV(list, segment, indirects, sizes, states, fbos, count);
      GLuint list;
      GLuint segment;
@@ -12271,6 +13402,23 @@ CODE:
     glListDrawCommandsStatesClientNV(list, segment, indirects, sizes, states, fbos, count);
 
 SV *
+glLoadIdentity();
+CODE:
+    glLoadIdentity();
+
+SV *
+glLoadMatrixd(m);
+     const GLdouble *m;
+CODE:
+    glLoadMatrixd(m);
+
+SV *
+glLoadMatrixf(m);
+     const GLfloat *m;
+CODE:
+    glLoadMatrixf(m);
+
+SV *
 glLoadMatrixx(m);
      const GLfixed* m;
 CODE:
@@ -12278,6 +13426,12 @@ CODE:
         croak("glLoadMatrixx not available on this machine");
     };
     glLoadMatrixx(m);
+
+SV *
+glLoadName(name);
+     GLuint name;
+CODE:
+    glLoadName(name);
 
 SV *
 glLoadProgramNV(target, id, len, program);
@@ -12336,6 +13490,12 @@ CODE:
         croak("glLockArraysEXT not available on this machine");
     };
     glLockArraysEXT(first, count);
+
+SV *
+glLogicOp(opcode);
+     GLenum opcode;
+CODE:
+    glLogicOp(opcode);
 
 SV *
 glLogMessageCallbackREGAL(callback);
@@ -12459,6 +13619,58 @@ CODE:
     glMakeTextureHandleResidentNV(handle);
 
 SV *
+glMap1d(target, u1, u2, stride, order, points);
+     GLenum target;
+     GLdouble u1;
+     GLdouble u2;
+     GLint stride;
+     GLint order;
+     const GLdouble *points;
+CODE:
+    glMap1d(target, u1, u2, stride, order, points);
+
+SV *
+glMap1f(target, u1, u2, stride, order, points);
+     GLenum target;
+     GLfloat u1;
+     GLfloat u2;
+     GLint stride;
+     GLint order;
+     const GLfloat *points;
+CODE:
+    glMap1f(target, u1, u2, stride, order, points);
+
+SV *
+glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+     GLenum target;
+     GLdouble u1;
+     GLdouble u2;
+     GLint ustride;
+     GLint uorder;
+     GLdouble v1;
+     GLdouble v2;
+     GLint vstride;
+     GLint vorder;
+     const GLdouble *points;
+CODE:
+    glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+
+SV *
+glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+     GLenum target;
+     GLfloat u1;
+     GLfloat u2;
+     GLint ustride;
+     GLint uorder;
+     GLfloat v1;
+     GLfloat v2;
+     GLint vstride;
+     GLint vorder;
+     const GLfloat *points;
+CODE:
+    glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+
+SV *
 glMapControlPointsNV(target, index, type, ustride, vstride, uorder, vorder, packed, points);
      GLenum target;
      GLuint index;
@@ -12474,6 +13686,44 @@ CODE:
         croak("glMapControlPointsNV not available on this machine");
     };
     glMapControlPointsNV(target, index, type, ustride, vstride, uorder, vorder, packed, points);
+
+SV *
+glMapGrid1d(un, u1, u2);
+     GLint un;
+     GLdouble u1;
+     GLdouble u2;
+CODE:
+    glMapGrid1d(un, u1, u2);
+
+SV *
+glMapGrid1f(un, u1, u2);
+     GLint un;
+     GLfloat u1;
+     GLfloat u2;
+CODE:
+    glMapGrid1f(un, u1, u2);
+
+SV *
+glMapGrid2d(un, u1, u2, vn, v1, v2);
+     GLint un;
+     GLdouble u1;
+     GLdouble u2;
+     GLint vn;
+     GLdouble v1;
+     GLdouble v2;
+CODE:
+    glMapGrid2d(un, u1, u2, vn, v1, v2);
+
+SV *
+glMapGrid2f(un, u1, u2, vn, v1, v2);
+     GLint un;
+     GLfloat u1;
+     GLfloat u2;
+     GLint vn;
+     GLfloat v1;
+     GLfloat v2;
+CODE:
+    glMapGrid2f(un, u1, u2, vn, v1, v2);
 
 SV *
 glMapParameterfvNV(target, pname, params);
@@ -12564,6 +13814,38 @@ CODE:
         croak("glMapVertexAttrib2fAPPLE not available on this machine");
     };
     glMapVertexAttrib2fAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
+
+SV *
+glMaterialf(face, pname, param);
+     GLenum face;
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glMaterialf(face, pname, param);
+
+SV *
+glMaterialfv(face, pname, params);
+     GLenum face;
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glMaterialfv(face, pname, params);
+
+SV *
+glMateriali(face, pname, param);
+     GLenum face;
+     GLenum pname;
+     GLint param;
+CODE:
+    glMateriali(face, pname, param);
+
+SV *
+glMaterialiv(face, pname, params);
+     GLenum face;
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glMaterialiv(face, pname, params);
 
 SV *
 glMaterialx(face, pname, param);
@@ -12722,6 +14004,12 @@ CODE:
         croak("glMatrixLoadTransposefEXT not available on this machine");
     };
     glMatrixLoadTransposefEXT(matrixMode, m);
+
+SV *
+glMatrixMode(mode);
+     GLenum mode;
+CODE:
+    glMatrixMode(mode);
 
 SV *
 glMatrixMult3x2fNV(matrixMode, m);
@@ -14590,6 +15878,18 @@ CODE:
     glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
 SV *
+glMultMatrixd(m);
+     const GLdouble *m;
+CODE:
+    glMultMatrixd(m);
+
+SV *
+glMultMatrixf(m);
+     const GLfloat *m;
+CODE:
+    glMultMatrixf(m);
+
+SV *
 glMultMatrixx(m);
      const GLfixed* m;
 CODE:
@@ -15171,6 +16471,13 @@ CODE:
 OUTPUT:
     RETVAL
 
+SV *
+glNewList(list, mode);
+     GLuint list;
+     GLenum mode;
+CODE:
+    glNewList(list, mode);
+
 GLuint
 glNewObjectBufferATI(size, pointer, usage);
      GLsizei size;
@@ -15183,6 +16490,48 @@ CODE:
     RETVAL = glNewObjectBufferATI(size, pointer, usage);
 OUTPUT:
     RETVAL
+
+SV *
+glNormal3b(nx, ny, nz);
+     GLbyte nx;
+     GLbyte ny;
+     GLbyte nz;
+CODE:
+    glNormal3b(nx, ny, nz);
+
+SV *
+glNormal3bv(v);
+     const GLbyte *v;
+CODE:
+    glNormal3bv(v);
+
+SV *
+glNormal3d(nx, ny, nz);
+     GLdouble nx;
+     GLdouble ny;
+     GLdouble nz;
+CODE:
+    glNormal3d(nx, ny, nz);
+
+SV *
+glNormal3dv(v);
+     const GLdouble *v;
+CODE:
+    glNormal3dv(v);
+
+SV *
+glNormal3f(nx, ny, nz);
+     GLfloat nx;
+     GLfloat ny;
+     GLfloat nz;
+CODE:
+    glNormal3f(nx, ny, nz);
+
+SV *
+glNormal3fv(v);
+     const GLfloat *v;
+CODE:
+    glNormal3fv(v);
 
 SV *
 glNormal3fVertex3fSUN(nx, ny, nz, x, y, z);
@@ -15229,6 +16578,34 @@ CODE:
     glNormal3hvNV(v);
 
 SV *
+glNormal3i(nx, ny, nz);
+     GLint nx;
+     GLint ny;
+     GLint nz;
+CODE:
+    glNormal3i(nx, ny, nz);
+
+SV *
+glNormal3iv(v);
+     const GLint *v;
+CODE:
+    glNormal3iv(v);
+
+SV *
+glNormal3s(nx, ny, nz);
+     GLshort nx;
+     GLshort ny;
+     GLshort nz;
+CODE:
+    glNormal3s(nx, ny, nz);
+
+SV *
+glNormal3sv(v);
+     const GLshort *v;
+CODE:
+    glNormal3sv(v);
+
+SV *
 glNormal3x(nx, ny, nz);
      GLfixed nx;
      GLfixed ny;
@@ -15268,6 +16645,14 @@ CODE:
         croak("glNormalP3uiv not available on this machine");
     };
     glNormalP3uiv(type, coords);
+
+SV *
+glNormalPointer(type, stride, pointer);
+     GLenum type;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glNormalPointer(type, stride, pointer);
 
 SV *
 glNormalPointerEXT(type, stride, count, pointer);
@@ -15463,6 +16848,17 @@ OUTPUT:
     RETVAL
 
 SV *
+glOrtho(left, right, bottom, top, zNear, zFar);
+     GLdouble left;
+     GLdouble right;
+     GLdouble bottom;
+     GLdouble top;
+     GLdouble zNear;
+     GLdouble zFar;
+CODE:
+    glOrtho(left, right, bottom, top, zNear, zFar);
+
+SV *
 glOrthof(left, right, bottom, top, zNear, zFar);
      GLfloat left;
      GLfloat right;
@@ -15514,6 +16910,12 @@ CODE:
         croak("glPassTexCoordATI not available on this machine");
     };
     glPassTexCoordATI(dst, coord, swizzle);
+
+SV *
+glPassThrough(token);
+     GLfloat token;
+CODE:
+    glPassThrough(token);
 
 SV *
 glPatchParameterfv(pname, values);
@@ -15836,6 +17238,44 @@ CODE:
     glPixelDataRangeNV(target, length, pointer);
 
 SV *
+glPixelMapfv(map, mapsize, values);
+     GLenum map;
+     GLsizei mapsize;
+     const GLfloat *values;
+CODE:
+    glPixelMapfv(map, mapsize, values);
+
+SV *
+glPixelMapuiv(map, mapsize, values);
+     GLenum map;
+     GLsizei mapsize;
+     const GLuint *values;
+CODE:
+    glPixelMapuiv(map, mapsize, values);
+
+SV *
+glPixelMapusv(map, mapsize, values);
+     GLenum map;
+     GLsizei mapsize;
+     const GLushort *values;
+CODE:
+    glPixelMapusv(map, mapsize, values);
+
+SV *
+glPixelStoref(pname, param);
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glPixelStoref(pname, param);
+
+SV *
+glPixelStorei(pname, param);
+     GLenum pname;
+     GLint param;
+CODE:
+    glPixelStorei(pname, param);
+
+SV *
 glPixelTexGenSGIX(mode);
      GLenum mode;
 CODE:
@@ -15843,6 +17283,20 @@ CODE:
         croak("glPixelTexGenSGIX not available on this machine");
     };
     glPixelTexGenSGIX(mode);
+
+SV *
+glPixelTransferf(pname, param);
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glPixelTransferf(pname, param);
+
+SV *
+glPixelTransferi(pname, param);
+     GLenum pname;
+     GLint param;
+CODE:
+    glPixelTransferi(pname, param);
 
 SV *
 glPixelTransformParameterfEXT(target, pname, param);
@@ -15887,6 +17341,13 @@ CODE:
         croak("glPixelTransformParameterivEXT not available on this machine");
     };
     glPixelTransformParameterivEXT(target, pname, params);
+
+SV *
+glPixelZoom(xfactor, yfactor);
+     GLfloat xfactor;
+     GLfloat yfactor;
+CODE:
+    glPixelZoom(xfactor, yfactor);
 
 SV *
 glPNTrianglesfATI(pname, param);
@@ -16047,6 +17508,12 @@ CODE:
     glPointParameterxv(pname, params);
 
 SV *
+glPointSize(size);
+     GLfloat size;
+CODE:
+    glPointSize(size);
+
+SV *
 glPointSizePointerOES(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -16076,6 +17543,20 @@ CODE:
     RETVAL = glPollAsyncSGIX(markerp);
 OUTPUT:
     RETVAL
+
+SV *
+glPolygonMode(face, mode);
+     GLenum face;
+     GLenum mode;
+CODE:
+    glPolygonMode(face, mode);
+
+SV *
+glPolygonOffset(factor, units);
+     GLfloat factor;
+     GLfloat units;
+CODE:
+    glPolygonOffset(factor, units);
 
 SV *
 glPolygonOffsetClampEXT(factor, units, clamp);
@@ -16109,6 +17590,22 @@ CODE:
     glPolygonOffsetx(factor, units);
 
 SV *
+glPolygonStipple(mask);
+     const GLubyte *mask;
+CODE:
+    glPolygonStipple(mask);
+
+SV *
+glPopAttrib();
+CODE:
+    glPopAttrib();
+
+SV *
+glPopClientAttrib();
+CODE:
+    glPopClientAttrib();
+
+SV *
 glPopDebugGroup();
 CODE:
     if(! __glewPopDebugGroup) {
@@ -16123,6 +17620,16 @@ CODE:
         croak("glPopGroupMarkerEXT not available on this machine");
     };
     glPopGroupMarkerEXT();
+
+SV *
+glPopMatrix();
+CODE:
+    glPopMatrix();
+
+SV *
+glPopName();
+CODE:
+    glPopName();
 
 SV *
 glPresentFrameDualFillNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, target1, fill1, target2, fill2, target3, fill3);
@@ -16205,6 +17712,14 @@ CODE:
         croak("glPrimitiveRestartNV not available on this machine");
     };
     glPrimitiveRestartNV();
+
+SV *
+glPrioritizeTextures(n, textures, priorities);
+     GLsizei n;
+     const GLuint *textures;
+     const GLclampf *priorities;
+CODE:
+    glPrioritizeTextures(n, textures, priorities);
 
 SV *
 glPrioritizeTexturesEXT(n, textures, priorities);
@@ -18253,6 +19768,18 @@ CODE:
     glProvokingVertexEXT(mode);
 
 SV *
+glPushAttrib(mask);
+     GLbitfield mask;
+CODE:
+    glPushAttrib(mask);
+
+SV *
+glPushClientAttrib(mask);
+     GLbitfield mask;
+CODE:
+    glPushClientAttrib(mask);
+
+SV *
 glPushClientAttribDefaultEXT(mask);
      GLbitfield mask;
 CODE:
@@ -18282,6 +19809,17 @@ CODE:
         croak("glPushGroupMarkerEXT not available on this machine");
     };
     glPushGroupMarkerEXT(length, marker);
+
+SV *
+glPushMatrix();
+CODE:
+    glPushMatrix();
+
+SV *
+glPushName(name);
+     GLuint name;
+CODE:
+    glPushName(name);
 
 SV *
 glQueryCounter(id, target);
@@ -18316,6 +19854,174 @@ CODE:
     glQueryObjectParameteruiAMD(target, id, pname, param);
 
 SV *
+glRasterPos2d(x, y);
+     GLdouble x;
+     GLdouble y;
+CODE:
+    glRasterPos2d(x, y);
+
+SV *
+glRasterPos2dv(v);
+     const GLdouble *v;
+CODE:
+    glRasterPos2dv(v);
+
+SV *
+glRasterPos2f(x, y);
+     GLfloat x;
+     GLfloat y;
+CODE:
+    glRasterPos2f(x, y);
+
+SV *
+glRasterPos2fv(v);
+     const GLfloat *v;
+CODE:
+    glRasterPos2fv(v);
+
+SV *
+glRasterPos2i(x, y);
+     GLint x;
+     GLint y;
+CODE:
+    glRasterPos2i(x, y);
+
+SV *
+glRasterPos2iv(v);
+     const GLint *v;
+CODE:
+    glRasterPos2iv(v);
+
+SV *
+glRasterPos2s(x, y);
+     GLshort x;
+     GLshort y;
+CODE:
+    glRasterPos2s(x, y);
+
+SV *
+glRasterPos2sv(v);
+     const GLshort *v;
+CODE:
+    glRasterPos2sv(v);
+
+SV *
+glRasterPos3d(x, y, z);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+CODE:
+    glRasterPos3d(x, y, z);
+
+SV *
+glRasterPos3dv(v);
+     const GLdouble *v;
+CODE:
+    glRasterPos3dv(v);
+
+SV *
+glRasterPos3f(x, y, z);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+CODE:
+    glRasterPos3f(x, y, z);
+
+SV *
+glRasterPos3fv(v);
+     const GLfloat *v;
+CODE:
+    glRasterPos3fv(v);
+
+SV *
+glRasterPos3i(x, y, z);
+     GLint x;
+     GLint y;
+     GLint z;
+CODE:
+    glRasterPos3i(x, y, z);
+
+SV *
+glRasterPos3iv(v);
+     const GLint *v;
+CODE:
+    glRasterPos3iv(v);
+
+SV *
+glRasterPos3s(x, y, z);
+     GLshort x;
+     GLshort y;
+     GLshort z;
+CODE:
+    glRasterPos3s(x, y, z);
+
+SV *
+glRasterPos3sv(v);
+     const GLshort *v;
+CODE:
+    glRasterPos3sv(v);
+
+SV *
+glRasterPos4d(x, y, z, w);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+     GLdouble w;
+CODE:
+    glRasterPos4d(x, y, z, w);
+
+SV *
+glRasterPos4dv(v);
+     const GLdouble *v;
+CODE:
+    glRasterPos4dv(v);
+
+SV *
+glRasterPos4f(x, y, z, w);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+     GLfloat w;
+CODE:
+    glRasterPos4f(x, y, z, w);
+
+SV *
+glRasterPos4fv(v);
+     const GLfloat *v;
+CODE:
+    glRasterPos4fv(v);
+
+SV *
+glRasterPos4i(x, y, z, w);
+     GLint x;
+     GLint y;
+     GLint z;
+     GLint w;
+CODE:
+    glRasterPos4i(x, y, z, w);
+
+SV *
+glRasterPos4iv(v);
+     const GLint *v;
+CODE:
+    glRasterPos4iv(v);
+
+SV *
+glRasterPos4s(x, y, z, w);
+     GLshort x;
+     GLshort y;
+     GLshort z;
+     GLshort w;
+CODE:
+    glRasterPos4s(x, y, z, w);
+
+SV *
+glRasterPos4sv(v);
+     const GLshort *v;
+CODE:
+    glRasterPos4sv(v);
+
+SV *
 glRasterSamplesEXT(samples, fixedsamplelocations);
      GLuint samples;
      GLboolean fixedsamplelocations;
@@ -18324,6 +20030,12 @@ CODE:
         croak("glRasterSamplesEXT not available on this machine");
     };
     glRasterSamplesEXT(samples, fixedsamplelocations);
+
+SV *
+glReadBuffer(mode);
+     GLenum mode;
+CODE:
+    glReadBuffer(mode);
 
 SV *
 glReadBufferRegion(region, x, y, width, height);
@@ -18371,6 +20083,18 @@ CODE:
     glReadnPixelsARB(x, y, width, height, format, type, bufSize, data);
 
 SV *
+glReadPixels(x, y, width, height, format, type, pixels);
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+     GLenum format;
+     GLenum type;
+     void *pixels;
+CODE:
+    glReadPixels(x, y, width, height, format, type, pixels);
+
+SV *
 glReadVideoPixelsSUN(x, y, width, height, format, type, pixels);
      GLint x;
      GLint y;
@@ -18384,6 +20108,70 @@ CODE:
         croak("glReadVideoPixelsSUN not available on this machine");
     };
     glReadVideoPixelsSUN(x, y, width, height, format, type, pixels);
+
+SV *
+glRectd(x1, y1, x2, y2);
+     GLdouble x1;
+     GLdouble y1;
+     GLdouble x2;
+     GLdouble y2;
+CODE:
+    glRectd(x1, y1, x2, y2);
+
+SV *
+glRectdv(v1, v2);
+     const GLdouble *v1;
+     const GLdouble *v2;
+CODE:
+    glRectdv(v1, v2);
+
+SV *
+glRectf(x1, y1, x2, y2);
+     GLfloat x1;
+     GLfloat y1;
+     GLfloat x2;
+     GLfloat y2;
+CODE:
+    glRectf(x1, y1, x2, y2);
+
+SV *
+glRectfv(v1, v2);
+     const GLfloat *v1;
+     const GLfloat *v2;
+CODE:
+    glRectfv(v1, v2);
+
+SV *
+glRecti(x1, y1, x2, y2);
+     GLint x1;
+     GLint y1;
+     GLint x2;
+     GLint y2;
+CODE:
+    glRecti(x1, y1, x2, y2);
+
+SV *
+glRectiv(v1, v2);
+     const GLint *v1;
+     const GLint *v2;
+CODE:
+    glRectiv(v1, v2);
+
+SV *
+glRects(x1, y1, x2, y2);
+     GLshort x1;
+     GLshort y1;
+     GLshort x2;
+     GLshort y2;
+CODE:
+    glRects(x1, y1, x2, y2);
+
+SV *
+glRectsv(v1, v2);
+     const GLshort *v1;
+     const GLshort *v2;
+CODE:
+    glRectsv(v1, v2);
 
 SV *
 glReferencePlaneSGIX(equation);
@@ -18487,6 +20275,14 @@ CODE:
         croak("glRenderGpuMaskNV not available on this machine");
     };
     glRenderGpuMaskNV(mask);
+
+GLint
+glRenderMode(mode);
+     GLenum mode;
+CODE:
+    RETVAL = glRenderMode(mode);
+OUTPUT:
+    RETVAL
 
 SV *
 glReplacementCodePointerSUN(type, stride, pointer);
@@ -18844,6 +20640,24 @@ CODE:
     glResumeTransformFeedbackNV();
 
 SV *
+glRotated(angle, x, y, z);
+     GLdouble angle;
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+CODE:
+    glRotated(angle, x, y, z);
+
+SV *
+glRotatef(angle, x, y, z);
+     GLfloat angle;
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+CODE:
+    glRotatef(angle, x, y, z);
+
+SV *
 glRotatex(angle, x, y, z);
      GLfixed angle;
      GLfixed x;
@@ -19021,6 +20835,22 @@ CODE:
     glSamplerParameteriv(sampler, pname, params);
 
 SV *
+glScaled(x, y, z);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+CODE:
+    glScaled(x, y, z);
+
+SV *
+glScalef(x, y, z);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+CODE:
+    glScalef(x, y, z);
+
+SV *
 glScalex(x, y, z);
      GLfixed x;
      GLfixed y;
@@ -19030,6 +20860,15 @@ CODE:
         croak("glScalex not available on this machine");
     };
     glScalex(x, y, z);
+
+SV *
+glScissor(x, y, width, height);
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+CODE:
+    glScissor(x, y, width, height);
 
 SV *
 glScissorArrayv(first, count, v);
@@ -19474,6 +21313,13 @@ CODE:
     glSecondaryColorPointerListIBM(size, type, stride, pointer, ptrstride);
 
 SV *
+glSelectBuffer(size, buffer);
+     GLsizei size;
+     GLuint *buffer;
+CODE:
+    glSelectBuffer(size, buffer);
+
+SV *
 glSelectPerfMonitorCountersAMD(monitor, enable, group, numCounters, counterList);
      GLuint monitor;
      GLboolean enable;
@@ -19579,6 +21425,12 @@ CODE:
         croak("glSetMultisamplefvAMD not available on this machine");
     };
     glSetMultisamplefvAMD(pname, index, val);
+
+SV *
+glShadeModel(mode);
+     GLenum mode;
+CODE:
+    glShadeModel(mode);
 
 SV *
 glShaderBinary(count, shaders, binaryformat, binary, length);
@@ -19772,6 +21624,14 @@ CODE:
     glStencilFillPathNV(path, fillMode, mask);
 
 SV *
+glStencilFunc(func, ref, mask);
+     GLenum func;
+     GLint ref;
+     GLuint mask;
+CODE:
+    glStencilFunc(func, ref, mask);
+
+SV *
 glStencilFuncSeparate(frontfunc, backfunc, ref, mask);
      GLenum frontfunc;
      GLenum backfunc;
@@ -19796,6 +21656,12 @@ CODE:
     glStencilFuncSeparateATI(frontfunc, backfunc, ref, mask);
 
 SV *
+glStencilMask(mask);
+     GLuint mask;
+CODE:
+    glStencilMask(mask);
+
+SV *
 glStencilMaskSeparate(face, mask);
      GLenum face;
      GLuint mask;
@@ -19804,6 +21670,14 @@ CODE:
         croak("glStencilMaskSeparate not available on this machine");
     };
     glStencilMaskSeparate(face, mask);
+
+SV *
+glStencilOp(fail, zfail, zpass);
+     GLenum fail;
+     GLenum zfail;
+     GLenum zpass;
+CODE:
+    glStencilOp(fail, zfail, zpass);
 
 SV *
 glStencilOpSeparate(face, sfail, dpfail, dppass);
@@ -20114,6 +21988,30 @@ CODE:
     glTexBumpParameterivATI(pname, param);
 
 SV *
+glTexCoord1d(s);
+     GLdouble s;
+CODE:
+    glTexCoord1d(s);
+
+SV *
+glTexCoord1dv(v);
+     const GLdouble *v;
+CODE:
+    glTexCoord1dv(v);
+
+SV *
+glTexCoord1f(s);
+     GLfloat s;
+CODE:
+    glTexCoord1f(s);
+
+SV *
+glTexCoord1fv(v);
+     const GLfloat *v;
+CODE:
+    glTexCoord1fv(v);
+
+SV *
 glTexCoord1hNV(s);
      GLhalf s;
 CODE:
@@ -20130,6 +22028,50 @@ CODE:
         croak("glTexCoord1hvNV not available on this machine");
     };
     glTexCoord1hvNV(v);
+
+SV *
+glTexCoord1i(s);
+     GLint s;
+CODE:
+    glTexCoord1i(s);
+
+SV *
+glTexCoord1iv(v);
+     const GLint *v;
+CODE:
+    glTexCoord1iv(v);
+
+SV *
+glTexCoord1s(s);
+     GLshort s;
+CODE:
+    glTexCoord1s(s);
+
+SV *
+glTexCoord1sv(v);
+     const GLshort *v;
+CODE:
+    glTexCoord1sv(v);
+
+SV *
+glTexCoord2d(s, t);
+     GLdouble s;
+     GLdouble t;
+CODE:
+    glTexCoord2d(s, t);
+
+SV *
+glTexCoord2dv(v);
+     const GLdouble *v;
+CODE:
+    glTexCoord2dv(v);
+
+SV *
+glTexCoord2f(s, t);
+     GLfloat s;
+     GLfloat t;
+CODE:
+    glTexCoord2f(s, t);
 
 SV *
 glTexCoord2fColor3fVertex3fSUN(s, t, r, g, b, x, y, z);
@@ -20246,6 +22188,12 @@ CODE:
     glTexCoord2fNormal3fVertex3fvSUN(tc, n, v);
 
 SV *
+glTexCoord2fv(v);
+     const GLfloat *v;
+CODE:
+    glTexCoord2fv(v);
+
+SV *
 glTexCoord2fVertex3fSUN(s, t, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -20288,6 +22236,60 @@ CODE:
     glTexCoord2hvNV(v);
 
 SV *
+glTexCoord2i(s, t);
+     GLint s;
+     GLint t;
+CODE:
+    glTexCoord2i(s, t);
+
+SV *
+glTexCoord2iv(v);
+     const GLint *v;
+CODE:
+    glTexCoord2iv(v);
+
+SV *
+glTexCoord2s(s, t);
+     GLshort s;
+     GLshort t;
+CODE:
+    glTexCoord2s(s, t);
+
+SV *
+glTexCoord2sv(v);
+     const GLshort *v;
+CODE:
+    glTexCoord2sv(v);
+
+SV *
+glTexCoord3d(s, t, r);
+     GLdouble s;
+     GLdouble t;
+     GLdouble r;
+CODE:
+    glTexCoord3d(s, t, r);
+
+SV *
+glTexCoord3dv(v);
+     const GLdouble *v;
+CODE:
+    glTexCoord3dv(v);
+
+SV *
+glTexCoord3f(s, t, r);
+     GLfloat s;
+     GLfloat t;
+     GLfloat r;
+CODE:
+    glTexCoord3f(s, t, r);
+
+SV *
+glTexCoord3fv(v);
+     const GLfloat *v;
+CODE:
+    glTexCoord3fv(v);
+
+SV *
 glTexCoord3hNV(s, t, r);
      GLhalf s;
      GLhalf t;
@@ -20306,6 +22308,58 @@ CODE:
         croak("glTexCoord3hvNV not available on this machine");
     };
     glTexCoord3hvNV(v);
+
+SV *
+glTexCoord3i(s, t, r);
+     GLint s;
+     GLint t;
+     GLint r;
+CODE:
+    glTexCoord3i(s, t, r);
+
+SV *
+glTexCoord3iv(v);
+     const GLint *v;
+CODE:
+    glTexCoord3iv(v);
+
+SV *
+glTexCoord3s(s, t, r);
+     GLshort s;
+     GLshort t;
+     GLshort r;
+CODE:
+    glTexCoord3s(s, t, r);
+
+SV *
+glTexCoord3sv(v);
+     const GLshort *v;
+CODE:
+    glTexCoord3sv(v);
+
+SV *
+glTexCoord4d(s, t, r, q);
+     GLdouble s;
+     GLdouble t;
+     GLdouble r;
+     GLdouble q;
+CODE:
+    glTexCoord4d(s, t, r, q);
+
+SV *
+glTexCoord4dv(v);
+     const GLdouble *v;
+CODE:
+    glTexCoord4dv(v);
+
+SV *
+glTexCoord4f(s, t, r, q);
+     GLfloat s;
+     GLfloat t;
+     GLfloat r;
+     GLfloat q;
+CODE:
+    glTexCoord4f(s, t, r, q);
 
 SV *
 glTexCoord4fColor4fNormal3fVertex4fSUN(s, t, p, q, r, g, b, a, nx, ny, nz, x, y, z, w);
@@ -20341,6 +22395,12 @@ CODE:
         croak("glTexCoord4fColor4fNormal3fVertex4fvSUN not available on this machine");
     };
     glTexCoord4fColor4fNormal3fVertex4fvSUN(tc, c, n, v);
+
+SV *
+glTexCoord4fv(v);
+     const GLfloat *v;
+CODE:
+    glTexCoord4fv(v);
 
 SV *
 glTexCoord4fVertex4fSUN(s, t, p, q, x, y, z, w);
@@ -20388,6 +22448,36 @@ CODE:
         croak("glTexCoord4hvNV not available on this machine");
     };
     glTexCoord4hvNV(v);
+
+SV *
+glTexCoord4i(s, t, r, q);
+     GLint s;
+     GLint t;
+     GLint r;
+     GLint q;
+CODE:
+    glTexCoord4i(s, t, r, q);
+
+SV *
+glTexCoord4iv(v);
+     const GLint *v;
+CODE:
+    glTexCoord4iv(v);
+
+SV *
+glTexCoord4s(s, t, r, q);
+     GLshort s;
+     GLshort t;
+     GLshort r;
+     GLshort q;
+CODE:
+    glTexCoord4s(s, t, r, q);
+
+SV *
+glTexCoord4sv(v);
+     const GLshort *v;
+CODE:
+    glTexCoord4sv(v);
 
 SV *
 glTexCoordFormatNV(size, type, stride);
@@ -20481,6 +22571,15 @@ CODE:
     glTexCoordP4uiv(type, coords);
 
 SV *
+glTexCoordPointer(size, type, stride, pointer);
+     GLint size;
+     GLenum type;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glTexCoordPointer(size, type, stride, pointer);
+
+SV *
 glTexCoordPointerEXT(size, type, stride, count, pointer);
      GLint size;
      GLenum type;
@@ -20518,6 +22617,38 @@ CODE:
     glTexCoordPointervINTEL(size, type, pointer);
 
 SV *
+glTexEnvf(target, pname, param);
+     GLenum target;
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glTexEnvf(target, pname, param);
+
+SV *
+glTexEnvfv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glTexEnvfv(target, pname, params);
+
+SV *
+glTexEnvi(target, pname, param);
+     GLenum target;
+     GLenum pname;
+     GLint param;
+CODE:
+    glTexEnvi(target, pname, param);
+
+SV *
+glTexEnviv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glTexEnviv(target, pname, params);
+
+SV *
 glTexEnvx(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -20550,6 +22681,81 @@ CODE:
         croak("glTexFilterFuncSGIS not available on this machine");
     };
     glTexFilterFuncSGIS(target, filter, n, weights);
+
+SV *
+glTexGend(coord, pname, param);
+     GLenum coord;
+     GLenum pname;
+     GLdouble param;
+CODE:
+    glTexGend(coord, pname, param);
+
+SV *
+glTexGendv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     const GLdouble *params;
+CODE:
+    glTexGendv(coord, pname, params);
+
+SV *
+glTexGenf(coord, pname, param);
+     GLenum coord;
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glTexGenf(coord, pname, param);
+
+SV *
+glTexGenfv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glTexGenfv(coord, pname, params);
+
+SV *
+glTexGeni(coord, pname, param);
+     GLenum coord;
+     GLenum pname;
+     GLint param;
+CODE:
+    glTexGeni(coord, pname, param);
+
+SV *
+glTexGeniv(coord, pname, params);
+     GLenum coord;
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glTexGeniv(coord, pname, params);
+
+SV *
+glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+     GLenum target;
+     GLint level;
+     GLint internalformat;
+     GLsizei width;
+     GLint border;
+     GLenum format;
+     GLenum type;
+     const void *pixels;
+CODE:
+    glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
+
+SV *
+glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+     GLenum target;
+     GLint level;
+     GLint internalformat;
+     GLsizei width;
+     GLsizei height;
+     GLint border;
+     GLenum format;
+     GLenum type;
+     const void *pixels;
+CODE:
+    glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
 SV *
 glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
@@ -20684,6 +22890,30 @@ CODE:
     glTexPageCommitmentARB(target, level, xoffset, yoffset, zoffset, width, height, depth, commit);
 
 SV *
+glTexParameterf(target, pname, param);
+     GLenum target;
+     GLenum pname;
+     GLfloat param;
+CODE:
+    glTexParameterf(target, pname, param);
+
+SV *
+glTexParameterfv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     const GLfloat *params;
+CODE:
+    glTexParameterfv(target, pname, params);
+
+SV *
+glTexParameteri(target, pname, param);
+     GLenum target;
+     GLenum pname;
+     GLint param;
+CODE:
+    glTexParameteri(target, pname, param);
+
+SV *
 glTexParameterIiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -20726,6 +22956,14 @@ CODE:
         croak("glTexParameterIuivEXT not available on this machine");
     };
     glTexParameterIuivEXT(target, pname, params);
+
+SV *
+glTexParameteriv(target, pname, params);
+     GLenum target;
+     GLenum pname;
+     const GLint *params;
+CODE:
+    glTexParameteriv(target, pname, params);
 
 SV *
 glTexParameterx(target, pname, param);
@@ -20865,6 +23103,18 @@ CODE:
     glTexStorageSparseAMD(target, internalFormat, width, height, depth, layers, flags);
 
 SV *
+glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+     GLenum target;
+     GLint level;
+     GLint xoffset;
+     GLsizei width;
+     GLenum format;
+     GLenum type;
+     const void *pixels;
+CODE:
+    glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
+
+SV *
 glTexSubImage1DEXT(target, level, xoffset, width, format, type, pixels);
      GLenum target;
      GLint level;
@@ -20878,6 +23128,20 @@ CODE:
         croak("glTexSubImage1DEXT not available on this machine");
     };
     glTexSubImage1DEXT(target, level, xoffset, width, format, type, pixels);
+
+SV *
+glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+     GLenum target;
+     GLint level;
+     GLint xoffset;
+     GLint yoffset;
+     GLsizei width;
+     GLsizei height;
+     GLenum format;
+     GLenum type;
+     const void *pixels;
+CODE:
+    glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
 SV *
 glTexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, pixels);
@@ -21725,6 +23989,22 @@ CODE:
         croak("glTransformPathNV not available on this machine");
     };
     glTransformPathNV(resultPath, srcPath, transformType, transformValues);
+
+SV *
+glTranslated(x, y, z);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+CODE:
+    glTranslated(x, y, z);
+
+SV *
+glTranslatef(x, y, z);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+CODE:
+    glTranslatef(x, y, z);
 
 SV *
 glTranslatex(x, y, z);
@@ -23438,6 +25718,32 @@ CODE:
     glVDPAUUnregisterSurfaceNV(surface);
 
 SV *
+glVertex2d(x, y);
+     GLdouble x;
+     GLdouble y;
+CODE:
+    glVertex2d(x, y);
+
+SV *
+glVertex2dv(v);
+     const GLdouble *v;
+CODE:
+    glVertex2dv(v);
+
+SV *
+glVertex2f(x, y);
+     GLfloat x;
+     GLfloat y;
+CODE:
+    glVertex2f(x, y);
+
+SV *
+glVertex2fv(v);
+     const GLfloat *v;
+CODE:
+    glVertex2fv(v);
+
+SV *
 glVertex2hNV(x, y);
      GLhalf x;
      GLhalf y;
@@ -23455,6 +25761,60 @@ CODE:
         croak("glVertex2hvNV not available on this machine");
     };
     glVertex2hvNV(v);
+
+SV *
+glVertex2i(x, y);
+     GLint x;
+     GLint y;
+CODE:
+    glVertex2i(x, y);
+
+SV *
+glVertex2iv(v);
+     const GLint *v;
+CODE:
+    glVertex2iv(v);
+
+SV *
+glVertex2s(x, y);
+     GLshort x;
+     GLshort y;
+CODE:
+    glVertex2s(x, y);
+
+SV *
+glVertex2sv(v);
+     const GLshort *v;
+CODE:
+    glVertex2sv(v);
+
+SV *
+glVertex3d(x, y, z);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+CODE:
+    glVertex3d(x, y, z);
+
+SV *
+glVertex3dv(v);
+     const GLdouble *v;
+CODE:
+    glVertex3dv(v);
+
+SV *
+glVertex3f(x, y, z);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+CODE:
+    glVertex3f(x, y, z);
+
+SV *
+glVertex3fv(v);
+     const GLfloat *v;
+CODE:
+    glVertex3fv(v);
 
 SV *
 glVertex3hNV(x, y, z);
@@ -23477,6 +25837,64 @@ CODE:
     glVertex3hvNV(v);
 
 SV *
+glVertex3i(x, y, z);
+     GLint x;
+     GLint y;
+     GLint z;
+CODE:
+    glVertex3i(x, y, z);
+
+SV *
+glVertex3iv(v);
+     const GLint *v;
+CODE:
+    glVertex3iv(v);
+
+SV *
+glVertex3s(x, y, z);
+     GLshort x;
+     GLshort y;
+     GLshort z;
+CODE:
+    glVertex3s(x, y, z);
+
+SV *
+glVertex3sv(v);
+     const GLshort *v;
+CODE:
+    glVertex3sv(v);
+
+SV *
+glVertex4d(x, y, z, w);
+     GLdouble x;
+     GLdouble y;
+     GLdouble z;
+     GLdouble w;
+CODE:
+    glVertex4d(x, y, z, w);
+
+SV *
+glVertex4dv(v);
+     const GLdouble *v;
+CODE:
+    glVertex4dv(v);
+
+SV *
+glVertex4f(x, y, z, w);
+     GLfloat x;
+     GLfloat y;
+     GLfloat z;
+     GLfloat w;
+CODE:
+    glVertex4f(x, y, z, w);
+
+SV *
+glVertex4fv(v);
+     const GLfloat *v;
+CODE:
+    glVertex4fv(v);
+
+SV *
 glVertex4hNV(x, y, z, w);
      GLhalf x;
      GLhalf y;
@@ -23496,6 +25914,36 @@ CODE:
         croak("glVertex4hvNV not available on this machine");
     };
     glVertex4hvNV(v);
+
+SV *
+glVertex4i(x, y, z, w);
+     GLint x;
+     GLint y;
+     GLint z;
+     GLint w;
+CODE:
+    glVertex4i(x, y, z, w);
+
+SV *
+glVertex4iv(v);
+     const GLint *v;
+CODE:
+    glVertex4iv(v);
+
+SV *
+glVertex4s(x, y, z, w);
+     GLshort x;
+     GLshort y;
+     GLshort z;
+     GLshort w;
+CODE:
+    glVertex4s(x, y, z, w);
+
+SV *
+glVertex4sv(v);
+     const GLshort *v;
+CODE:
+    glVertex4sv(v);
 
 SV *
 glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
@@ -26424,6 +28872,15 @@ CODE:
     glVertexP4uiv(type, value);
 
 SV *
+glVertexPointer(size, type, stride, pointer);
+     GLint size;
+     GLenum type;
+     GLsizei stride;
+     const void *pointer;
+CODE:
+    glVertexPointer(size, type, stride, pointer);
+
+SV *
 glVertexPointerEXT(size, type, stride, count, pointer);
      GLint size;
      GLenum type;
@@ -26900,6 +29357,15 @@ CODE:
         croak("glVideoCaptureStreamParameterivNV not available on this machine");
     };
     glVideoCaptureStreamParameterivNV(video_capture_slot, stream, pname, params);
+
+SV *
+glViewport(x, y, width, height);
+     GLint x;
+     GLint y;
+     GLsizei width;
+     GLsizei height;
+CODE:
+    glViewport(x, y, width, height);
 
 SV *
 glViewportArrayv(first, count, v);
@@ -27659,2470 +30125,4 @@ CODE:
         croak("glWriteMaskEXT not available on this machine");
     };
     glWriteMaskEXT(res, in, outX, outY, outZ, outW);
-
-SV *
-glAccum(op, value);
-     GLenum op;
-     GLfloat value;
-CODE:
-    glAccum(op, value);
-
-SV *
-glAlphaFunc(func, ref);
-     GLenum func;
-     GLclampf ref;
-CODE:
-    glAlphaFunc(func, ref);
-
-GLboolean
-glAreTexturesResident(n, textures, residences);
-     GLsizei n;
-     const GLuint *textures;
-     GLboolean *residences;
-CODE:
-    RETVAL = glAreTexturesResident(n, textures, residences);
-OUTPUT:
-    RETVAL
-
-SV *
-glArrayElement(i);
-     GLint i;
-CODE:
-    glArrayElement(i);
-
-SV *
-glBegin(mode);
-     GLenum mode;
-CODE:
-    glBegin(mode);
-
-SV *
-glBindTexture(target, texture);
-     GLenum target;
-     GLuint texture;
-CODE:
-    glBindTexture(target, texture);
-
-SV *
-glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
-     GLsizei width;
-     GLsizei height;
-     GLfloat xorig;
-     GLfloat yorig;
-     GLfloat xmove;
-     GLfloat ymove;
-     const GLubyte *bitmap;
-CODE:
-    glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
-
-SV *
-glBlendFunc(sfactor, dfactor);
-     GLenum sfactor;
-     GLenum dfactor;
-CODE:
-    glBlendFunc(sfactor, dfactor);
-
-SV *
-glCallList(list);
-     GLuint list;
-CODE:
-    glCallList(list);
-
-SV *
-glCallLists(n, type, lists);
-     GLsizei n;
-     GLenum type;
-     const void *lists;
-CODE:
-    glCallLists(n, type, lists);
-
-SV *
-glClear(mask);
-     GLbitfield mask;
-CODE:
-    glClear(mask);
-
-SV *
-glClearAccum(red, green, blue, alpha);
-     GLfloat red;
-     GLfloat green;
-     GLfloat blue;
-     GLfloat alpha;
-CODE:
-    glClearAccum(red, green, blue, alpha);
-
-SV *
-glClearColor(red, green, blue, alpha);
-     GLclampf red;
-     GLclampf green;
-     GLclampf blue;
-     GLclampf alpha;
-CODE:
-    glClearColor(red, green, blue, alpha);
-
-SV *
-glClearDepth(depth);
-     GLclampd depth;
-CODE:
-    glClearDepth(depth);
-
-SV *
-glClearIndex(c);
-     GLfloat c;
-CODE:
-    glClearIndex(c);
-
-SV *
-glClearStencil(s);
-     GLint s;
-CODE:
-    glClearStencil(s);
-
-SV *
-glClipPlane(plane, equation);
-     GLenum plane;
-     const GLdouble *equation;
-CODE:
-    glClipPlane(plane, equation);
-
-SV *
-glColor3b(red, green, blue);
-     GLbyte red;
-     GLbyte green;
-     GLbyte blue;
-CODE:
-    glColor3b(red, green, blue);
-
-SV *
-glColor3bv(v);
-     const GLbyte *v;
-CODE:
-    glColor3bv(v);
-
-SV *
-glColor3d(red, green, blue);
-     GLdouble red;
-     GLdouble green;
-     GLdouble blue;
-CODE:
-    glColor3d(red, green, blue);
-
-SV *
-glColor3dv(v);
-     const GLdouble *v;
-CODE:
-    glColor3dv(v);
-
-SV *
-glColor3f(red, green, blue);
-     GLfloat red;
-     GLfloat green;
-     GLfloat blue;
-CODE:
-    glColor3f(red, green, blue);
-
-SV *
-glColor3fv(v);
-     const GLfloat *v;
-CODE:
-    glColor3fv(v);
-
-SV *
-glColor3i(red, green, blue);
-     GLint red;
-     GLint green;
-     GLint blue;
-CODE:
-    glColor3i(red, green, blue);
-
-SV *
-glColor3iv(v);
-     const GLint *v;
-CODE:
-    glColor3iv(v);
-
-SV *
-glColor3s(red, green, blue);
-     GLshort red;
-     GLshort green;
-     GLshort blue;
-CODE:
-    glColor3s(red, green, blue);
-
-SV *
-glColor3sv(v);
-     const GLshort *v;
-CODE:
-    glColor3sv(v);
-
-SV *
-glColor3ub(red, green, blue);
-     GLubyte red;
-     GLubyte green;
-     GLubyte blue;
-CODE:
-    glColor3ub(red, green, blue);
-
-SV *
-glColor3ubv(v);
-     const GLubyte *v;
-CODE:
-    glColor3ubv(v);
-
-SV *
-glColor3ui(red, green, blue);
-     GLuint red;
-     GLuint green;
-     GLuint blue;
-CODE:
-    glColor3ui(red, green, blue);
-
-SV *
-glColor3uiv(v);
-     const GLuint *v;
-CODE:
-    glColor3uiv(v);
-
-SV *
-glColor3us(red, green, blue);
-     GLushort red;
-     GLushort green;
-     GLushort blue;
-CODE:
-    glColor3us(red, green, blue);
-
-SV *
-glColor3usv(v);
-     const GLushort *v;
-CODE:
-    glColor3usv(v);
-
-SV *
-glColor4b(red, green, blue, alpha);
-     GLbyte red;
-     GLbyte green;
-     GLbyte blue;
-     GLbyte alpha;
-CODE:
-    glColor4b(red, green, blue, alpha);
-
-SV *
-glColor4bv(v);
-     const GLbyte *v;
-CODE:
-    glColor4bv(v);
-
-SV *
-glColor4d(red, green, blue, alpha);
-     GLdouble red;
-     GLdouble green;
-     GLdouble blue;
-     GLdouble alpha;
-CODE:
-    glColor4d(red, green, blue, alpha);
-
-SV *
-glColor4dv(v);
-     const GLdouble *v;
-CODE:
-    glColor4dv(v);
-
-SV *
-glColor4f(red, green, blue, alpha);
-     GLfloat red;
-     GLfloat green;
-     GLfloat blue;
-     GLfloat alpha;
-CODE:
-    glColor4f(red, green, blue, alpha);
-
-SV *
-glColor4fv(v);
-     const GLfloat *v;
-CODE:
-    glColor4fv(v);
-
-SV *
-glColor4i(red, green, blue, alpha);
-     GLint red;
-     GLint green;
-     GLint blue;
-     GLint alpha;
-CODE:
-    glColor4i(red, green, blue, alpha);
-
-SV *
-glColor4iv(v);
-     const GLint *v;
-CODE:
-    glColor4iv(v);
-
-SV *
-glColor4s(red, green, blue, alpha);
-     GLshort red;
-     GLshort green;
-     GLshort blue;
-     GLshort alpha;
-CODE:
-    glColor4s(red, green, blue, alpha);
-
-SV *
-glColor4sv(v);
-     const GLshort *v;
-CODE:
-    glColor4sv(v);
-
-SV *
-glColor4ub(red, green, blue, alpha);
-     GLubyte red;
-     GLubyte green;
-     GLubyte blue;
-     GLubyte alpha;
-CODE:
-    glColor4ub(red, green, blue, alpha);
-
-SV *
-glColor4ubv(v);
-     const GLubyte *v;
-CODE:
-    glColor4ubv(v);
-
-SV *
-glColor4ui(red, green, blue, alpha);
-     GLuint red;
-     GLuint green;
-     GLuint blue;
-     GLuint alpha;
-CODE:
-    glColor4ui(red, green, blue, alpha);
-
-SV *
-glColor4uiv(v);
-     const GLuint *v;
-CODE:
-    glColor4uiv(v);
-
-SV *
-glColor4us(red, green, blue, alpha);
-     GLushort red;
-     GLushort green;
-     GLushort blue;
-     GLushort alpha;
-CODE:
-    glColor4us(red, green, blue, alpha);
-
-SV *
-glColor4usv(v);
-     const GLushort *v;
-CODE:
-    glColor4usv(v);
-
-SV *
-glColorMask(red, green, blue, alpha);
-     GLboolean red;
-     GLboolean green;
-     GLboolean blue;
-     GLboolean alpha;
-CODE:
-    glColorMask(red, green, blue, alpha);
-
-SV *
-glColorMaterial(face, mode);
-     GLenum face;
-     GLenum mode;
-CODE:
-    glColorMaterial(face, mode);
-
-SV *
-glColorPointer(size, type, stride, pointer);
-     GLint size;
-     GLenum type;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glColorPointer(size, type, stride, pointer);
-
-SV *
-glCopyPixels(x, y, width, height, type);
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-     GLenum type;
-CODE:
-    glCopyPixels(x, y, width, height, type);
-
-SV *
-glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
-     GLenum target;
-     GLint level;
-     GLenum internalFormat;
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLint border;
-CODE:
-    glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
-
-SV *
-glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
-     GLenum target;
-     GLint level;
-     GLenum internalFormat;
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-     GLint border;
-CODE:
-    glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
-
-SV *
-glCopyTexSubImage1D(target, level, xoffset, x, y, width);
-     GLenum target;
-     GLint level;
-     GLint xoffset;
-     GLint x;
-     GLint y;
-     GLsizei width;
-CODE:
-    glCopyTexSubImage1D(target, level, xoffset, x, y, width);
-
-SV *
-glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
-     GLenum target;
-     GLint level;
-     GLint xoffset;
-     GLint yoffset;
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-CODE:
-    glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
-
-SV *
-glCullFace(mode);
-     GLenum mode;
-CODE:
-    glCullFace(mode);
-
-SV *
-glDeleteLists(list, range);
-     GLuint list;
-     GLsizei range;
-CODE:
-    glDeleteLists(list, range);
-
-SV *
-glDeleteTextures(n, textures);
-     GLsizei n;
-     const GLuint *textures;
-CODE:
-    glDeleteTextures(n, textures);
-
-SV *
-glDepthFunc(func);
-     GLenum func;
-CODE:
-    glDepthFunc(func);
-
-SV *
-glDepthMask(flag);
-     GLboolean flag;
-CODE:
-    glDepthMask(flag);
-
-SV *
-glDepthRange(zNear, zFar);
-     GLclampd zNear;
-     GLclampd zFar;
-CODE:
-    glDepthRange(zNear, zFar);
-
-SV *
-glDisable(cap);
-     GLenum cap;
-CODE:
-    glDisable(cap);
-
-SV *
-glDisableClientState(array);
-     GLenum array;
-CODE:
-    glDisableClientState(array);
-
-SV *
-glDrawArrays(mode, first, count);
-     GLenum mode;
-     GLint first;
-     GLsizei count;
-CODE:
-    glDrawArrays(mode, first, count);
-
-SV *
-glDrawBuffer(mode);
-     GLenum mode;
-CODE:
-    glDrawBuffer(mode);
-
-SV *
-glDrawElements(mode, count, type, indices);
-     GLenum mode;
-     GLsizei count;
-     GLenum type;
-     const void *indices;
-CODE:
-    glDrawElements(mode, count, type, indices);
-
-SV *
-glDrawPixels(width, height, format, type, pixels);
-     GLsizei width;
-     GLsizei height;
-     GLenum format;
-     GLenum type;
-     const void *pixels;
-CODE:
-    glDrawPixels(width, height, format, type, pixels);
-
-SV *
-glEdgeFlag(flag);
-     GLboolean flag;
-CODE:
-    glEdgeFlag(flag);
-
-SV *
-glEdgeFlagPointer(stride, pointer);
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glEdgeFlagPointer(stride, pointer);
-
-SV *
-glEdgeFlagv(flag);
-     const GLboolean *flag;
-CODE:
-    glEdgeFlagv(flag);
-
-SV *
-glEnable(cap);
-     GLenum cap;
-CODE:
-    glEnable(cap);
-
-SV *
-glEnableClientState(array);
-     GLenum array;
-CODE:
-    glEnableClientState(array);
-
-SV *
-glEnd();
-CODE:
-    glEnd();
-
-SV *
-glEndList();
-CODE:
-    glEndList();
-
-SV *
-glEvalCoord1d(u);
-     GLdouble u;
-CODE:
-    glEvalCoord1d(u);
-
-SV *
-glEvalCoord1dv(u);
-     const GLdouble *u;
-CODE:
-    glEvalCoord1dv(u);
-
-SV *
-glEvalCoord1f(u);
-     GLfloat u;
-CODE:
-    glEvalCoord1f(u);
-
-SV *
-glEvalCoord1fv(u);
-     const GLfloat *u;
-CODE:
-    glEvalCoord1fv(u);
-
-SV *
-glEvalCoord2d(u, v);
-     GLdouble u;
-     GLdouble v;
-CODE:
-    glEvalCoord2d(u, v);
-
-SV *
-glEvalCoord2dv(u);
-     const GLdouble *u;
-CODE:
-    glEvalCoord2dv(u);
-
-SV *
-glEvalCoord2f(u, v);
-     GLfloat u;
-     GLfloat v;
-CODE:
-    glEvalCoord2f(u, v);
-
-SV *
-glEvalCoord2fv(u);
-     const GLfloat *u;
-CODE:
-    glEvalCoord2fv(u);
-
-SV *
-glEvalMesh1(mode, i1, i2);
-     GLenum mode;
-     GLint i1;
-     GLint i2;
-CODE:
-    glEvalMesh1(mode, i1, i2);
-
-SV *
-glEvalMesh2(mode, i1, i2, j1, j2);
-     GLenum mode;
-     GLint i1;
-     GLint i2;
-     GLint j1;
-     GLint j2;
-CODE:
-    glEvalMesh2(mode, i1, i2, j1, j2);
-
-SV *
-glEvalPoint1(i);
-     GLint i;
-CODE:
-    glEvalPoint1(i);
-
-SV *
-glEvalPoint2(i, j);
-     GLint i;
-     GLint j;
-CODE:
-    glEvalPoint2(i, j);
-
-SV *
-glFeedbackBuffer(size, type, buffer);
-     GLsizei size;
-     GLenum type;
-     GLfloat *buffer;
-CODE:
-    glFeedbackBuffer(size, type, buffer);
-
-SV *
-glFinish();
-CODE:
-    glFinish();
-
-SV *
-glFlush();
-CODE:
-    glFlush();
-
-SV *
-glFogf(pname, param);
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glFogf(pname, param);
-
-SV *
-glFogfv(pname, params);
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glFogfv(pname, params);
-
-SV *
-glFogi(pname, param);
-     GLenum pname;
-     GLint param;
-CODE:
-    glFogi(pname, param);
-
-SV *
-glFogiv(pname, params);
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glFogiv(pname, params);
-
-SV *
-glFrontFace(mode);
-     GLenum mode;
-CODE:
-    glFrontFace(mode);
-
-SV *
-glFrustum(left, right, bottom, top, zNear, zFar);
-     GLdouble left;
-     GLdouble right;
-     GLdouble bottom;
-     GLdouble top;
-     GLdouble zNear;
-     GLdouble zFar;
-CODE:
-    glFrustum(left, right, bottom, top, zNear, zFar);
-
-GLuint
-glGenLists(range);
-     GLsizei range;
-CODE:
-    RETVAL = glGenLists(range);
-OUTPUT:
-    RETVAL
-
-SV *
-glGenTextures(n, textures);
-     GLsizei n;
-     GLuint *textures;
-CODE:
-    glGenTextures(n, textures);
-
-SV *
-glGetBooleanv(pname, params);
-     GLenum pname;
-     GLboolean *params;
-CODE:
-    glGetBooleanv(pname, params);
-
-SV *
-glGetClipPlane(plane, equation);
-     GLenum plane;
-     GLdouble *equation;
-CODE:
-    glGetClipPlane(plane, equation);
-
-SV *
-glGetDoublev(pname, params);
-     GLenum pname;
-     GLdouble *params;
-CODE:
-    glGetDoublev(pname, params);
-
-SV *
-glGetFloatv(pname, params);
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetFloatv(pname, params);
-
-SV *
-glGetIntegerv(pname, params);
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetIntegerv(pname, params);
-
-SV *
-glGetLightfv(light, pname, params);
-     GLenum light;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetLightfv(light, pname, params);
-
-SV *
-glGetLightiv(light, pname, params);
-     GLenum light;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetLightiv(light, pname, params);
-
-SV *
-glGetMapdv(target, query, v);
-     GLenum target;
-     GLenum query;
-     GLdouble *v;
-CODE:
-    glGetMapdv(target, query, v);
-
-SV *
-glGetMapfv(target, query, v);
-     GLenum target;
-     GLenum query;
-     GLfloat *v;
-CODE:
-    glGetMapfv(target, query, v);
-
-SV *
-glGetMapiv(target, query, v);
-     GLenum target;
-     GLenum query;
-     GLint *v;
-CODE:
-    glGetMapiv(target, query, v);
-
-SV *
-glGetMaterialfv(face, pname, params);
-     GLenum face;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetMaterialfv(face, pname, params);
-
-SV *
-glGetMaterialiv(face, pname, params);
-     GLenum face;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetMaterialiv(face, pname, params);
-
-SV *
-glGetPixelMapfv(map, values);
-     GLenum map;
-     GLfloat *values;
-CODE:
-    glGetPixelMapfv(map, values);
-
-SV *
-glGetPixelMapuiv(map, values);
-     GLenum map;
-     GLuint *values;
-CODE:
-    glGetPixelMapuiv(map, values);
-
-SV *
-glGetPixelMapusv(map, values);
-     GLenum map;
-     GLushort *values;
-CODE:
-    glGetPixelMapusv(map, values);
-
-SV *
-glGetPointerv(pname, params);
-     GLenum pname;
-     void* *params;
-CODE:
-    glGetPointerv(pname, params);
-
-SV *
-glGetPolygonStipple(mask);
-     GLubyte *mask;
-CODE:
-    glGetPolygonStipple(mask);
-
-SV *
-glGetTexEnvfv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetTexEnvfv(target, pname, params);
-
-SV *
-glGetTexEnviv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetTexEnviv(target, pname, params);
-
-SV *
-glGetTexGendv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     GLdouble *params;
-CODE:
-    glGetTexGendv(coord, pname, params);
-
-SV *
-glGetTexGenfv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetTexGenfv(coord, pname, params);
-
-SV *
-glGetTexGeniv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetTexGeniv(coord, pname, params);
-
-SV *
-glGetTexImage(target, level, format, type, pixels);
-     GLenum target;
-     GLint level;
-     GLenum format;
-     GLenum type;
-     void *pixels;
-CODE:
-    glGetTexImage(target, level, format, type, pixels);
-
-SV *
-glGetTexLevelParameterfv(target, level, pname, params);
-     GLenum target;
-     GLint level;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetTexLevelParameterfv(target, level, pname, params);
-
-SV *
-glGetTexLevelParameteriv(target, level, pname, params);
-     GLenum target;
-     GLint level;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetTexLevelParameteriv(target, level, pname, params);
-
-SV *
-glGetTexParameterfv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     GLfloat *params;
-CODE:
-    glGetTexParameterfv(target, pname, params);
-
-SV *
-glGetTexParameteriv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     GLint *params;
-CODE:
-    glGetTexParameteriv(target, pname, params);
-
-SV *
-glHint(target, mode);
-     GLenum target;
-     GLenum mode;
-CODE:
-    glHint(target, mode);
-
-SV *
-glIndexMask(mask);
-     GLuint mask;
-CODE:
-    glIndexMask(mask);
-
-SV *
-glIndexPointer(type, stride, pointer);
-     GLenum type;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glIndexPointer(type, stride, pointer);
-
-SV *
-glIndexd(c);
-     GLdouble c;
-CODE:
-    glIndexd(c);
-
-SV *
-glIndexdv(c);
-     const GLdouble *c;
-CODE:
-    glIndexdv(c);
-
-SV *
-glIndexf(c);
-     GLfloat c;
-CODE:
-    glIndexf(c);
-
-SV *
-glIndexfv(c);
-     const GLfloat *c;
-CODE:
-    glIndexfv(c);
-
-SV *
-glIndexi(c);
-     GLint c;
-CODE:
-    glIndexi(c);
-
-SV *
-glIndexiv(c);
-     const GLint *c;
-CODE:
-    glIndexiv(c);
-
-SV *
-glIndexs(c);
-     GLshort c;
-CODE:
-    glIndexs(c);
-
-SV *
-glIndexsv(c);
-     const GLshort *c;
-CODE:
-    glIndexsv(c);
-
-SV *
-glIndexub(c);
-     GLubyte c;
-CODE:
-    glIndexub(c);
-
-SV *
-glIndexubv(c);
-     const GLubyte *c;
-CODE:
-    glIndexubv(c);
-
-SV *
-glInitNames();
-CODE:
-    glInitNames();
-
-SV *
-glInterleavedArrays(format, stride, pointer);
-     GLenum format;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glInterleavedArrays(format, stride, pointer);
-
-GLboolean
-glIsEnabled(cap);
-     GLenum cap;
-CODE:
-    RETVAL = glIsEnabled(cap);
-OUTPUT:
-    RETVAL
-
-GLboolean
-glIsList(list);
-     GLuint list;
-CODE:
-    RETVAL = glIsList(list);
-OUTPUT:
-    RETVAL
-
-GLboolean
-glIsTexture(texture);
-     GLuint texture;
-CODE:
-    RETVAL = glIsTexture(texture);
-OUTPUT:
-    RETVAL
-
-SV *
-glLightModelf(pname, param);
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glLightModelf(pname, param);
-
-SV *
-glLightModelfv(pname, params);
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glLightModelfv(pname, params);
-
-SV *
-glLightModeli(pname, param);
-     GLenum pname;
-     GLint param;
-CODE:
-    glLightModeli(pname, param);
-
-SV *
-glLightModeliv(pname, params);
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glLightModeliv(pname, params);
-
-SV *
-glLightf(light, pname, param);
-     GLenum light;
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glLightf(light, pname, param);
-
-SV *
-glLightfv(light, pname, params);
-     GLenum light;
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glLightfv(light, pname, params);
-
-SV *
-glLighti(light, pname, param);
-     GLenum light;
-     GLenum pname;
-     GLint param;
-CODE:
-    glLighti(light, pname, param);
-
-SV *
-glLightiv(light, pname, params);
-     GLenum light;
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glLightiv(light, pname, params);
-
-SV *
-glLineStipple(factor, pattern);
-     GLint factor;
-     GLushort pattern;
-CODE:
-    glLineStipple(factor, pattern);
-
-SV *
-glLineWidth(width);
-     GLfloat width;
-CODE:
-    glLineWidth(width);
-
-SV *
-glListBase(base);
-     GLuint base;
-CODE:
-    glListBase(base);
-
-SV *
-glLoadIdentity();
-CODE:
-    glLoadIdentity();
-
-SV *
-glLoadMatrixd(m);
-     const GLdouble *m;
-CODE:
-    glLoadMatrixd(m);
-
-SV *
-glLoadMatrixf(m);
-     const GLfloat *m;
-CODE:
-    glLoadMatrixf(m);
-
-SV *
-glLoadName(name);
-     GLuint name;
-CODE:
-    glLoadName(name);
-
-SV *
-glLogicOp(opcode);
-     GLenum opcode;
-CODE:
-    glLogicOp(opcode);
-
-SV *
-glMap1d(target, u1, u2, stride, order, points);
-     GLenum target;
-     GLdouble u1;
-     GLdouble u2;
-     GLint stride;
-     GLint order;
-     const GLdouble *points;
-CODE:
-    glMap1d(target, u1, u2, stride, order, points);
-
-SV *
-glMap1f(target, u1, u2, stride, order, points);
-     GLenum target;
-     GLfloat u1;
-     GLfloat u2;
-     GLint stride;
-     GLint order;
-     const GLfloat *points;
-CODE:
-    glMap1f(target, u1, u2, stride, order, points);
-
-SV *
-glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-     GLenum target;
-     GLdouble u1;
-     GLdouble u2;
-     GLint ustride;
-     GLint uorder;
-     GLdouble v1;
-     GLdouble v2;
-     GLint vstride;
-     GLint vorder;
-     const GLdouble *points;
-CODE:
-    glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-
-SV *
-glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-     GLenum target;
-     GLfloat u1;
-     GLfloat u2;
-     GLint ustride;
-     GLint uorder;
-     GLfloat v1;
-     GLfloat v2;
-     GLint vstride;
-     GLint vorder;
-     const GLfloat *points;
-CODE:
-    glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
-
-SV *
-glMapGrid1d(un, u1, u2);
-     GLint un;
-     GLdouble u1;
-     GLdouble u2;
-CODE:
-    glMapGrid1d(un, u1, u2);
-
-SV *
-glMapGrid1f(un, u1, u2);
-     GLint un;
-     GLfloat u1;
-     GLfloat u2;
-CODE:
-    glMapGrid1f(un, u1, u2);
-
-SV *
-glMapGrid2d(un, u1, u2, vn, v1, v2);
-     GLint un;
-     GLdouble u1;
-     GLdouble u2;
-     GLint vn;
-     GLdouble v1;
-     GLdouble v2;
-CODE:
-    glMapGrid2d(un, u1, u2, vn, v1, v2);
-
-SV *
-glMapGrid2f(un, u1, u2, vn, v1, v2);
-     GLint un;
-     GLfloat u1;
-     GLfloat u2;
-     GLint vn;
-     GLfloat v1;
-     GLfloat v2;
-CODE:
-    glMapGrid2f(un, u1, u2, vn, v1, v2);
-
-SV *
-glMaterialf(face, pname, param);
-     GLenum face;
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glMaterialf(face, pname, param);
-
-SV *
-glMaterialfv(face, pname, params);
-     GLenum face;
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glMaterialfv(face, pname, params);
-
-SV *
-glMateriali(face, pname, param);
-     GLenum face;
-     GLenum pname;
-     GLint param;
-CODE:
-    glMateriali(face, pname, param);
-
-SV *
-glMaterialiv(face, pname, params);
-     GLenum face;
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glMaterialiv(face, pname, params);
-
-SV *
-glMatrixMode(mode);
-     GLenum mode;
-CODE:
-    glMatrixMode(mode);
-
-SV *
-glMultMatrixd(m);
-     const GLdouble *m;
-CODE:
-    glMultMatrixd(m);
-
-SV *
-glMultMatrixf(m);
-     const GLfloat *m;
-CODE:
-    glMultMatrixf(m);
-
-SV *
-glNewList(list, mode);
-     GLuint list;
-     GLenum mode;
-CODE:
-    glNewList(list, mode);
-
-SV *
-glNormal3b(nx, ny, nz);
-     GLbyte nx;
-     GLbyte ny;
-     GLbyte nz;
-CODE:
-    glNormal3b(nx, ny, nz);
-
-SV *
-glNormal3bv(v);
-     const GLbyte *v;
-CODE:
-    glNormal3bv(v);
-
-SV *
-glNormal3d(nx, ny, nz);
-     GLdouble nx;
-     GLdouble ny;
-     GLdouble nz;
-CODE:
-    glNormal3d(nx, ny, nz);
-
-SV *
-glNormal3dv(v);
-     const GLdouble *v;
-CODE:
-    glNormal3dv(v);
-
-SV *
-glNormal3f(nx, ny, nz);
-     GLfloat nx;
-     GLfloat ny;
-     GLfloat nz;
-CODE:
-    glNormal3f(nx, ny, nz);
-
-SV *
-glNormal3fv(v);
-     const GLfloat *v;
-CODE:
-    glNormal3fv(v);
-
-SV *
-glNormal3i(nx, ny, nz);
-     GLint nx;
-     GLint ny;
-     GLint nz;
-CODE:
-    glNormal3i(nx, ny, nz);
-
-SV *
-glNormal3iv(v);
-     const GLint *v;
-CODE:
-    glNormal3iv(v);
-
-SV *
-glNormal3s(nx, ny, nz);
-     GLshort nx;
-     GLshort ny;
-     GLshort nz;
-CODE:
-    glNormal3s(nx, ny, nz);
-
-SV *
-glNormal3sv(v);
-     const GLshort *v;
-CODE:
-    glNormal3sv(v);
-
-SV *
-glNormalPointer(type, stride, pointer);
-     GLenum type;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glNormalPointer(type, stride, pointer);
-
-SV *
-glOrtho(left, right, bottom, top, zNear, zFar);
-     GLdouble left;
-     GLdouble right;
-     GLdouble bottom;
-     GLdouble top;
-     GLdouble zNear;
-     GLdouble zFar;
-CODE:
-    glOrtho(left, right, bottom, top, zNear, zFar);
-
-SV *
-glPassThrough(token);
-     GLfloat token;
-CODE:
-    glPassThrough(token);
-
-SV *
-glPixelMapfv(map, mapsize, values);
-     GLenum map;
-     GLsizei mapsize;
-     const GLfloat *values;
-CODE:
-    glPixelMapfv(map, mapsize, values);
-
-SV *
-glPixelMapuiv(map, mapsize, values);
-     GLenum map;
-     GLsizei mapsize;
-     const GLuint *values;
-CODE:
-    glPixelMapuiv(map, mapsize, values);
-
-SV *
-glPixelMapusv(map, mapsize, values);
-     GLenum map;
-     GLsizei mapsize;
-     const GLushort *values;
-CODE:
-    glPixelMapusv(map, mapsize, values);
-
-SV *
-glPixelStoref(pname, param);
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glPixelStoref(pname, param);
-
-SV *
-glPixelStorei(pname, param);
-     GLenum pname;
-     GLint param;
-CODE:
-    glPixelStorei(pname, param);
-
-SV *
-glPixelTransferf(pname, param);
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glPixelTransferf(pname, param);
-
-SV *
-glPixelTransferi(pname, param);
-     GLenum pname;
-     GLint param;
-CODE:
-    glPixelTransferi(pname, param);
-
-SV *
-glPixelZoom(xfactor, yfactor);
-     GLfloat xfactor;
-     GLfloat yfactor;
-CODE:
-    glPixelZoom(xfactor, yfactor);
-
-SV *
-glPointSize(size);
-     GLfloat size;
-CODE:
-    glPointSize(size);
-
-SV *
-glPolygonMode(face, mode);
-     GLenum face;
-     GLenum mode;
-CODE:
-    glPolygonMode(face, mode);
-
-SV *
-glPolygonOffset(factor, units);
-     GLfloat factor;
-     GLfloat units;
-CODE:
-    glPolygonOffset(factor, units);
-
-SV *
-glPolygonStipple(mask);
-     const GLubyte *mask;
-CODE:
-    glPolygonStipple(mask);
-
-SV *
-glPopAttrib();
-CODE:
-    glPopAttrib();
-
-SV *
-glPopClientAttrib();
-CODE:
-    glPopClientAttrib();
-
-SV *
-glPopMatrix();
-CODE:
-    glPopMatrix();
-
-SV *
-glPopName();
-CODE:
-    glPopName();
-
-SV *
-glPrioritizeTextures(n, textures, priorities);
-     GLsizei n;
-     const GLuint *textures;
-     const GLclampf *priorities;
-CODE:
-    glPrioritizeTextures(n, textures, priorities);
-
-SV *
-glPushAttrib(mask);
-     GLbitfield mask;
-CODE:
-    glPushAttrib(mask);
-
-SV *
-glPushClientAttrib(mask);
-     GLbitfield mask;
-CODE:
-    glPushClientAttrib(mask);
-
-SV *
-glPushMatrix();
-CODE:
-    glPushMatrix();
-
-SV *
-glPushName(name);
-     GLuint name;
-CODE:
-    glPushName(name);
-
-SV *
-glRasterPos2d(x, y);
-     GLdouble x;
-     GLdouble y;
-CODE:
-    glRasterPos2d(x, y);
-
-SV *
-glRasterPos2dv(v);
-     const GLdouble *v;
-CODE:
-    glRasterPos2dv(v);
-
-SV *
-glRasterPos2f(x, y);
-     GLfloat x;
-     GLfloat y;
-CODE:
-    glRasterPos2f(x, y);
-
-SV *
-glRasterPos2fv(v);
-     const GLfloat *v;
-CODE:
-    glRasterPos2fv(v);
-
-SV *
-glRasterPos2i(x, y);
-     GLint x;
-     GLint y;
-CODE:
-    glRasterPos2i(x, y);
-
-SV *
-glRasterPos2iv(v);
-     const GLint *v;
-CODE:
-    glRasterPos2iv(v);
-
-SV *
-glRasterPos2s(x, y);
-     GLshort x;
-     GLshort y;
-CODE:
-    glRasterPos2s(x, y);
-
-SV *
-glRasterPos2sv(v);
-     const GLshort *v;
-CODE:
-    glRasterPos2sv(v);
-
-SV *
-glRasterPos3d(x, y, z);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-CODE:
-    glRasterPos3d(x, y, z);
-
-SV *
-glRasterPos3dv(v);
-     const GLdouble *v;
-CODE:
-    glRasterPos3dv(v);
-
-SV *
-glRasterPos3f(x, y, z);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-CODE:
-    glRasterPos3f(x, y, z);
-
-SV *
-glRasterPos3fv(v);
-     const GLfloat *v;
-CODE:
-    glRasterPos3fv(v);
-
-SV *
-glRasterPos3i(x, y, z);
-     GLint x;
-     GLint y;
-     GLint z;
-CODE:
-    glRasterPos3i(x, y, z);
-
-SV *
-glRasterPos3iv(v);
-     const GLint *v;
-CODE:
-    glRasterPos3iv(v);
-
-SV *
-glRasterPos3s(x, y, z);
-     GLshort x;
-     GLshort y;
-     GLshort z;
-CODE:
-    glRasterPos3s(x, y, z);
-
-SV *
-glRasterPos3sv(v);
-     const GLshort *v;
-CODE:
-    glRasterPos3sv(v);
-
-SV *
-glRasterPos4d(x, y, z, w);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-     GLdouble w;
-CODE:
-    glRasterPos4d(x, y, z, w);
-
-SV *
-glRasterPos4dv(v);
-     const GLdouble *v;
-CODE:
-    glRasterPos4dv(v);
-
-SV *
-glRasterPos4f(x, y, z, w);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-     GLfloat w;
-CODE:
-    glRasterPos4f(x, y, z, w);
-
-SV *
-glRasterPos4fv(v);
-     const GLfloat *v;
-CODE:
-    glRasterPos4fv(v);
-
-SV *
-glRasterPos4i(x, y, z, w);
-     GLint x;
-     GLint y;
-     GLint z;
-     GLint w;
-CODE:
-    glRasterPos4i(x, y, z, w);
-
-SV *
-glRasterPos4iv(v);
-     const GLint *v;
-CODE:
-    glRasterPos4iv(v);
-
-SV *
-glRasterPos4s(x, y, z, w);
-     GLshort x;
-     GLshort y;
-     GLshort z;
-     GLshort w;
-CODE:
-    glRasterPos4s(x, y, z, w);
-
-SV *
-glRasterPos4sv(v);
-     const GLshort *v;
-CODE:
-    glRasterPos4sv(v);
-
-SV *
-glReadBuffer(mode);
-     GLenum mode;
-CODE:
-    glReadBuffer(mode);
-
-SV *
-glReadPixels(x, y, width, height, format, type, pixels);
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-     GLenum format;
-     GLenum type;
-     void *pixels;
-CODE:
-    glReadPixels(x, y, width, height, format, type, pixels);
-
-SV *
-glRectd(x1, y1, x2, y2);
-     GLdouble x1;
-     GLdouble y1;
-     GLdouble x2;
-     GLdouble y2;
-CODE:
-    glRectd(x1, y1, x2, y2);
-
-SV *
-glRectdv(v1, v2);
-     const GLdouble *v1;
-     const GLdouble *v2;
-CODE:
-    glRectdv(v1, v2);
-
-SV *
-glRectf(x1, y1, x2, y2);
-     GLfloat x1;
-     GLfloat y1;
-     GLfloat x2;
-     GLfloat y2;
-CODE:
-    glRectf(x1, y1, x2, y2);
-
-SV *
-glRectfv(v1, v2);
-     const GLfloat *v1;
-     const GLfloat *v2;
-CODE:
-    glRectfv(v1, v2);
-
-SV *
-glRecti(x1, y1, x2, y2);
-     GLint x1;
-     GLint y1;
-     GLint x2;
-     GLint y2;
-CODE:
-    glRecti(x1, y1, x2, y2);
-
-SV *
-glRectiv(v1, v2);
-     const GLint *v1;
-     const GLint *v2;
-CODE:
-    glRectiv(v1, v2);
-
-SV *
-glRects(x1, y1, x2, y2);
-     GLshort x1;
-     GLshort y1;
-     GLshort x2;
-     GLshort y2;
-CODE:
-    glRects(x1, y1, x2, y2);
-
-SV *
-glRectsv(v1, v2);
-     const GLshort *v1;
-     const GLshort *v2;
-CODE:
-    glRectsv(v1, v2);
-
-GLint
-glRenderMode(mode);
-     GLenum mode;
-CODE:
-    RETVAL = glRenderMode(mode);
-OUTPUT:
-    RETVAL
-
-SV *
-glRotated(angle, x, y, z);
-     GLdouble angle;
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-CODE:
-    glRotated(angle, x, y, z);
-
-SV *
-glRotatef(angle, x, y, z);
-     GLfloat angle;
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-CODE:
-    glRotatef(angle, x, y, z);
-
-SV *
-glScaled(x, y, z);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-CODE:
-    glScaled(x, y, z);
-
-SV *
-glScalef(x, y, z);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-CODE:
-    glScalef(x, y, z);
-
-SV *
-glScissor(x, y, width, height);
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-CODE:
-    glScissor(x, y, width, height);
-
-SV *
-glSelectBuffer(size, buffer);
-     GLsizei size;
-     GLuint *buffer;
-CODE:
-    glSelectBuffer(size, buffer);
-
-SV *
-glShadeModel(mode);
-     GLenum mode;
-CODE:
-    glShadeModel(mode);
-
-SV *
-glStencilFunc(func, ref, mask);
-     GLenum func;
-     GLint ref;
-     GLuint mask;
-CODE:
-    glStencilFunc(func, ref, mask);
-
-SV *
-glStencilMask(mask);
-     GLuint mask;
-CODE:
-    glStencilMask(mask);
-
-SV *
-glStencilOp(fail, zfail, zpass);
-     GLenum fail;
-     GLenum zfail;
-     GLenum zpass;
-CODE:
-    glStencilOp(fail, zfail, zpass);
-
-SV *
-glTexCoord1d(s);
-     GLdouble s;
-CODE:
-    glTexCoord1d(s);
-
-SV *
-glTexCoord1dv(v);
-     const GLdouble *v;
-CODE:
-    glTexCoord1dv(v);
-
-SV *
-glTexCoord1f(s);
-     GLfloat s;
-CODE:
-    glTexCoord1f(s);
-
-SV *
-glTexCoord1fv(v);
-     const GLfloat *v;
-CODE:
-    glTexCoord1fv(v);
-
-SV *
-glTexCoord1i(s);
-     GLint s;
-CODE:
-    glTexCoord1i(s);
-
-SV *
-glTexCoord1iv(v);
-     const GLint *v;
-CODE:
-    glTexCoord1iv(v);
-
-SV *
-glTexCoord1s(s);
-     GLshort s;
-CODE:
-    glTexCoord1s(s);
-
-SV *
-glTexCoord1sv(v);
-     const GLshort *v;
-CODE:
-    glTexCoord1sv(v);
-
-SV *
-glTexCoord2d(s, t);
-     GLdouble s;
-     GLdouble t;
-CODE:
-    glTexCoord2d(s, t);
-
-SV *
-glTexCoord2dv(v);
-     const GLdouble *v;
-CODE:
-    glTexCoord2dv(v);
-
-SV *
-glTexCoord2f(s, t);
-     GLfloat s;
-     GLfloat t;
-CODE:
-    glTexCoord2f(s, t);
-
-SV *
-glTexCoord2fv(v);
-     const GLfloat *v;
-CODE:
-    glTexCoord2fv(v);
-
-SV *
-glTexCoord2i(s, t);
-     GLint s;
-     GLint t;
-CODE:
-    glTexCoord2i(s, t);
-
-SV *
-glTexCoord2iv(v);
-     const GLint *v;
-CODE:
-    glTexCoord2iv(v);
-
-SV *
-glTexCoord2s(s, t);
-     GLshort s;
-     GLshort t;
-CODE:
-    glTexCoord2s(s, t);
-
-SV *
-glTexCoord2sv(v);
-     const GLshort *v;
-CODE:
-    glTexCoord2sv(v);
-
-SV *
-glTexCoord3d(s, t, r);
-     GLdouble s;
-     GLdouble t;
-     GLdouble r;
-CODE:
-    glTexCoord3d(s, t, r);
-
-SV *
-glTexCoord3dv(v);
-     const GLdouble *v;
-CODE:
-    glTexCoord3dv(v);
-
-SV *
-glTexCoord3f(s, t, r);
-     GLfloat s;
-     GLfloat t;
-     GLfloat r;
-CODE:
-    glTexCoord3f(s, t, r);
-
-SV *
-glTexCoord3fv(v);
-     const GLfloat *v;
-CODE:
-    glTexCoord3fv(v);
-
-SV *
-glTexCoord3i(s, t, r);
-     GLint s;
-     GLint t;
-     GLint r;
-CODE:
-    glTexCoord3i(s, t, r);
-
-SV *
-glTexCoord3iv(v);
-     const GLint *v;
-CODE:
-    glTexCoord3iv(v);
-
-SV *
-glTexCoord3s(s, t, r);
-     GLshort s;
-     GLshort t;
-     GLshort r;
-CODE:
-    glTexCoord3s(s, t, r);
-
-SV *
-glTexCoord3sv(v);
-     const GLshort *v;
-CODE:
-    glTexCoord3sv(v);
-
-SV *
-glTexCoord4d(s, t, r, q);
-     GLdouble s;
-     GLdouble t;
-     GLdouble r;
-     GLdouble q;
-CODE:
-    glTexCoord4d(s, t, r, q);
-
-SV *
-glTexCoord4dv(v);
-     const GLdouble *v;
-CODE:
-    glTexCoord4dv(v);
-
-SV *
-glTexCoord4f(s, t, r, q);
-     GLfloat s;
-     GLfloat t;
-     GLfloat r;
-     GLfloat q;
-CODE:
-    glTexCoord4f(s, t, r, q);
-
-SV *
-glTexCoord4fv(v);
-     const GLfloat *v;
-CODE:
-    glTexCoord4fv(v);
-
-SV *
-glTexCoord4i(s, t, r, q);
-     GLint s;
-     GLint t;
-     GLint r;
-     GLint q;
-CODE:
-    glTexCoord4i(s, t, r, q);
-
-SV *
-glTexCoord4iv(v);
-     const GLint *v;
-CODE:
-    glTexCoord4iv(v);
-
-SV *
-glTexCoord4s(s, t, r, q);
-     GLshort s;
-     GLshort t;
-     GLshort r;
-     GLshort q;
-CODE:
-    glTexCoord4s(s, t, r, q);
-
-SV *
-glTexCoord4sv(v);
-     const GLshort *v;
-CODE:
-    glTexCoord4sv(v);
-
-SV *
-glTexCoordPointer(size, type, stride, pointer);
-     GLint size;
-     GLenum type;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glTexCoordPointer(size, type, stride, pointer);
-
-SV *
-glTexEnvf(target, pname, param);
-     GLenum target;
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glTexEnvf(target, pname, param);
-
-SV *
-glTexEnvfv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glTexEnvfv(target, pname, params);
-
-SV *
-glTexEnvi(target, pname, param);
-     GLenum target;
-     GLenum pname;
-     GLint param;
-CODE:
-    glTexEnvi(target, pname, param);
-
-SV *
-glTexEnviv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glTexEnviv(target, pname, params);
-
-SV *
-glTexGend(coord, pname, param);
-     GLenum coord;
-     GLenum pname;
-     GLdouble param;
-CODE:
-    glTexGend(coord, pname, param);
-
-SV *
-glTexGendv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     const GLdouble *params;
-CODE:
-    glTexGendv(coord, pname, params);
-
-SV *
-glTexGenf(coord, pname, param);
-     GLenum coord;
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glTexGenf(coord, pname, param);
-
-SV *
-glTexGenfv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glTexGenfv(coord, pname, params);
-
-SV *
-glTexGeni(coord, pname, param);
-     GLenum coord;
-     GLenum pname;
-     GLint param;
-CODE:
-    glTexGeni(coord, pname, param);
-
-SV *
-glTexGeniv(coord, pname, params);
-     GLenum coord;
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glTexGeniv(coord, pname, params);
-
-SV *
-glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-     GLenum target;
-     GLint level;
-     GLint internalformat;
-     GLsizei width;
-     GLint border;
-     GLenum format;
-     GLenum type;
-     const void *pixels;
-CODE:
-    glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
-
-SV *
-glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-     GLenum target;
-     GLint level;
-     GLint internalformat;
-     GLsizei width;
-     GLsizei height;
-     GLint border;
-     GLenum format;
-     GLenum type;
-     const void *pixels;
-CODE:
-    glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
-
-SV *
-glTexParameterf(target, pname, param);
-     GLenum target;
-     GLenum pname;
-     GLfloat param;
-CODE:
-    glTexParameterf(target, pname, param);
-
-SV *
-glTexParameterfv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     const GLfloat *params;
-CODE:
-    glTexParameterfv(target, pname, params);
-
-SV *
-glTexParameteri(target, pname, param);
-     GLenum target;
-     GLenum pname;
-     GLint param;
-CODE:
-    glTexParameteri(target, pname, param);
-
-SV *
-glTexParameteriv(target, pname, params);
-     GLenum target;
-     GLenum pname;
-     const GLint *params;
-CODE:
-    glTexParameteriv(target, pname, params);
-
-SV *
-glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
-     GLenum target;
-     GLint level;
-     GLint xoffset;
-     GLsizei width;
-     GLenum format;
-     GLenum type;
-     const void *pixels;
-CODE:
-    glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
-
-SV *
-glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
-     GLenum target;
-     GLint level;
-     GLint xoffset;
-     GLint yoffset;
-     GLsizei width;
-     GLsizei height;
-     GLenum format;
-     GLenum type;
-     const void *pixels;
-CODE:
-    glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
-
-SV *
-glTranslated(x, y, z);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-CODE:
-    glTranslated(x, y, z);
-
-SV *
-glTranslatef(x, y, z);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-CODE:
-    glTranslatef(x, y, z);
-
-SV *
-glVertex2d(x, y);
-     GLdouble x;
-     GLdouble y;
-CODE:
-    glVertex2d(x, y);
-
-SV *
-glVertex2dv(v);
-     const GLdouble *v;
-CODE:
-    glVertex2dv(v);
-
-SV *
-glVertex2f(x, y);
-     GLfloat x;
-     GLfloat y;
-CODE:
-    glVertex2f(x, y);
-
-SV *
-glVertex2fv(v);
-     const GLfloat *v;
-CODE:
-    glVertex2fv(v);
-
-SV *
-glVertex2i(x, y);
-     GLint x;
-     GLint y;
-CODE:
-    glVertex2i(x, y);
-
-SV *
-glVertex2iv(v);
-     const GLint *v;
-CODE:
-    glVertex2iv(v);
-
-SV *
-glVertex2s(x, y);
-     GLshort x;
-     GLshort y;
-CODE:
-    glVertex2s(x, y);
-
-SV *
-glVertex2sv(v);
-     const GLshort *v;
-CODE:
-    glVertex2sv(v);
-
-SV *
-glVertex3d(x, y, z);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-CODE:
-    glVertex3d(x, y, z);
-
-SV *
-glVertex3dv(v);
-     const GLdouble *v;
-CODE:
-    glVertex3dv(v);
-
-SV *
-glVertex3f(x, y, z);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-CODE:
-    glVertex3f(x, y, z);
-
-SV *
-glVertex3fv(v);
-     const GLfloat *v;
-CODE:
-    glVertex3fv(v);
-
-SV *
-glVertex3i(x, y, z);
-     GLint x;
-     GLint y;
-     GLint z;
-CODE:
-    glVertex3i(x, y, z);
-
-SV *
-glVertex3iv(v);
-     const GLint *v;
-CODE:
-    glVertex3iv(v);
-
-SV *
-glVertex3s(x, y, z);
-     GLshort x;
-     GLshort y;
-     GLshort z;
-CODE:
-    glVertex3s(x, y, z);
-
-SV *
-glVertex3sv(v);
-     const GLshort *v;
-CODE:
-    glVertex3sv(v);
-
-SV *
-glVertex4d(x, y, z, w);
-     GLdouble x;
-     GLdouble y;
-     GLdouble z;
-     GLdouble w;
-CODE:
-    glVertex4d(x, y, z, w);
-
-SV *
-glVertex4dv(v);
-     const GLdouble *v;
-CODE:
-    glVertex4dv(v);
-
-SV *
-glVertex4f(x, y, z, w);
-     GLfloat x;
-     GLfloat y;
-     GLfloat z;
-     GLfloat w;
-CODE:
-    glVertex4f(x, y, z, w);
-
-SV *
-glVertex4fv(v);
-     const GLfloat *v;
-CODE:
-    glVertex4fv(v);
-
-SV *
-glVertex4i(x, y, z, w);
-     GLint x;
-     GLint y;
-     GLint z;
-     GLint w;
-CODE:
-    glVertex4i(x, y, z, w);
-
-SV *
-glVertex4iv(v);
-     const GLint *v;
-CODE:
-    glVertex4iv(v);
-
-SV *
-glVertex4s(x, y, z, w);
-     GLshort x;
-     GLshort y;
-     GLshort z;
-     GLshort w;
-CODE:
-    glVertex4s(x, y, z, w);
-
-SV *
-glVertex4sv(v);
-     const GLshort *v;
-CODE:
-    glVertex4sv(v);
-
-SV *
-glVertexPointer(size, type, stride, pointer);
-     GLint size;
-     GLenum type;
-     GLsizei stride;
-     const void *pointer;
-CODE:
-    glVertexPointer(size, type, stride, pointer);
-
-SV *
-glViewport(x, y, width, height);
-     GLint x;
-     GLint y;
-     GLsizei width;
-     GLsizei height;
-CODE:
-    glViewport(x, y, width, height);
 

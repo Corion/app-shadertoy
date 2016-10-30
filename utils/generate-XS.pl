@@ -75,15 +75,18 @@ for my $file (@headers) {
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
     while( my $line = <$fh>) {
-        warn $line if $line =~ /gl(ew)?CreateProgram\b/;
+        warn $line if $line =~ /gl(ew)?ClearColor\b/;
+
         if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
             
+                          # GLAPI void GLAPIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
         } elsif( $line =~ /^GLAPI (\w+) GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
             my( $restype, $name, $sig ) = ($1,$2,$3);
-            $signature{ $name } = { signature => $sig, restype => $restype };
+            $signature{ uc $name } = { signature => $sig, restype => $restype };
+            $case_map{ uc $name } = $name;
             
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
             my( $name, $impl ) = ($1,$2);

@@ -23,6 +23,9 @@ _glGetShaderInfoLog
 _glAttachShader
 _glGetProgramiv
 
+glClearColor
+glDrawArrays
+
 	GLEW_3DFX_multisample
 	GLEW_3DFX_tbuffer
 	GLEW_3DFX_texture_compression_FXT1

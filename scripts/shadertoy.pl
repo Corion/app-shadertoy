@@ -75,11 +75,9 @@ my $header = join "",
 	uniform vec4 v;
 	uniform sampler2D t;
 	// void main() { gl_FragColor = texture2D(t, gl_FragCoord.xy / v.zw, -100.0); }
-	void main() { gl_FragColor = vec4(1.,.0,.0,.0);
-	 }
+	void main() { gl_FragColor = vec4(1.,.0,.0,1); }
 	"
 	;
-
 sub init_shaders {
 	my $pipeline = OpenGL::Shader::OpenGL4->new();
 	
@@ -296,7 +294,7 @@ FRAGMENT
 		fragment => $f,
     );
 
-    die $err if $err;
+    #die $err if $err;
     warn "Shaders loaded";
 
     return $pipeline;
@@ -312,7 +310,7 @@ my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad() {
-    #glGenBuffers(1, xs_buffer( my $buffer, 8 ));
+	warn "Creating VAO\n";
     glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
@@ -323,6 +321,8 @@ sub createUnitQuad() {
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     warn sprintf "%08x", glGetError;
     glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
+    warn sprintf "%08x", glGetError;
+	glBindBuffer( GL_ARRAY_BUFFER, 0 );
     warn sprintf "%08x", glGetError;
     # This didn't work at some time, need to revisit
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
@@ -352,21 +352,17 @@ sub drawUnitQuad_XY($pipeline) {
 	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
 	warn "pos attribute location: $vpos";
 	
-	# Just for testing:
-	$vpos = 0;
-	
 	glEnableVertexAttribArray( $vpos );
-	warn "Enabled";
+	warn "Enabled:" . glGetError;
 	glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
-	warn "Saving buffer etc.";
+	warn "Bound:" . glGetError;
+	# We have pairs of coordinates:
 	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
+	warn "AttribPointer set: " . glGetError;
 	glDrawArrays( GL_TRIANGLES, 0, 6 ); # 6 times 2 elements
-	warn glGetError;
-	warn "Array drawn";
+	warn "Drawn: " . glGetError;
 	glDisableVertexAttribArray( $vpos );
 	warn "Disabled array drawn";
-	#glBindBuffer( GL_ARRAY_BUFFER, 0 );
-	warn "Unbound";
 }
 
 use Time::HiRes;
@@ -436,16 +432,16 @@ $window->insert(
 		
 		if( $pipeline ) {
 			glClearColor(0,0,0.2,1);
-			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+			#glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 			
 			warn $pipeline->{program};
-			$pipeline->Enable();
+			#$pipeline->Enable();
 			
 			# Well, we should only update these when resizing, later
-			updateShaderVariables($pipeline,$self->width,$self->height);
+			#updateShaderVariables($pipeline,$self->width,$self->height);
 			
 			drawUnitQuad_XY($pipeline);
-			$pipeline->Disable();
+			#$pipeline->Disable();
 			warn "Shader disabled";
 		};
 		warn "Leaving call";
