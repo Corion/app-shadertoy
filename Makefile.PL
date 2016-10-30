@@ -3,6 +3,10 @@ use strict;
 use ExtUtils::MakeMaker;
 use Config '%Config';
 
+# Windows-only
+my @libs = '-lopengl32 -lgdi32 -lmsimg32';
+my $include = "-I. -Iinclude -Isrc";
+
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 WriteMakefile(
@@ -10,6 +14,8 @@ WriteMakefile(
     VERSION_FROM      => 'lib/OpenGL/Glew.pm',
     PREREQ_PM         => {
       'OpenGL' => '0.58',
+      'Prima' => 0,
+      'Prima::OpenGL' => 0,
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
@@ -18,13 +24,10 @@ WriteMakefile(
     #Value must be from legacy list of licenses here
     #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
 
-    # We build our own libglew (included), so we use it here
-    #LDFLAGS => $Config{LDDLFLAGS} . " -Lglew-2.0.0/lib",
-    LIBS              => ['-Lglew-2.0.0/lib -lglew -lopengl32'], # e.g., '-lm'
-    DEFINE            => '-D_WIN32', # e.g., '-DHAVE_SOMETHING'
-    INC               => '-I. -Iinclude -Isrc', # e.g., '-I. -I/usr/include/other'
-	# Un-comment this if you add C files to link with later:
-    # OBJECT            => '$(O_FILES)', # link all the C files too
+    LIBS              => "@libs", # e.g., '-lm'
+    DEFINE            => "-D_WIN32", # XXX Platform specific
+    INC               => $include,
+    #OBJECT            => \@obj, # link all the C files too
     XSPROTOARG => '-prototypes',
     depend => {
       'Glew.c' => 'Glew.xs auto-xs.inc src/glew.c include/GL/glew.h include/GL/wglew.h',
