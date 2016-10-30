@@ -95,6 +95,7 @@ const GLvdpauSurfaceNV*     T_PV
 GLUnurbsObj *		        T_PVOBJ
 GLUquadricObj *		        T_PVOBJ
 PGLUtess *		            T_PVOBJ
+void*                       T_PV
 const void*                 T_PV
 void**                      T_PV
 const void**                T_PV
