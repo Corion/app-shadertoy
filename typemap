@@ -14,6 +14,7 @@ GLuint			T_U_INT
 GLuint *        T_U_INT_ARRAY
 GLushort		T_U_SHORT
 GLint			T_INT
+GLint *         T_INT_ARRAY
 GLbyte			T_INT
 GLubyte			T_U_INT
 GLshort			T_SHORT
@@ -40,6 +41,12 @@ T_FASTPTROBJ
 T_U_INT_ARRAY
         if( !SvPVOK($var)) {
             croak("Need a packed string of GLuints");
+        };
+        $var = SvPV_nolen($var);
+
+T_INT_ARRAY
+        if( !SvPVOK($var)) {
+            croak("Need a packed string of GLints");
         };
         $var = SvPV_nolen($var);
 

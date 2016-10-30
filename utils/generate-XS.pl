@@ -13,13 +13,7 @@ L<https://www.opengl.org/sdk/docs/man/html/glShaderSource.xhtml>
 
 =cut
 
-my ($version) = @ARGV;
-
-if( ! $version) {
-    $version = glob 'glew-*';
-};
-
-my @headers = glob "$version/include/GL/*.h";
+my @headers = glob "include/GL/*.h";
 
 my %signature;
 my %case_map;
@@ -29,13 +23,14 @@ for my $file (@headers) {
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
     while( my $line = <$fh>) {
+        warn $line if $line =~ /glViewport/;
         if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
             
         } elsif( $line =~ /^GLAPI (\w+) GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
-            my( $restype, $name, $sig ) = ('void', $1,$2);
+            my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
             
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
@@ -70,17 +65,25 @@ for my $upper (sort keys %signature) {
     my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
     die "No args for $upper" unless $args;
     my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
+    my $no_return_value;
     
-    $type = 'int'
-        if $type eq 'void';
+    if( $type eq 'void' ) {
+        # See perlxs
+        $type = 'SV *';
+        $no_return_value = 1;
+    };
         
     (my $glewImpl = $name) =~ s!^gl!__glew!;
     
     my $xs_args = $signature{ $upper }->{signature};
     $xs_args =~ s!,!;\n    !g;
-    1 while $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint)\b!!g;
+    1 while $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint|GLsizei)\b!!g;
     $xs_args =~ s!\bconst\s*! !g;
-    print <<XS;
+    
+    # Kill off all pointer indicators
+    $args =~ s!\*! !g;
+    
+    my $res = <<XS;
 $type
 $name($args);
     $xs_args
@@ -88,9 +91,22 @@ CODE:
     if(! $glewImpl) {
         croak("$name not available on this machine");
     };
+XS
+
+    if( $no_return_value ) {
+        $res .= <<XS;
+    $name($args);
+
+XS
+
+    } else {
+        $res .= <<XS;
     RETVAL = $name($args);
 OUTPUT:
     RETVAL
 
 XS
+    };
+
+    print $res;
 };

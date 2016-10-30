@@ -47,6 +47,48 @@ CODE:
 OUTPUT:
     RETVAL
 
+SV *
+glShaderSource( shader, count, string, length);
+    GLuint shader;
+     GLsizei count;
+     char * string;
+     char * length;
+CODE:
+    if(! __glewShaderSource) {
+        croak("glShaderSource not available on this machine");
+    };
+/*    
+    printf("Length %d\n", length);
+    void ** str = string;
+    str = *str;
+    printf("%s\n", str);
+*/
+    // We come from Perl, so we have null-terminated strings
+    glShaderSource( shader, count, string, NULL);
+
+SV *
+glCompileShader( shader);
+    GLuint shader
+CODE:
+    if(! __glewCompileShader) {
+        croak("glCompileShader not available on this machine");
+    };
+    glCompileShader( shader);
+
+SV *
+glGetShaderiv( shader,  pname, param);
+    GLuint shader;
+     GLenum pname;
+     char* param;
+CODE:
+    if(! __glewGetShaderiv) {
+        croak("glGetShaderiv not available on this machine");
+    };
+    printf("Pre Shader status: %d\n", (GLint) *param);
+    printf("Pre Shader name: %d\n", pname);
+    glGetShaderiv( shader,  pname, param);
+    printf("Shader status: %d\n", (GLint) *param);
+
 GLint
 glCreateShader(what)
     GLint what;
