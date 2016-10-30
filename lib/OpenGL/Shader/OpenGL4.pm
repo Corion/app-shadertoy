@@ -2,6 +2,11 @@ package OpenGL::Shader::OpenGL4;
 use strict;
 #use OpenGL qw(glShaderSource);
 use OpenGL::Glew ':all';
+use OpenGL::Glew::Helpers qw(
+    glGetShaderInfoLog_p
+    pack_ptr
+    croak_on_gl_error
+);
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -34,6 +39,11 @@ sub new ($this,@args) {
 
   my $self = {};
   bless($self => $class);
+  
+  my $glVersion = glGetString(GL_VERSION);
+  if( $glVersion < 3.3 ) {
+      warn "You have an old version of OpenGL loaded ($glVersion), you won't have much fun.";
+  };
 
   # Check for required OpenGL extensions
   # Well, just hope they are there
@@ -54,35 +64,27 @@ sub new ($this,@args) {
   return $self;
 }
 
-# Shader destructor
-# Must be disabled first
-sub DESTROY
-{
-  my($self) = @_;
+sub DESTROY {
+    my($self) = @_;
 
-  if ($self->{program})
-  {
-    for (qw(fragment_id vertex_id gemoetry_id vertex_id)) {
-        glDetachObject($self->{program},$self->{$_}) if ($self->{$_});
+    my @delete_shaders;
+    if ($self->{program}) {
+        for (qw(fragment_id vertex_id gemoetry_id vertex_id)) {
+            if( my $id = $self->{$_}) {
+                glDetachShader($self->{program},$id);
+                croak_on_gl_error;
+                push @delete_shaders, $id;
+            };
+        };
+        glDeleteProgram($self->{program});
+                croak_on_gl_error;
+    }
+
+    for (@delete_shaders) {
+        glDeleteShader($_);
+                croak_on_gl_error;
     };
-    glDeletePrograms_p($self->{program});
-  }
-
-  for (qw(fragment_id vertex_id gemoetry_id vertex_id)) {
-    glDeletePrograms_p($self->{$_}) if ($self->{$_});
-  };
 }
-
-sub glGetShaderInfoLog_p($shader) {
-    my $buffer = "\0" x 1024 * 64; # 64k should be enough for everybody
-    my $p_buffer = pack 'P', $buffer;
-    my $len = length $buffer;
-    my $result_len = "\0\0\0\0";
-    my $p_result_len = pack 'P', $result_len;
-    
-    glGetShaderInfoLog($shader, length $buffer, $p_result_len, $p_buffer );
-    return substr( $p_buffer, $p_result_len );
-};
 
 # Load shader strings
 sub Load($self, %shaders) {
@@ -90,13 +92,19 @@ sub Load($self, %shaders) {
     warn "Creating $shader shader";
     my $id = OpenGL::Glew::glCreateShader($GL_shader_names{ $shader });
     warn "Couldn't create a '$shader' shader?!"
-        unless $id;
-    return undef if (!$id);
-    glShaderSource_p($id, 1, pack('P', $shaders{$shader}), undef);
+        unless $id; 
+    croak_on_gl_error;
+    warn "Got $shader shader $id, setting source";
+    #return undef if (!$id);
+    glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), undef);
+    croak_on_gl_error;
+
+    warn "Compiling $shader shader";
     glCompileShader($id);
+    croak_on_gl_error;
     
-    my $ok = "\0" x 8;
-    glGetShaderiv($id, GL_COMPILE_STATUS, pack 'P', $ok);
+    my $ok;
+    glGetShaderiv($id, GL_COMPILE_STATUS, pack_ptr($ok, 8));
     warn $ok;
     $ok = unpack 'I', $ok;
     warn $ok;
