@@ -320,8 +320,7 @@ $window->insert(
 		my $self = shift;
 		
 		if( ! $pipeline ) {
-			my $ctx = $self-> {__gl_context};
-			my $err = OpenGL::Glew::glewInit(eval $self->get_handle);
+			my $err = OpenGL::Glew::glewInit();
 			if( $err != GLEW_OK ) {
 			    die "Couldn't initialize Glew: ".glewGetErrorString($err);
 			};
@@ -337,8 +336,6 @@ $window->insert(
 			glClearColor(0,0,0,1);
 			glClear(GL_COLOR_BUFFER_BIT);
 			
-			use Data::Dumper;
-			warn Dumper $pipeline;
 			$pipeline->Enable();
 			
 			# Well, we should only update these when resizing, later
