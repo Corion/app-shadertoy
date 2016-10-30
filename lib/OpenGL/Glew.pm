@@ -23,6 +23,7 @@ _glGetShaderInfoLog
 _glAttachShader
 _glGetProgramiv
 
+glClear
 glClearColor
 glDrawArrays
 
