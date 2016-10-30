@@ -115,16 +115,74 @@ CODE:
     glGetShaderiv( shader,  pname, param);
     printf("Shader status: %d\n", (GLint) *param);
 
+GLint
+glGetAttribLocation( program,   name);
+     GLuint program;
+      GLchar* name;
+CODE:
+    if(! __glewGetAttribLocation) {
+        croak("glGetAttribLocation not available on this machine");
+    };
+    RETVAL = glGetAttribLocation( program,   name);
+OUTPUT:
+    RETVAL
+
+SV *
+glGenBuffers( n,   buffers);
+     GLsizei n;
+     char* buffers;
+CODE:
+    if(! __glewGenBuffers) {
+        croak("glGenBuffers not available on this machine");
+    };
+    glGenBuffers( n,   buffers);
+
+SV *
+glBindBuffer( target,  buffer);
+     GLenum target;
+     GLuint buffer;
+CODE:
+    if(! __glewBindBuffer) {
+        croak("glBindBuffer not available on this machine");
+    };
+    glBindBuffer( target,  buffer);
+
+SV *
+glNamedBufferData( buffer,  size,   data,  usage);
+     GLuint buffer;
+     GLint size;
+      void *data;
+     GLenum usage;
+CODE:
+    if(! __glewNamedBufferData) {
+        croak("glNamedBufferData not available on this machine");
+    };
+    glNamedBufferData( buffer,  size,   data,  usage);
+
+SV *
+glBufferData( target,  size,   data,  usage);
+     GLenum target;
+     GLint size;
+      void* data;
+     GLenum usage;
+CODE:
+    if(! __glewBufferData) {
+        croak("glBufferData not available on this machine");
+    };
+    glBufferData( target,  size,   data,  usage);
+
 SV *
 glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
-    GLuint shader;
+     GLuint shader;
      GLsizei bufSize;
      char* length;
-     char* infoLog
+     char* infoLog;
 CODE:
     if(! __glewGetShaderInfoLog) {
         croak("glGetShaderInfoLog not available on this machine");
     };
+    printf("length addr: %x\n", length);
+    printf("length value: %d\n", (int) *length);
     glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
 
 GLint
