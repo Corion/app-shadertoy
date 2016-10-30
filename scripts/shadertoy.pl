@@ -3,8 +3,7 @@ use strict;
 use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
-#use Prima::OpenGL;
-use Prima qw( Application GLWidget );
+use Prima qw( Application GLEWWidget );
 
 use Filter::signatures;
 use feature 'signatures';
@@ -57,7 +56,6 @@ no warnings 'experimental::signatures';
 
 sub init_shaders {
 	my $pipeline = OpenGL::Shader::OpenGL4->new();
-	warn ref $pipeline;
 	$pipeline->Load(
     vertex => <<'VERTEX', fragment => <<'FRAGMENT',
 attribute vec2 pos;
@@ -308,16 +306,30 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
 my $pipeline;
 
-my $window = Prima::MainWindow->create;
-$window-> insert( GLWidget => 
+my $window = Prima::MainWindow->create();
+
+$window->insert(
+    GLWidget =>
 	pack    => { expand => 1, fill => 'both'},
-	onPaint => sub {
+	gl_config => {
+    	pixels => 'rgba',
+    	color_bits => 32,
+    	depth_bits => 24,
+    },
+    onPaint => sub {
 		my $self = shift;
 		
+		warn "GL context is " . $self->{__gl_context};
+		
 		if( ! $pipeline ) {
-			OpenGL::Glew::glewInit() == GLEW_OK
-			    or die "Couldn't initialize Glew";
+			my $ctx = $self-> {__gl_context};
+			Prima::OpenGL::context_make_current($ctx);
+			my $err = OpenGL::Glew::glewInit(eval $self->get_handle);
+			if( $err != GLEW_OK ) {
+			    die "Couldn't initialize Glew: ".glewGetErrorString($err);
+			};
 			print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
+			#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
 			$pipeline = init_shaders;
 			die "Got no pipeline"
 			    unless $pipeline;
@@ -340,5 +352,15 @@ $window-> insert( GLWidget =>
 	}
 );
 
-run Prima;
+#warn "Window handle: ".$window->get_handle;
+#my $err = OpenGL::Glew::glewInit(eval $window->get_handle);
+#if( $err != GLEW_OK ) {
+#	die "Couldn't initialize Glew: ".glewGetErrorString($err);
+#};
+#print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
+#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
+#$pipeline = init_shaders;
+
+
+Prima->run;
 
