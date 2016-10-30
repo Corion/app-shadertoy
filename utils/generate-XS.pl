@@ -19,11 +19,61 @@ my %signature;
 my %case_map;
 my %alias;
 
+# The functions where we specify manual implementations or prototypes
+# These could also be read from Glew.xs, later maybe
+my @manual = qw(
+    glGetError
+);
+my %manual; @manual{@manual} = 1 x @manual;
+
+my @known_type = sort { $b cmp $a } qw(
+    GLbitfield
+    GLboolean
+    GLbyte
+    GLchar
+    GLcharARB
+    GLclampd
+    GLclampf
+    GLclampx
+    GLdouble
+    GLenum
+    GLfixed
+    GLfloat
+    GLhalf
+    GLhandleARB
+    GLint
+    GLint64
+    GLint64EXT
+    GLintptr
+    GLintptrARB
+    GLuint
+    GLuint64
+    GLuint64EXT
+    GLshort
+    GLsizei
+    GLsizeiptr
+    GLsizeiptrARB
+    GLsync
+    GLubyte
+    GLushort
+    GLvdpauSurfaceNV
+    GLvoid
+    void
+
+    cl_context
+    cl_event
+
+    GLLOGPROCREGAL
+    GLDEBUGPROCARB
+    GLDEBUGPROCAMD
+    GLDEBUGPROC
+);
+
 for my $file (@headers) {
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
     while( my $line = <$fh>) {
-        warn $line if $line =~ /glViewport/;
+        warn $line if $line =~ /gl(ew)?CreateProgram\b/;
         if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
@@ -62,9 +112,20 @@ sub munge_GL_args {
     # GLsizei count
 }
 
-for my $upper (sort keys %signature) {
+my @process = map { uc $_ } @ARGV;
+if( ! @process) {
+    @process = sort keys %signature;
+};
+
+for my $upper (@process) {
     my $impl = $case_map{ $upper } || $upper;
     my $name = $alias{ $impl } || $impl;
+    
+    next if $manual{ $name };
+    
+    # If we didn't see this, it's likely an OpenGL 1.1 function:
+    my $aliased = exists $alias{ $impl };
+    
     my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
     die "No args for $upper" unless $args;
     my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
@@ -75,26 +136,53 @@ for my $upper (sort keys %signature) {
         $type = 'SV *';
         $no_return_value = 1;
     };
-        
-    (my $glewImpl = $name) =~ s!^gl!__glew!;
+
+    my $glewImpl;
+    if( $aliased ) {
+         ($glewImpl = $name) =~ s!^gl!__glew!;
+    };
     
     my $xs_args = $signature{ $upper }->{signature};
+    if( $args eq 'void') {
+        $args = '';
+        $xs_args = '';
+    };
+    
     $xs_args =~ s!,!;\n    !g;
-    1 while $args =~ s!\b(const\s+|\*|GLchar|GLenum|GLint|GLintptr|GLuint|GLsizei|GLsizeiptr|void)\b!!g;
-    $xs_args =~ s!\bconst\s*! !g;
+    
+    # Meh. We'll need a "proper" C type parser here and hope that we don't
+    # incur any macros
+    my $known_types = join "|", @known_type;
+    $args =~ s!\b(?:(?:const\s+)?\w+(?:(?:\s*(?:\bconst\b|\*)))*\s*(\w+))\b!$1!g;
+    
+    1 while $args =~ s!(\bconst\b|\*|\[\d*\])!!g;
+    
+    # Rewrite const GLwhatever foo[];
+    # into    const GLwhatever* foo;
+    1 while $xs_args =~ s!^\s*const (\w+)\s+(\w+)\[\d*\](;?)$!     const $1 * $2$3!m;
+    1 while $xs_args =~ s!^\s*(\w+)\s+(\w+)\[\d*\](;?)$!     $1 * $2$3!m;
     
     # Kill off all pointer indicators
     $args =~ s!\*! !g;
     
-    my $res = <<XS;
+    my $decl = <<XS;
 $type
 $name($args);
-     $xs_args;
+XS
+    if( $xs_args ) {
+        $decl .= "     $xs_args;\n"
+    };
+    
+    my $res = $decl . <<XS;
 CODE:
+XS
+    if( $glewImpl ) {
+        $res .= <<XS;
     if(! $glewImpl) {
         croak("$name not available on this machine");
     };
 XS
+    };
 
     if( $no_return_value ) {
         $res .= <<XS;
