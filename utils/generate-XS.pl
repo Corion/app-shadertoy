@@ -61,7 +61,6 @@ sub munge_GL_args {
 for my $upper (sort keys %signature) {
     my $impl = $case_map{ $upper } || $upper;
     my $name = $alias{ $impl } || $impl;
-    warn "$upper -> $impl -> $name";
     my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
     die "No args for $upper" unless $args;
     my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
