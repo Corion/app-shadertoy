@@ -78,7 +78,7 @@ OUTPUT:
     RETVAL
 
 SV *
-_glShaderSource( shader, count, string, length);
+glShaderSource( shader, count, string, length);
     GLuint shader;
      GLsizei count;
      char * string;
@@ -87,12 +87,6 @@ CODE:
     if(! __glewShaderSource) {
         croak("glShaderSource not available on this machine");
     };
-/*    
-    printf("Length %d\n", length);
-    void ** str = string;
-    str = *str;
-    printf("%s\n", str);
-*/
     // We come from Perl, so we have null-terminated strings
     glShaderSource( shader, count, string, NULL);
 
