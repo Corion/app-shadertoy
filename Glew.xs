@@ -14,6 +14,10 @@
 
 #include "const-c.inc"
 
+/*
+  Maybe one day we'll allow Perl callbacks for GLDEBUGPROCARB
+*/
+
 MODULE = OpenGL::Glew		PACKAGE = OpenGL::Glew		
 
 GLboolean
@@ -74,7 +78,7 @@ OUTPUT:
     RETVAL
 
 SV *
-glShaderSource( shader, count, string, length);
+_glShaderSource( shader, count, string, length);
     GLuint shader;
      GLsizei count;
      char * string;
@@ -93,7 +97,7 @@ CODE:
     glShaderSource( shader, count, string, NULL);
 
 SV *
-glCompileShader( shader);
+_glCompileShader( shader);
     GLuint shader
 CODE:
     if(! __glewCompileShader) {
@@ -102,7 +106,7 @@ CODE:
     glCompileShader( shader);
 
 SV *
-glGetShaderiv( shader,  pname, param);
+_glGetShaderiv( shader,  pname, param);
     GLuint shader;
      GLenum pname;
      char* param;
@@ -116,7 +120,7 @@ CODE:
     printf("Shader status: %d\n", (GLint) *param);
 
 GLint
-glGetAttribLocation( program,   name);
+_glGetAttribLocation( program,   name);
      GLuint program;
       GLchar* name;
 CODE:
@@ -128,7 +132,7 @@ OUTPUT:
     RETVAL
 
 SV *
-glGenBuffers( n,   buffers);
+_glGenBuffers( n,   buffers);
      GLsizei n;
      char* buffers;
 CODE:
@@ -138,7 +142,7 @@ CODE:
     glGenBuffers( n,   buffers);
 
 SV *
-glBindBuffer( target,  buffer);
+_glBindBuffer( target,  buffer);
      GLenum target;
      GLuint buffer;
 CODE:
@@ -148,7 +152,7 @@ CODE:
     glBindBuffer( target,  buffer);
 
 SV *
-glNamedBufferData( buffer,  size,   data,  usage);
+_glNamedBufferData( buffer,  size,   data,  usage);
      GLuint buffer;
      GLint size;
       void *data;
@@ -159,8 +163,37 @@ CODE:
     };
     glNamedBufferData( buffer,  size,   data,  usage);
 
+GLuint
+_glCreateProgram();
+CODE:
+    if(! __glewCreateProgram) {
+        croak("glCreateProgram not available on this machine");
+    };
+    RETVAL = glCreateProgram();
+OUTPUT:
+    RETVAL
+
 SV *
-glBufferData( target,  size,   data,  usage);
+_glAttachShader( program,  shader);
+     GLuint program;
+     GLuint shader;
+CODE:
+    if(! __glewAttachShader) {
+        croak("glAttachShader not available on this machine");
+    };
+    glAttachShader( program,  shader);
+
+SV *
+_glLinkProgram( program);
+     GLuint program;
+CODE:
+    if(! __glewLinkProgram) {
+        croak("glLinkProgram not available on this machine");
+    };
+    glLinkProgram( program);
+
+SV *
+_glBufferData( target,  size,   data,  usage);
      GLenum target;
      GLint size;
       void* data;
@@ -172,7 +205,7 @@ CODE:
     glBufferData( target,  size,   data,  usage);
 
 SV *
-glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
+_glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
      GLuint shader;
      GLsizei bufSize;
      char* length;
@@ -186,7 +219,7 @@ CODE:
     glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
 
 GLint
-glCreateShader(what)
+_glCreateShader(what)
     GLint what;
 CODE:
     if(! __glewCreateShader) {
@@ -227,4 +260,4 @@ OUTPUT:
 #	 };
 
 INCLUDE: const-xs.inc
-#INCLUDE: auto-xs.inc
+INCLUDE: auto-xs.inc
