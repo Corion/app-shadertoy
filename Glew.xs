@@ -10,10 +10,36 @@
 /* This makes memory requirements balloon but makes building so much easier*/
 #include <include/GL/glew.h>
 #include <src/glew.c>
+#include <src/glew-context.c>
 
 #include "const-c.inc"
 
 MODULE = OpenGL::Glew		PACKAGE = OpenGL::Glew		
+
+GLboolean
+glewCreateContext()
+CODE:
+  struct createParams params =
+  {
+#if defined(GLEW_OSMESA)
+#elif defined(GLEW_EGL)
+#elif defined(_WIN32)
+    -1,  /* pixelformat */
+#elif !defined(__HAIKU__) && !defined(__APPLE__) || defined(GLEW_APPLE_GLX)
+    "",  /* display */
+    -1,  /* visual */
+#endif
+    0,   /* major */
+    0,   /* minor */
+    0,   /* profile mask */
+    0    /* flags */
+  };
+    glewCreateContext (&params);
+
+SV *
+glewDestroyContext()
+CODE:
+    glewDestroyContext();
 
 UV
 glewInit()

@@ -13,6 +13,7 @@ use AutoLoader;
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
+glewCreateContext
 glGetError
 glewGetErrorString
 glewIsSupported
