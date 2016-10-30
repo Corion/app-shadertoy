@@ -28,7 +28,7 @@ for my $file (@headers) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
             
-        } elsif( $line =~ /^GLAPI void GLAPIENTRY (\w+) \((.*)\);/ ) {
+        } elsif( $line =~ /^GLAPI (\w+) GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
             my( $restype, $name, $sig ) = ('void', $1,$2);
             $signature{ $name } = { signature => $sig, restype => $restype };
