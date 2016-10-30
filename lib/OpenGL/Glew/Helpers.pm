@@ -16,6 +16,7 @@ use OpenGL::Glew qw(
     
     glGetError
     glGetShaderInfoLog
+    glGetProgramInfoLog
 );
 
 use feature 'signatures';
@@ -42,6 +43,7 @@ $VERSION = '0.01';
     xs_buffer
     
     glGetShaderInfoLog_p
+    glGetProgamInfoLog_p
     croak_on_gl_error
 );
 
@@ -86,7 +88,13 @@ sub glGetShaderInfoLog_p( $shader ) {
     my $bufsize = 1024*64;
     glGetShaderInfoLog( $shader, $bufsize, xs_buffer(my $len, 8), xs_buffer(my $buffer, $bufsize));
     $len = unpack 'I', $len;
-    warn "Error message length is $len";
+    return substr $buffer, 0, $len;
+}
+
+sub glGetProgramInfoLog_p( $program ) {
+    my $bufsize = 1024*64;
+    glGetProgramInfoLog( $program, $bufsize, xs_buffer(my $len, 8), xs_buffer(my $buffer, $bufsize));
+    $len = unpack 'I', $len;
     return substr $buffer, 0, $len;
 }
 
