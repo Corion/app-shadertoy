@@ -59,7 +59,6 @@ it for the _p functions?!
 
 sub munge_GL_args {
     my( @args ) = @_;
-    # If 
     # GLsizei n
     # GLsizei count
 }
