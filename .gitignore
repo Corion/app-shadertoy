@@ -2,6 +2,8 @@ Makefile
 Makefile.old
 *.tar.gz
 *.bak
+*.tmp
+*.old
 pm_to_blib
 blib/
 Glew.c
@@ -23,3 +25,4 @@ glew-*/glewinfo.txt
 glew-*/visualinfo.txt
 glew-*/bin
 glew-*/glew.pc.in
+src/*.o
