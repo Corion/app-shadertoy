@@ -50,6 +50,10 @@ We should think about how to ideally enable the typemap
 to automatically perlify the API. Or just handwrite
 it for the _p functions?!
 
+We should move the function existence check
+into the AUTOLOAD part so the check is made only once
+instead of on every call. Microoptimization, I know.
+
 =cut
 
 sub munge_GL_args {
@@ -76,7 +80,7 @@ for my $upper (sort keys %signature) {
     
     my $xs_args = $signature{ $upper }->{signature};
     $xs_args =~ s!,!;\n    !g;
-    1 while $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint|GLsizei)\b!!g;
+    1 while $args =~ s!\b(const\s+|\*|GLchar|GLenum|GLint|GLintptr|GLuint|GLsizei|GLsizeiptr|void)\b!!g;
     $xs_args =~ s!\bconst\s*! !g;
     
     # Kill off all pointer indicators
@@ -85,7 +89,7 @@ for my $upper (sort keys %signature) {
     my $res = <<XS;
 $type
 $name($args);
-    $xs_args
+     $xs_args;
 CODE:
     if(! $glewImpl) {
         croak("$name not available on this machine");
