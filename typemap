@@ -11,10 +11,10 @@ const GLboolean **	        T_PV
 GLbyte			            T_INT
 GLbyte *		            T_PV
 const GLbyte *		        T_PV
-GLchar *      	            T_CHAR
-const GLchar *      	    T_CHAR
-GLchar * const *     	    T_CHAR
-const GLchar * const *     	T_CHAR
+GLchar *      	            T_PV
+const GLchar *      	    T_PV
+GLchar * const *     	    T_PV
+const GLchar * const *     	T_PV
 GLchar * *                  T_PV
 GLcharARB		            T_CHAR
 GLcharARB *                 T_PV
