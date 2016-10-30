@@ -2,10 +2,8 @@ package OpenGL::Glew;
 use strict;
 use Carp;
 
-require Exporter;
+use Exporter 'import';
 use AutoLoader;
-
-our @ISA = qw(Exporter);
 
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
@@ -15,6 +13,12 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
+glGetError
+glewGetErrorString
+glewIsSupported
+glGetString
+glewInit
+
 	GLEW_3DFX_multisample
 	GLEW_3DFX_tbuffer
 	GLEW_3DFX_texture_compression_FXT1
@@ -16577,8 +16581,6 @@ sub AUTOLOAD {
 
 require XSLoader;
 XSLoader::load('OpenGL::Glew', $VERSION);
-
-# Preloaded methods go here.
 
 # Autoload methods go after =cut, and are processed by the autosplit program.
 
