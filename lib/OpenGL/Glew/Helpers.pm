@@ -65,8 +65,9 @@ sub pack_GLint(@gluints) {
     pack 'I*', @gluints
 }
 
-sub pack_GLstrings(@strings) {
-    pack 'P*', @strings
+# No parameter declaration because we don't want copies
+sub pack_GLstrings {
+    pack 'P*', @_
 }
 
 # No parameter declaration because we don't want copies
