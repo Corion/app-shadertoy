@@ -86,6 +86,9 @@ GLint
 glCreateShader(what)
     GLint what;
 CODE:
+    if(! __glewCreateShader) {
+        croak("glCreateShader not available on this machine");
+    };
     printf("XS: Creating %d shader via %x\n", what, __glewCreateShader);
     RETVAL = glCreateShader(what);
     printf("XS: Created shader\n");

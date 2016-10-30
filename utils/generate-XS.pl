@@ -73,6 +73,8 @@ for my $upper (sort keys %signature) {
     
     $type = 'int'
         if $type eq 'void';
+        
+    (my $glewImpl = $name) =~ s!^gl!__glew!;
     
     my $xs_args = $signature{ $upper }->{signature};
     $xs_args =~ s!,!;\n    !g;
@@ -83,7 +85,9 @@ $type
 $name($args);
     $xs_args
 CODE:
-    // XXX Convert the input values to the expected types. However that's done.
+    if(! $glewImpl) {
+        croak("$name not available on this machine");
+    };
     RETVAL = $name($args);
 OUTPUT:
     RETVAL
