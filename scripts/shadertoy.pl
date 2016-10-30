@@ -3,7 +3,7 @@ use strict;
 use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
-use Prima qw( Application GLEWWidget );
+use Prima qw( Application GLWidget );
 
 use Filter::signatures;
 use feature 'signatures';
@@ -319,16 +319,14 @@ $window->insert(
     onPaint => sub {
 		my $self = shift;
 		
-		warn "GL context is " . $self->{__gl_context};
-		
 		if( ! $pipeline ) {
 			my $ctx = $self-> {__gl_context};
-			Prima::OpenGL::context_make_current($ctx);
 			my $err = OpenGL::Glew::glewInit(eval $self->get_handle);
 			if( $err != GLEW_OK ) {
 			    die "Couldn't initialize Glew: ".glewGetErrorString($err);
 			};
 			print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
+			print sprintf "%s\n", glGetString(GL_VERSION);
 			#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
 			$pipeline = init_shaders;
 			die "Got no pipeline"
