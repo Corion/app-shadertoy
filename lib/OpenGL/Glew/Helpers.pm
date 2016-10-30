@@ -39,6 +39,7 @@ $VERSION = '0.01';
     pack_GLint
     pack_GLstrings
     pack_ptr
+    xs_buffer
     
     glGetShaderInfoLog_p
     croak_on_gl_error
@@ -76,14 +77,19 @@ sub pack_ptr {
     pack 'P', $_[0];
 }
 
+# No parameter declaration because we don't want copies
+sub xs_buffer {
+    $_[0] = "\0" x $_[1];
+}
 
-sub glGetShaderInfoLog_p($shader) {
-    my $p_buffer = pack_ptr(my $buffer, 1024*64); # 64k should be enough for everybody
-    my $p_result_len = pack_ptr(my $result_len, 4);
-    
-    glGetShaderInfoLog($shader, length $buffer, $p_result_len, $p_buffer );
-    return substr( $p_buffer, $p_result_len );
-};
+sub glGetShaderInfoLog_p( $shader ) {
+    my $bufsize = 1024*64;
+    glGetShaderInfoLog( $shader, $bufsize, xs_buffer(my $len, 8), xs_buffer(my $buffer, $bufsize));
+    $len = unpack 'I', $len;
+    warn "Error message length is $len";
+    return substr $buffer, 0, $len;
+}
+
 
 sub croak_on_gl_error() {
     my $error = glGetError();

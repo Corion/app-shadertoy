@@ -4,7 +4,7 @@ use OpenGL qw(glClearColor glClear glDrawArrays);
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima qw( Application GLWidget );
-
+use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint );
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -256,7 +256,6 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 FRAGMENT
 ) or die "Couldn't load shaders";
 
-    warn ref $pipeline;
     return $pipeline;
 };
 
@@ -267,12 +266,11 @@ sub drawUnitQuad_XY($pipeline) {
 
     # create a 2D quad Vertex Buffer
     my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,     1.0, -1.0,    1.0,  1.0,    -1.0,  1.0 );
-    my $buffer = "\0" x 8;
-    glGenBuffers(1, pack 'P', $buffer);
+    glGenBuffers(1, xs_buffer( my $buffer, 8 ));
     my $VBO_Quad = (unpack 'I', $buffer)[0];
-    glBindBuffer( $VBO_Quad, GL_ARRAY_BUFFER );
-    glBufferData( GL_ARRAY_BUFFER, @vertices, GL_STATIC_DRAW );
-    glBindBuffer( GL_ARRAY_BUFFER, undef );
+    #glBindBuffer( $VBO_Quad, GL_ARRAY_BUFFER );
+    my $vertices = pack_GLint(@vertices);
+    glNamedBufferData( $buffer, length $vertices, $vertices, GL_STATIC_DRAW );
 	
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
 	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );

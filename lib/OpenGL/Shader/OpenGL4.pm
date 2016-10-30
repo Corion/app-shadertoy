@@ -1,12 +1,12 @@
 package OpenGL::Shader::OpenGL4;
 use strict;
-#use OpenGL qw(glShaderSource);
 use OpenGL::Glew ':all';
 use OpenGL::Glew::Helpers qw(
     glGetShaderInfoLog_p
     pack_ptr
     pack_GLstrings
     pack_GLint
+    xs_buffer
     croak_on_gl_error
 );
 use Filter::signatures;
@@ -89,13 +89,6 @@ sub DESTROY {
     };
 }
 
-sub glGetShaderInfoLog_p( $shader ) {
-    my $bufsize = 1024*64;
-    glGetShaderInfoLog( $shader, $bufsize, pack_ptr(my $len, 8), pack_ptr(my $buffer, $bufsize));
-    $len = unpack 'I', $len;
-    return substr $buffer, $len;
-}
-
 # Load shader strings
 sub Load($self, %shaders) {
   for my $shader (sort keys %shaders) {
@@ -114,14 +107,11 @@ sub Load($self, %shaders) {
     croak_on_gl_error;
     
     warn "Looking for errors";
-    my $ok = 0;
-    glGetShaderiv($id, GL_COMPILE_STATUS, pack_ptr($ok,8));
-    warn $ok;
+    glGetShaderiv($id, GL_COMPILE_STATUS, xs_buffer(my $ok,8));
     $ok = unpack 'I', $ok;
-    warn $ok;
     if( $ok == GL_FALSE ) {
       my $stat = glGetShaderInfoLog_p($id);
-      return "$shader shader: $stat" if ($stat);
+      return "Bad $shader shader: $stat" if ($stat);
     };
     $self->{$shader . "_id"} = $id;
   }
