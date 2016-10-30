@@ -10014,10 +10014,6 @@ CODE:
     if(! __glewGetShaderInfoLog) {
         croak("glGetShaderInfoLog not available on this machine");
     };
-    printf("length addr: %x\n", length);
-    printf("length value: %d\n", (int) *length);
-    printf("infolog addr: %x\n", infoLog);
-    printf("infolog value: '%s'\n", infoLog);
     glGetShaderInfoLog(shader, bufSize, length, infoLog);
 
 SV *
