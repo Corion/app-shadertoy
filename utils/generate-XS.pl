@@ -66,9 +66,14 @@ for my $upper (sort keys %signature) {
     my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
     die "No args for $upper" unless $args;
     my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
+    
+    $type = 'int'
+        if $type eq 'void';
+    
     my $xs_args = $signature{ $upper }->{signature};
     $xs_args =~ s!,!;\n    !g;
-    $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint)\b!!g;
+    1 while $args =~ s!\b(const\s+\*|GLchar|GLenum|GLint|GLintptr|GLuint)\b!!g;
+    $xs_args =~ s!\bconst\s*! !g;
     print <<XS;
 $type
 $name($args);
