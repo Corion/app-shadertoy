@@ -41,6 +41,7 @@ sub new ($this,@args) {
   bless($self => $class);
   
   my $glVersion = glGetString(GL_VERSION);
+  ($glVersion) = ($glVersion =~ m!^(\d+\.\d+)!g);
   if( $glVersion < 3.3 ) {
       warn "You have an old version of OpenGL loaded ($glVersion), you won't have much fun.";
   };
