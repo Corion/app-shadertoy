@@ -144,6 +144,13 @@ sub Load($self, %shaders) {
     }
     warn "Program status OK";
 
+    # Free up the shader memory, later
+	#glDetachShader(ProgramID, VertexShaderID);
+	#glDetachShader(ProgramID, FragmentShaderID);
+	
+	#glDeleteShader(VertexShaderID);
+	#glDeleteShader(FragmentShaderID);
+
     $self->{program} = $sp;
 
     return '';
@@ -152,14 +159,15 @@ sub Load($self, %shaders) {
 # Enable shader
 sub Enable {
   my($self) = @_;
-  glUseProgramObjectARB($self->{program}) if ($self->{program});
+  glUseProgram($self->{program}) if ($self->{program});
+  warn glGetError;
 }
 
 
 # Disable shader
 sub Disable {
   my($self) = @_;
-  glUseProgramObjectARB(0) if ($self->{program});
+  glUseProgram(0);
 }
 
 
