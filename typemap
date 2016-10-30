@@ -4,6 +4,7 @@ const unsigned char *	T_PV
 
 Display *		T_PTR
 GLsizei			T_INT
+#GLsizeiptr      T_U_INT
 GLfloat			T_FLOAT
 GLdouble		T_DOUBLE
 GLclampf		T_FLOAT
@@ -11,10 +12,10 @@ GLclampd		T_DOUBLE
 GLint			T_INT
 GLintptr        T_U_INT
 GLuint			T_U_INT
-GLuint *        T_U_INT_ARRAY
+GLuint *        T_PTR
 GLushort		T_U_SHORT
 GLint			T_INT
-GLint *         T_INT_ARRAY
+GLint *         T_PTR
 GLbyte			T_INT
 GLubyte			T_U_INT
 GLshort			T_SHORT
@@ -40,13 +41,13 @@ T_FASTPTROBJ
 
 T_U_INT_ARRAY
         if( !SvPVOK($var)) {
-            croak("Need a packed string of GLuints");
+            croak(\"Need a packed string of GLuints\");
         };
         $var = SvPV_nolen($var);
 
 T_INT_ARRAY
         if( !SvPVOK($var)) {
-            croak("Need a packed string of GLints");
+            croak(\"Need a packed string of GLints\");
         };
         $var = SvPV_nolen($var);
 
