@@ -309,15 +309,12 @@ sub createUnitQuad($pipeline) {
     glGenBuffers( 1, xs_buffer($buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
-    #glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
     glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
     warn sprintf "%08x", glGetError;
+    # Not supported on Win10+Intel...
+    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
     #warn sprintf "%08x", glGetError;
-	#glBindBuffer( GL_ARRAY_BUFFER, 0 );
-    #warn sprintf "%08x", glGetError;
-    # This didn't work at some time, need to revisit
-    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
-    warn sprintf "%08x", glGetError;
 
     my $attrname = 'pos';
 	my $vpos = glGetAttribLocation($pipeline->{program}, $attrname);
