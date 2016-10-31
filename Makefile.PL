@@ -2,10 +2,18 @@
 use strict;
 use ExtUtils::MakeMaker;
 use Config '%Config';
+use Devel::CheckOS 'os_is';
 
-# Windows-only
-my @libs = '-lopengl32 -lgdi32 -lmsimg32';
 my $include = "-I. -Iinclude -Isrc";
+my @libs;
+my $define;
+
+if( os_is('MSWin32')) {
+    @libs = '-lopengl32 -lgdi32 -lmsimg32';
+    $define = "-D_WIN32", # XXX Platform specific
+} else {
+    @libs = '-lGL';
+};
 
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
@@ -25,9 +33,13 @@ WriteMakefile(
     #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
 
     LIBS              => "@libs", # e.g., '-lm'
-    DEFINE            => "-D_WIN32", # XXX Platform specific
+    DEFINE            => $define,
     INC               => $include,
     #OBJECT            => \@obj, # link all the C files too
+    CONFIGURE_REQUIRES    => {
+        'Devel::CheckOS' => 0,
+        'ExtUtils::MakeMaker' => 0,
+    },
     XSPROTOARG => '-prototypes',
     depend => {
       'Glew.c' => 'Glew.xs auto-xs.inc src/glew.c include/GL/glew.h include/GL/wglew.h',

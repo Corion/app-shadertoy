@@ -1,0 +1,26 @@
+---
+abstract: 'Perl extension for blah blah blah'
+author:
+  - 'Max Maischein <corion@cpan.org>'
+build_requires:
+  ExtUtils::MakeMaker: '0'
+configure_requires:
+  Devel::CheckOS: '0'
+  ExtUtils::MakeMaker: '0'
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 7.24, CPAN::Meta::Converter version 2.143240'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: OpenGL-Glew
+no_index:
+  directory:
+    - t
+    - inc
+requires:
+  Carp: '0'
+  OpenGL: '0.58'
+  Prima: '0'
+  Prima::OpenGL: '0.07'
+version: '0.01'

@@ -28,3 +28,4 @@ glew-*/glew.pc.in
 src/*.o
 x64/
 *.trace
+OpenGL-Glew-*
