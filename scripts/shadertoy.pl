@@ -398,7 +398,11 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
 my $window = Prima::MainWindow->create(
     width => 500,
-    height => 500,
+    height => 200,
+);
+$window->set(
+    top => 1000,
+    left => 128,
 );
 
 $glWidget = $window->insert(
