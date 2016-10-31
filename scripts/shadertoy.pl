@@ -20,36 +20,6 @@ no warnings 'experimental::signatures';
 #        Easily also for directional lights
 #        Need six-cubemap for local undirected lights
 
-=begin later
-
-    this.mRenderer.SetShaderConstant3F(  "iResolution", xres, yres, 1.0);
-    this.mRenderer.SetShaderConstant4FV( "iMouse", mouse);
-    this.mRenderer.SetShaderConstant1FV( "iChannelTime", times );              // OBSOLETE
-    this.mRenderer.SetShaderConstant4FV( "iDate", dates );
-    this.mRenderer.SetShaderConstant3FV( "iChannelResolution", resos );        // OBSOLETE
-    this.mRenderer.SetShaderConstant1F(  "iSampleRate", this.mSampleRate);
-    this.mRenderer.SetShaderTextureUnit( "iChannel0", 0 );
-    this.mRenderer.SetShaderTextureUnit( "iChannel1", 1 );
-    this.mRenderer.SetShaderTextureUnit( "iChannel2", 2 );
-    this.mRenderer.SetShaderTextureUnit( "iChannel3", 3 );
-    this.mRenderer.SetShaderConstant1I(  "iFrame", this.mFrame );
-    this.mRenderer.SetShaderConstant1F(  "iTimeDelta", dtime);
-    this.mRenderer.SetShaderConstant1F(  "iFrameRate", fps );
-
-    this.mRenderer.SetShaderConstant1F(  "iChannel[0].time",       times[0] );
-    this.mRenderer.SetShaderConstant1F(  "iChannel[1].time",       times[1] );
-    this.mRenderer.SetShaderConstant1F(  "iChannel[2].time",       times[2] );
-    this.mRenderer.SetShaderConstant1F(  "iChannel[3].time",       times[3] );
-    this.mRenderer.SetShaderConstant3F(  "iChannel[0].resolution", resos[0], resos[ 1], resos[ 2] );
-    this.mRenderer.SetShaderConstant3F(  "iChannel[1].resolution", resos[3], resos[ 4], resos[ 5] );
-    this.mRenderer.SetShaderConstant3F(  "iChannel[2].resolution", resos[6], resos[ 7], resos[ 8] );
-    this.mRenderer.SetShaderConstant3F(  "iChannel[3].resolution", resos[9], resos[10], resos[11] );
-
-    var l1 = this.mRenderer.GetAttribLocation(this.mProgram, "pos");
-
-
-=cut
-
 my $header = <<HEADER;
 uniform vec4      iMouse;
 uniform vec3      iResolution;
