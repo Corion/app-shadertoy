@@ -71,6 +71,13 @@ my @known_type = sort { $b cmp $a } qw(
     GLDEBUGPROC
 );
 
+# Functions where we need to override the type signature
+my %signature_override = (
+    'glVertexAttribPointer' => { name => 'pointer', type => 'GLsizeiptr' },
+    'glVertexAttribPointerARB' => { name => 'pointer', type => 'GLsizeiptr' },
+    'glVertexAttribPointerNV' => { name => 'pointer', type => 'GLsizeiptr' },
+);
+
 for my $file (@headers) {
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
@@ -152,7 +159,25 @@ for my $upper (@process) {
         $xs_args = '';
     };
     
-    $xs_args =~ s!,!;\n    !g;
+    my @xs_args = split /,/, $xs_args;
+    
+    # Patch function signatures if we want other types
+    if( my $sig = $signature_override{ $name }) {
+        for my $arg (@xs_args) {
+            my $name = $sig->{name};
+            my $type = $sig->{type};
+            if( $arg =~ /\b\Q$name\E$/ ) {
+                $arg = "$type $name";
+            };
+        };
+    };
+    
+    $xs_args = join ";\n    ", @xs_args;
+
+    # Rewrite const GLwhatever foo[];
+    # into    const GLwhatever* foo;
+    1 while $xs_args =~ s!^\s*const (\w+)\s+(\w+)\[\d*\](;?)$!     const $1 * $2$3!m;
+    1 while $xs_args =~ s!^\s*(\w+)\s+(\w+)\[\d*\](;?)$!     $1 * $2$3!m;
     
     # Meh. We'll need a "proper" C type parser here and hope that we don't
     # incur any macros
@@ -160,11 +185,6 @@ for my $upper (@process) {
     $args =~ s!\b(?:(?:const\s+)?\w+(?:(?:\s*(?:\bconst\b|\*)))*\s*(\w+))\b!$1!g;
     
     1 while $args =~ s!(\bconst\b|\*|\[\d*\])!!g;
-    
-    # Rewrite const GLwhatever foo[];
-    # into    const GLwhatever* foo;
-    1 while $xs_args =~ s!^\s*const (\w+)\s+(\w+)\[\d*\](;?)$!     const $1 * $2$3!m;
-    1 while $xs_args =~ s!^\s*(\w+)\s+(\w+)\[\d*\](;?)$!     $1 * $2$3!m;
     
     # Kill off all pointer indicators
     $args =~ s!\*! !g;
