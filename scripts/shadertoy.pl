@@ -22,9 +22,6 @@ no warnings 'experimental::signatures';
 
 =begin later
 
-    this.mRenderer.AttachShader(prog);
-
-    this.mRenderer.SetShaderConstant1F(  "iGlobalTime", time);
     this.mRenderer.SetShaderConstant3F(  "iResolution", xres, yres, 1.0);
     this.mRenderer.SetShaderConstant4FV( "iMouse", mouse);
     this.mRenderer.SetShaderConstant1FV( "iChannelTime", times );              // OBSOLETE
@@ -54,22 +51,22 @@ no warnings 'experimental::signatures';
 =cut
 
 my $header = <<HEADER;
-	uniform vec3      iResolution;
-	uniform float     iGlobalTime;
-	uniform float     iChannelTime[4];
-	uniform vec4      iMouse;
-	uniform vec4      iDate;
-	uniform float     iSampleRate;
-	uniform vec3      iChannelResolution[4];
-	uniform int       iFrame;
-	uniform float     iTimeDelta;
-	uniform float     iFrameRate;
-	struct Channel
-	{
-		vec3 resolution;
-		float time;
-	};
-	uniform Channel iChannel[4];
+uniform vec4      iMouse;
+uniform vec3      iResolution;
+uniform float     iGlobalTime;
+uniform float     iChannelTime[4];
+uniform vec4      iDate;
+uniform float     iSampleRate;
+uniform vec3      iChannelResolution[4];
+uniform int       iFrame;
+uniform float     iTimeDelta;
+uniform float     iFrameRate;
+struct Channel
+{
+	vec3 resolution;
+	float time;
+};
+uniform Channel iChannel[4];
 HEADER
 
 sub init_shaders {
