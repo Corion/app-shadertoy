@@ -364,12 +364,13 @@ use vars qw($xres $yres);
 use Time::HiRes 'time';
 my $frame = 1;
 my $time;
+my $started = time();
 my $iMouse = pack_GLfloat(0,0,0,0);
 sub updateShaderVariables($pipeline,$xres,$yres) {
-	$time = time*1000;
+	$time = time - $started;
 	$pipeline->setUniform1f( "iGlobalTime", $time);
     $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
-    $pipeline->setUniform4fv( "iMouse", $iMouse);
+    #$pipeline->setUniform4fv( "iMouse", $iMouse);
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
     #glSetShaderTextureUnit( "iChannel0", 0 );
