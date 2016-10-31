@@ -252,8 +252,7 @@ sub setUniform4fv( $self, $name, $vec ) {
     if( ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
-    warn length $vec;
-    glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(8*4), $vec );
+    glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(4*4), $vec );
     croak_on_gl_error;
 }
 
