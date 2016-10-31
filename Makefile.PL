@@ -35,7 +35,6 @@ WriteMakefile(
     LIBS              => "@libs", # e.g., '-lm'
     DEFINE            => $define,
     INC               => $include,
-    #OBJECT            => \@obj, # link all the C files too
     CONFIGURE_REQUIRES    => {
         'Devel::CheckOS' => 0,
         'ExtUtils::MakeMaker' => 0,
