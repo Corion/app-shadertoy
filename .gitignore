@@ -26,3 +26,5 @@ glew-*/visualinfo.txt
 glew-*/bin
 glew-*/glew.pc.in
 src/*.o
+x64/
+*.trace
