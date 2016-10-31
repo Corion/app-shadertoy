@@ -230,12 +230,12 @@ sub setUniform2f( $self, $name, $x, $y) {
 }
 
 sub setUniform3f( $self, $name, $x,$y,$z ) {
-  return undef if (!$self->{program});
+    return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
-  glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
-  croak_on_gl_error;
+    glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
+    croak_on_gl_error;
 }
 
 sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
