@@ -81,6 +81,7 @@ void main() {
 VERTEX
 
 	my $f = $header . <<'FRAGMENT';
+
 /*
 "Seascape" by Alexander Alekseev aka TDM - 2014
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -298,23 +299,37 @@ my $VAO;
 my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
-sub createUnitQuad() {
-	warn "Creating VAO\n";
+sub createUnitQuad($pipeline) {
     glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
+    glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
+    warn "Created VAO: " . glGetError;
     
-    glGenBuffers( 1, xs_buffer($buffer, 8));
+    glGenBuffers( 1, xs_buffer(my $buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
-    warn $VBO_Quad;
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
+    #glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
+    glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
     warn sprintf "%08x", glGetError;
-    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
-    warn sprintf "%08x", glGetError;
-	glBindBuffer( GL_ARRAY_BUFFER, 0 );
-    warn sprintf "%08x", glGetError;
+    #warn sprintf "%08x", glGetError;
+	#glBindBuffer( GL_ARRAY_BUFFER, 0 );
+    #warn sprintf "%08x", glGetError;
     # This didn't work at some time, need to revisit
-    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+    glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+    warn sprintf "%08x", glGetError;
+
+    my $attrname = 'pos';
+	my $vpos = glGetAttribLocation($pipeline->{program}, $attrname);
+	if( $vpos < 0 ) {
+		die sprintf "Couldn't get shader attribute '%s'", $attrname;
+	};
+	
+	glEnableVertexAttribArray( $vpos );
+	glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+
+	warn "Enabled:" . glGetError;
+	glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
 }
 
 =for OpenGL
@@ -336,66 +351,45 @@ sub createUnitQuad() {
 sub drawUnitQuad_XY($pipeline) {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
 
-	$VBO_Quad ||= createUnitQuad;
-	
-	my $vpos = glGetAttribLocation($pipeline->{program}, "pos");
-	warn "pos attribute location: $vpos";
-	
-	glEnableVertexAttribArray( $vpos );
-	warn "Enabled:" . glGetError;
-	glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
 	warn "Bound:" . glGetError;
 	# We have pairs of coordinates:
-	glVertexAttribPointer( $vpos, 2, GL_FLOAT, 0, 0, 0 );
-	warn "AttribPointer set: " . glGetError;
-	glDrawArrays( GL_TRIANGLES, 0, 6 ); # 6 times 2 elements
+	glDrawArrays( GL_TRIANGLES, 0, 6 ); # 2 times 3 elements
 	warn "Drawn: " . glGetError;
-	glDisableVertexAttribArray( $vpos );
+	#glDisableVertexAttribArray( $vpos );
 	warn "Disabled array drawn";
 }
 
-use Time::HiRes;
+use vars qw($xres $yres);
+
+use Time::HiRes 'time';
 my $frame = 1;
+my $time;
+my $iMouse = pack_GLfloat(0,0,0,0);
 sub updateShaderVariables($pipeline,$xres,$yres) {
-	#my %variables = (
-	#    iGlobalTime => time,
-	#    iResolution => [],
-	#);
-	
-	my $time = time;
-	$pipeline->setUniform1i( "iGlobalTime", $time);
+	$time = time*1000;
+	$pipeline->setUniform1f( "iGlobalTime", $time);
     $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
-    $pipeline->setUniform2f( "iMouse", 0.0, 0.0);
-    $pipeline->setUniform4f( "iDate", 0, 0, 0, 0 );
-    $pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
+    $pipeline->setUniform4fv( "iMouse", $iMouse);
+    #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
+    #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
     #glSetShaderTextureUnit( "iChannel0", 0 );
     #glSetShaderTextureUnit( "iChannel1", 1 );
     #glSetShaderTextureUnit( "iChannel2", 2 );
     #glSetShaderTextureUnit( "iChannel3", 3 );
-    $pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
-    $pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
-    $pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
+    #$pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
+    #$pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
+    #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
 }
 
 my $pipeline;
 
-my $window = Prima::MainWindow->create();
+my $window = Prima::MainWindow->create(
+    width => 500,
+    height => 500,
+);
 
-# We want 60fps
-    my $timer = Prima::Timer-> create(
-        #timeout => (1000/60), # milliseconds
-        timeout => 1000, # milliseconds
-        onTick  => sub {
-           $window->invalidate_rect(
-               0,0,$window->width,$window->height
-           );
-        },
-    );
-
-    $timer-> start;
-
-$window->insert(
-    GLWidget =>
+my $glWidget = $window->insert(
+    'Prima::GLWidget' =>
 	pack    => { expand => 1, fill => 'both'},
 	gl_config => {
     	pixels => 'rgba',
@@ -404,7 +398,6 @@ $window->insert(
     },
     onPaint => sub {
 		my $self = shift;
-		warn "Paint";
 		
 		if( ! $pipeline ) {
 			my $err = OpenGL::Glew::glewInit();
@@ -414,38 +407,42 @@ $window->insert(
 			print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
 			print sprintf "%s\n", glGetString(GL_VERSION);
 			#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
+
+			#glClearColor(0,0,0.5,1);
+
 			$pipeline = init_shaders;
 			die "Got no pipeline"
 			    unless $pipeline;
+			$pipeline->Enable();
+			$VBO_Quad ||= createUnitQuad($pipeline);
 		};
 		
 		if( $pipeline ) {
-			glClearColor(0,0,0.2,1);
-			#glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-			
-			warn $pipeline->{program};
-			#$pipeline->Enable();
-			
-			# Well, we should only update these when resizing, later
-			#updateShaderVariables($pipeline,$self->width,$self->height);
+			glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+			updateShaderVariables($pipeline,$self->width,$self->height);
 			
 			drawUnitQuad_XY($pipeline);
 			#$pipeline->Disable();
-			warn "Shader disabled";
+			#warn "Shader disabled";
+			glFlush();
+			
 		};
 		warn "Leaving call";
-	}
+	},
+	onSize => sub {
+		my( $self ) = @_;
+		( $xres,$yres ) = $self->size;
+	},
 );
 
-#warn "Window handle: ".$window->get_handle;
-#my $err = OpenGL::Glew::glewInit(eval $window->get_handle);
-#if( $err != GLEW_OK ) {
-#	die "Couldn't initialize Glew: ".glewGetErrorString($err);
-#};
-#print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
-#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
-#$pipeline = init_shaders;
-
+# Start our timer
+$window-> insert( Timer => 
+	timeout => 5,
+	onTick  => sub {
+			$glWidget->repaint;
+	}
+)-> start;
 
 Prima->run;
 
