@@ -1,11 +1,11 @@
-SV *
+void
 glAccum(op, value);
      GLenum op;
      GLfloat value;
 CODE:
     glAccum(op, value);
 
-SV *
+void
 glActiveProgramEXT(program);
      GLuint program;
 CODE:
@@ -14,7 +14,7 @@ CODE:
     };
     glActiveProgramEXT(program);
 
-SV *
+void
 glActiveShaderProgram(pipeline, program);
      GLuint pipeline;
      GLuint program;
@@ -24,7 +24,7 @@ CODE:
     };
     glActiveShaderProgram(pipeline, program);
 
-SV *
+void
 glActiveStencilFaceEXT(face);
      GLenum face;
 CODE:
@@ -33,7 +33,7 @@ CODE:
     };
     glActiveStencilFaceEXT(face);
 
-SV *
+void
 glActiveTexture(texture);
      GLenum texture;
 CODE:
@@ -42,7 +42,7 @@ CODE:
     };
     glActiveTexture(texture);
 
-SV *
+void
 glActiveTextureARB(texture);
      GLenum texture;
 CODE:
@@ -51,7 +51,7 @@ CODE:
     };
     glActiveTextureARB(texture);
 
-SV *
+void
 glActiveVaryingNV(program, name);
      GLuint program;
      const GLchar *name;
@@ -61,7 +61,7 @@ CODE:
     };
     glActiveVaryingNV(program, name);
 
-SV *
+void
 glAddSwapHintRectWIN(x, y, width, height);
      GLint x;
      GLint y;
@@ -73,7 +73,7 @@ CODE:
     };
     glAddSwapHintRectWIN(x, y, width, height);
 
-SV *
+void
 glAlphaFragmentOp1ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod);
      GLenum op;
      GLuint dst;
@@ -87,7 +87,7 @@ CODE:
     };
     glAlphaFragmentOp1ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod);
 
-SV *
+void
 glAlphaFragmentOp2ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod);
      GLenum op;
      GLuint dst;
@@ -104,7 +104,7 @@ CODE:
     };
     glAlphaFragmentOp2ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod);
 
-SV *
+void
 glAlphaFragmentOp3ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
      GLenum op;
      GLuint dst;
@@ -124,14 +124,14 @@ CODE:
     };
     glAlphaFragmentOp3ATI(op, dst, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
 
-SV *
+void
 glAlphaFunc(func, ref);
      GLenum func;
      GLclampf ref;
 CODE:
     glAlphaFunc(func, ref);
 
-SV *
+void
 glAlphaFuncx(func, ref);
      GLenum func;
      GLclampx ref;
@@ -141,7 +141,7 @@ CODE:
     };
     glAlphaFuncx(func, ref);
 
-SV *
+void
 glApplyTextureEXT(mode);
      GLenum mode;
 CODE:
@@ -186,13 +186,13 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glArrayElement(i);
      GLint i;
 CODE:
     glArrayElement(i);
 
-SV *
+void
 glArrayElementEXT(i);
      GLint i;
 CODE:
@@ -201,7 +201,7 @@ CODE:
     };
     glArrayElementEXT(i);
 
-SV *
+void
 glArrayObjectATI(array, size, type, stride, buffer, offset);
      GLenum array;
      GLint size;
@@ -215,7 +215,7 @@ CODE:
     };
     glArrayObjectATI(array, size, type, stride, buffer, offset);
 
-SV *
+void
 glAsyncMarkerSGIX(marker);
      GLuint marker;
 CODE:
@@ -224,7 +224,7 @@ CODE:
     };
     glAsyncMarkerSGIX(marker);
 
-SV *
+void
 glAttachObjectARB(containerObj, obj);
      GLhandleARB containerObj;
      GLhandleARB obj;
@@ -234,7 +234,7 @@ CODE:
     };
     glAttachObjectARB(containerObj, obj);
 
-SV *
+void
 glAttachShader(program, shader);
      GLuint program;
      GLuint shader;
@@ -244,13 +244,13 @@ CODE:
     };
     glAttachShader(program, shader);
 
-SV *
+void
 glBegin(mode);
      GLenum mode;
 CODE:
     glBegin(mode);
 
-SV *
+void
 glBeginConditionalRender(id, mode);
      GLuint id;
      GLenum mode;
@@ -260,7 +260,7 @@ CODE:
     };
     glBeginConditionalRender(id, mode);
 
-SV *
+void
 glBeginConditionalRenderNV(id, mode);
      GLuint id;
      GLenum mode;
@@ -270,7 +270,7 @@ CODE:
     };
     glBeginConditionalRenderNV(id, mode);
 
-SV *
+void
 glBeginConditionalRenderNVX(id);
      GLuint id;
 CODE:
@@ -279,7 +279,7 @@ CODE:
     };
     glBeginConditionalRenderNVX(id);
 
-SV *
+void
 glBeginFragmentShaderATI();
 CODE:
     if(! __glewBeginFragmentShaderATI) {
@@ -287,7 +287,7 @@ CODE:
     };
     glBeginFragmentShaderATI();
 
-SV *
+void
 glBeginOcclusionQueryNV(id);
      GLuint id;
 CODE:
@@ -296,7 +296,7 @@ CODE:
     };
     glBeginOcclusionQueryNV(id);
 
-SV *
+void
 glBeginPerfMonitorAMD(monitor);
      GLuint monitor;
 CODE:
@@ -305,7 +305,7 @@ CODE:
     };
     glBeginPerfMonitorAMD(monitor);
 
-SV *
+void
 glBeginPerfQueryINTEL(queryHandle);
      GLuint queryHandle;
 CODE:
@@ -314,7 +314,7 @@ CODE:
     };
     glBeginPerfQueryINTEL(queryHandle);
 
-SV *
+void
 glBeginQuery(target, id);
      GLenum target;
      GLuint id;
@@ -324,7 +324,7 @@ CODE:
     };
     glBeginQuery(target, id);
 
-SV *
+void
 glBeginQueryANGLE(target, id);
      GLenum target;
      GLuint id;
@@ -334,7 +334,7 @@ CODE:
     };
     glBeginQueryANGLE(target, id);
 
-SV *
+void
 glBeginQueryARB(target, id);
      GLenum target;
      GLuint id;
@@ -344,7 +344,7 @@ CODE:
     };
     glBeginQueryARB(target, id);
 
-SV *
+void
 glBeginQueryIndexed(target, index, id);
      GLenum target;
      GLuint index;
@@ -355,7 +355,7 @@ CODE:
     };
     glBeginQueryIndexed(target, index, id);
 
-SV *
+void
 glBeginSceneEXT();
 CODE:
     if(! __glewBeginSceneEXT) {
@@ -363,7 +363,7 @@ CODE:
     };
     glBeginSceneEXT();
 
-SV *
+void
 glBeginTransformFeedback(primitiveMode);
      GLenum primitiveMode;
 CODE:
@@ -372,7 +372,7 @@ CODE:
     };
     glBeginTransformFeedback(primitiveMode);
 
-SV *
+void
 glBeginTransformFeedbackEXT(primitiveMode);
      GLenum primitiveMode;
 CODE:
@@ -381,7 +381,7 @@ CODE:
     };
     glBeginTransformFeedbackEXT(primitiveMode);
 
-SV *
+void
 glBeginTransformFeedbackNV(primitiveMode);
      GLenum primitiveMode;
 CODE:
@@ -390,7 +390,7 @@ CODE:
     };
     glBeginTransformFeedbackNV(primitiveMode);
 
-SV *
+void
 glBeginVertexShaderEXT();
 CODE:
     if(! __glewBeginVertexShaderEXT) {
@@ -398,7 +398,7 @@ CODE:
     };
     glBeginVertexShaderEXT();
 
-SV *
+void
 glBeginVideoCaptureNV(video_capture_slot);
      GLuint video_capture_slot;
 CODE:
@@ -407,7 +407,7 @@ CODE:
     };
     glBeginVideoCaptureNV(video_capture_slot);
 
-SV *
+void
 glBindAttribLocation(program, index, name);
      GLuint program;
      GLuint index;
@@ -418,7 +418,7 @@ CODE:
     };
     glBindAttribLocation(program, index, name);
 
-SV *
+void
 glBindAttribLocationARB(programObj, index, name);
      GLhandleARB programObj;
      GLuint index;
@@ -429,7 +429,7 @@ CODE:
     };
     glBindAttribLocationARB(programObj, index, name);
 
-SV *
+void
 glBindBuffer(target, buffer);
      GLenum target;
      GLuint buffer;
@@ -439,7 +439,7 @@ CODE:
     };
     glBindBuffer(target, buffer);
 
-SV *
+void
 glBindBufferARB(target, buffer);
      GLenum target;
      GLuint buffer;
@@ -449,7 +449,7 @@ CODE:
     };
     glBindBufferARB(target, buffer);
 
-SV *
+void
 glBindBufferBase(target, index, buffer);
      GLenum target;
      GLuint index;
@@ -460,7 +460,7 @@ CODE:
     };
     glBindBufferBase(target, index, buffer);
 
-SV *
+void
 glBindBufferBaseEXT(target, index, buffer);
      GLenum target;
      GLuint index;
@@ -471,7 +471,7 @@ CODE:
     };
     glBindBufferBaseEXT(target, index, buffer);
 
-SV *
+void
 glBindBufferBaseNV(target, index, buffer);
      GLenum target;
      GLuint index;
@@ -482,7 +482,7 @@ CODE:
     };
     glBindBufferBaseNV(target, index, buffer);
 
-SV *
+void
 glBindBufferOffsetEXT(target, index, buffer, offset);
      GLenum target;
      GLuint index;
@@ -494,7 +494,7 @@ CODE:
     };
     glBindBufferOffsetEXT(target, index, buffer, offset);
 
-SV *
+void
 glBindBufferOffsetNV(target, index, buffer, offset);
      GLenum target;
      GLuint index;
@@ -506,7 +506,7 @@ CODE:
     };
     glBindBufferOffsetNV(target, index, buffer, offset);
 
-SV *
+void
 glBindBufferRange(target, index, buffer, offset, size);
      GLenum target;
      GLuint index;
@@ -519,7 +519,7 @@ CODE:
     };
     glBindBufferRange(target, index, buffer, offset, size);
 
-SV *
+void
 glBindBufferRangeEXT(target, index, buffer, offset, size);
      GLenum target;
      GLuint index;
@@ -532,7 +532,7 @@ CODE:
     };
     glBindBufferRangeEXT(target, index, buffer, offset, size);
 
-SV *
+void
 glBindBufferRangeNV(target, index, buffer, offset, size);
      GLenum target;
      GLuint index;
@@ -545,7 +545,7 @@ CODE:
     };
     glBindBufferRangeNV(target, index, buffer, offset, size);
 
-SV *
+void
 glBindBuffersBase(target, first, count, buffers);
      GLenum target;
      GLuint first;
@@ -557,7 +557,7 @@ CODE:
     };
     glBindBuffersBase(target, first, count, buffers);
 
-SV *
+void
 glBindBuffersRange(target, first, count, buffers, offsets, sizes);
      GLenum target;
      GLuint first;
@@ -571,7 +571,7 @@ CODE:
     };
     glBindBuffersRange(target, first, count, buffers, offsets, sizes);
 
-SV *
+void
 glBindFragDataLocation(program, colorNumber, name);
      GLuint program;
      GLuint colorNumber;
@@ -582,7 +582,7 @@ CODE:
     };
     glBindFragDataLocation(program, colorNumber, name);
 
-SV *
+void
 glBindFragDataLocationEXT(program, color, name);
      GLuint program;
      GLuint color;
@@ -593,7 +593,7 @@ CODE:
     };
     glBindFragDataLocationEXT(program, color, name);
 
-SV *
+void
 glBindFragDataLocationIndexed(program, colorNumber, index, name);
      GLuint program;
      GLuint colorNumber;
@@ -605,7 +605,7 @@ CODE:
     };
     glBindFragDataLocationIndexed(program, colorNumber, index, name);
 
-SV *
+void
 glBindFragmentShaderATI(id);
      GLuint id;
 CODE:
@@ -614,7 +614,7 @@ CODE:
     };
     glBindFragmentShaderATI(id);
 
-SV *
+void
 glBindFramebuffer(target, framebuffer);
      GLenum target;
      GLuint framebuffer;
@@ -624,7 +624,7 @@ CODE:
     };
     glBindFramebuffer(target, framebuffer);
 
-SV *
+void
 glBindFramebufferEXT(target, framebuffer);
      GLenum target;
      GLuint framebuffer;
@@ -634,7 +634,7 @@ CODE:
     };
     glBindFramebufferEXT(target, framebuffer);
 
-SV *
+void
 glBindImageTexture(unit, texture, level, layered, layer, access, format);
      GLuint unit;
      GLuint texture;
@@ -649,7 +649,7 @@ CODE:
     };
     glBindImageTexture(unit, texture, level, layered, layer, access, format);
 
-SV *
+void
 glBindImageTextureEXT(index, texture, level, layered, layer, access, format);
      GLuint index;
      GLuint texture;
@@ -664,7 +664,7 @@ CODE:
     };
     glBindImageTextureEXT(index, texture, level, layered, layer, access, format);
 
-SV *
+void
 glBindImageTextures(first, count, textures);
      GLuint first;
      GLsizei count;
@@ -699,7 +699,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glBindMultiTextureEXT(texunit, target, texture);
      GLenum texunit;
      GLenum target;
@@ -721,7 +721,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glBindProgramARB(target, program);
      GLenum target;
      GLuint program;
@@ -731,7 +731,7 @@ CODE:
     };
     glBindProgramARB(target, program);
 
-SV *
+void
 glBindProgramNV(target, id);
      GLenum target;
      GLuint id;
@@ -741,7 +741,7 @@ CODE:
     };
     glBindProgramNV(target, id);
 
-SV *
+void
 glBindProgramPipeline(pipeline);
      GLuint pipeline;
 CODE:
@@ -750,7 +750,7 @@ CODE:
     };
     glBindProgramPipeline(pipeline);
 
-SV *
+void
 glBindRenderbuffer(target, renderbuffer);
      GLenum target;
      GLuint renderbuffer;
@@ -760,7 +760,7 @@ CODE:
     };
     glBindRenderbuffer(target, renderbuffer);
 
-SV *
+void
 glBindRenderbufferEXT(target, renderbuffer);
      GLenum target;
      GLuint renderbuffer;
@@ -770,7 +770,7 @@ CODE:
     };
     glBindRenderbufferEXT(target, renderbuffer);
 
-SV *
+void
 glBindSampler(unit, sampler);
      GLuint unit;
      GLuint sampler;
@@ -780,7 +780,7 @@ CODE:
     };
     glBindSampler(unit, sampler);
 
-SV *
+void
 glBindSamplers(first, count, samplers);
      GLuint first;
      GLsizei count;
@@ -804,14 +804,14 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glBindTexture(target, texture);
      GLenum target;
      GLuint texture;
 CODE:
     glBindTexture(target, texture);
 
-SV *
+void
 glBindTextureEXT(target, texture);
      GLenum target;
      GLuint texture;
@@ -821,7 +821,7 @@ CODE:
     };
     glBindTextureEXT(target, texture);
 
-SV *
+void
 glBindTextures(first, count, textures);
      GLuint first;
      GLsizei count;
@@ -832,7 +832,7 @@ CODE:
     };
     glBindTextures(first, count, textures);
 
-SV *
+void
 glBindTextureUnit(unit, texture);
      GLuint unit;
      GLuint texture;
@@ -854,7 +854,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glBindTransformFeedback(target, id);
      GLenum target;
      GLuint id;
@@ -864,7 +864,7 @@ CODE:
     };
     glBindTransformFeedback(target, id);
 
-SV *
+void
 glBindTransformFeedbackNV(target, id);
      GLenum target;
      GLuint id;
@@ -874,7 +874,7 @@ CODE:
     };
     glBindTransformFeedbackNV(target, id);
 
-SV *
+void
 glBindVertexArray(array);
      GLuint array;
 CODE:
@@ -883,7 +883,7 @@ CODE:
     };
     glBindVertexArray(array);
 
-SV *
+void
 glBindVertexArrayAPPLE(array);
      GLuint array;
 CODE:
@@ -892,7 +892,7 @@ CODE:
     };
     glBindVertexArrayAPPLE(array);
 
-SV *
+void
 glBindVertexBuffer(bindingindex, buffer, offset, stride);
      GLuint bindingindex;
      GLuint buffer;
@@ -904,7 +904,7 @@ CODE:
     };
     glBindVertexBuffer(bindingindex, buffer, offset, stride);
 
-SV *
+void
 glBindVertexBuffers(first, count, buffers, offsets, strides);
      GLuint first;
      GLsizei count;
@@ -917,7 +917,7 @@ CODE:
     };
     glBindVertexBuffers(first, count, buffers, offsets, strides);
 
-SV *
+void
 glBindVertexShaderEXT(id);
      GLuint id;
 CODE:
@@ -926,7 +926,7 @@ CODE:
     };
     glBindVertexShaderEXT(id);
 
-SV *
+void
 glBindVideoCaptureStreamBufferNV(video_capture_slot, stream, frame_region, offset);
      GLuint video_capture_slot;
      GLuint stream;
@@ -938,7 +938,7 @@ CODE:
     };
     glBindVideoCaptureStreamBufferNV(video_capture_slot, stream, frame_region, offset);
 
-SV *
+void
 glBindVideoCaptureStreamTextureNV(video_capture_slot, stream, frame_region, target, texture);
      GLuint video_capture_slot;
      GLuint stream;
@@ -951,7 +951,7 @@ CODE:
     };
     glBindVideoCaptureStreamTextureNV(video_capture_slot, stream, frame_region, target, texture);
 
-SV *
+void
 glBinormalPointerEXT(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -962,7 +962,7 @@ CODE:
     };
     glBinormalPointerEXT(type, stride, pointer);
 
-SV *
+void
 glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
      GLsizei width;
      GLsizei height;
@@ -974,7 +974,7 @@ glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 CODE:
     glBitmap(width, height, xorig, yorig, xmove, ymove, bitmap);
 
-SV *
+void
 glBlendBarrierKHR();
 CODE:
     if(! __glewBlendBarrierKHR) {
@@ -982,7 +982,7 @@ CODE:
     };
     glBlendBarrierKHR();
 
-SV *
+void
 glBlendBarrierNV();
 CODE:
     if(! __glewBlendBarrierNV) {
@@ -990,7 +990,7 @@ CODE:
     };
     glBlendBarrierNV();
 
-SV *
+void
 glBlendColor(red, green, blue, alpha);
      GLclampf red;
      GLclampf green;
@@ -1002,7 +1002,7 @@ CODE:
     };
     glBlendColor(red, green, blue, alpha);
 
-SV *
+void
 glBlendColorEXT(red, green, blue, alpha);
      GLclampf red;
      GLclampf green;
@@ -1014,7 +1014,7 @@ CODE:
     };
     glBlendColorEXT(red, green, blue, alpha);
 
-SV *
+void
 glBlendEquation(mode);
      GLenum mode;
 CODE:
@@ -1023,7 +1023,7 @@ CODE:
     };
     glBlendEquation(mode);
 
-SV *
+void
 glBlendEquationEXT(mode);
      GLenum mode;
 CODE:
@@ -1032,7 +1032,7 @@ CODE:
     };
     glBlendEquationEXT(mode);
 
-SV *
+void
 glBlendEquationi(buf, mode);
      GLuint buf;
      GLenum mode;
@@ -1042,7 +1042,7 @@ CODE:
     };
     glBlendEquationi(buf, mode);
 
-SV *
+void
 glBlendEquationiARB(buf, mode);
      GLuint buf;
      GLenum mode;
@@ -1052,7 +1052,7 @@ CODE:
     };
     glBlendEquationiARB(buf, mode);
 
-SV *
+void
 glBlendEquationIndexedAMD(buf, mode);
      GLuint buf;
      GLenum mode;
@@ -1062,7 +1062,7 @@ CODE:
     };
     glBlendEquationIndexedAMD(buf, mode);
 
-SV *
+void
 glBlendEquationSeparate(modeRGB, modeAlpha);
      GLenum modeRGB;
      GLenum modeAlpha;
@@ -1072,7 +1072,7 @@ CODE:
     };
     glBlendEquationSeparate(modeRGB, modeAlpha);
 
-SV *
+void
 glBlendEquationSeparateEXT(modeRGB, modeAlpha);
      GLenum modeRGB;
      GLenum modeAlpha;
@@ -1082,7 +1082,7 @@ CODE:
     };
     glBlendEquationSeparateEXT(modeRGB, modeAlpha);
 
-SV *
+void
 glBlendEquationSeparatei(buf, modeRGB, modeAlpha);
      GLuint buf;
      GLenum modeRGB;
@@ -1093,7 +1093,7 @@ CODE:
     };
     glBlendEquationSeparatei(buf, modeRGB, modeAlpha);
 
-SV *
+void
 glBlendEquationSeparateiARB(buf, modeRGB, modeAlpha);
      GLuint buf;
      GLenum modeRGB;
@@ -1104,7 +1104,7 @@ CODE:
     };
     glBlendEquationSeparateiARB(buf, modeRGB, modeAlpha);
 
-SV *
+void
 glBlendEquationSeparateIndexedAMD(buf, modeRGB, modeAlpha);
      GLuint buf;
      GLenum modeRGB;
@@ -1115,14 +1115,14 @@ CODE:
     };
     glBlendEquationSeparateIndexedAMD(buf, modeRGB, modeAlpha);
 
-SV *
+void
 glBlendFunc(sfactor, dfactor);
      GLenum sfactor;
      GLenum dfactor;
 CODE:
     glBlendFunc(sfactor, dfactor);
 
-SV *
+void
 glBlendFunci(buf, src, dst);
      GLuint buf;
      GLenum src;
@@ -1133,7 +1133,7 @@ CODE:
     };
     glBlendFunci(buf, src, dst);
 
-SV *
+void
 glBlendFunciARB(buf, src, dst);
      GLuint buf;
      GLenum src;
@@ -1144,7 +1144,7 @@ CODE:
     };
     glBlendFunciARB(buf, src, dst);
 
-SV *
+void
 glBlendFuncIndexedAMD(buf, src, dst);
      GLuint buf;
      GLenum src;
@@ -1155,7 +1155,7 @@ CODE:
     };
     glBlendFuncIndexedAMD(buf, src, dst);
 
-SV *
+void
 glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
      GLenum sfactorRGB;
      GLenum dfactorRGB;
@@ -1167,7 +1167,7 @@ CODE:
     };
     glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
 
-SV *
+void
 glBlendFuncSeparateEXT(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
      GLenum sfactorRGB;
      GLenum dfactorRGB;
@@ -1179,7 +1179,7 @@ CODE:
     };
     glBlendFuncSeparateEXT(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
 
-SV *
+void
 glBlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
      GLuint buf;
      GLenum srcRGB;
@@ -1192,7 +1192,7 @@ CODE:
     };
     glBlendFuncSeparatei(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
 
-SV *
+void
 glBlendFuncSeparateiARB(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
      GLuint buf;
      GLenum srcRGB;
@@ -1205,7 +1205,7 @@ CODE:
     };
     glBlendFuncSeparateiARB(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
 
-SV *
+void
 glBlendFuncSeparateIndexedAMD(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
      GLuint buf;
      GLenum srcRGB;
@@ -1218,7 +1218,7 @@ CODE:
     };
     glBlendFuncSeparateIndexedAMD(buf, srcRGB, dstRGB, srcAlpha, dstAlpha);
 
-SV *
+void
 glBlendParameteriNV(pname, value);
      GLenum pname;
      GLint value;
@@ -1228,7 +1228,7 @@ CODE:
     };
     glBlendParameteriNV(pname, value);
 
-SV *
+void
 glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
      GLint srcX0;
      GLint srcY0;
@@ -1246,7 +1246,7 @@ CODE:
     };
     glBlitFramebuffer(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
-SV *
+void
 glBlitFramebufferANGLE(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
      GLint srcX0;
      GLint srcY0;
@@ -1264,7 +1264,7 @@ CODE:
     };
     glBlitFramebufferANGLE(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
-SV *
+void
 glBlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
      GLint srcX0;
      GLint srcY0;
@@ -1282,7 +1282,7 @@ CODE:
     };
     glBlitFramebufferEXT(srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
-SV *
+void
 glBlitNamedFramebuffer(readFramebuffer, drawFramebuffer, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
      GLuint readFramebuffer;
      GLuint drawFramebuffer;
@@ -1302,7 +1302,7 @@ CODE:
     };
     glBlitNamedFramebuffer(readFramebuffer, drawFramebuffer, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
-SV *
+void
 glBufferAddressRangeNV(pname, index, address, length);
      GLenum pname;
      GLuint index;
@@ -1314,7 +1314,7 @@ CODE:
     };
     glBufferAddressRangeNV(pname, index, address, length);
 
-SV *
+void
 glBufferData(target, size, data, usage);
      GLenum target;
      GLsizeiptr size;
@@ -1326,7 +1326,7 @@ CODE:
     };
     glBufferData(target, size, data, usage);
 
-SV *
+void
 glBufferDataARB(target, size, data, usage);
      GLenum target;
      GLsizeiptrARB size;
@@ -1338,7 +1338,7 @@ CODE:
     };
     glBufferDataARB(target, size, data, usage);
 
-SV *
+void
 glBufferPageCommitmentARB(target, offset, size, commit);
      GLenum target;
      GLintptr offset;
@@ -1350,7 +1350,7 @@ CODE:
     };
     glBufferPageCommitmentARB(target, offset, size, commit);
 
-SV *
+void
 glBufferParameteriAPPLE(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -1371,7 +1371,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glBufferStorage(target, size, data, flags);
      GLenum target;
      GLsizeiptr size;
@@ -1383,7 +1383,7 @@ CODE:
     };
     glBufferStorage(target, size, data, flags);
 
-SV *
+void
 glBufferSubData(target, offset, size, data);
      GLenum target;
      GLintptr offset;
@@ -1395,7 +1395,7 @@ CODE:
     };
     glBufferSubData(target, offset, size, data);
 
-SV *
+void
 glBufferSubDataARB(target, offset, size, data);
      GLenum target;
      GLintptrARB offset;
@@ -1407,7 +1407,7 @@ CODE:
     };
     glBufferSubDataARB(target, offset, size, data);
 
-SV *
+void
 glCallCommandListNV(list);
      GLuint list;
 CODE:
@@ -1416,13 +1416,13 @@ CODE:
     };
     glCallCommandListNV(list);
 
-SV *
+void
 glCallList(list);
      GLuint list;
 CODE:
     glCallList(list);
 
-SV *
+void
 glCallLists(n, type, lists);
      GLsizei n;
      GLenum type;
@@ -1476,7 +1476,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glClampColor(target, clamp);
      GLenum target;
      GLenum clamp;
@@ -1486,7 +1486,7 @@ CODE:
     };
     glClampColor(target, clamp);
 
-SV *
+void
 glClampColorARB(target, clamp);
      GLenum target;
      GLenum clamp;
@@ -1496,13 +1496,13 @@ CODE:
     };
     glClampColorARB(target, clamp);
 
-SV *
+void
 glClear(mask);
      GLbitfield mask;
 CODE:
     glClear(mask);
 
-SV *
+void
 glClearAccum(red, green, blue, alpha);
      GLfloat red;
      GLfloat green;
@@ -1511,7 +1511,7 @@ glClearAccum(red, green, blue, alpha);
 CODE:
     glClearAccum(red, green, blue, alpha);
 
-SV *
+void
 glClearBufferData(target, internalformat, format, type, data);
      GLenum target;
      GLenum internalformat;
@@ -1524,7 +1524,7 @@ CODE:
     };
     glClearBufferData(target, internalformat, format, type, data);
 
-SV *
+void
 glClearBufferfi(buffer, drawBuffer, depth, stencil);
      GLenum buffer;
      GLint drawBuffer;
@@ -1536,7 +1536,7 @@ CODE:
     };
     glClearBufferfi(buffer, drawBuffer, depth, stencil);
 
-SV *
+void
 glClearBufferfv(buffer, drawBuffer, value);
      GLenum buffer;
      GLint drawBuffer;
@@ -1547,7 +1547,7 @@ CODE:
     };
     glClearBufferfv(buffer, drawBuffer, value);
 
-SV *
+void
 glClearBufferiv(buffer, drawBuffer, value);
      GLenum buffer;
      GLint drawBuffer;
@@ -1558,7 +1558,7 @@ CODE:
     };
     glClearBufferiv(buffer, drawBuffer, value);
 
-SV *
+void
 glClearBufferSubData(target, internalformat, offset, size, format, type, data);
      GLenum target;
      GLenum internalformat;
@@ -1573,7 +1573,7 @@ CODE:
     };
     glClearBufferSubData(target, internalformat, offset, size, format, type, data);
 
-SV *
+void
 glClearBufferuiv(buffer, drawBuffer, value);
      GLenum buffer;
      GLint drawBuffer;
@@ -1584,7 +1584,7 @@ CODE:
     };
     glClearBufferuiv(buffer, drawBuffer, value);
 
-SV *
+void
 glClearColor(red, green, blue, alpha);
      GLclampf red;
      GLclampf green;
@@ -1593,7 +1593,7 @@ glClearColor(red, green, blue, alpha);
 CODE:
     glClearColor(red, green, blue, alpha);
 
-SV *
+void
 glClearColorIiEXT(red, green, blue, alpha);
      GLint red;
      GLint green;
@@ -1605,7 +1605,7 @@ CODE:
     };
     glClearColorIiEXT(red, green, blue, alpha);
 
-SV *
+void
 glClearColorIuiEXT(red, green, blue, alpha);
      GLuint red;
      GLuint green;
@@ -1617,7 +1617,7 @@ CODE:
     };
     glClearColorIuiEXT(red, green, blue, alpha);
 
-SV *
+void
 glClearColorx(red, green, blue, alpha);
      GLclampx red;
      GLclampx green;
@@ -1629,13 +1629,13 @@ CODE:
     };
     glClearColorx(red, green, blue, alpha);
 
-SV *
+void
 glClearDepth(depth);
      GLclampd depth;
 CODE:
     glClearDepth(depth);
 
-SV *
+void
 glClearDepthdNV(depth);
      GLdouble depth;
 CODE:
@@ -1644,7 +1644,7 @@ CODE:
     };
     glClearDepthdNV(depth);
 
-SV *
+void
 glClearDepthf(d);
      GLclampf d;
 CODE:
@@ -1653,7 +1653,7 @@ CODE:
     };
     glClearDepthf(d);
 
-SV *
+void
 glClearDepthfOES(depth);
      GLclampf depth;
 CODE:
@@ -1662,7 +1662,7 @@ CODE:
     };
     glClearDepthfOES(depth);
 
-SV *
+void
 glClearDepthx(depth);
      GLclampx depth;
 CODE:
@@ -1671,13 +1671,13 @@ CODE:
     };
     glClearDepthx(depth);
 
-SV *
+void
 glClearIndex(c);
      GLfloat c;
 CODE:
     glClearIndex(c);
 
-SV *
+void
 glClearNamedBufferData(buffer, internalformat, format, type, data);
      GLuint buffer;
      GLenum internalformat;
@@ -1690,7 +1690,7 @@ CODE:
     };
     glClearNamedBufferData(buffer, internalformat, format, type, data);
 
-SV *
+void
 glClearNamedBufferDataEXT(buffer, internalformat, format, type, data);
      GLuint buffer;
      GLenum internalformat;
@@ -1703,7 +1703,7 @@ CODE:
     };
     glClearNamedBufferDataEXT(buffer, internalformat, format, type, data);
 
-SV *
+void
 glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
      GLuint buffer;
      GLenum internalformat;
@@ -1718,7 +1718,7 @@ CODE:
     };
     glClearNamedBufferSubData(buffer, internalformat, offset, size, format, type, data);
 
-SV *
+void
 glClearNamedBufferSubDataEXT(buffer, internalformat, offset, size, format, type, data);
      GLuint buffer;
      GLenum internalformat;
@@ -1733,7 +1733,7 @@ CODE:
     };
     glClearNamedBufferSubDataEXT(buffer, internalformat, offset, size, format, type, data);
 
-SV *
+void
 glClearNamedFramebufferfi(framebuffer, buffer, drawbuffer, depth, stencil);
      GLuint framebuffer;
      GLenum buffer;
@@ -1746,7 +1746,7 @@ CODE:
     };
     glClearNamedFramebufferfi(framebuffer, buffer, drawbuffer, depth, stencil);
 
-SV *
+void
 glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value);
      GLuint framebuffer;
      GLenum buffer;
@@ -1758,7 +1758,7 @@ CODE:
     };
     glClearNamedFramebufferfv(framebuffer, buffer, drawbuffer, value);
 
-SV *
+void
 glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value);
      GLuint framebuffer;
      GLenum buffer;
@@ -1770,7 +1770,7 @@ CODE:
     };
     glClearNamedFramebufferiv(framebuffer, buffer, drawbuffer, value);
 
-SV *
+void
 glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value);
      GLuint framebuffer;
      GLenum buffer;
@@ -1782,13 +1782,13 @@ CODE:
     };
     glClearNamedFramebufferuiv(framebuffer, buffer, drawbuffer, value);
 
-SV *
+void
 glClearStencil(s);
      GLint s;
 CODE:
     glClearStencil(s);
 
-SV *
+void
 glClearTexImage(texture, level, format, type, data);
      GLuint texture;
      GLint level;
@@ -1801,7 +1801,7 @@ CODE:
     };
     glClearTexImage(texture, level, format, type, data);
 
-SV *
+void
 glClearTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data);
      GLuint texture;
      GLint level;
@@ -1820,7 +1820,7 @@ CODE:
     };
     glClearTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, data);
 
-SV *
+void
 glClientActiveTexture(texture);
      GLenum texture;
 CODE:
@@ -1829,7 +1829,7 @@ CODE:
     };
     glClientActiveTexture(texture);
 
-SV *
+void
 glClientActiveTextureARB(texture);
      GLenum texture;
 CODE:
@@ -1838,7 +1838,7 @@ CODE:
     };
     glClientActiveTextureARB(texture);
 
-SV *
+void
 glClientActiveVertexStreamATI(stream);
      GLenum stream;
 CODE:
@@ -1847,7 +1847,7 @@ CODE:
     };
     glClientActiveVertexStreamATI(stream);
 
-SV *
+void
 glClientAttribDefaultEXT(mask);
      GLbitfield mask;
 CODE:
@@ -1869,7 +1869,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glClipControl(origin, depth);
      GLenum origin;
      GLenum depth;
@@ -1879,14 +1879,14 @@ CODE:
     };
     glClipControl(origin, depth);
 
-SV *
+void
 glClipPlane(plane, equation);
      GLenum plane;
      const GLdouble *equation;
 CODE:
     glClipPlane(plane, equation);
 
-SV *
+void
 glClipPlanef(plane, equation);
      GLenum plane;
      const GLfloat* equation;
@@ -1896,7 +1896,7 @@ CODE:
     };
     glClipPlanef(plane, equation);
 
-SV *
+void
 glClipPlanefOES(plane, equation);
      GLenum plane;
      const GLfloat* equation;
@@ -1906,7 +1906,7 @@ CODE:
     };
     glClipPlanefOES(plane, equation);
 
-SV *
+void
 glClipPlanex(plane, equation);
      GLenum plane;
      const GLfixed* equation;
@@ -1916,7 +1916,7 @@ CODE:
     };
     glClipPlanex(plane, equation);
 
-SV *
+void
 glColor3b(red, green, blue);
      GLbyte red;
      GLbyte green;
@@ -1924,13 +1924,13 @@ glColor3b(red, green, blue);
 CODE:
     glColor3b(red, green, blue);
 
-SV *
+void
 glColor3bv(v);
      const GLbyte *v;
 CODE:
     glColor3bv(v);
 
-SV *
+void
 glColor3d(red, green, blue);
      GLdouble red;
      GLdouble green;
@@ -1938,13 +1938,13 @@ glColor3d(red, green, blue);
 CODE:
     glColor3d(red, green, blue);
 
-SV *
+void
 glColor3dv(v);
      const GLdouble *v;
 CODE:
     glColor3dv(v);
 
-SV *
+void
 glColor3f(red, green, blue);
      GLfloat red;
      GLfloat green;
@@ -1952,13 +1952,13 @@ glColor3f(red, green, blue);
 CODE:
     glColor3f(red, green, blue);
 
-SV *
+void
 glColor3fv(v);
      const GLfloat *v;
 CODE:
     glColor3fv(v);
 
-SV *
+void
 glColor3fVertex3fSUN(r, g, b, x, y, z);
      GLfloat r;
      GLfloat g;
@@ -1972,7 +1972,7 @@ CODE:
     };
     glColor3fVertex3fSUN(r, g, b, x, y, z);
 
-SV *
+void
 glColor3fVertex3fvSUN(c, v);
      const GLfloat* c;
      const GLfloat *v;
@@ -1982,7 +1982,7 @@ CODE:
     };
     glColor3fVertex3fvSUN(c, v);
 
-SV *
+void
 glColor3hNV(red, green, blue);
      GLhalf red;
      GLhalf green;
@@ -1993,7 +1993,7 @@ CODE:
     };
     glColor3hNV(red, green, blue);
 
-SV *
+void
 glColor3hvNV(v);
      const GLhalf* v;
 CODE:
@@ -2002,7 +2002,7 @@ CODE:
     };
     glColor3hvNV(v);
 
-SV *
+void
 glColor3i(red, green, blue);
      GLint red;
      GLint green;
@@ -2010,13 +2010,13 @@ glColor3i(red, green, blue);
 CODE:
     glColor3i(red, green, blue);
 
-SV *
+void
 glColor3iv(v);
      const GLint *v;
 CODE:
     glColor3iv(v);
 
-SV *
+void
 glColor3s(red, green, blue);
      GLshort red;
      GLshort green;
@@ -2024,13 +2024,13 @@ glColor3s(red, green, blue);
 CODE:
     glColor3s(red, green, blue);
 
-SV *
+void
 glColor3sv(v);
      const GLshort *v;
 CODE:
     glColor3sv(v);
 
-SV *
+void
 glColor3ub(red, green, blue);
      GLubyte red;
      GLubyte green;
@@ -2038,13 +2038,13 @@ glColor3ub(red, green, blue);
 CODE:
     glColor3ub(red, green, blue);
 
-SV *
+void
 glColor3ubv(v);
      const GLubyte *v;
 CODE:
     glColor3ubv(v);
 
-SV *
+void
 glColor3ui(red, green, blue);
      GLuint red;
      GLuint green;
@@ -2052,13 +2052,13 @@ glColor3ui(red, green, blue);
 CODE:
     glColor3ui(red, green, blue);
 
-SV *
+void
 glColor3uiv(v);
      const GLuint *v;
 CODE:
     glColor3uiv(v);
 
-SV *
+void
 glColor3us(red, green, blue);
      GLushort red;
      GLushort green;
@@ -2066,13 +2066,13 @@ glColor3us(red, green, blue);
 CODE:
     glColor3us(red, green, blue);
 
-SV *
+void
 glColor3usv(v);
      const GLushort *v;
 CODE:
     glColor3usv(v);
 
-SV *
+void
 glColor4b(red, green, blue, alpha);
      GLbyte red;
      GLbyte green;
@@ -2081,13 +2081,13 @@ glColor4b(red, green, blue, alpha);
 CODE:
     glColor4b(red, green, blue, alpha);
 
-SV *
+void
 glColor4bv(v);
      const GLbyte *v;
 CODE:
     glColor4bv(v);
 
-SV *
+void
 glColor4d(red, green, blue, alpha);
      GLdouble red;
      GLdouble green;
@@ -2096,13 +2096,13 @@ glColor4d(red, green, blue, alpha);
 CODE:
     glColor4d(red, green, blue, alpha);
 
-SV *
+void
 glColor4dv(v);
      const GLdouble *v;
 CODE:
     glColor4dv(v);
 
-SV *
+void
 glColor4f(red, green, blue, alpha);
      GLfloat red;
      GLfloat green;
@@ -2111,7 +2111,7 @@ glColor4f(red, green, blue, alpha);
 CODE:
     glColor4f(red, green, blue, alpha);
 
-SV *
+void
 glColor4fNormal3fVertex3fSUN(r, g, b, a, nx, ny, nz, x, y, z);
      GLfloat r;
      GLfloat g;
@@ -2129,7 +2129,7 @@ CODE:
     };
     glColor4fNormal3fVertex3fSUN(r, g, b, a, nx, ny, nz, x, y, z);
 
-SV *
+void
 glColor4fNormal3fVertex3fvSUN(c, n, v);
      const GLfloat* c;
      const GLfloat *n;
@@ -2140,13 +2140,13 @@ CODE:
     };
     glColor4fNormal3fVertex3fvSUN(c, n, v);
 
-SV *
+void
 glColor4fv(v);
      const GLfloat *v;
 CODE:
     glColor4fv(v);
 
-SV *
+void
 glColor4hNV(red, green, blue, alpha);
      GLhalf red;
      GLhalf green;
@@ -2158,7 +2158,7 @@ CODE:
     };
     glColor4hNV(red, green, blue, alpha);
 
-SV *
+void
 glColor4hvNV(v);
      const GLhalf* v;
 CODE:
@@ -2167,7 +2167,7 @@ CODE:
     };
     glColor4hvNV(v);
 
-SV *
+void
 glColor4i(red, green, blue, alpha);
      GLint red;
      GLint green;
@@ -2176,13 +2176,13 @@ glColor4i(red, green, blue, alpha);
 CODE:
     glColor4i(red, green, blue, alpha);
 
-SV *
+void
 glColor4iv(v);
      const GLint *v;
 CODE:
     glColor4iv(v);
 
-SV *
+void
 glColor4s(red, green, blue, alpha);
      GLshort red;
      GLshort green;
@@ -2191,13 +2191,13 @@ glColor4s(red, green, blue, alpha);
 CODE:
     glColor4s(red, green, blue, alpha);
 
-SV *
+void
 glColor4sv(v);
      const GLshort *v;
 CODE:
     glColor4sv(v);
 
-SV *
+void
 glColor4ub(red, green, blue, alpha);
      GLubyte red;
      GLubyte green;
@@ -2206,13 +2206,13 @@ glColor4ub(red, green, blue, alpha);
 CODE:
     glColor4ub(red, green, blue, alpha);
 
-SV *
+void
 glColor4ubv(v);
      const GLubyte *v;
 CODE:
     glColor4ubv(v);
 
-SV *
+void
 glColor4ubVertex2fSUN(r, g, b, a, x, y);
      GLubyte r;
      GLubyte g;
@@ -2226,7 +2226,7 @@ CODE:
     };
     glColor4ubVertex2fSUN(r, g, b, a, x, y);
 
-SV *
+void
 glColor4ubVertex2fvSUN(c, v);
      const GLubyte* c;
      const GLfloat *v;
@@ -2236,7 +2236,7 @@ CODE:
     };
     glColor4ubVertex2fvSUN(c, v);
 
-SV *
+void
 glColor4ubVertex3fSUN(r, g, b, a, x, y, z);
      GLubyte r;
      GLubyte g;
@@ -2251,7 +2251,7 @@ CODE:
     };
     glColor4ubVertex3fSUN(r, g, b, a, x, y, z);
 
-SV *
+void
 glColor4ubVertex3fvSUN(c, v);
      const GLubyte* c;
      const GLfloat *v;
@@ -2261,7 +2261,7 @@ CODE:
     };
     glColor4ubVertex3fvSUN(c, v);
 
-SV *
+void
 glColor4ui(red, green, blue, alpha);
      GLuint red;
      GLuint green;
@@ -2270,13 +2270,13 @@ glColor4ui(red, green, blue, alpha);
 CODE:
     glColor4ui(red, green, blue, alpha);
 
-SV *
+void
 glColor4uiv(v);
      const GLuint *v;
 CODE:
     glColor4uiv(v);
 
-SV *
+void
 glColor4us(red, green, blue, alpha);
      GLushort red;
      GLushort green;
@@ -2285,13 +2285,13 @@ glColor4us(red, green, blue, alpha);
 CODE:
     glColor4us(red, green, blue, alpha);
 
-SV *
+void
 glColor4usv(v);
      const GLushort *v;
 CODE:
     glColor4usv(v);
 
-SV *
+void
 glColor4x(red, green, blue, alpha);
      GLfixed red;
      GLfixed green;
@@ -2303,7 +2303,7 @@ CODE:
     };
     glColor4x(red, green, blue, alpha);
 
-SV *
+void
 glColorFormatNV(size, type, stride);
      GLint size;
      GLenum type;
@@ -2314,7 +2314,7 @@ CODE:
     };
     glColorFormatNV(size, type, stride);
 
-SV *
+void
 glColorFragmentOp1ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod);
      GLenum op;
      GLuint dst;
@@ -2329,7 +2329,7 @@ CODE:
     };
     glColorFragmentOp1ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod);
 
-SV *
+void
 glColorFragmentOp2ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod);
      GLenum op;
      GLuint dst;
@@ -2347,7 +2347,7 @@ CODE:
     };
     glColorFragmentOp2ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod);
 
-SV *
+void
 glColorFragmentOp3ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
      GLenum op;
      GLuint dst;
@@ -2368,7 +2368,7 @@ CODE:
     };
     glColorFragmentOp3ATI(op, dst, dstMask, dstMod, arg1, arg1Rep, arg1Mod, arg2, arg2Rep, arg2Mod, arg3, arg3Rep, arg3Mod);
 
-SV *
+void
 glColorMask(red, green, blue, alpha);
      GLboolean red;
      GLboolean green;
@@ -2377,7 +2377,7 @@ glColorMask(red, green, blue, alpha);
 CODE:
     glColorMask(red, green, blue, alpha);
 
-SV *
+void
 glColorMaski(buf, red, green, blue, alpha);
      GLuint buf;
      GLboolean red;
@@ -2390,7 +2390,7 @@ CODE:
     };
     glColorMaski(buf, red, green, blue, alpha);
 
-SV *
+void
 glColorMaskIndexedEXT(buf, r, g, b, a);
      GLuint buf;
      GLboolean r;
@@ -2403,14 +2403,14 @@ CODE:
     };
     glColorMaskIndexedEXT(buf, r, g, b, a);
 
-SV *
+void
 glColorMaterial(face, mode);
      GLenum face;
      GLenum mode;
 CODE:
     glColorMaterial(face, mode);
 
-SV *
+void
 glColorP3ui(type, color);
      GLenum type;
      GLuint color;
@@ -2420,7 +2420,7 @@ CODE:
     };
     glColorP3ui(type, color);
 
-SV *
+void
 glColorP3uiv(type, color);
      GLenum type;
      const GLuint* color;
@@ -2430,7 +2430,7 @@ CODE:
     };
     glColorP3uiv(type, color);
 
-SV *
+void
 glColorP4ui(type, color);
      GLenum type;
      GLuint color;
@@ -2440,7 +2440,7 @@ CODE:
     };
     glColorP4ui(type, color);
 
-SV *
+void
 glColorP4uiv(type, color);
      GLenum type;
      const GLuint* color;
@@ -2450,7 +2450,7 @@ CODE:
     };
     glColorP4uiv(type, color);
 
-SV *
+void
 glColorPointer(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -2459,7 +2459,7 @@ glColorPointer(size, type, stride, pointer);
 CODE:
     glColorPointer(size, type, stride, pointer);
 
-SV *
+void
 glColorPointerEXT(size, type, stride, count, pointer);
      GLint size;
      GLenum type;
@@ -2472,7 +2472,7 @@ CODE:
     };
     glColorPointerEXT(size, type, stride, count, pointer);
 
-SV *
+void
 glColorPointerListIBM(size, type, stride, pointer, ptrstride);
      GLint size;
      GLenum type;
@@ -2485,7 +2485,7 @@ CODE:
     };
     glColorPointerListIBM(size, type, stride, pointer, ptrstride);
 
-SV *
+void
 glColorPointervINTEL(size, type, pointer);
      GLint size;
      GLenum type;
@@ -2496,7 +2496,7 @@ CODE:
     };
     glColorPointervINTEL(size, type, pointer);
 
-SV *
+void
 glColorSubTable(target, start, count, format, type, data);
      GLenum target;
      GLsizei start;
@@ -2510,7 +2510,7 @@ CODE:
     };
     glColorSubTable(target, start, count, format, type, data);
 
-SV *
+void
 glColorSubTableEXT(target, start, count, format, type, data);
      GLenum target;
      GLsizei start;
@@ -2524,7 +2524,7 @@ CODE:
     };
     glColorSubTableEXT(target, start, count, format, type, data);
 
-SV *
+void
 glColorTable(target, internalformat, width, format, type, table);
      GLenum target;
      GLenum internalformat;
@@ -2538,7 +2538,7 @@ CODE:
     };
     glColorTable(target, internalformat, width, format, type, table);
 
-SV *
+void
 glColorTableEXT(target, internalFormat, width, format, type, data);
      GLenum target;
      GLenum internalFormat;
@@ -2552,7 +2552,7 @@ CODE:
     };
     glColorTableEXT(target, internalFormat, width, format, type, data);
 
-SV *
+void
 glColorTableParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -2563,7 +2563,7 @@ CODE:
     };
     glColorTableParameterfv(target, pname, params);
 
-SV *
+void
 glColorTableParameterfvSGI(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -2574,7 +2574,7 @@ CODE:
     };
     glColorTableParameterfvSGI(target, pname, params);
 
-SV *
+void
 glColorTableParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -2585,7 +2585,7 @@ CODE:
     };
     glColorTableParameteriv(target, pname, params);
 
-SV *
+void
 glColorTableParameterivSGI(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -2596,7 +2596,7 @@ CODE:
     };
     glColorTableParameterivSGI(target, pname, params);
 
-SV *
+void
 glColorTableSGI(target, internalformat, width, format, type, table);
      GLenum target;
      GLenum internalformat;
@@ -2610,7 +2610,7 @@ CODE:
     };
     glColorTableSGI(target, internalformat, width, format, type, table);
 
-SV *
+void
 glCombinerInputNV(stage, portion, variable, input, mapping, componentUsage);
      GLenum stage;
      GLenum portion;
@@ -2624,7 +2624,7 @@ CODE:
     };
     glCombinerInputNV(stage, portion, variable, input, mapping, componentUsage);
 
-SV *
+void
 glCombinerOutputNV(stage, portion, abOutput, cdOutput, sumOutput, scale, bias, abDotProduct, cdDotProduct, muxSum);
      GLenum stage;
      GLenum portion;
@@ -2642,7 +2642,7 @@ CODE:
     };
     glCombinerOutputNV(stage, portion, abOutput, cdOutput, sumOutput, scale, bias, abDotProduct, cdDotProduct, muxSum);
 
-SV *
+void
 glCombinerParameterfNV(pname, param);
      GLenum pname;
      GLfloat param;
@@ -2652,7 +2652,7 @@ CODE:
     };
     glCombinerParameterfNV(pname, param);
 
-SV *
+void
 glCombinerParameterfvNV(pname, params);
      GLenum pname;
      const GLfloat* params;
@@ -2662,7 +2662,7 @@ CODE:
     };
     glCombinerParameterfvNV(pname, params);
 
-SV *
+void
 glCombinerParameteriNV(pname, param);
      GLenum pname;
      GLint param;
@@ -2672,7 +2672,7 @@ CODE:
     };
     glCombinerParameteriNV(pname, param);
 
-SV *
+void
 glCombinerParameterivNV(pname, params);
      GLenum pname;
      const GLint* params;
@@ -2682,7 +2682,7 @@ CODE:
     };
     glCombinerParameterivNV(pname, params);
 
-SV *
+void
 glCombinerStageParameterfvNV(stage, pname, params);
      GLenum stage;
      GLenum pname;
@@ -2693,7 +2693,7 @@ CODE:
     };
     glCombinerStageParameterfvNV(stage, pname, params);
 
-SV *
+void
 glCommandListSegmentsNV(list, segments);
      GLuint list;
      GLuint segments;
@@ -2703,7 +2703,7 @@ CODE:
     };
     glCommandListSegmentsNV(list, segments);
 
-SV *
+void
 glCompileCommandListNV(list);
      GLuint list;
 CODE:
@@ -2712,7 +2712,7 @@ CODE:
     };
     glCompileCommandListNV(list);
 
-SV *
+void
 glCompileShader(shader);
      GLuint shader;
 CODE:
@@ -2721,7 +2721,7 @@ CODE:
     };
     glCompileShader(shader);
 
-SV *
+void
 glCompileShaderARB(shaderObj);
      GLhandleARB shaderObj;
 CODE:
@@ -2730,7 +2730,7 @@ CODE:
     };
     glCompileShaderARB(shaderObj);
 
-SV *
+void
 glCompileShaderIncludeARB(shader, count, path, length);
      GLuint shader;
      GLsizei count;
@@ -2742,7 +2742,7 @@ CODE:
     };
     glCompileShaderIncludeARB(shader, count, path, length);
 
-SV *
+void
 glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2758,7 +2758,7 @@ CODE:
     };
     glCompressedMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, imageSize, data);
 
-SV *
+void
 glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2775,7 +2775,7 @@ CODE:
     };
     glCompressedMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, imageSize, data);
 
-SV *
+void
 glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2793,7 +2793,7 @@ CODE:
     };
     glCompressedMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, imageSize, data);
 
-SV *
+void
 glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2809,7 +2809,7 @@ CODE:
     };
     glCompressedMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, imageSize, data);
 
-SV *
+void
 glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2827,7 +2827,7 @@ CODE:
     };
     glCompressedMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, imageSize, data);
 
-SV *
+void
 glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
      GLenum texunit;
      GLenum target;
@@ -2847,7 +2847,7 @@ CODE:
     };
     glCompressedMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 
-SV *
+void
 glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2862,7 +2862,7 @@ CODE:
     };
     glCompressedTexImage1D(target, level, internalformat, width, border, imageSize, data);
 
-SV *
+void
 glCompressedTexImage1DARB(target, level, internalformat, width, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2877,7 +2877,7 @@ CODE:
     };
     glCompressedTexImage1DARB(target, level, internalformat, width, border, imageSize, data);
 
-SV *
+void
 glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2893,7 +2893,7 @@ CODE:
     };
     glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
 
-SV *
+void
 glCompressedTexImage2DARB(target, level, internalformat, width, height, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2909,7 +2909,7 @@ CODE:
     };
     glCompressedTexImage2DARB(target, level, internalformat, width, height, border, imageSize, data);
 
-SV *
+void
 glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2926,7 +2926,7 @@ CODE:
     };
     glCompressedTexImage3D(target, level, internalformat, width, height, depth, border, imageSize, data);
 
-SV *
+void
 glCompressedTexImage3DARB(target, level, internalformat, width, height, depth, border, imageSize, data);
      GLenum target;
      GLint level;
@@ -2943,7 +2943,7 @@ CODE:
     };
     glCompressedTexImage3DARB(target, level, internalformat, width, height, depth, border, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -2958,7 +2958,7 @@ CODE:
     };
     glCompressedTexSubImage1D(target, level, xoffset, width, format, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage1DARB(target, level, xoffset, width, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -2973,7 +2973,7 @@ CODE:
     };
     glCompressedTexSubImage1DARB(target, level, xoffset, width, format, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -2990,7 +2990,7 @@ CODE:
     };
     glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage2DARB(target, level, xoffset, yoffset, width, height, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -3007,7 +3007,7 @@ CODE:
     };
     glCompressedTexSubImage2DARB(target, level, xoffset, yoffset, width, height, format, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -3026,7 +3026,7 @@ CODE:
     };
     glCompressedTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 
-SV *
+void
 glCompressedTexSubImage3DARB(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
      GLenum target;
      GLint level;
@@ -3045,7 +3045,7 @@ CODE:
     };
     glCompressedTexSubImage3DARB(target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3061,7 +3061,7 @@ CODE:
     };
     glCompressedTextureImage1DEXT(texture, target, level, internalformat, width, border, imageSize, data);
 
-SV *
+void
 glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3078,7 +3078,7 @@ CODE:
     };
     glCompressedTextureImage2DEXT(texture, target, level, internalformat, width, height, border, imageSize, data);
 
-SV *
+void
 glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3096,7 +3096,7 @@ CODE:
     };
     glCompressedTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage1D(texture, level, xoffset, width, format, imageSize, data);
      GLuint texture;
      GLint level;
@@ -3111,7 +3111,7 @@ CODE:
     };
     glCompressedTextureSubImage1D(texture, level, xoffset, width, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3127,7 +3127,7 @@ CODE:
     };
     glCompressedTextureSubImage1DEXT(texture, target, level, xoffset, width, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, imageSize, data);
      GLuint texture;
      GLint level;
@@ -3144,7 +3144,7 @@ CODE:
     };
     glCompressedTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3162,7 +3162,7 @@ CODE:
     };
     glCompressedTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
      GLuint texture;
      GLint level;
@@ -3181,7 +3181,7 @@ CODE:
     };
     glCompressedTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 
-SV *
+void
 glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
      GLuint texture;
      GLenum target;
@@ -3201,7 +3201,7 @@ CODE:
     };
     glCompressedTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, imageSize, data);
 
-SV *
+void
 glConservativeRasterParameterfNV(pname, value);
      GLenum pname;
      GLfloat value;
@@ -3211,7 +3211,7 @@ CODE:
     };
     glConservativeRasterParameterfNV(pname, value);
 
-SV *
+void
 glConservativeRasterParameteriNV(pname, param);
      GLenum pname;
      GLint param;
@@ -3221,7 +3221,7 @@ CODE:
     };
     glConservativeRasterParameteriNV(pname, param);
 
-SV *
+void
 glConvolutionFilter1D(target, internalformat, width, format, type, image);
      GLenum target;
      GLenum internalformat;
@@ -3235,7 +3235,7 @@ CODE:
     };
     glConvolutionFilter1D(target, internalformat, width, format, type, image);
 
-SV *
+void
 glConvolutionFilter1DEXT(target, internalformat, width, format, type, image);
      GLenum target;
      GLenum internalformat;
@@ -3249,7 +3249,7 @@ CODE:
     };
     glConvolutionFilter1DEXT(target, internalformat, width, format, type, image);
 
-SV *
+void
 glConvolutionFilter2D(target, internalformat, width, height, format, type, image);
      GLenum target;
      GLenum internalformat;
@@ -3264,7 +3264,7 @@ CODE:
     };
     glConvolutionFilter2D(target, internalformat, width, height, format, type, image);
 
-SV *
+void
 glConvolutionFilter2DEXT(target, internalformat, width, height, format, type, image);
      GLenum target;
      GLenum internalformat;
@@ -3279,7 +3279,7 @@ CODE:
     };
     glConvolutionFilter2DEXT(target, internalformat, width, height, format, type, image);
 
-SV *
+void
 glConvolutionParameterf(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3290,7 +3290,7 @@ CODE:
     };
     glConvolutionParameterf(target, pname, params);
 
-SV *
+void
 glConvolutionParameterfEXT(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -3301,7 +3301,7 @@ CODE:
     };
     glConvolutionParameterfEXT(target, pname, param);
 
-SV *
+void
 glConvolutionParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3312,7 +3312,7 @@ CODE:
     };
     glConvolutionParameterfv(target, pname, params);
 
-SV *
+void
 glConvolutionParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3323,7 +3323,7 @@ CODE:
     };
     glConvolutionParameterfvEXT(target, pname, params);
 
-SV *
+void
 glConvolutionParameteri(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3334,7 +3334,7 @@ CODE:
     };
     glConvolutionParameteri(target, pname, params);
 
-SV *
+void
 glConvolutionParameteriEXT(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -3345,7 +3345,7 @@ CODE:
     };
     glConvolutionParameteriEXT(target, pname, param);
 
-SV *
+void
 glConvolutionParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3356,7 +3356,7 @@ CODE:
     };
     glConvolutionParameteriv(target, pname, params);
 
-SV *
+void
 glConvolutionParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -3367,7 +3367,7 @@ CODE:
     };
     glConvolutionParameterivEXT(target, pname, params);
 
-SV *
+void
 glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
      GLenum readtarget;
      GLenum writetarget;
@@ -3380,7 +3380,7 @@ CODE:
     };
     glCopyBufferSubData(readtarget, writetarget, readoffset, writeoffset, size);
 
-SV *
+void
 glCopyColorSubTable(target, start, x, y, width);
      GLenum target;
      GLsizei start;
@@ -3393,7 +3393,7 @@ CODE:
     };
     glCopyColorSubTable(target, start, x, y, width);
 
-SV *
+void
 glCopyColorSubTableEXT(target, start, x, y, width);
      GLenum target;
      GLsizei start;
@@ -3406,7 +3406,7 @@ CODE:
     };
     glCopyColorSubTableEXT(target, start, x, y, width);
 
-SV *
+void
 glCopyColorTable(target, internalformat, x, y, width);
      GLenum target;
      GLenum internalformat;
@@ -3419,7 +3419,7 @@ CODE:
     };
     glCopyColorTable(target, internalformat, x, y, width);
 
-SV *
+void
 glCopyColorTableSGI(target, internalformat, x, y, width);
      GLenum target;
      GLenum internalformat;
@@ -3432,7 +3432,7 @@ CODE:
     };
     glCopyColorTableSGI(target, internalformat, x, y, width);
 
-SV *
+void
 glCopyConvolutionFilter1D(target, internalformat, x, y, width);
      GLenum target;
      GLenum internalformat;
@@ -3445,7 +3445,7 @@ CODE:
     };
     glCopyConvolutionFilter1D(target, internalformat, x, y, width);
 
-SV *
+void
 glCopyConvolutionFilter1DEXT(target, internalformat, x, y, width);
      GLenum target;
      GLenum internalformat;
@@ -3458,7 +3458,7 @@ CODE:
     };
     glCopyConvolutionFilter1DEXT(target, internalformat, x, y, width);
 
-SV *
+void
 glCopyConvolutionFilter2D(target, internalformat, x, y, width, height);
      GLenum target;
      GLenum internalformat;
@@ -3472,7 +3472,7 @@ CODE:
     };
     glCopyConvolutionFilter2D(target, internalformat, x, y, width, height);
 
-SV *
+void
 glCopyConvolutionFilter2DEXT(target, internalformat, x, y, width, height);
      GLenum target;
      GLenum internalformat;
@@ -3486,7 +3486,7 @@ CODE:
     };
     glCopyConvolutionFilter2DEXT(target, internalformat, x, y, width, height);
 
-SV *
+void
 glCopyImageSubData(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
      GLuint srcName;
      GLenum srcTarget;
@@ -3509,7 +3509,7 @@ CODE:
     };
     glCopyImageSubData(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
 
-SV *
+void
 glCopyImageSubDataNV(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
      GLuint srcName;
      GLenum srcTarget;
@@ -3532,7 +3532,7 @@ CODE:
     };
     glCopyImageSubDataNV(srcName, srcTarget, srcLevel, srcX, srcY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
 
-SV *
+void
 glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
      GLenum texunit;
      GLenum target;
@@ -3548,7 +3548,7 @@ CODE:
     };
     glCopyMultiTexImage1DEXT(texunit, target, level, internalformat, x, y, width, border);
 
-SV *
+void
 glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
      GLenum texunit;
      GLenum target;
@@ -3565,7 +3565,7 @@ CODE:
     };
     glCopyMultiTexImage2DEXT(texunit, target, level, internalformat, x, y, width, height, border);
 
-SV *
+void
 glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
      GLenum texunit;
      GLenum target;
@@ -3580,7 +3580,7 @@ CODE:
     };
     glCopyMultiTexSubImage1DEXT(texunit, target, level, xoffset, x, y, width);
 
-SV *
+void
 glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
      GLenum texunit;
      GLenum target;
@@ -3597,7 +3597,7 @@ CODE:
     };
     glCopyMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, x, y, width, height);
 
-SV *
+void
 glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
      GLenum texunit;
      GLenum target;
@@ -3615,7 +3615,7 @@ CODE:
     };
     glCopyMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, x, y, width, height);
 
-SV *
+void
 glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset, writeOffset, size);
      GLuint readBuffer;
      GLuint writeBuffer;
@@ -3628,7 +3628,7 @@ CODE:
     };
     glCopyNamedBufferSubData(readBuffer, writeBuffer, readOffset, writeOffset, size);
 
-SV *
+void
 glCopyPathNV(resultPath, srcPath);
      GLuint resultPath;
      GLuint srcPath;
@@ -3638,7 +3638,7 @@ CODE:
     };
     glCopyPathNV(resultPath, srcPath);
 
-SV *
+void
 glCopyPixels(x, y, width, height, type);
      GLint x;
      GLint y;
@@ -3648,7 +3648,7 @@ glCopyPixels(x, y, width, height, type);
 CODE:
     glCopyPixels(x, y, width, height, type);
 
-SV *
+void
 glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
      GLenum target;
      GLint level;
@@ -3660,7 +3660,7 @@ glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
 CODE:
     glCopyTexImage1D(target, level, internalFormat, x, y, width, border);
 
-SV *
+void
 glCopyTexImage1DEXT(target, level, internalformat, x, y, width, border);
      GLenum target;
      GLint level;
@@ -3675,7 +3675,7 @@ CODE:
     };
     glCopyTexImage1DEXT(target, level, internalformat, x, y, width, border);
 
-SV *
+void
 glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
      GLenum target;
      GLint level;
@@ -3688,7 +3688,7 @@ glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
 CODE:
     glCopyTexImage2D(target, level, internalFormat, x, y, width, height, border);
 
-SV *
+void
 glCopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border);
      GLenum target;
      GLint level;
@@ -3704,7 +3704,7 @@ CODE:
     };
     glCopyTexImage2DEXT(target, level, internalformat, x, y, width, height, border);
 
-SV *
+void
 glCopyTexSubImage1D(target, level, xoffset, x, y, width);
      GLenum target;
      GLint level;
@@ -3715,7 +3715,7 @@ glCopyTexSubImage1D(target, level, xoffset, x, y, width);
 CODE:
     glCopyTexSubImage1D(target, level, xoffset, x, y, width);
 
-SV *
+void
 glCopyTexSubImage1DEXT(target, level, xoffset, x, y, width);
      GLenum target;
      GLint level;
@@ -3729,7 +3729,7 @@ CODE:
     };
     glCopyTexSubImage1DEXT(target, level, xoffset, x, y, width);
 
-SV *
+void
 glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
      GLenum target;
      GLint level;
@@ -3742,7 +3742,7 @@ glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
 CODE:
     glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
 
-SV *
+void
 glCopyTexSubImage2DEXT(target, level, xoffset, yoffset, x, y, width, height);
      GLenum target;
      GLint level;
@@ -3758,7 +3758,7 @@ CODE:
     };
     glCopyTexSubImage2DEXT(target, level, xoffset, yoffset, x, y, width, height);
 
-SV *
+void
 glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
      GLenum target;
      GLint level;
@@ -3775,7 +3775,7 @@ CODE:
     };
     glCopyTexSubImage3D(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 
-SV *
+void
 glCopyTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, x, y, width, height);
      GLenum target;
      GLint level;
@@ -3792,7 +3792,7 @@ CODE:
     };
     glCopyTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, x, y, width, height);
 
-SV *
+void
 glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
      GLuint texture;
      GLenum target;
@@ -3808,7 +3808,7 @@ CODE:
     };
     glCopyTextureImage1DEXT(texture, target, level, internalformat, x, y, width, border);
 
-SV *
+void
 glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
      GLuint texture;
      GLenum target;
@@ -3825,7 +3825,7 @@ CODE:
     };
     glCopyTextureImage2DEXT(texture, target, level, internalformat, x, y, width, height, border);
 
-SV *
+void
 glCopyTextureSubImage1D(texture, level, xoffset, x, y, width);
      GLuint texture;
      GLint level;
@@ -3839,7 +3839,7 @@ CODE:
     };
     glCopyTextureSubImage1D(texture, level, xoffset, x, y, width);
 
-SV *
+void
 glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
      GLuint texture;
      GLenum target;
@@ -3854,7 +3854,7 @@ CODE:
     };
     glCopyTextureSubImage1DEXT(texture, target, level, xoffset, x, y, width);
 
-SV *
+void
 glCopyTextureSubImage2D(texture, level, xoffset, yoffset, x, y, width, height);
      GLuint texture;
      GLint level;
@@ -3870,7 +3870,7 @@ CODE:
     };
     glCopyTextureSubImage2D(texture, level, xoffset, yoffset, x, y, width, height);
 
-SV *
+void
 glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
      GLuint texture;
      GLenum target;
@@ -3887,7 +3887,7 @@ CODE:
     };
     glCopyTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, x, y, width, height);
 
-SV *
+void
 glCopyTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, x, y, width, height);
      GLuint texture;
      GLint level;
@@ -3904,7 +3904,7 @@ CODE:
     };
     glCopyTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, x, y, width, height);
 
-SV *
+void
 glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
      GLuint texture;
      GLenum target;
@@ -3922,7 +3922,7 @@ CODE:
     };
     glCopyTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, x, y, width, height);
 
-SV *
+void
 glCoverageModulationNV(components);
      GLenum components;
 CODE:
@@ -3931,7 +3931,7 @@ CODE:
     };
     glCoverageModulationNV(components);
 
-SV *
+void
 glCoverageModulationTableNV(n, v);
      GLsizei n;
      const GLfloat* v;
@@ -3941,7 +3941,7 @@ CODE:
     };
     glCoverageModulationTableNV(n, v);
 
-SV *
+void
 glCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -3956,7 +3956,7 @@ CODE:
     };
     glCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
 
-SV *
+void
 glCoverFillPathNV(path, coverMode);
      GLuint path;
      GLenum coverMode;
@@ -3966,7 +3966,7 @@ CODE:
     };
     glCoverFillPathNV(path, coverMode);
 
-SV *
+void
 glCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -3981,7 +3981,7 @@ CODE:
     };
     glCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, coverMode, transformType, transformValues);
 
-SV *
+void
 glCoverStrokePathNV(path, coverMode);
      GLuint path;
      GLenum coverMode;
@@ -3991,7 +3991,7 @@ CODE:
     };
     glCoverStrokePathNV(path, coverMode);
 
-SV *
+void
 glCreateBuffers(n, buffers);
      GLsizei n;
      GLuint* buffers;
@@ -4001,7 +4001,7 @@ CODE:
     };
     glCreateBuffers(n, buffers);
 
-SV *
+void
 glCreateCommandListsNV(n, lists);
      GLsizei n;
      GLuint* lists;
@@ -4011,7 +4011,7 @@ CODE:
     };
     glCreateCommandListsNV(n, lists);
 
-SV *
+void
 glCreateFramebuffers(n, framebuffers);
      GLsizei n;
      GLuint* framebuffers;
@@ -4021,7 +4021,7 @@ CODE:
     };
     glCreateFramebuffers(n, framebuffers);
 
-SV *
+void
 glCreatePerfQueryINTEL(queryId, queryHandle);
      GLuint queryId;
      GLuint* queryHandle;
@@ -4051,7 +4051,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glCreateProgramPipelines(n, pipelines);
      GLsizei n;
      GLuint* pipelines;
@@ -4061,7 +4061,7 @@ CODE:
     };
     glCreateProgramPipelines(n, pipelines);
 
-SV *
+void
 glCreateQueries(target, n, ids);
      GLenum target;
      GLsizei n;
@@ -4072,7 +4072,7 @@ CODE:
     };
     glCreateQueries(target, n, ids);
 
-SV *
+void
 glCreateRenderbuffers(n, renderbuffers);
      GLsizei n;
      GLuint* renderbuffers;
@@ -4082,7 +4082,7 @@ CODE:
     };
     glCreateRenderbuffers(n, renderbuffers);
 
-SV *
+void
 glCreateSamplers(n, samplers);
      GLsizei n;
      GLuint* samplers;
@@ -4139,7 +4139,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glCreateStatesNV(n, states);
      GLsizei n;
      GLuint* states;
@@ -4162,7 +4162,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glCreateTextures(target, n, textures);
      GLenum target;
      GLsizei n;
@@ -4173,7 +4173,7 @@ CODE:
     };
     glCreateTextures(target, n, textures);
 
-SV *
+void
 glCreateTransformFeedbacks(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -4183,7 +4183,7 @@ CODE:
     };
     glCreateTransformFeedbacks(n, ids);
 
-SV *
+void
 glCreateVertexArrays(n, arrays);
      GLsizei n;
      GLuint* arrays;
@@ -4193,13 +4193,13 @@ CODE:
     };
     glCreateVertexArrays(n, arrays);
 
-SV *
+void
 glCullFace(mode);
      GLenum mode;
 CODE:
     glCullFace(mode);
 
-SV *
+void
 glCullParameterdvEXT(pname, params);
      GLenum pname;
      GLdouble* params;
@@ -4209,7 +4209,7 @@ CODE:
     };
     glCullParameterdvEXT(pname, params);
 
-SV *
+void
 glCullParameterfvEXT(pname, params);
      GLenum pname;
      GLfloat* params;
@@ -4219,7 +4219,7 @@ CODE:
     };
     glCullParameterfvEXT(pname, params);
 
-SV *
+void
 glCurrentPaletteMatrixARB(index);
      GLint index;
 CODE:
@@ -4228,7 +4228,7 @@ CODE:
     };
     glCurrentPaletteMatrixARB(index);
 
-SV *
+void
 glDebugMessageCallback(callback, userParam);
      GLDEBUGPROC callback;
      const void *userParam;
@@ -4238,7 +4238,7 @@ CODE:
     };
     glDebugMessageCallback(callback, userParam);
 
-SV *
+void
 glDebugMessageCallbackAMD(callback, userParam);
      GLDEBUGPROCAMD callback;
      void *userParam;
@@ -4248,7 +4248,7 @@ CODE:
     };
     glDebugMessageCallbackAMD(callback, userParam);
 
-SV *
+void
 glDebugMessageCallbackARB(callback, userParam);
      GLDEBUGPROCARB callback;
      const void *userParam;
@@ -4258,7 +4258,7 @@ CODE:
     };
     glDebugMessageCallbackARB(callback, userParam);
 
-SV *
+void
 glDebugMessageControl(source, type, severity, count, ids, enabled);
      GLenum source;
      GLenum type;
@@ -4272,7 +4272,7 @@ CODE:
     };
     glDebugMessageControl(source, type, severity, count, ids, enabled);
 
-SV *
+void
 glDebugMessageControlARB(source, type, severity, count, ids, enabled);
      GLenum source;
      GLenum type;
@@ -4286,7 +4286,7 @@ CODE:
     };
     glDebugMessageControlARB(source, type, severity, count, ids, enabled);
 
-SV *
+void
 glDebugMessageEnableAMD(category, severity, count, ids, enabled);
      GLenum category;
      GLenum severity;
@@ -4299,7 +4299,7 @@ CODE:
     };
     glDebugMessageEnableAMD(category, severity, count, ids, enabled);
 
-SV *
+void
 glDebugMessageInsert(source, type, id, severity, length, buf);
      GLenum source;
      GLenum type;
@@ -4313,7 +4313,7 @@ CODE:
     };
     glDebugMessageInsert(source, type, id, severity, length, buf);
 
-SV *
+void
 glDebugMessageInsertAMD(category, severity, id, length, buf);
      GLenum category;
      GLenum severity;
@@ -4326,7 +4326,7 @@ CODE:
     };
     glDebugMessageInsertAMD(category, severity, id, length, buf);
 
-SV *
+void
 glDebugMessageInsertARB(source, type, id, severity, length, buf);
      GLenum source;
      GLenum type;
@@ -4340,7 +4340,7 @@ CODE:
     };
     glDebugMessageInsertARB(source, type, id, severity, length, buf);
 
-SV *
+void
 glDeleteAsyncMarkersSGIX(marker, range);
      GLuint marker;
      GLsizei range;
@@ -4350,7 +4350,7 @@ CODE:
     };
     glDeleteAsyncMarkersSGIX(marker, range);
 
-SV *
+void
 glDeleteBufferRegion(region);
      GLenum region;
 CODE:
@@ -4359,7 +4359,7 @@ CODE:
     };
     glDeleteBufferRegion(region);
 
-SV *
+void
 glDeleteBuffers(n, buffers);
      GLsizei n;
      const GLuint* buffers;
@@ -4369,7 +4369,7 @@ CODE:
     };
     glDeleteBuffers(n, buffers);
 
-SV *
+void
 glDeleteBuffersARB(n, buffers);
      GLsizei n;
      const GLuint* buffers;
@@ -4379,7 +4379,7 @@ CODE:
     };
     glDeleteBuffersARB(n, buffers);
 
-SV *
+void
 glDeleteCommandListsNV(n, lists);
      GLsizei n;
      const GLuint* lists;
@@ -4389,7 +4389,7 @@ CODE:
     };
     glDeleteCommandListsNV(n, lists);
 
-SV *
+void
 glDeleteFencesAPPLE(n, fences);
      GLsizei n;
      const GLuint* fences;
@@ -4399,7 +4399,7 @@ CODE:
     };
     glDeleteFencesAPPLE(n, fences);
 
-SV *
+void
 glDeleteFencesNV(n, fences);
      GLsizei n;
      const GLuint* fences;
@@ -4409,7 +4409,7 @@ CODE:
     };
     glDeleteFencesNV(n, fences);
 
-SV *
+void
 glDeleteFragmentShaderATI(id);
      GLuint id;
 CODE:
@@ -4418,7 +4418,7 @@ CODE:
     };
     glDeleteFragmentShaderATI(id);
 
-SV *
+void
 glDeleteFramebuffers(n, framebuffers);
      GLsizei n;
      const GLuint* framebuffers;
@@ -4428,7 +4428,7 @@ CODE:
     };
     glDeleteFramebuffers(n, framebuffers);
 
-SV *
+void
 glDeleteFramebuffersEXT(n, framebuffers);
      GLsizei n;
      const GLuint* framebuffers;
@@ -4438,14 +4438,14 @@ CODE:
     };
     glDeleteFramebuffersEXT(n, framebuffers);
 
-SV *
+void
 glDeleteLists(list, range);
      GLuint list;
      GLsizei range;
 CODE:
     glDeleteLists(list, range);
 
-SV *
+void
 glDeleteNamedStringARB(namelen, name);
      GLint namelen;
      const GLchar* name;
@@ -4455,7 +4455,7 @@ CODE:
     };
     glDeleteNamedStringARB(namelen, name);
 
-SV *
+void
 glDeleteNamesAMD(identifier, num, names);
      GLenum identifier;
      GLuint num;
@@ -4466,7 +4466,7 @@ CODE:
     };
     glDeleteNamesAMD(identifier, num, names);
 
-SV *
+void
 glDeleteObjectARB(obj);
      GLhandleARB obj;
 CODE:
@@ -4475,7 +4475,7 @@ CODE:
     };
     glDeleteObjectARB(obj);
 
-SV *
+void
 glDeleteOcclusionQueriesNV(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4485,7 +4485,7 @@ CODE:
     };
     glDeleteOcclusionQueriesNV(n, ids);
 
-SV *
+void
 glDeletePathsNV(path, range);
      GLuint path;
      GLsizei range;
@@ -4495,7 +4495,7 @@ CODE:
     };
     glDeletePathsNV(path, range);
 
-SV *
+void
 glDeletePerfMonitorsAMD(n, monitors);
      GLsizei n;
      GLuint* monitors;
@@ -4505,7 +4505,7 @@ CODE:
     };
     glDeletePerfMonitorsAMD(n, monitors);
 
-SV *
+void
 glDeletePerfQueryINTEL(queryHandle);
      GLuint queryHandle;
 CODE:
@@ -4514,7 +4514,7 @@ CODE:
     };
     glDeletePerfQueryINTEL(queryHandle);
 
-SV *
+void
 glDeleteProgram(program);
      GLuint program;
 CODE:
@@ -4523,7 +4523,7 @@ CODE:
     };
     glDeleteProgram(program);
 
-SV *
+void
 glDeleteProgramPipelines(n, pipelines);
      GLsizei n;
      const GLuint* pipelines;
@@ -4533,7 +4533,7 @@ CODE:
     };
     glDeleteProgramPipelines(n, pipelines);
 
-SV *
+void
 glDeleteProgramsARB(n, programs);
      GLsizei n;
      const GLuint* programs;
@@ -4543,7 +4543,7 @@ CODE:
     };
     glDeleteProgramsARB(n, programs);
 
-SV *
+void
 glDeleteProgramsNV(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4553,7 +4553,7 @@ CODE:
     };
     glDeleteProgramsNV(n, ids);
 
-SV *
+void
 glDeleteQueries(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4563,7 +4563,7 @@ CODE:
     };
     glDeleteQueries(n, ids);
 
-SV *
+void
 glDeleteQueriesANGLE(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4573,7 +4573,7 @@ CODE:
     };
     glDeleteQueriesANGLE(n, ids);
 
-SV *
+void
 glDeleteQueriesARB(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4583,7 +4583,7 @@ CODE:
     };
     glDeleteQueriesARB(n, ids);
 
-SV *
+void
 glDeleteRenderbuffers(n, renderbuffers);
      GLsizei n;
      const GLuint* renderbuffers;
@@ -4593,7 +4593,7 @@ CODE:
     };
     glDeleteRenderbuffers(n, renderbuffers);
 
-SV *
+void
 glDeleteRenderbuffersEXT(n, renderbuffers);
      GLsizei n;
      const GLuint* renderbuffers;
@@ -4603,7 +4603,7 @@ CODE:
     };
     glDeleteRenderbuffersEXT(n, renderbuffers);
 
-SV *
+void
 glDeleteSamplers(count, samplers);
      GLsizei count;
      const GLuint * samplers;
@@ -4613,7 +4613,7 @@ CODE:
     };
     glDeleteSamplers(count, samplers);
 
-SV *
+void
 glDeleteShader(shader);
      GLuint shader;
 CODE:
@@ -4622,7 +4622,7 @@ CODE:
     };
     glDeleteShader(shader);
 
-SV *
+void
 glDeleteStatesNV(n, states);
      GLsizei n;
      const GLuint* states;
@@ -4632,7 +4632,7 @@ CODE:
     };
     glDeleteStatesNV(n, states);
 
-SV *
+void
 glDeleteSync(GLsync);
      GLsync GLsync;
 CODE:
@@ -4641,14 +4641,14 @@ CODE:
     };
     glDeleteSync(GLsync);
 
-SV *
+void
 glDeleteTextures(n, textures);
      GLsizei n;
      const GLuint *textures;
 CODE:
     glDeleteTextures(n, textures);
 
-SV *
+void
 glDeleteTexturesEXT(n, textures);
      GLsizei n;
      const GLuint* textures;
@@ -4658,7 +4658,7 @@ CODE:
     };
     glDeleteTexturesEXT(n, textures);
 
-SV *
+void
 glDeleteTransformFeedbacks(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4668,7 +4668,7 @@ CODE:
     };
     glDeleteTransformFeedbacks(n, ids);
 
-SV *
+void
 glDeleteTransformFeedbacksNV(n, ids);
      GLsizei n;
      const GLuint* ids;
@@ -4678,7 +4678,7 @@ CODE:
     };
     glDeleteTransformFeedbacksNV(n, ids);
 
-SV *
+void
 glDeleteVertexArrays(n, arrays);
      GLsizei n;
      const GLuint* arrays;
@@ -4688,7 +4688,7 @@ CODE:
     };
     glDeleteVertexArrays(n, arrays);
 
-SV *
+void
 glDeleteVertexArraysAPPLE(n, arrays);
      GLsizei n;
      const GLuint* arrays;
@@ -4698,7 +4698,7 @@ CODE:
     };
     glDeleteVertexArraysAPPLE(n, arrays);
 
-SV *
+void
 glDeleteVertexShaderEXT(id);
      GLuint id;
 CODE:
@@ -4707,7 +4707,7 @@ CODE:
     };
     glDeleteVertexShaderEXT(id);
 
-SV *
+void
 glDepthBoundsdNV(zmin, zmax);
      GLdouble zmin;
      GLdouble zmax;
@@ -4717,7 +4717,7 @@ CODE:
     };
     glDepthBoundsdNV(zmin, zmax);
 
-SV *
+void
 glDepthBoundsEXT(zmin, zmax);
      GLclampd zmin;
      GLclampd zmax;
@@ -4727,26 +4727,26 @@ CODE:
     };
     glDepthBoundsEXT(zmin, zmax);
 
-SV *
+void
 glDepthFunc(func);
      GLenum func;
 CODE:
     glDepthFunc(func);
 
-SV *
+void
 glDepthMask(flag);
      GLboolean flag;
 CODE:
     glDepthMask(flag);
 
-SV *
+void
 glDepthRange(zNear, zFar);
      GLclampd zNear;
      GLclampd zFar;
 CODE:
     glDepthRange(zNear, zFar);
 
-SV *
+void
 glDepthRangeArrayv(first, count, v);
      GLuint first;
      GLsizei count;
@@ -4757,7 +4757,7 @@ CODE:
     };
     glDepthRangeArrayv(first, count, v);
 
-SV *
+void
 glDepthRangedNV(zNear, zFar);
      GLdouble zNear;
      GLdouble zFar;
@@ -4767,7 +4767,7 @@ CODE:
     };
     glDepthRangedNV(zNear, zFar);
 
-SV *
+void
 glDepthRangef(n, f);
      GLclampf n;
      GLclampf f;
@@ -4777,7 +4777,7 @@ CODE:
     };
     glDepthRangef(n, f);
 
-SV *
+void
 glDepthRangefOES(n, f);
      GLclampf n;
      GLclampf f;
@@ -4787,7 +4787,7 @@ CODE:
     };
     glDepthRangefOES(n, f);
 
-SV *
+void
 glDepthRangeIndexed(index, n, f);
      GLuint index;
      GLclampd n;
@@ -4798,7 +4798,7 @@ CODE:
     };
     glDepthRangeIndexed(index, n, f);
 
-SV *
+void
 glDepthRangex(zNear, zFar);
      GLclampx zNear;
      GLclampx zFar;
@@ -4808,7 +4808,7 @@ CODE:
     };
     glDepthRangex(zNear, zFar);
 
-SV *
+void
 glDetachObjectARB(containerObj, attachedObj);
      GLhandleARB containerObj;
      GLhandleARB attachedObj;
@@ -4818,7 +4818,7 @@ CODE:
     };
     glDetachObjectARB(containerObj, attachedObj);
 
-SV *
+void
 glDetachShader(program, shader);
      GLuint program;
      GLuint shader;
@@ -4828,7 +4828,7 @@ CODE:
     };
     glDetachShader(program, shader);
 
-SV *
+void
 glDetailTexFuncSGIS(target, n, points);
      GLenum target;
      GLsizei n;
@@ -4839,19 +4839,19 @@ CODE:
     };
     glDetailTexFuncSGIS(target, n, points);
 
-SV *
+void
 glDisable(cap);
      GLenum cap;
 CODE:
     glDisable(cap);
 
-SV *
+void
 glDisableClientState(array);
      GLenum array;
 CODE:
     glDisableClientState(array);
 
-SV *
+void
 glDisableClientStateiEXT(array, index);
      GLenum array;
      GLuint index;
@@ -4861,7 +4861,7 @@ CODE:
     };
     glDisableClientStateiEXT(array, index);
 
-SV *
+void
 glDisableClientStateIndexedEXT(array, index);
      GLenum array;
      GLuint index;
@@ -4871,7 +4871,7 @@ CODE:
     };
     glDisableClientStateIndexedEXT(array, index);
 
-SV *
+void
 glDisablei(cap, index);
      GLenum cap;
      GLuint index;
@@ -4881,7 +4881,7 @@ CODE:
     };
     glDisablei(cap, index);
 
-SV *
+void
 glDisableIndexedEXT(target, index);
      GLenum target;
      GLuint index;
@@ -4891,7 +4891,7 @@ CODE:
     };
     glDisableIndexedEXT(target, index);
 
-SV *
+void
 glDisableVariantClientStateEXT(id);
      GLuint id;
 CODE:
@@ -4900,7 +4900,7 @@ CODE:
     };
     glDisableVariantClientStateEXT(id);
 
-SV *
+void
 glDisableVertexArrayAttrib(vaobj, index);
      GLuint vaobj;
      GLuint index;
@@ -4910,7 +4910,7 @@ CODE:
     };
     glDisableVertexArrayAttrib(vaobj, index);
 
-SV *
+void
 glDisableVertexArrayAttribEXT(vaobj, index);
      GLuint vaobj;
      GLuint index;
@@ -4920,7 +4920,7 @@ CODE:
     };
     glDisableVertexArrayAttribEXT(vaobj, index);
 
-SV *
+void
 glDisableVertexArrayEXT(vaobj, array);
      GLuint vaobj;
      GLenum array;
@@ -4930,7 +4930,7 @@ CODE:
     };
     glDisableVertexArrayEXT(vaobj, array);
 
-SV *
+void
 glDisableVertexAttribAPPLE(index, pname);
      GLuint index;
      GLenum pname;
@@ -4940,7 +4940,7 @@ CODE:
     };
     glDisableVertexAttribAPPLE(index, pname);
 
-SV *
+void
 glDisableVertexAttribArray(index);
      GLuint index;
 CODE:
@@ -4949,7 +4949,7 @@ CODE:
     };
     glDisableVertexAttribArray(index);
 
-SV *
+void
 glDisableVertexAttribArrayARB(index);
      GLuint index;
 CODE:
@@ -4958,7 +4958,7 @@ CODE:
     };
     glDisableVertexAttribArrayARB(index);
 
-SV *
+void
 glDispatchCompute(num_groups_x, num_groups_y, num_groups_z);
      GLuint num_groups_x;
      GLuint num_groups_y;
@@ -4969,7 +4969,7 @@ CODE:
     };
     glDispatchCompute(num_groups_x, num_groups_y, num_groups_z);
 
-SV *
+void
 glDispatchComputeGroupSizeARB(num_groups_x, num_groups_y, num_groups_z, group_size_x, group_size_y, group_size_z);
      GLuint num_groups_x;
      GLuint num_groups_y;
@@ -4983,7 +4983,7 @@ CODE:
     };
     glDispatchComputeGroupSizeARB(num_groups_x, num_groups_y, num_groups_z, group_size_x, group_size_y, group_size_z);
 
-SV *
+void
 glDispatchComputeIndirect(indirect);
      GLintptr indirect;
 CODE:
@@ -4992,7 +4992,7 @@ CODE:
     };
     glDispatchComputeIndirect(indirect);
 
-SV *
+void
 glDrawArrays(mode, first, count);
      GLenum mode;
      GLint first;
@@ -5000,7 +5000,7 @@ glDrawArrays(mode, first, count);
 CODE:
     glDrawArrays(mode, first, count);
 
-SV *
+void
 glDrawArraysEXT(mode, first, count);
      GLenum mode;
      GLint first;
@@ -5011,7 +5011,7 @@ CODE:
     };
     glDrawArraysEXT(mode, first, count);
 
-SV *
+void
 glDrawArraysIndirect(mode, indirect);
      GLenum mode;
      const void *indirect;
@@ -5021,7 +5021,7 @@ CODE:
     };
     glDrawArraysIndirect(mode, indirect);
 
-SV *
+void
 glDrawArraysInstanced(mode, first, count, primcount);
      GLenum mode;
      GLint first;
@@ -5033,7 +5033,7 @@ CODE:
     };
     glDrawArraysInstanced(mode, first, count, primcount);
 
-SV *
+void
 glDrawArraysInstancedANGLE(mode, first, count, primcount);
      GLenum mode;
      GLint first;
@@ -5045,7 +5045,7 @@ CODE:
     };
     glDrawArraysInstancedANGLE(mode, first, count, primcount);
 
-SV *
+void
 glDrawArraysInstancedARB(mode, first, count, primcount);
      GLenum mode;
      GLint first;
@@ -5057,7 +5057,7 @@ CODE:
     };
     glDrawArraysInstancedARB(mode, first, count, primcount);
 
-SV *
+void
 glDrawArraysInstancedBaseInstance(mode, first, count, primcount, baseinstance);
      GLenum mode;
      GLint first;
@@ -5070,7 +5070,7 @@ CODE:
     };
     glDrawArraysInstancedBaseInstance(mode, first, count, primcount, baseinstance);
 
-SV *
+void
 glDrawArraysInstancedEXT(mode, start, count, primcount);
      GLenum mode;
      GLint start;
@@ -5082,13 +5082,13 @@ CODE:
     };
     glDrawArraysInstancedEXT(mode, start, count, primcount);
 
-SV *
+void
 glDrawBuffer(mode);
      GLenum mode;
 CODE:
     glDrawBuffer(mode);
 
-SV *
+void
 glDrawBufferRegion(region, x, y, width, height, xDest, yDest);
      GLuint region;
      GLint x;
@@ -5103,7 +5103,7 @@ CODE:
     };
     glDrawBufferRegion(region, x, y, width, height, xDest, yDest);
 
-SV *
+void
 glDrawBuffers(n, bufs);
      GLsizei n;
      const GLenum* bufs;
@@ -5113,7 +5113,7 @@ CODE:
     };
     glDrawBuffers(n, bufs);
 
-SV *
+void
 glDrawBuffersARB(n, bufs);
      GLsizei n;
      const GLenum* bufs;
@@ -5123,7 +5123,7 @@ CODE:
     };
     glDrawBuffersARB(n, bufs);
 
-SV *
+void
 glDrawBuffersATI(n, bufs);
      GLsizei n;
      const GLenum* bufs;
@@ -5133,7 +5133,7 @@ CODE:
     };
     glDrawBuffersATI(n, bufs);
 
-SV *
+void
 glDrawCommandsAddressNV(primitiveMode, indirects, sizes, count);
      GLenum primitiveMode;
      const GLuint64* indirects;
@@ -5145,7 +5145,7 @@ CODE:
     };
     glDrawCommandsAddressNV(primitiveMode, indirects, sizes, count);
 
-SV *
+void
 glDrawCommandsNV(primitiveMode, buffer, indirects, sizes, count);
      GLenum primitiveMode;
      GLuint buffer;
@@ -5158,7 +5158,7 @@ CODE:
     };
     glDrawCommandsNV(primitiveMode, buffer, indirects, sizes, count);
 
-SV *
+void
 glDrawCommandsStatesAddressNV(indirects, sizes, states, fbos, count);
      const GLuint64* indirects;
      const GLsizei* sizes;
@@ -5171,7 +5171,7 @@ CODE:
     };
     glDrawCommandsStatesAddressNV(indirects, sizes, states, fbos, count);
 
-SV *
+void
 glDrawCommandsStatesNV(buffer, indirects, sizes, states, fbos, count);
      GLuint buffer;
      const GLintptr* indirects;
@@ -5185,7 +5185,7 @@ CODE:
     };
     glDrawCommandsStatesNV(buffer, indirects, sizes, states, fbos, count);
 
-SV *
+void
 glDrawElementArrayAPPLE(mode, first, count);
      GLenum mode;
      GLint first;
@@ -5196,7 +5196,7 @@ CODE:
     };
     glDrawElementArrayAPPLE(mode, first, count);
 
-SV *
+void
 glDrawElementArrayATI(mode, count);
      GLenum mode;
      GLsizei count;
@@ -5206,7 +5206,7 @@ CODE:
     };
     glDrawElementArrayATI(mode, count);
 
-SV *
+void
 glDrawElements(mode, count, type, indices);
      GLenum mode;
      GLsizei count;
@@ -5215,7 +5215,7 @@ glDrawElements(mode, count, type, indices);
 CODE:
     glDrawElements(mode, count, type, indices);
 
-SV *
+void
 glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
      GLenum mode;
      GLsizei count;
@@ -5228,7 +5228,7 @@ CODE:
     };
     glDrawElementsBaseVertex(mode, count, type, indices, basevertex);
 
-SV *
+void
 glDrawElementsIndirect(mode, type, indirect);
      GLenum mode;
      GLenum type;
@@ -5239,7 +5239,7 @@ CODE:
     };
     glDrawElementsIndirect(mode, type, indirect);
 
-SV *
+void
 glDrawElementsInstanced(mode, count, type, indices, primcount);
      GLenum mode;
      GLsizei count;
@@ -5252,7 +5252,7 @@ CODE:
     };
     glDrawElementsInstanced(mode, count, type, indices, primcount);
 
-SV *
+void
 glDrawElementsInstancedANGLE(mode, count, type, indices, primcount);
      GLenum mode;
      GLsizei count;
@@ -5265,7 +5265,7 @@ CODE:
     };
     glDrawElementsInstancedANGLE(mode, count, type, indices, primcount);
 
-SV *
+void
 glDrawElementsInstancedARB(mode, count, type, indices, primcount);
      GLenum mode;
      GLsizei count;
@@ -5278,7 +5278,7 @@ CODE:
     };
     glDrawElementsInstancedARB(mode, count, type, indices, primcount);
 
-SV *
+void
 glDrawElementsInstancedBaseInstance(mode, count, type, indices, primcount, baseinstance);
      GLenum mode;
      GLsizei count;
@@ -5292,7 +5292,7 @@ CODE:
     };
     glDrawElementsInstancedBaseInstance(mode, count, type, indices, primcount, baseinstance);
 
-SV *
+void
 glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
      GLenum mode;
      GLsizei count;
@@ -5306,7 +5306,7 @@ CODE:
     };
     glDrawElementsInstancedBaseVertex(mode, count, type, indices, primcount, basevertex);
 
-SV *
+void
 glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type, indices, primcount, basevertex, baseinstance);
      GLenum mode;
      GLsizei count;
@@ -5321,7 +5321,7 @@ CODE:
     };
     glDrawElementsInstancedBaseVertexBaseInstance(mode, count, type, indices, primcount, basevertex, baseinstance);
 
-SV *
+void
 glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
      GLenum mode;
      GLsizei count;
@@ -5334,7 +5334,7 @@ CODE:
     };
     glDrawElementsInstancedEXT(mode, count, type, indices, primcount);
 
-SV *
+void
 glDrawPixels(width, height, format, type, pixels);
      GLsizei width;
      GLsizei height;
@@ -5344,7 +5344,7 @@ glDrawPixels(width, height, format, type, pixels);
 CODE:
     glDrawPixels(width, height, format, type, pixels);
 
-SV *
+void
 glDrawRangeElementArrayAPPLE(mode, start, end, first, count);
      GLenum mode;
      GLuint start;
@@ -5357,7 +5357,7 @@ CODE:
     };
     glDrawRangeElementArrayAPPLE(mode, start, end, first, count);
 
-SV *
+void
 glDrawRangeElementArrayATI(mode, start, end, count);
      GLenum mode;
      GLuint start;
@@ -5369,7 +5369,7 @@ CODE:
     };
     glDrawRangeElementArrayATI(mode, start, end, count);
 
-SV *
+void
 glDrawRangeElements(mode, start, end, count, type, indices);
      GLenum mode;
      GLuint start;
@@ -5383,7 +5383,7 @@ CODE:
     };
     glDrawRangeElements(mode, start, end, count, type, indices);
 
-SV *
+void
 glDrawRangeElementsBaseVertex(mode, start, end, count, type, indices, basevertex);
      GLenum mode;
      GLuint start;
@@ -5398,7 +5398,7 @@ CODE:
     };
     glDrawRangeElementsBaseVertex(mode, start, end, count, type, indices, basevertex);
 
-SV *
+void
 glDrawRangeElementsEXT(mode, start, end, count, type, indices);
      GLenum mode;
      GLuint start;
@@ -5412,7 +5412,7 @@ CODE:
     };
     glDrawRangeElementsEXT(mode, start, end, count, type, indices);
 
-SV *
+void
 glDrawTextureNV(texture, sampler, x0, y0, x1, y1, z, s0, t0, s1, t1);
      GLuint texture;
      GLuint sampler;
@@ -5431,7 +5431,7 @@ CODE:
     };
     glDrawTextureNV(texture, sampler, x0, y0, x1, y1, z, s0, t0, s1, t1);
 
-SV *
+void
 glDrawTransformFeedback(mode, id);
      GLenum mode;
      GLuint id;
@@ -5441,7 +5441,7 @@ CODE:
     };
     glDrawTransformFeedback(mode, id);
 
-SV *
+void
 glDrawTransformFeedbackInstanced(mode, id, primcount);
      GLenum mode;
      GLuint id;
@@ -5452,7 +5452,7 @@ CODE:
     };
     glDrawTransformFeedbackInstanced(mode, id, primcount);
 
-SV *
+void
 glDrawTransformFeedbackNV(mode, id);
      GLenum mode;
      GLuint id;
@@ -5462,7 +5462,7 @@ CODE:
     };
     glDrawTransformFeedbackNV(mode, id);
 
-SV *
+void
 glDrawTransformFeedbackStream(mode, id, stream);
      GLenum mode;
      GLuint id;
@@ -5473,7 +5473,7 @@ CODE:
     };
     glDrawTransformFeedbackStream(mode, id, stream);
 
-SV *
+void
 glDrawTransformFeedbackStreamInstanced(mode, id, stream, primcount);
      GLenum mode;
      GLuint id;
@@ -5485,7 +5485,7 @@ CODE:
     };
     glDrawTransformFeedbackStreamInstanced(mode, id, stream, primcount);
 
-SV *
+void
 glDrawVkImageNV(vkImage, sampler, x0, y0, x1, y1, z, s0, t0, s1, t1);
      GLuint64 vkImage;
      GLuint sampler;
@@ -5504,13 +5504,13 @@ CODE:
     };
     glDrawVkImageNV(vkImage, sampler, x0, y0, x1, y1, z, s0, t0, s1, t1);
 
-SV *
+void
 glEdgeFlag(flag);
      GLboolean flag;
 CODE:
     glEdgeFlag(flag);
 
-SV *
+void
 glEdgeFlagFormatNV(stride);
      GLsizei stride;
 CODE:
@@ -5519,14 +5519,14 @@ CODE:
     };
     glEdgeFlagFormatNV(stride);
 
-SV *
+void
 glEdgeFlagPointer(stride, pointer);
      GLsizei stride;
      const void *pointer;
 CODE:
     glEdgeFlagPointer(stride, pointer);
 
-SV *
+void
 glEdgeFlagPointerEXT(stride, count, pointer);
      GLsizei stride;
      GLsizei count;
@@ -5537,7 +5537,7 @@ CODE:
     };
     glEdgeFlagPointerEXT(stride, count, pointer);
 
-SV *
+void
 glEdgeFlagPointerListIBM(stride, pointer, ptrstride);
      GLint stride;
      const GLboolean ** pointer;
@@ -5548,13 +5548,13 @@ CODE:
     };
     glEdgeFlagPointerListIBM(stride, pointer, ptrstride);
 
-SV *
+void
 glEdgeFlagv(flag);
      const GLboolean *flag;
 CODE:
     glEdgeFlagv(flag);
 
-SV *
+void
 glElementPointerAPPLE(type, pointer);
      GLenum type;
      const void *pointer;
@@ -5564,7 +5564,7 @@ CODE:
     };
     glElementPointerAPPLE(type, pointer);
 
-SV *
+void
 glElementPointerATI(type, pointer);
      GLenum type;
      const void *pointer;
@@ -5574,19 +5574,19 @@ CODE:
     };
     glElementPointerATI(type, pointer);
 
-SV *
+void
 glEnable(cap);
      GLenum cap;
 CODE:
     glEnable(cap);
 
-SV *
+void
 glEnableClientState(array);
      GLenum array;
 CODE:
     glEnableClientState(array);
 
-SV *
+void
 glEnableClientStateiEXT(array, index);
      GLenum array;
      GLuint index;
@@ -5596,7 +5596,7 @@ CODE:
     };
     glEnableClientStateiEXT(array, index);
 
-SV *
+void
 glEnableClientStateIndexedEXT(array, index);
      GLenum array;
      GLuint index;
@@ -5606,7 +5606,7 @@ CODE:
     };
     glEnableClientStateIndexedEXT(array, index);
 
-SV *
+void
 glEnablei(cap, index);
      GLenum cap;
      GLuint index;
@@ -5616,7 +5616,7 @@ CODE:
     };
     glEnablei(cap, index);
 
-SV *
+void
 glEnableIndexedEXT(target, index);
      GLenum target;
      GLuint index;
@@ -5626,7 +5626,7 @@ CODE:
     };
     glEnableIndexedEXT(target, index);
 
-SV *
+void
 glEnableVariantClientStateEXT(id);
      GLuint id;
 CODE:
@@ -5635,7 +5635,7 @@ CODE:
     };
     glEnableVariantClientStateEXT(id);
 
-SV *
+void
 glEnableVertexArrayAttrib(vaobj, index);
      GLuint vaobj;
      GLuint index;
@@ -5645,7 +5645,7 @@ CODE:
     };
     glEnableVertexArrayAttrib(vaobj, index);
 
-SV *
+void
 glEnableVertexArrayAttribEXT(vaobj, index);
      GLuint vaobj;
      GLuint index;
@@ -5655,7 +5655,7 @@ CODE:
     };
     glEnableVertexArrayAttribEXT(vaobj, index);
 
-SV *
+void
 glEnableVertexArrayEXT(vaobj, array);
      GLuint vaobj;
      GLenum array;
@@ -5665,7 +5665,7 @@ CODE:
     };
     glEnableVertexArrayEXT(vaobj, array);
 
-SV *
+void
 glEnableVertexAttribAPPLE(index, pname);
      GLuint index;
      GLenum pname;
@@ -5675,7 +5675,7 @@ CODE:
     };
     glEnableVertexAttribAPPLE(index, pname);
 
-SV *
+void
 glEnableVertexAttribArray(index);
      GLuint index;
 CODE:
@@ -5684,7 +5684,7 @@ CODE:
     };
     glEnableVertexAttribArray(index);
 
-SV *
+void
 glEnableVertexAttribArrayARB(index);
      GLuint index;
 CODE:
@@ -5693,12 +5693,12 @@ CODE:
     };
     glEnableVertexAttribArrayARB(index);
 
-SV *
+void
 glEnd();
 CODE:
     glEnd();
 
-SV *
+void
 glEndConditionalRender();
 CODE:
     if(! __glewEndConditionalRender) {
@@ -5706,7 +5706,7 @@ CODE:
     };
     glEndConditionalRender();
 
-SV *
+void
 glEndConditionalRenderNV();
 CODE:
     if(! __glewEndConditionalRenderNV) {
@@ -5714,7 +5714,7 @@ CODE:
     };
     glEndConditionalRenderNV();
 
-SV *
+void
 glEndConditionalRenderNVX();
 CODE:
     if(! __glewEndConditionalRenderNVX) {
@@ -5722,7 +5722,7 @@ CODE:
     };
     glEndConditionalRenderNVX();
 
-SV *
+void
 glEndFragmentShaderATI();
 CODE:
     if(! __glewEndFragmentShaderATI) {
@@ -5730,12 +5730,12 @@ CODE:
     };
     glEndFragmentShaderATI();
 
-SV *
+void
 glEndList();
 CODE:
     glEndList();
 
-SV *
+void
 glEndOcclusionQueryNV();
 CODE:
     if(! __glewEndOcclusionQueryNV) {
@@ -5743,7 +5743,7 @@ CODE:
     };
     glEndOcclusionQueryNV();
 
-SV *
+void
 glEndPerfMonitorAMD(monitor);
      GLuint monitor;
 CODE:
@@ -5752,7 +5752,7 @@ CODE:
     };
     glEndPerfMonitorAMD(monitor);
 
-SV *
+void
 glEndPerfQueryINTEL(queryHandle);
      GLuint queryHandle;
 CODE:
@@ -5761,7 +5761,7 @@ CODE:
     };
     glEndPerfQueryINTEL(queryHandle);
 
-SV *
+void
 glEndQuery(target);
      GLenum target;
 CODE:
@@ -5770,7 +5770,7 @@ CODE:
     };
     glEndQuery(target);
 
-SV *
+void
 glEndQueryANGLE(target);
      GLenum target;
 CODE:
@@ -5779,7 +5779,7 @@ CODE:
     };
     glEndQueryANGLE(target);
 
-SV *
+void
 glEndQueryARB(target);
      GLenum target;
 CODE:
@@ -5788,7 +5788,7 @@ CODE:
     };
     glEndQueryARB(target);
 
-SV *
+void
 glEndQueryIndexed(target, index);
      GLenum target;
      GLuint index;
@@ -5798,7 +5798,7 @@ CODE:
     };
     glEndQueryIndexed(target, index);
 
-SV *
+void
 glEndSceneEXT();
 CODE:
     if(! __glewEndSceneEXT) {
@@ -5806,7 +5806,7 @@ CODE:
     };
     glEndSceneEXT();
 
-SV *
+void
 glEndTransformFeedback();
 CODE:
     if(! __glewEndTransformFeedback) {
@@ -5814,7 +5814,7 @@ CODE:
     };
     glEndTransformFeedback();
 
-SV *
+void
 glEndTransformFeedbackEXT();
 CODE:
     if(! __glewEndTransformFeedbackEXT) {
@@ -5822,7 +5822,7 @@ CODE:
     };
     glEndTransformFeedbackEXT();
 
-SV *
+void
 glEndTransformFeedbackNV();
 CODE:
     if(! __glewEndTransformFeedbackNV) {
@@ -5830,7 +5830,7 @@ CODE:
     };
     glEndTransformFeedbackNV();
 
-SV *
+void
 glEndVertexShaderEXT();
 CODE:
     if(! __glewEndVertexShaderEXT) {
@@ -5838,7 +5838,7 @@ CODE:
     };
     glEndVertexShaderEXT();
 
-SV *
+void
 glEndVideoCaptureNV(video_capture_slot);
      GLuint video_capture_slot;
 CODE:
@@ -5847,57 +5847,57 @@ CODE:
     };
     glEndVideoCaptureNV(video_capture_slot);
 
-SV *
+void
 glEvalCoord1d(u);
      GLdouble u;
 CODE:
     glEvalCoord1d(u);
 
-SV *
+void
 glEvalCoord1dv(u);
      const GLdouble *u;
 CODE:
     glEvalCoord1dv(u);
 
-SV *
+void
 glEvalCoord1f(u);
      GLfloat u;
 CODE:
     glEvalCoord1f(u);
 
-SV *
+void
 glEvalCoord1fv(u);
      const GLfloat *u;
 CODE:
     glEvalCoord1fv(u);
 
-SV *
+void
 glEvalCoord2d(u, v);
      GLdouble u;
      GLdouble v;
 CODE:
     glEvalCoord2d(u, v);
 
-SV *
+void
 glEvalCoord2dv(u);
      const GLdouble *u;
 CODE:
     glEvalCoord2dv(u);
 
-SV *
+void
 glEvalCoord2f(u, v);
      GLfloat u;
      GLfloat v;
 CODE:
     glEvalCoord2f(u, v);
 
-SV *
+void
 glEvalCoord2fv(u);
      const GLfloat *u;
 CODE:
     glEvalCoord2fv(u);
 
-SV *
+void
 glEvalMapsNV(target, mode);
      GLenum target;
      GLenum mode;
@@ -5907,7 +5907,7 @@ CODE:
     };
     glEvalMapsNV(target, mode);
 
-SV *
+void
 glEvalMesh1(mode, i1, i2);
      GLenum mode;
      GLint i1;
@@ -5915,7 +5915,7 @@ glEvalMesh1(mode, i1, i2);
 CODE:
     glEvalMesh1(mode, i1, i2);
 
-SV *
+void
 glEvalMesh2(mode, i1, i2, j1, j2);
      GLenum mode;
      GLint i1;
@@ -5925,20 +5925,20 @@ glEvalMesh2(mode, i1, i2, j1, j2);
 CODE:
     glEvalMesh2(mode, i1, i2, j1, j2);
 
-SV *
+void
 glEvalPoint1(i);
      GLint i;
 CODE:
     glEvalPoint1(i);
 
-SV *
+void
 glEvalPoint2(i, j);
      GLint i;
      GLint j;
 CODE:
     glEvalPoint2(i, j);
 
-SV *
+void
 glExecuteProgramNV(target, id, params);
      GLenum target;
      GLuint id;
@@ -5949,7 +5949,7 @@ CODE:
     };
     glExecuteProgramNV(target, id, params);
 
-SV *
+void
 glExtractComponentEXT(res, src, num);
      GLuint res;
      GLuint src;
@@ -5960,7 +5960,7 @@ CODE:
     };
     glExtractComponentEXT(res, src, num);
 
-SV *
+void
 glFeedbackBuffer(size, type, buffer);
      GLsizei size;
      GLenum type;
@@ -5980,7 +5980,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glFinalCombinerInputNV(variable, input, mapping, componentUsage);
      GLenum variable;
      GLenum input;
@@ -5992,7 +5992,7 @@ CODE:
     };
     glFinalCombinerInputNV(variable, input, mapping, componentUsage);
 
-SV *
+void
 glFinish();
 CODE:
     glFinish();
@@ -6008,7 +6008,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glFinishFenceAPPLE(fence);
      GLuint fence;
 CODE:
@@ -6017,7 +6017,7 @@ CODE:
     };
     glFinishFenceAPPLE(fence);
 
-SV *
+void
 glFinishFenceNV(fence);
      GLuint fence;
 CODE:
@@ -6026,7 +6026,7 @@ CODE:
     };
     glFinishFenceNV(fence);
 
-SV *
+void
 glFinishObjectAPPLE(object, name);
      GLenum object;
      GLint name;
@@ -6036,7 +6036,7 @@ CODE:
     };
     glFinishObjectAPPLE(object, name);
 
-SV *
+void
 glFinishTextureSUNX();
 CODE:
     if(! __glewFinishTextureSUNX) {
@@ -6044,12 +6044,12 @@ CODE:
     };
     glFinishTextureSUNX();
 
-SV *
+void
 glFlush();
 CODE:
     glFlush();
 
-SV *
+void
 glFlushMappedBufferRange(target, offset, length);
      GLenum target;
      GLintptr offset;
@@ -6060,7 +6060,7 @@ CODE:
     };
     glFlushMappedBufferRange(target, offset, length);
 
-SV *
+void
 glFlushMappedBufferRangeAPPLE(target, offset, size);
      GLenum target;
      GLintptr offset;
@@ -6071,7 +6071,7 @@ CODE:
     };
     glFlushMappedBufferRangeAPPLE(target, offset, size);
 
-SV *
+void
 glFlushMappedNamedBufferRange(buffer, offset, length);
      GLuint buffer;
      GLintptr offset;
@@ -6082,7 +6082,7 @@ CODE:
     };
     glFlushMappedNamedBufferRange(buffer, offset, length);
 
-SV *
+void
 glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
      GLuint buffer;
      GLintptr offset;
@@ -6093,7 +6093,7 @@ CODE:
     };
     glFlushMappedNamedBufferRangeEXT(buffer, offset, length);
 
-SV *
+void
 glFlushPixelDataRangeNV(target);
      GLenum target;
 CODE:
@@ -6102,7 +6102,7 @@ CODE:
     };
     glFlushPixelDataRangeNV(target);
 
-SV *
+void
 glFlushRasterSGIX();
 CODE:
     if(! __glewFlushRasterSGIX) {
@@ -6110,7 +6110,7 @@ CODE:
     };
     glFlushRasterSGIX();
 
-SV *
+void
 glFlushVertexArrayRangeAPPLE(length, pointer);
      GLsizei length;
      void *pointer;
@@ -6120,7 +6120,7 @@ CODE:
     };
     glFlushVertexArrayRangeAPPLE(length, pointer);
 
-SV *
+void
 glFlushVertexArrayRangeNV();
 CODE:
     if(! __glewFlushVertexArrayRangeNV) {
@@ -6128,7 +6128,7 @@ CODE:
     };
     glFlushVertexArrayRangeNV();
 
-SV *
+void
 glFogCoordd(coord);
      GLdouble coord;
 CODE:
@@ -6137,7 +6137,7 @@ CODE:
     };
     glFogCoordd(coord);
 
-SV *
+void
 glFogCoorddEXT(coord);
      GLdouble coord;
 CODE:
@@ -6146,7 +6146,7 @@ CODE:
     };
     glFogCoorddEXT(coord);
 
-SV *
+void
 glFogCoorddv(coord);
      const GLdouble *coord;
 CODE:
@@ -6155,7 +6155,7 @@ CODE:
     };
     glFogCoorddv(coord);
 
-SV *
+void
 glFogCoorddvEXT(coord);
      const GLdouble *coord;
 CODE:
@@ -6164,7 +6164,7 @@ CODE:
     };
     glFogCoorddvEXT(coord);
 
-SV *
+void
 glFogCoordf(coord);
      GLfloat coord;
 CODE:
@@ -6173,7 +6173,7 @@ CODE:
     };
     glFogCoordf(coord);
 
-SV *
+void
 glFogCoordfEXT(coord);
      GLfloat coord;
 CODE:
@@ -6182,7 +6182,7 @@ CODE:
     };
     glFogCoordfEXT(coord);
 
-SV *
+void
 glFogCoordFormatNV(type, stride);
      GLenum type;
      GLsizei stride;
@@ -6192,7 +6192,7 @@ CODE:
     };
     glFogCoordFormatNV(type, stride);
 
-SV *
+void
 glFogCoordfv(coord);
      const GLfloat *coord;
 CODE:
@@ -6201,7 +6201,7 @@ CODE:
     };
     glFogCoordfv(coord);
 
-SV *
+void
 glFogCoordfvEXT(coord);
      const GLfloat *coord;
 CODE:
@@ -6210,7 +6210,7 @@ CODE:
     };
     glFogCoordfvEXT(coord);
 
-SV *
+void
 glFogCoordhNV(fog);
      GLhalf fog;
 CODE:
@@ -6219,7 +6219,7 @@ CODE:
     };
     glFogCoordhNV(fog);
 
-SV *
+void
 glFogCoordhvNV(fog);
      const GLhalf* fog;
 CODE:
@@ -6228,7 +6228,7 @@ CODE:
     };
     glFogCoordhvNV(fog);
 
-SV *
+void
 glFogCoordPointer(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -6239,7 +6239,7 @@ CODE:
     };
     glFogCoordPointer(type, stride, pointer);
 
-SV *
+void
 glFogCoordPointerEXT(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -6250,7 +6250,7 @@ CODE:
     };
     glFogCoordPointerEXT(type, stride, pointer);
 
-SV *
+void
 glFogCoordPointerListIBM(type, stride, pointer, ptrstride);
      GLenum type;
      GLint stride;
@@ -6262,14 +6262,14 @@ CODE:
     };
     glFogCoordPointerListIBM(type, stride, pointer, ptrstride);
 
-SV *
+void
 glFogf(pname, param);
      GLenum pname;
      GLfloat param;
 CODE:
     glFogf(pname, param);
 
-SV *
+void
 glFogFuncSGIS(n, points);
      GLsizei n;
      const GLfloat* points;
@@ -6279,28 +6279,28 @@ CODE:
     };
     glFogFuncSGIS(n, points);
 
-SV *
+void
 glFogfv(pname, params);
      GLenum pname;
      const GLfloat *params;
 CODE:
     glFogfv(pname, params);
 
-SV *
+void
 glFogi(pname, param);
      GLenum pname;
      GLint param;
 CODE:
     glFogi(pname, param);
 
-SV *
+void
 glFogiv(pname, params);
      GLenum pname;
      const GLint *params;
 CODE:
     glFogiv(pname, params);
 
-SV *
+void
 glFogx(pname, param);
      GLenum pname;
      GLfixed param;
@@ -6310,7 +6310,7 @@ CODE:
     };
     glFogx(pname, param);
 
-SV *
+void
 glFogxv(pname, params);
      GLenum pname;
      const GLfixed* params;
@@ -6320,7 +6320,7 @@ CODE:
     };
     glFogxv(pname, params);
 
-SV *
+void
 glFragmentColorMaterialEXT(face, mode);
      GLenum face;
      GLenum mode;
@@ -6330,7 +6330,7 @@ CODE:
     };
     glFragmentColorMaterialEXT(face, mode);
 
-SV *
+void
 glFragmentColorMaterialSGIX(face, mode);
      GLenum face;
      GLenum mode;
@@ -6340,7 +6340,7 @@ CODE:
     };
     glFragmentColorMaterialSGIX(face, mode);
 
-SV *
+void
 glFragmentCoverageColorNV(color);
      GLuint color;
 CODE:
@@ -6349,7 +6349,7 @@ CODE:
     };
     glFragmentCoverageColorNV(color);
 
-SV *
+void
 glFragmentLightfEXT(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -6360,7 +6360,7 @@ CODE:
     };
     glFragmentLightfEXT(light, pname, param);
 
-SV *
+void
 glFragmentLightfSGIX(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -6371,7 +6371,7 @@ CODE:
     };
     glFragmentLightfSGIX(light, pname, param);
 
-SV *
+void
 glFragmentLightfvEXT(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -6382,7 +6382,7 @@ CODE:
     };
     glFragmentLightfvEXT(light, pname, params);
 
-SV *
+void
 glFragmentLightfvSGIX(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -6393,7 +6393,7 @@ CODE:
     };
     glFragmentLightfvSGIX(light, pname, params);
 
-SV *
+void
 glFragmentLightiEXT(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -6404,7 +6404,7 @@ CODE:
     };
     glFragmentLightiEXT(light, pname, param);
 
-SV *
+void
 glFragmentLightiSGIX(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -6415,7 +6415,7 @@ CODE:
     };
     glFragmentLightiSGIX(light, pname, param);
 
-SV *
+void
 glFragmentLightivEXT(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -6426,7 +6426,7 @@ CODE:
     };
     glFragmentLightivEXT(light, pname, params);
 
-SV *
+void
 glFragmentLightivSGIX(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -6437,7 +6437,7 @@ CODE:
     };
     glFragmentLightivSGIX(light, pname, params);
 
-SV *
+void
 glFragmentLightModelfEXT(pname, param);
      GLenum pname;
      GLfloat param;
@@ -6447,7 +6447,7 @@ CODE:
     };
     glFragmentLightModelfEXT(pname, param);
 
-SV *
+void
 glFragmentLightModelfSGIX(pname, param);
      GLenum pname;
      GLfloat param;
@@ -6457,7 +6457,7 @@ CODE:
     };
     glFragmentLightModelfSGIX(pname, param);
 
-SV *
+void
 glFragmentLightModelfvEXT(pname, params);
      GLenum pname;
      GLfloat* params;
@@ -6467,7 +6467,7 @@ CODE:
     };
     glFragmentLightModelfvEXT(pname, params);
 
-SV *
+void
 glFragmentLightModelfvSGIX(pname, params);
      GLenum pname;
      GLfloat* params;
@@ -6477,7 +6477,7 @@ CODE:
     };
     glFragmentLightModelfvSGIX(pname, params);
 
-SV *
+void
 glFragmentLightModeliEXT(pname, param);
      GLenum pname;
      GLint param;
@@ -6487,7 +6487,7 @@ CODE:
     };
     glFragmentLightModeliEXT(pname, param);
 
-SV *
+void
 glFragmentLightModeliSGIX(pname, param);
      GLenum pname;
      GLint param;
@@ -6497,7 +6497,7 @@ CODE:
     };
     glFragmentLightModeliSGIX(pname, param);
 
-SV *
+void
 glFragmentLightModelivEXT(pname, params);
      GLenum pname;
      GLint* params;
@@ -6507,7 +6507,7 @@ CODE:
     };
     glFragmentLightModelivEXT(pname, params);
 
-SV *
+void
 glFragmentLightModelivSGIX(pname, params);
      GLenum pname;
      GLint* params;
@@ -6517,7 +6517,7 @@ CODE:
     };
     glFragmentLightModelivSGIX(pname, params);
 
-SV *
+void
 glFragmentMaterialfEXT(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -6528,7 +6528,7 @@ CODE:
     };
     glFragmentMaterialfEXT(face, pname, param);
 
-SV *
+void
 glFragmentMaterialfSGIX(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -6539,7 +6539,7 @@ CODE:
     };
     glFragmentMaterialfSGIX(face, pname, param);
 
-SV *
+void
 glFragmentMaterialfvEXT(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -6550,7 +6550,7 @@ CODE:
     };
     glFragmentMaterialfvEXT(face, pname, params);
 
-SV *
+void
 glFragmentMaterialfvSGIX(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -6561,7 +6561,7 @@ CODE:
     };
     glFragmentMaterialfvSGIX(face, pname, params);
 
-SV *
+void
 glFragmentMaterialiEXT(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -6572,7 +6572,7 @@ CODE:
     };
     glFragmentMaterialiEXT(face, pname, param);
 
-SV *
+void
 glFragmentMaterialiSGIX(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -6583,7 +6583,7 @@ CODE:
     };
     glFragmentMaterialiSGIX(face, pname, param);
 
-SV *
+void
 glFragmentMaterialivEXT(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -6594,7 +6594,7 @@ CODE:
     };
     glFragmentMaterialivEXT(face, pname, params);
 
-SV *
+void
 glFragmentMaterialivSGIX(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -6605,7 +6605,7 @@ CODE:
     };
     glFragmentMaterialivSGIX(face, pname, params);
 
-SV *
+void
 glFramebufferDrawBufferEXT(framebuffer, mode);
      GLuint framebuffer;
      GLenum mode;
@@ -6615,7 +6615,7 @@ CODE:
     };
     glFramebufferDrawBufferEXT(framebuffer, mode);
 
-SV *
+void
 glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
      GLuint framebuffer;
      GLsizei n;
@@ -6626,7 +6626,7 @@ CODE:
     };
     glFramebufferDrawBuffersEXT(framebuffer, n, bufs);
 
-SV *
+void
 glFramebufferParameteri(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -6637,7 +6637,7 @@ CODE:
     };
     glFramebufferParameteri(target, pname, param);
 
-SV *
+void
 glFramebufferReadBufferEXT(framebuffer, mode);
      GLuint framebuffer;
      GLenum mode;
@@ -6647,7 +6647,7 @@ CODE:
     };
     glFramebufferReadBufferEXT(framebuffer, mode);
 
-SV *
+void
 glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
      GLenum target;
      GLenum attachment;
@@ -6659,7 +6659,7 @@ CODE:
     };
     glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
 
-SV *
+void
 glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
      GLenum target;
      GLenum attachment;
@@ -6671,7 +6671,7 @@ CODE:
     };
     glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer);
 
-SV *
+void
 glFramebufferSampleLocationsfvARB(target, start, count, v);
      GLenum target;
      GLuint start;
@@ -6683,7 +6683,7 @@ CODE:
     };
     glFramebufferSampleLocationsfvARB(target, start, count, v);
 
-SV *
+void
 glFramebufferSampleLocationsfvNV(target, start, count, v);
      GLenum target;
      GLuint start;
@@ -6695,7 +6695,7 @@ CODE:
     };
     glFramebufferSampleLocationsfvNV(target, start, count, v);
 
-SV *
+void
 glFramebufferTexture(target, attachment, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6707,7 +6707,7 @@ CODE:
     };
     glFramebufferTexture(target, attachment, texture, level);
 
-SV *
+void
 glFramebufferTexture1D(target, attachment, textarget, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6720,7 +6720,7 @@ CODE:
     };
     glFramebufferTexture1D(target, attachment, textarget, texture, level);
 
-SV *
+void
 glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6733,7 +6733,7 @@ CODE:
     };
     glFramebufferTexture1DEXT(target, attachment, textarget, texture, level);
 
-SV *
+void
 glFramebufferTexture2D(target, attachment, textarget, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6746,7 +6746,7 @@ CODE:
     };
     glFramebufferTexture2D(target, attachment, textarget, texture, level);
 
-SV *
+void
 glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6759,7 +6759,7 @@ CODE:
     };
     glFramebufferTexture2DEXT(target, attachment, textarget, texture, level);
 
-SV *
+void
 glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
      GLenum target;
      GLenum attachment;
@@ -6773,7 +6773,7 @@ CODE:
     };
     glFramebufferTexture3D(target, attachment, textarget, texture, level, layer);
 
-SV *
+void
 glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
      GLenum target;
      GLenum attachment;
@@ -6787,7 +6787,7 @@ CODE:
     };
     glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset);
 
-SV *
+void
 glFramebufferTextureARB(target, attachment, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6799,7 +6799,7 @@ CODE:
     };
     glFramebufferTextureARB(target, attachment, texture, level);
 
-SV *
+void
 glFramebufferTextureEXT(target, attachment, texture, level);
      GLenum target;
      GLenum attachment;
@@ -6811,7 +6811,7 @@ CODE:
     };
     glFramebufferTextureEXT(target, attachment, texture, level);
 
-SV *
+void
 glFramebufferTextureFaceARB(target, attachment, texture, level, face);
      GLenum target;
      GLenum attachment;
@@ -6824,7 +6824,7 @@ CODE:
     };
     glFramebufferTextureFaceARB(target, attachment, texture, level, face);
 
-SV *
+void
 glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
      GLenum target;
      GLenum attachment;
@@ -6837,7 +6837,7 @@ CODE:
     };
     glFramebufferTextureFaceEXT(target, attachment, texture, level, face);
 
-SV *
+void
 glFramebufferTextureLayer(target,attachment, texture,level,layer);
      GLenum target;
     GLenum attachment;
@@ -6850,7 +6850,7 @@ CODE:
     };
     glFramebufferTextureLayer(target,attachment, texture,level,layer);
 
-SV *
+void
 glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
      GLenum target;
      GLenum attachment;
@@ -6863,7 +6863,7 @@ CODE:
     };
     glFramebufferTextureLayerARB(target, attachment, texture, level, layer);
 
-SV *
+void
 glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
      GLenum target;
      GLenum attachment;
@@ -6876,7 +6876,7 @@ CODE:
     };
     glFramebufferTextureLayerEXT(target, attachment, texture, level, layer);
 
-SV *
+void
 glFramebufferTextureMultiviewOVR(target, attachment, texture, level, baseViewIndex, numViews);
      GLenum target;
      GLenum attachment;
@@ -6890,7 +6890,7 @@ CODE:
     };
     glFramebufferTextureMultiviewOVR(target, attachment, texture, level, baseViewIndex, numViews);
 
-SV *
+void
 glFrameTerminatorGREMEDY();
 CODE:
     if(! __glewFrameTerminatorGREMEDY) {
@@ -6898,7 +6898,7 @@ CODE:
     };
     glFrameTerminatorGREMEDY();
 
-SV *
+void
 glFrameZoomSGIX(factor);
      GLint factor;
 CODE:
@@ -6907,7 +6907,7 @@ CODE:
     };
     glFrameZoomSGIX(factor);
 
-SV *
+void
 glFreeObjectBufferATI(buffer);
      GLuint buffer;
 CODE:
@@ -6916,13 +6916,13 @@ CODE:
     };
     glFreeObjectBufferATI(buffer);
 
-SV *
+void
 glFrontFace(mode);
      GLenum mode;
 CODE:
     glFrontFace(mode);
 
-SV *
+void
 glFrustum(left, right, bottom, top, zNear, zFar);
      GLdouble left;
      GLdouble right;
@@ -6933,7 +6933,7 @@ glFrustum(left, right, bottom, top, zNear, zFar);
 CODE:
     glFrustum(left, right, bottom, top, zNear, zFar);
 
-SV *
+void
 glFrustumf(left, right, bottom, top, zNear, zFar);
      GLfloat left;
      GLfloat right;
@@ -6947,7 +6947,7 @@ CODE:
     };
     glFrustumf(left, right, bottom, top, zNear, zFar);
 
-SV *
+void
 glFrustumfOES(l, r, b, t, n, f);
      GLfloat l;
      GLfloat r;
@@ -6961,7 +6961,7 @@ CODE:
     };
     glFrustumfOES(l, r, b, t, n, f);
 
-SV *
+void
 glFrustumx(left, right, bottom, top, zNear, zFar);
      GLfixed left;
      GLfixed right;
@@ -6986,7 +6986,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGenBuffers(n, buffers);
      GLsizei n;
      GLuint* buffers;
@@ -6996,7 +6996,7 @@ CODE:
     };
     glGenBuffers(n, buffers);
 
-SV *
+void
 glGenBuffersARB(n, buffers);
      GLsizei n;
      GLuint* buffers;
@@ -7006,7 +7006,7 @@ CODE:
     };
     glGenBuffersARB(n, buffers);
 
-SV *
+void
 glGenerateMipmap(target);
      GLenum target;
 CODE:
@@ -7015,7 +7015,7 @@ CODE:
     };
     glGenerateMipmap(target);
 
-SV *
+void
 glGenerateMipmapEXT(target);
      GLenum target;
 CODE:
@@ -7024,7 +7024,7 @@ CODE:
     };
     glGenerateMipmapEXT(target);
 
-SV *
+void
 glGenerateMultiTexMipmapEXT(texunit, target);
      GLenum texunit;
      GLenum target;
@@ -7034,7 +7034,7 @@ CODE:
     };
     glGenerateMultiTexMipmapEXT(texunit, target);
 
-SV *
+void
 glGenerateTextureMipmap(texture);
      GLuint texture;
 CODE:
@@ -7043,7 +7043,7 @@ CODE:
     };
     glGenerateTextureMipmap(texture);
 
-SV *
+void
 glGenerateTextureMipmapEXT(texture, target);
      GLuint texture;
      GLenum target;
@@ -7053,7 +7053,7 @@ CODE:
     };
     glGenerateTextureMipmapEXT(texture, target);
 
-SV *
+void
 glGenFencesAPPLE(n, fences);
      GLsizei n;
      GLuint* fences;
@@ -7063,7 +7063,7 @@ CODE:
     };
     glGenFencesAPPLE(n, fences);
 
-SV *
+void
 glGenFencesNV(n, fences);
      GLsizei n;
      GLuint* fences;
@@ -7084,7 +7084,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGenFramebuffers(n, framebuffers);
      GLsizei n;
      GLuint* framebuffers;
@@ -7094,7 +7094,7 @@ CODE:
     };
     glGenFramebuffers(n, framebuffers);
 
-SV *
+void
 glGenFramebuffersEXT(n, framebuffers);
      GLsizei n;
      GLuint* framebuffers;
@@ -7112,7 +7112,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGenNamesAMD(identifier, num, names);
      GLenum identifier;
      GLuint num;
@@ -7123,7 +7123,7 @@ CODE:
     };
     glGenNamesAMD(identifier, num, names);
 
-SV *
+void
 glGenOcclusionQueriesNV(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7144,7 +7144,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGenPerfMonitorsAMD(n, monitors);
      GLsizei n;
      GLuint* monitors;
@@ -7154,7 +7154,7 @@ CODE:
     };
     glGenPerfMonitorsAMD(n, monitors);
 
-SV *
+void
 glGenProgramPipelines(n, pipelines);
      GLsizei n;
      GLuint* pipelines;
@@ -7164,7 +7164,7 @@ CODE:
     };
     glGenProgramPipelines(n, pipelines);
 
-SV *
+void
 glGenProgramsARB(n, programs);
      GLsizei n;
      GLuint* programs;
@@ -7174,7 +7174,7 @@ CODE:
     };
     glGenProgramsARB(n, programs);
 
-SV *
+void
 glGenProgramsNV(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7184,7 +7184,7 @@ CODE:
     };
     glGenProgramsNV(n, ids);
 
-SV *
+void
 glGenQueries(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7194,7 +7194,7 @@ CODE:
     };
     glGenQueries(n, ids);
 
-SV *
+void
 glGenQueriesANGLE(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7204,7 +7204,7 @@ CODE:
     };
     glGenQueriesANGLE(n, ids);
 
-SV *
+void
 glGenQueriesARB(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7214,7 +7214,7 @@ CODE:
     };
     glGenQueriesARB(n, ids);
 
-SV *
+void
 glGenRenderbuffers(n, renderbuffers);
      GLsizei n;
      GLuint* renderbuffers;
@@ -7224,7 +7224,7 @@ CODE:
     };
     glGenRenderbuffers(n, renderbuffers);
 
-SV *
+void
 glGenRenderbuffersEXT(n, renderbuffers);
      GLsizei n;
      GLuint* renderbuffers;
@@ -7234,7 +7234,7 @@ CODE:
     };
     glGenRenderbuffersEXT(n, renderbuffers);
 
-SV *
+void
 glGenSamplers(count, samplers);
      GLsizei count;
      GLuint* samplers;
@@ -7258,14 +7258,14 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGenTextures(n, textures);
      GLsizei n;
      GLuint *textures;
 CODE:
     glGenTextures(n, textures);
 
-SV *
+void
 glGenTexturesEXT(n, textures);
      GLsizei n;
      GLuint* textures;
@@ -7275,7 +7275,7 @@ CODE:
     };
     glGenTexturesEXT(n, textures);
 
-SV *
+void
 glGenTransformFeedbacks(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7285,7 +7285,7 @@ CODE:
     };
     glGenTransformFeedbacks(n, ids);
 
-SV *
+void
 glGenTransformFeedbacksNV(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -7295,7 +7295,7 @@ CODE:
     };
     glGenTransformFeedbacksNV(n, ids);
 
-SV *
+void
 glGenVertexArrays(n, arrays);
      GLsizei n;
      GLuint* arrays;
@@ -7305,7 +7305,7 @@ CODE:
     };
     glGenVertexArrays(n, arrays);
 
-SV *
+void
 glGenVertexArraysAPPLE(n, arrays);
      GLsizei n;
      const GLuint* arrays;
@@ -7326,7 +7326,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, params);
      GLuint program;
      GLuint bufferIndex;
@@ -7338,7 +7338,7 @@ CODE:
     };
     glGetActiveAtomicCounterBufferiv(program, bufferIndex, pname, params);
 
-SV *
+void
 glGetActiveAttrib(program, index, maxLength, length, size, type, name);
      GLuint program;
      GLuint index;
@@ -7353,7 +7353,7 @@ CODE:
     };
     glGetActiveAttrib(program, index, maxLength, length, size, type, name);
 
-SV *
+void
 glGetActiveAttribARB(programObj, index, maxLength, length, size, type, name);
      GLhandleARB programObj;
      GLuint index;
@@ -7368,7 +7368,7 @@ CODE:
     };
     glGetActiveAttribARB(programObj, index, maxLength, length, size, type, name);
 
-SV *
+void
 glGetActiveSubroutineName(program, shadertype, index, bufsize, length, name);
      GLuint program;
      GLenum shadertype;
@@ -7382,7 +7382,7 @@ CODE:
     };
     glGetActiveSubroutineName(program, shadertype, index, bufsize, length, name);
 
-SV *
+void
 glGetActiveSubroutineUniformiv(program, shadertype, index, pname, values);
      GLuint program;
      GLenum shadertype;
@@ -7395,7 +7395,7 @@ CODE:
     };
     glGetActiveSubroutineUniformiv(program, shadertype, index, pname, values);
 
-SV *
+void
 glGetActiveSubroutineUniformName(program, shadertype, index, bufsize, length, name);
      GLuint program;
      GLenum shadertype;
@@ -7409,7 +7409,7 @@ CODE:
     };
     glGetActiveSubroutineUniformName(program, shadertype, index, bufsize, length, name);
 
-SV *
+void
 glGetActiveUniform(program, index, maxLength, length, size, type, name);
      GLuint program;
      GLuint index;
@@ -7424,7 +7424,7 @@ CODE:
     };
     glGetActiveUniform(program, index, maxLength, length, size, type, name);
 
-SV *
+void
 glGetActiveUniformARB(programObj, index, maxLength, length, size, type, name);
      GLhandleARB programObj;
      GLuint index;
@@ -7439,7 +7439,7 @@ CODE:
     };
     glGetActiveUniformARB(programObj, index, maxLength, length, size, type, name);
 
-SV *
+void
 glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, params);
      GLuint program;
      GLuint uniformBlockIndex;
@@ -7451,7 +7451,7 @@ CODE:
     };
     glGetActiveUniformBlockiv(program, uniformBlockIndex, pname, params);
 
-SV *
+void
 glGetActiveUniformBlockName(program, uniformBlockIndex, bufSize, length, uniformBlockName);
      GLuint program;
      GLuint uniformBlockIndex;
@@ -7464,7 +7464,7 @@ CODE:
     };
     glGetActiveUniformBlockName(program, uniformBlockIndex, bufSize, length, uniformBlockName);
 
-SV *
+void
 glGetActiveUniformName(program, uniformIndex, bufSize, length, uniformName);
      GLuint program;
      GLuint uniformIndex;
@@ -7477,7 +7477,7 @@ CODE:
     };
     glGetActiveUniformName(program, uniformIndex, bufSize, length, uniformName);
 
-SV *
+void
 glGetActiveUniformsiv(program, uniformCount, uniformIndices, pname, params);
      GLuint program;
      GLsizei uniformCount;
@@ -7490,7 +7490,7 @@ CODE:
     };
     glGetActiveUniformsiv(program, uniformCount, uniformIndices, pname, params);
 
-SV *
+void
 glGetActiveVaryingNV(program, index, bufSize, length, size, type, name);
      GLuint program;
      GLuint index;
@@ -7505,7 +7505,7 @@ CODE:
     };
     glGetActiveVaryingNV(program, index, bufSize, length, size, type, name);
 
-SV *
+void
 glGetArrayObjectfvATI(array, pname, params);
      GLenum array;
      GLenum pname;
@@ -7516,7 +7516,7 @@ CODE:
     };
     glGetArrayObjectfvATI(array, pname, params);
 
-SV *
+void
 glGetArrayObjectivATI(array, pname, params);
      GLenum array;
      GLenum pname;
@@ -7527,7 +7527,7 @@ CODE:
     };
     glGetArrayObjectivATI(array, pname, params);
 
-SV *
+void
 glGetAttachedObjectsARB(containerObj, maxCount, count, obj);
      GLhandleARB containerObj;
      GLsizei maxCount;
@@ -7539,7 +7539,7 @@ CODE:
     };
     glGetAttachedObjectsARB(containerObj, maxCount, count, obj);
 
-SV *
+void
 glGetAttachedShaders(program, maxCount, count, shaders);
      GLuint program;
      GLsizei maxCount;
@@ -7575,7 +7575,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetBooleanIndexedvEXT(value, index, data);
      GLenum value;
      GLuint index;
@@ -7586,7 +7586,7 @@ CODE:
     };
     glGetBooleanIndexedvEXT(value, index, data);
 
-SV *
+void
 glGetBooleani_v(pname, index, data);
      GLenum pname;
      GLuint index;
@@ -7597,14 +7597,14 @@ CODE:
     };
     glGetBooleani_v(pname, index, data);
 
-SV *
+void
 glGetBooleanv(pname, params);
      GLenum pname;
      GLboolean *params;
 CODE:
     glGetBooleanv(pname, params);
 
-SV *
+void
 glGetBufferParameteri64v(target, value, data);
      GLenum target;
      GLenum value;
@@ -7615,7 +7615,7 @@ CODE:
     };
     glGetBufferParameteri64v(target, value, data);
 
-SV *
+void
 glGetBufferParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7626,7 +7626,7 @@ CODE:
     };
     glGetBufferParameteriv(target, pname, params);
 
-SV *
+void
 glGetBufferParameterivARB(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7637,7 +7637,7 @@ CODE:
     };
     glGetBufferParameterivARB(target, pname, params);
 
-SV *
+void
 glGetBufferParameterui64vNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7648,7 +7648,7 @@ CODE:
     };
     glGetBufferParameterui64vNV(target, pname, params);
 
-SV *
+void
 glGetBufferPointerv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7659,7 +7659,7 @@ CODE:
     };
     glGetBufferPointerv(target, pname, params);
 
-SV *
+void
 glGetBufferPointervARB(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7670,7 +7670,7 @@ CODE:
     };
     glGetBufferPointervARB(target, pname, params);
 
-SV *
+void
 glGetBufferSubData(target, offset, size, data);
      GLenum target;
      GLintptr offset;
@@ -7682,7 +7682,7 @@ CODE:
     };
     glGetBufferSubData(target, offset, size, data);
 
-SV *
+void
 glGetBufferSubDataARB(target, offset, size, data);
      GLenum target;
      GLintptrARB offset;
@@ -7694,14 +7694,14 @@ CODE:
     };
     glGetBufferSubDataARB(target, offset, size, data);
 
-SV *
+void
 glGetClipPlane(plane, equation);
      GLenum plane;
      GLdouble *equation;
 CODE:
     glGetClipPlane(plane, equation);
 
-SV *
+void
 glGetClipPlanef(pname, eqn);
      GLenum pname;
      GLfloat * eqn;
@@ -7711,7 +7711,7 @@ CODE:
     };
     glGetClipPlanef(pname, eqn);
 
-SV *
+void
 glGetClipPlanefOES(plane, equation);
      GLenum plane;
      GLfloat* equation;
@@ -7721,7 +7721,7 @@ CODE:
     };
     glGetClipPlanefOES(plane, equation);
 
-SV *
+void
 glGetClipPlanex(pname, eqn);
      GLenum pname;
      GLfixed * eqn;
@@ -7731,7 +7731,7 @@ CODE:
     };
     glGetClipPlanex(pname, eqn);
 
-SV *
+void
 glGetColorTable(target, format, type, table);
      GLenum target;
      GLenum format;
@@ -7743,7 +7743,7 @@ CODE:
     };
     glGetColorTable(target, format, type, table);
 
-SV *
+void
 glGetColorTableEXT(target, format, type, data);
      GLenum target;
      GLenum format;
@@ -7755,7 +7755,7 @@ CODE:
     };
     glGetColorTableEXT(target, format, type, data);
 
-SV *
+void
 glGetColorTableParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7766,7 +7766,7 @@ CODE:
     };
     glGetColorTableParameterfv(target, pname, params);
 
-SV *
+void
 glGetColorTableParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7777,7 +7777,7 @@ CODE:
     };
     glGetColorTableParameterfvEXT(target, pname, params);
 
-SV *
+void
 glGetColorTableParameterfvSGI(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7788,7 +7788,7 @@ CODE:
     };
     glGetColorTableParameterfvSGI(target, pname, params);
 
-SV *
+void
 glGetColorTableParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7799,7 +7799,7 @@ CODE:
     };
     glGetColorTableParameteriv(target, pname, params);
 
-SV *
+void
 glGetColorTableParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7810,7 +7810,7 @@ CODE:
     };
     glGetColorTableParameterivEXT(target, pname, params);
 
-SV *
+void
 glGetColorTableParameterivSGI(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -7821,7 +7821,7 @@ CODE:
     };
     glGetColorTableParameterivSGI(target, pname, params);
 
-SV *
+void
 glGetColorTableSGI(target, format, type, table);
      GLenum target;
      GLenum format;
@@ -7833,7 +7833,7 @@ CODE:
     };
     glGetColorTableSGI(target, format, type, table);
 
-SV *
+void
 glGetCombinerInputParameterfvNV(stage, portion, variable, pname, params);
      GLenum stage;
      GLenum portion;
@@ -7846,7 +7846,7 @@ CODE:
     };
     glGetCombinerInputParameterfvNV(stage, portion, variable, pname, params);
 
-SV *
+void
 glGetCombinerInputParameterivNV(stage, portion, variable, pname, params);
      GLenum stage;
      GLenum portion;
@@ -7859,7 +7859,7 @@ CODE:
     };
     glGetCombinerInputParameterivNV(stage, portion, variable, pname, params);
 
-SV *
+void
 glGetCombinerOutputParameterfvNV(stage, portion, pname, params);
      GLenum stage;
      GLenum portion;
@@ -7871,7 +7871,7 @@ CODE:
     };
     glGetCombinerOutputParameterfvNV(stage, portion, pname, params);
 
-SV *
+void
 glGetCombinerOutputParameterivNV(stage, portion, pname, params);
      GLenum stage;
      GLenum portion;
@@ -7883,7 +7883,7 @@ CODE:
     };
     glGetCombinerOutputParameterivNV(stage, portion, pname, params);
 
-SV *
+void
 glGetCombinerStageParameterfvNV(stage, pname, params);
      GLenum stage;
      GLenum pname;
@@ -7906,7 +7906,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetCompressedMultiTexImageEXT(texunit, target, level, img);
      GLenum texunit;
      GLenum target;
@@ -7918,7 +7918,7 @@ CODE:
     };
     glGetCompressedMultiTexImageEXT(texunit, target, level, img);
 
-SV *
+void
 glGetCompressedTexImage(target, lod, img);
      GLenum target;
      GLint lod;
@@ -7929,7 +7929,7 @@ CODE:
     };
     glGetCompressedTexImage(target, lod, img);
 
-SV *
+void
 glGetCompressedTexImageARB(target, lod, img);
      GLenum target;
      GLint lod;
@@ -7940,7 +7940,7 @@ CODE:
     };
     glGetCompressedTexImageARB(target, lod, img);
 
-SV *
+void
 glGetCompressedTextureImage(texture, level, bufSize, pixels);
      GLuint texture;
      GLint level;
@@ -7952,7 +7952,7 @@ CODE:
     };
     glGetCompressedTextureImage(texture, level, bufSize, pixels);
 
-SV *
+void
 glGetCompressedTextureImageEXT(texture, target, level, img);
      GLuint texture;
      GLenum target;
@@ -7964,7 +7964,7 @@ CODE:
     };
     glGetCompressedTextureImageEXT(texture, target, level, img);
 
-SV *
+void
 glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, pixels);
      GLuint texture;
      GLint level;
@@ -7982,7 +7982,7 @@ CODE:
     };
     glGetCompressedTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, bufSize, pixels);
 
-SV *
+void
 glGetConvolutionFilter(target, format, type, image);
      GLenum target;
      GLenum format;
@@ -7994,7 +7994,7 @@ CODE:
     };
     glGetConvolutionFilter(target, format, type, image);
 
-SV *
+void
 glGetConvolutionFilterEXT(target, format, type, image);
      GLenum target;
      GLenum format;
@@ -8006,7 +8006,7 @@ CODE:
     };
     glGetConvolutionFilterEXT(target, format, type, image);
 
-SV *
+void
 glGetConvolutionParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8017,7 +8017,7 @@ CODE:
     };
     glGetConvolutionParameterfv(target, pname, params);
 
-SV *
+void
 glGetConvolutionParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8028,7 +8028,7 @@ CODE:
     };
     glGetConvolutionParameterfvEXT(target, pname, params);
 
-SV *
+void
 glGetConvolutionParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8039,7 +8039,7 @@ CODE:
     };
     glGetConvolutionParameteriv(target, pname, params);
 
-SV *
+void
 glGetConvolutionParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8050,7 +8050,7 @@ CODE:
     };
     glGetConvolutionParameterivEXT(target, pname, params);
 
-SV *
+void
 glGetCoverageModulationTableNV(bufsize, v);
      GLsizei bufsize;
      GLfloat* v;
@@ -8113,7 +8113,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetDetailTexFuncSGIS(target, points);
      GLenum target;
      GLfloat* points;
@@ -8123,7 +8123,7 @@ CODE:
     };
     glGetDetailTexFuncSGIS(target, points);
 
-SV *
+void
 glGetDoubleIndexedvEXT(target, index, params);
      GLenum target;
      GLuint index;
@@ -8134,7 +8134,7 @@ CODE:
     };
     glGetDoubleIndexedvEXT(target, index, params);
 
-SV *
+void
 glGetDoublei_v(target, index, data);
      GLenum target;
      GLuint index;
@@ -8145,7 +8145,7 @@ CODE:
     };
     glGetDoublei_v(target, index, data);
 
-SV *
+void
 glGetDoublei_vEXT(pname, index, params);
      GLenum pname;
      GLuint index;
@@ -8156,7 +8156,7 @@ CODE:
     };
     glGetDoublei_vEXT(pname, index, params);
 
-SV *
+void
 glGetDoublev(pname, params);
      GLenum pname;
      GLdouble *params;
@@ -8174,7 +8174,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetFenceivNV(fence, pname, params);
      GLuint fence;
      GLenum pname;
@@ -8185,7 +8185,7 @@ CODE:
     };
     glGetFenceivNV(fence, pname, params);
 
-SV *
+void
 glGetFinalCombinerInputParameterfvNV(variable, pname, params);
      GLenum variable;
      GLenum pname;
@@ -8196,7 +8196,7 @@ CODE:
     };
     glGetFinalCombinerInputParameterfvNV(variable, pname, params);
 
-SV *
+void
 glGetFinalCombinerInputParameterivNV(variable, pname, params);
      GLenum variable;
      GLenum pname;
@@ -8207,7 +8207,7 @@ CODE:
     };
     glGetFinalCombinerInputParameterivNV(variable, pname, params);
 
-SV *
+void
 glGetFirstPerfQueryIdINTEL(queryId);
      GLuint* queryId;
 CODE:
@@ -8216,7 +8216,7 @@ CODE:
     };
     glGetFirstPerfQueryIdINTEL(queryId);
 
-SV *
+void
 glGetFixedv(pname, params);
      GLenum pname;
      GLfixed* params;
@@ -8226,7 +8226,7 @@ CODE:
     };
     glGetFixedv(pname, params);
 
-SV *
+void
 glGetFloatIndexedvEXT(target, index, params);
      GLenum target;
      GLuint index;
@@ -8237,7 +8237,7 @@ CODE:
     };
     glGetFloatIndexedvEXT(target, index, params);
 
-SV *
+void
 glGetFloati_v(target, index, data);
      GLenum target;
      GLuint index;
@@ -8248,7 +8248,7 @@ CODE:
     };
     glGetFloati_v(target, index, data);
 
-SV *
+void
 glGetFloati_vEXT(pname, index, params);
      GLenum pname;
      GLuint index;
@@ -8259,14 +8259,14 @@ CODE:
     };
     glGetFloati_vEXT(pname, index, params);
 
-SV *
+void
 glGetFloatv(pname, params);
      GLenum pname;
      GLfloat *params;
 CODE:
     glGetFloatv(pname, params);
 
-SV *
+void
 glGetFogFuncSGIS(points);
      GLfloat* points;
 CODE:
@@ -8311,7 +8311,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetFragmentLightfvEXT(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -8322,7 +8322,7 @@ CODE:
     };
     glGetFragmentLightfvEXT(light, pname, params);
 
-SV *
+void
 glGetFragmentLightfvSGIX(light, value, data);
      GLenum light;
      GLenum value;
@@ -8333,7 +8333,7 @@ CODE:
     };
     glGetFragmentLightfvSGIX(light, value, data);
 
-SV *
+void
 glGetFragmentLightivEXT(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -8344,7 +8344,7 @@ CODE:
     };
     glGetFragmentLightivEXT(light, pname, params);
 
-SV *
+void
 glGetFragmentLightivSGIX(light, value, data);
      GLenum light;
      GLenum value;
@@ -8355,7 +8355,7 @@ CODE:
     };
     glGetFragmentLightivSGIX(light, value, data);
 
-SV *
+void
 glGetFragmentMaterialfvEXT(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -8366,7 +8366,7 @@ CODE:
     };
     glGetFragmentMaterialfvEXT(face, pname, params);
 
-SV *
+void
 glGetFragmentMaterialfvSGIX(face, pname, data);
      GLenum face;
      GLenum pname;
@@ -8377,7 +8377,7 @@ CODE:
     };
     glGetFragmentMaterialfvSGIX(face, pname, data);
 
-SV *
+void
 glGetFragmentMaterialivEXT(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -8388,7 +8388,7 @@ CODE:
     };
     glGetFragmentMaterialivEXT(face, pname, params);
 
-SV *
+void
 glGetFragmentMaterialivSGIX(face, pname, data);
      GLenum face;
      GLenum pname;
@@ -8399,7 +8399,7 @@ CODE:
     };
     glGetFragmentMaterialivSGIX(face, pname, data);
 
-SV *
+void
 glGetFramebufferAttachmentParameteriv(target, attachment, pname, params);
      GLenum target;
      GLenum attachment;
@@ -8411,7 +8411,7 @@ CODE:
     };
     glGetFramebufferAttachmentParameteriv(target, attachment, pname, params);
 
-SV *
+void
 glGetFramebufferAttachmentParameterivEXT(target, attachment, pname, params);
      GLenum target;
      GLenum attachment;
@@ -8423,7 +8423,7 @@ CODE:
     };
     glGetFramebufferAttachmentParameterivEXT(target, attachment, pname, params);
 
-SV *
+void
 glGetFramebufferParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8434,7 +8434,7 @@ CODE:
     };
     glGetFramebufferParameteriv(target, pname, params);
 
-SV *
+void
 glGetFramebufferParameterivEXT(framebuffer, pname, param);
      GLuint framebuffer;
      GLenum pname;
@@ -8476,7 +8476,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetHistogram(target, reset, format, type, values);
      GLenum target;
      GLboolean reset;
@@ -8489,7 +8489,7 @@ CODE:
     };
     glGetHistogram(target, reset, format, type, values);
 
-SV *
+void
 glGetHistogramEXT(target, reset, format, type, values);
      GLenum target;
      GLboolean reset;
@@ -8502,7 +8502,7 @@ CODE:
     };
     glGetHistogramEXT(target, reset, format, type, values);
 
-SV *
+void
 glGetHistogramParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8513,7 +8513,7 @@ CODE:
     };
     glGetHistogramParameterfv(target, pname, params);
 
-SV *
+void
 glGetHistogramParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8524,7 +8524,7 @@ CODE:
     };
     glGetHistogramParameterfvEXT(target, pname, params);
 
-SV *
+void
 glGetHistogramParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8535,7 +8535,7 @@ CODE:
     };
     glGetHistogramParameteriv(target, pname, params);
 
-SV *
+void
 glGetHistogramParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8576,7 +8576,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetImageTransformParameterfvHP(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8587,7 +8587,7 @@ CODE:
     };
     glGetImageTransformParameterfvHP(target, pname, params);
 
-SV *
+void
 glGetImageTransformParameterivHP(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8598,7 +8598,7 @@ CODE:
     };
     glGetImageTransformParameterivHP(target, pname, params);
 
-SV *
+void
 glGetInfoLogARB(obj, maxLength, length, infoLog);
      GLhandleARB obj;
      GLsizei maxLength;
@@ -8610,7 +8610,7 @@ CODE:
     };
     glGetInfoLogARB(obj, maxLength, length, infoLog);
 
-SV *
+void
 glGetInteger64i_v(pname, index, data);
      GLenum pname;
      GLuint index;
@@ -8621,7 +8621,7 @@ CODE:
     };
     glGetInteger64i_v(pname, index, data);
 
-SV *
+void
 glGetInteger64v(pname, params);
      GLenum pname;
      GLint64* params;
@@ -8631,7 +8631,7 @@ CODE:
     };
     glGetInteger64v(pname, params);
 
-SV *
+void
 glGetIntegerIndexedvEXT(value, index, data);
      GLenum value;
      GLuint index;
@@ -8642,7 +8642,7 @@ CODE:
     };
     glGetIntegerIndexedvEXT(value, index, data);
 
-SV *
+void
 glGetIntegeri_v(target, index, data);
      GLenum target;
      GLuint index;
@@ -8653,7 +8653,7 @@ CODE:
     };
     glGetIntegeri_v(target, index, data);
 
-SV *
+void
 glGetIntegerui64i_vNV(value, index, result);
      GLenum value;
      GLuint index;
@@ -8664,7 +8664,7 @@ CODE:
     };
     glGetIntegerui64i_vNV(value, index, result);
 
-SV *
+void
 glGetIntegerui64vNV(value, result);
      GLenum value;
      GLuint64EXT* result;
@@ -8674,14 +8674,14 @@ CODE:
     };
     glGetIntegerui64vNV(value, result);
 
-SV *
+void
 glGetIntegerv(pname, params);
      GLenum pname;
      GLint *params;
 CODE:
     glGetIntegerv(pname, params);
 
-SV *
+void
 glGetInternalformati64v(target, internalformat, pname, bufSize, params);
      GLenum target;
      GLenum internalformat;
@@ -8694,7 +8694,7 @@ CODE:
     };
     glGetInternalformati64v(target, internalformat, pname, bufSize, params);
 
-SV *
+void
 glGetInternalformativ(target, internalformat, pname, bufSize, params);
      GLenum target;
      GLenum internalformat;
@@ -8707,7 +8707,7 @@ CODE:
     };
     glGetInternalformativ(target, internalformat, pname, bufSize, params);
 
-SV *
+void
 glGetInternalformatSampleivNV(target, internalformat, samples, pname, bufSize, params);
      GLenum target;
      GLenum internalformat;
@@ -8721,7 +8721,7 @@ CODE:
     };
     glGetInternalformatSampleivNV(target, internalformat, samples, pname, bufSize, params);
 
-SV *
+void
 glGetInvariantBooleanvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8732,7 +8732,7 @@ CODE:
     };
     glGetInvariantBooleanvEXT(id, value, data);
 
-SV *
+void
 glGetInvariantFloatvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8743,7 +8743,7 @@ CODE:
     };
     glGetInvariantFloatvEXT(id, value, data);
 
-SV *
+void
 glGetInvariantIntegervEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8754,7 +8754,7 @@ CODE:
     };
     glGetInvariantIntegervEXT(id, value, data);
 
-SV *
+void
 glGetLightfv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -8762,7 +8762,7 @@ glGetLightfv(light, pname, params);
 CODE:
     glGetLightfv(light, pname, params);
 
-SV *
+void
 glGetLightiv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -8770,7 +8770,7 @@ glGetLightiv(light, pname, params);
 CODE:
     glGetLightiv(light, pname, params);
 
-SV *
+void
 glGetLightxv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -8781,7 +8781,7 @@ CODE:
     };
     glGetLightxv(light, pname, params);
 
-SV *
+void
 glGetLocalConstantBooleanvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8792,7 +8792,7 @@ CODE:
     };
     glGetLocalConstantBooleanvEXT(id, value, data);
 
-SV *
+void
 glGetLocalConstantFloatvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8803,7 +8803,7 @@ CODE:
     };
     glGetLocalConstantFloatvEXT(id, value, data);
 
-SV *
+void
 glGetLocalConstantIntegervEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -8814,7 +8814,7 @@ CODE:
     };
     glGetLocalConstantIntegervEXT(id, value, data);
 
-SV *
+void
 glGetMapAttribParameterfvNV(target, index, pname, params);
      GLenum target;
      GLuint index;
@@ -8826,7 +8826,7 @@ CODE:
     };
     glGetMapAttribParameterfvNV(target, index, pname, params);
 
-SV *
+void
 glGetMapAttribParameterivNV(target, index, pname, params);
      GLenum target;
      GLuint index;
@@ -8838,7 +8838,7 @@ CODE:
     };
     glGetMapAttribParameterivNV(target, index, pname, params);
 
-SV *
+void
 glGetMapControlPointsNV(target, index, type, ustride, vstride, packed, points);
      GLenum target;
      GLuint index;
@@ -8853,7 +8853,7 @@ CODE:
     };
     glGetMapControlPointsNV(target, index, type, ustride, vstride, packed, points);
 
-SV *
+void
 glGetMapdv(target, query, v);
      GLenum target;
      GLenum query;
@@ -8861,7 +8861,7 @@ glGetMapdv(target, query, v);
 CODE:
     glGetMapdv(target, query, v);
 
-SV *
+void
 glGetMapfv(target, query, v);
      GLenum target;
      GLenum query;
@@ -8869,7 +8869,7 @@ glGetMapfv(target, query, v);
 CODE:
     glGetMapfv(target, query, v);
 
-SV *
+void
 glGetMapiv(target, query, v);
      GLenum target;
      GLenum query;
@@ -8877,7 +8877,7 @@ glGetMapiv(target, query, v);
 CODE:
     glGetMapiv(target, query, v);
 
-SV *
+void
 glGetMapParameterfvNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8888,7 +8888,7 @@ CODE:
     };
     glGetMapParameterfvNV(target, pname, params);
 
-SV *
+void
 glGetMapParameterivNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8899,7 +8899,7 @@ CODE:
     };
     glGetMapParameterivNV(target, pname, params);
 
-SV *
+void
 glGetMaterialfv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -8907,7 +8907,7 @@ glGetMaterialfv(face, pname, params);
 CODE:
     glGetMaterialfv(face, pname, params);
 
-SV *
+void
 glGetMaterialiv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -8915,7 +8915,7 @@ glGetMaterialiv(face, pname, params);
 CODE:
     glGetMaterialiv(face, pname, params);
 
-SV *
+void
 glGetMaterialxv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -8926,7 +8926,7 @@ CODE:
     };
     glGetMaterialxv(face, pname, params);
 
-SV *
+void
 glGetMinmax(target, reset, format, types, values);
      GLenum target;
      GLboolean reset;
@@ -8939,7 +8939,7 @@ CODE:
     };
     glGetMinmax(target, reset, format, types, values);
 
-SV *
+void
 glGetMinmaxEXT(target, reset, format, type, values);
      GLenum target;
      GLboolean reset;
@@ -8952,7 +8952,7 @@ CODE:
     };
     glGetMinmaxEXT(target, reset, format, type, values);
 
-SV *
+void
 glGetMinmaxParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8963,7 +8963,7 @@ CODE:
     };
     glGetMinmaxParameterfv(target, pname, params);
 
-SV *
+void
 glGetMinmaxParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8974,7 +8974,7 @@ CODE:
     };
     glGetMinmaxParameterfvEXT(target, pname, params);
 
-SV *
+void
 glGetMinmaxParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8985,7 +8985,7 @@ CODE:
     };
     glGetMinmaxParameteriv(target, pname, params);
 
-SV *
+void
 glGetMinmaxParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -8996,7 +8996,7 @@ CODE:
     };
     glGetMinmaxParameterivEXT(target, pname, params);
 
-SV *
+void
 glGetMultisamplefv(pname, index, val);
      GLenum pname;
      GLuint index;
@@ -9007,7 +9007,7 @@ CODE:
     };
     glGetMultisamplefv(pname, index, val);
 
-SV *
+void
 glGetMultisamplefvNV(pname, index, val);
      GLenum pname;
      GLuint index;
@@ -9018,7 +9018,7 @@ CODE:
     };
     glGetMultisamplefvNV(pname, index, val);
 
-SV *
+void
 glGetMultiTexEnvfvEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9030,7 +9030,7 @@ CODE:
     };
     glGetMultiTexEnvfvEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetMultiTexEnvivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9042,7 +9042,7 @@ CODE:
     };
     glGetMultiTexEnvivEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetMultiTexGendvEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -9054,7 +9054,7 @@ CODE:
     };
     glGetMultiTexGendvEXT(texunit, coord, pname, params);
 
-SV *
+void
 glGetMultiTexGenfvEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -9066,7 +9066,7 @@ CODE:
     };
     glGetMultiTexGenfvEXT(texunit, coord, pname, params);
 
-SV *
+void
 glGetMultiTexGenivEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -9078,7 +9078,7 @@ CODE:
     };
     glGetMultiTexGenivEXT(texunit, coord, pname, params);
 
-SV *
+void
 glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -9092,7 +9092,7 @@ CODE:
     };
     glGetMultiTexImageEXT(texunit, target, level, format, type, pixels);
 
-SV *
+void
 glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9105,7 +9105,7 @@ CODE:
     };
     glGetMultiTexLevelParameterfvEXT(texunit, target, level, pname, params);
 
-SV *
+void
 glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9118,7 +9118,7 @@ CODE:
     };
     glGetMultiTexLevelParameterivEXT(texunit, target, level, pname, params);
 
-SV *
+void
 glGetMultiTexParameterfvEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9130,7 +9130,7 @@ CODE:
     };
     glGetMultiTexParameterfvEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetMultiTexParameterIivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9142,7 +9142,7 @@ CODE:
     };
     glGetMultiTexParameterIivEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9154,7 +9154,7 @@ CODE:
     };
     glGetMultiTexParameterIuivEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetMultiTexParameterivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -9166,7 +9166,7 @@ CODE:
     };
     glGetMultiTexParameterivEXT(texunit, target, pname, params);
 
-SV *
+void
 glGetNamedBufferParameteri64v(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9177,7 +9177,7 @@ CODE:
     };
     glGetNamedBufferParameteri64v(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferParameteriv(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9188,7 +9188,7 @@ CODE:
     };
     glGetNamedBufferParameteriv(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferParameterivEXT(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9199,7 +9199,7 @@ CODE:
     };
     glGetNamedBufferParameterivEXT(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferParameterui64vNV(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9210,7 +9210,7 @@ CODE:
     };
     glGetNamedBufferParameterui64vNV(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferPointerv(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9221,7 +9221,7 @@ CODE:
     };
     glGetNamedBufferPointerv(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferPointervEXT(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9232,7 +9232,7 @@ CODE:
     };
     glGetNamedBufferPointervEXT(buffer, pname, params);
 
-SV *
+void
 glGetNamedBufferSubData(buffer, offset, size, data);
      GLuint buffer;
      GLintptr offset;
@@ -9244,7 +9244,7 @@ CODE:
     };
     glGetNamedBufferSubData(buffer, offset, size, data);
 
-SV *
+void
 glGetNamedBufferSubDataEXT(buffer, offset, size, data);
      GLuint buffer;
      GLintptr offset;
@@ -9256,7 +9256,7 @@ CODE:
     };
     glGetNamedBufferSubDataEXT(buffer, offset, size, data);
 
-SV *
+void
 glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params);
      GLuint framebuffer;
      GLenum attachment;
@@ -9268,7 +9268,7 @@ CODE:
     };
     glGetNamedFramebufferAttachmentParameteriv(framebuffer, attachment, pname, params);
 
-SV *
+void
 glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
      GLuint framebuffer;
      GLenum attachment;
@@ -9280,7 +9280,7 @@ CODE:
     };
     glGetNamedFramebufferAttachmentParameterivEXT(framebuffer, attachment, pname, params);
 
-SV *
+void
 glGetNamedFramebufferParameteriv(framebuffer, pname, param);
      GLuint framebuffer;
      GLenum pname;
@@ -9291,7 +9291,7 @@ CODE:
     };
     glGetNamedFramebufferParameteriv(framebuffer, pname, param);
 
-SV *
+void
 glGetNamedFramebufferParameterivEXT(framebuffer, pname, params);
      GLuint framebuffer;
      GLenum pname;
@@ -9302,7 +9302,7 @@ CODE:
     };
     glGetNamedFramebufferParameterivEXT(framebuffer, pname, params);
 
-SV *
+void
 glGetNamedProgramivEXT(program, target, pname, params);
      GLuint program;
      GLenum target;
@@ -9314,7 +9314,7 @@ CODE:
     };
     glGetNamedProgramivEXT(program, target, pname, params);
 
-SV *
+void
 glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -9326,7 +9326,7 @@ CODE:
     };
     glGetNamedProgramLocalParameterdvEXT(program, target, index, params);
 
-SV *
+void
 glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -9338,7 +9338,7 @@ CODE:
     };
     glGetNamedProgramLocalParameterfvEXT(program, target, index, params);
 
-SV *
+void
 glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -9350,7 +9350,7 @@ CODE:
     };
     glGetNamedProgramLocalParameterIivEXT(program, target, index, params);
 
-SV *
+void
 glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -9362,7 +9362,7 @@ CODE:
     };
     glGetNamedProgramLocalParameterIuivEXT(program, target, index, params);
 
-SV *
+void
 glGetNamedProgramStringEXT(program, target, pname, string);
      GLuint program;
      GLenum target;
@@ -9374,7 +9374,7 @@ CODE:
     };
     glGetNamedProgramStringEXT(program, target, pname, string);
 
-SV *
+void
 glGetNamedRenderbufferParameteriv(renderbuffer, pname, params);
      GLuint renderbuffer;
      GLenum pname;
@@ -9385,7 +9385,7 @@ CODE:
     };
     glGetNamedRenderbufferParameteriv(renderbuffer, pname, params);
 
-SV *
+void
 glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
      GLuint renderbuffer;
      GLenum pname;
@@ -9396,7 +9396,7 @@ CODE:
     };
     glGetNamedRenderbufferParameterivEXT(renderbuffer, pname, params);
 
-SV *
+void
 glGetNamedStringARB(namelen, name, bufSize, stringlen, string);
      GLint namelen;
      const GLchar* name;
@@ -9409,7 +9409,7 @@ CODE:
     };
     glGetNamedStringARB(namelen, name, bufSize, stringlen, string);
 
-SV *
+void
 glGetNamedStringivARB(namelen, name, pname, params);
      GLint namelen;
      const GLchar* name;
@@ -9421,7 +9421,7 @@ CODE:
     };
     glGetNamedStringivARB(namelen, name, pname, params);
 
-SV *
+void
 glGetnColorTableARB(target, format, type, bufSize, table);
      GLenum target;
      GLenum format;
@@ -9434,7 +9434,7 @@ CODE:
     };
     glGetnColorTableARB(target, format, type, bufSize, table);
 
-SV *
+void
 glGetnCompressedTexImage(target, lod, bufSize, pixels);
      GLenum target;
      GLint lod;
@@ -9446,7 +9446,7 @@ CODE:
     };
     glGetnCompressedTexImage(target, lod, bufSize, pixels);
 
-SV *
+void
 glGetnCompressedTexImageARB(target, lod, bufSize, img);
      GLenum target;
      GLint lod;
@@ -9458,7 +9458,7 @@ CODE:
     };
     glGetnCompressedTexImageARB(target, lod, bufSize, img);
 
-SV *
+void
 glGetnConvolutionFilterARB(target, format, type, bufSize, image);
      GLenum target;
      GLenum format;
@@ -9471,7 +9471,7 @@ CODE:
     };
     glGetnConvolutionFilterARB(target, format, type, bufSize, image);
 
-SV *
+void
 glGetNextPerfQueryIdINTEL(queryId, nextQueryId);
      GLuint queryId;
      GLuint* nextQueryId;
@@ -9481,7 +9481,7 @@ CODE:
     };
     glGetNextPerfQueryIdINTEL(queryId, nextQueryId);
 
-SV *
+void
 glGetnHistogramARB(target, reset, format, type, bufSize, values);
      GLenum target;
      GLboolean reset;
@@ -9495,7 +9495,7 @@ CODE:
     };
     glGetnHistogramARB(target, reset, format, type, bufSize, values);
 
-SV *
+void
 glGetnMapdvARB(target, query, bufSize, v);
      GLenum target;
      GLenum query;
@@ -9507,7 +9507,7 @@ CODE:
     };
     glGetnMapdvARB(target, query, bufSize, v);
 
-SV *
+void
 glGetnMapfvARB(target, query, bufSize, v);
      GLenum target;
      GLenum query;
@@ -9519,7 +9519,7 @@ CODE:
     };
     glGetnMapfvARB(target, query, bufSize, v);
 
-SV *
+void
 glGetnMapivARB(target, query, bufSize, v);
      GLenum target;
      GLenum query;
@@ -9531,7 +9531,7 @@ CODE:
     };
     glGetnMapivARB(target, query, bufSize, v);
 
-SV *
+void
 glGetnMinmaxARB(target, reset, format, type, bufSize, values);
      GLenum target;
      GLboolean reset;
@@ -9545,7 +9545,7 @@ CODE:
     };
     glGetnMinmaxARB(target, reset, format, type, bufSize, values);
 
-SV *
+void
 glGetnPixelMapfvARB(map, bufSize, values);
      GLenum map;
      GLsizei bufSize;
@@ -9556,7 +9556,7 @@ CODE:
     };
     glGetnPixelMapfvARB(map, bufSize, values);
 
-SV *
+void
 glGetnPixelMapuivARB(map, bufSize, values);
      GLenum map;
      GLsizei bufSize;
@@ -9567,7 +9567,7 @@ CODE:
     };
     glGetnPixelMapuivARB(map, bufSize, values);
 
-SV *
+void
 glGetnPixelMapusvARB(map, bufSize, values);
      GLenum map;
      GLsizei bufSize;
@@ -9578,7 +9578,7 @@ CODE:
     };
     glGetnPixelMapusvARB(map, bufSize, values);
 
-SV *
+void
 glGetnPolygonStippleARB(bufSize, pattern);
      GLsizei bufSize;
      GLubyte* pattern;
@@ -9588,7 +9588,7 @@ CODE:
     };
     glGetnPolygonStippleARB(bufSize, pattern);
 
-SV *
+void
 glGetnSeparableFilterARB(target, format, type, rowBufSize, row, columnBufSize, column, span);
      GLenum target;
      GLenum format;
@@ -9604,7 +9604,7 @@ CODE:
     };
     glGetnSeparableFilterARB(target, format, type, rowBufSize, row, columnBufSize, column, span);
 
-SV *
+void
 glGetnTexImage(tex, level, format, type, bufSize, pixels);
      GLenum tex;
      GLint level;
@@ -9618,7 +9618,7 @@ CODE:
     };
     glGetnTexImage(tex, level, format, type, bufSize, pixels);
 
-SV *
+void
 glGetnTexImageARB(target, level, format, type, bufSize, img);
      GLenum target;
      GLint level;
@@ -9632,7 +9632,7 @@ CODE:
     };
     glGetnTexImageARB(target, level, format, type, bufSize, img);
 
-SV *
+void
 glGetnUniformdv(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9644,7 +9644,7 @@ CODE:
     };
     glGetnUniformdv(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformdvARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9656,7 +9656,7 @@ CODE:
     };
     glGetnUniformdvARB(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformfv(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9668,7 +9668,7 @@ CODE:
     };
     glGetnUniformfv(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformfvARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9680,7 +9680,7 @@ CODE:
     };
     glGetnUniformfvARB(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformi64vARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9692,7 +9692,7 @@ CODE:
     };
     glGetnUniformi64vARB(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformiv(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9704,7 +9704,7 @@ CODE:
     };
     glGetnUniformiv(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformivARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9716,7 +9716,7 @@ CODE:
     };
     glGetnUniformivARB(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformui64vARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9728,7 +9728,7 @@ CODE:
     };
     glGetnUniformui64vARB(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformuiv(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9740,7 +9740,7 @@ CODE:
     };
     glGetnUniformuiv(program, location, bufSize, params);
 
-SV *
+void
 glGetnUniformuivARB(program, location, bufSize, params);
      GLuint program;
      GLint location;
@@ -9752,7 +9752,7 @@ CODE:
     };
     glGetnUniformuivARB(program, location, bufSize, params);
 
-SV *
+void
 glGetObjectBufferfvATI(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9763,7 +9763,7 @@ CODE:
     };
     glGetObjectBufferfvATI(buffer, pname, params);
 
-SV *
+void
 glGetObjectBufferivATI(buffer, pname, params);
      GLuint buffer;
      GLenum pname;
@@ -9774,7 +9774,7 @@ CODE:
     };
     glGetObjectBufferivATI(buffer, pname, params);
 
-SV *
+void
 glGetObjectLabel(identifier, name, bufSize, length, label);
      GLenum identifier;
      GLuint name;
@@ -9787,7 +9787,7 @@ CODE:
     };
     glGetObjectLabel(identifier, name, bufSize, length, label);
 
-SV *
+void
 glGetObjectLabelEXT(type, object, bufSize, length, label);
      GLenum type;
      GLuint object;
@@ -9800,7 +9800,7 @@ CODE:
     };
     glGetObjectLabelEXT(type, object, bufSize, length, label);
 
-SV *
+void
 glGetObjectParameterfvARB(obj, pname, params);
      GLhandleARB obj;
      GLenum pname;
@@ -9811,7 +9811,7 @@ CODE:
     };
     glGetObjectParameterfvARB(obj, pname, params);
 
-SV *
+void
 glGetObjectParameterivAPPLE(objectType, name, pname, params);
      GLenum objectType;
      GLuint name;
@@ -9823,7 +9823,7 @@ CODE:
     };
     glGetObjectParameterivAPPLE(objectType, name, pname, params);
 
-SV *
+void
 glGetObjectParameterivARB(obj, pname, params);
      GLhandleARB obj;
      GLenum pname;
@@ -9834,7 +9834,7 @@ CODE:
     };
     glGetObjectParameterivARB(obj, pname, params);
 
-SV *
+void
 glGetObjectPtrLabel(ptr, bufSize, length, label);
      const void *ptr;
      GLsizei bufSize;
@@ -9846,7 +9846,7 @@ CODE:
     };
     glGetObjectPtrLabel(ptr, bufSize, length, label);
 
-SV *
+void
 glGetOcclusionQueryivNV(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -9857,7 +9857,7 @@ CODE:
     };
     glGetOcclusionQueryivNV(id, pname, params);
 
-SV *
+void
 glGetOcclusionQueryuivNV(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -9868,7 +9868,7 @@ CODE:
     };
     glGetOcclusionQueryuivNV(id, pname, params);
 
-SV *
+void
 glGetPathColorGenfvNV(color, pname, value);
      GLenum color;
      GLenum pname;
@@ -9879,7 +9879,7 @@ CODE:
     };
     glGetPathColorGenfvNV(color, pname, value);
 
-SV *
+void
 glGetPathColorGenivNV(color, pname, value);
      GLenum color;
      GLenum pname;
@@ -9890,7 +9890,7 @@ CODE:
     };
     glGetPathColorGenivNV(color, pname, value);
 
-SV *
+void
 glGetPathCommandsNV(path, commands);
      GLuint path;
      GLubyte* commands;
@@ -9900,7 +9900,7 @@ CODE:
     };
     glGetPathCommandsNV(path, commands);
 
-SV *
+void
 glGetPathCoordsNV(path, coords);
      GLuint path;
      GLfloat* coords;
@@ -9910,7 +9910,7 @@ CODE:
     };
     glGetPathCoordsNV(path, coords);
 
-SV *
+void
 glGetPathDashArrayNV(path, dashArray);
      GLuint path;
      GLfloat* dashArray;
@@ -9933,7 +9933,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetPathMetricRangeNV(metricQueryMask, firstPathName, numPaths, stride, metrics);
      GLbitfield metricQueryMask;
      GLuint firstPathName;
@@ -9946,7 +9946,7 @@ CODE:
     };
     glGetPathMetricRangeNV(metricQueryMask, firstPathName, numPaths, stride, metrics);
 
-SV *
+void
 glGetPathMetricsNV(metricQueryMask, numPaths, pathNameType, paths, pathBase, stride, metrics);
      GLbitfield metricQueryMask;
      GLsizei numPaths;
@@ -9961,7 +9961,7 @@ CODE:
     };
     glGetPathMetricsNV(metricQueryMask, numPaths, pathNameType, paths, pathBase, stride, metrics);
 
-SV *
+void
 glGetPathParameterfvNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -9972,7 +9972,7 @@ CODE:
     };
     glGetPathParameterfvNV(path, pname, value);
 
-SV *
+void
 glGetPathParameterivNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -9983,7 +9983,7 @@ CODE:
     };
     glGetPathParameterivNV(path, pname, value);
 
-SV *
+void
 glGetPathSpacingNV(pathListMode, numPaths, pathNameType, paths, pathBase, advanceScale, kerningScale, transformType, returnedSpacing);
      GLenum pathListMode;
      GLsizei numPaths;
@@ -10000,7 +10000,7 @@ CODE:
     };
     glGetPathSpacingNV(pathListMode, numPaths, pathNameType, paths, pathBase, advanceScale, kerningScale, transformType, returnedSpacing);
 
-SV *
+void
 glGetPathTexGenfvNV(texCoordSet, pname, value);
      GLenum texCoordSet;
      GLenum pname;
@@ -10011,7 +10011,7 @@ CODE:
     };
     glGetPathTexGenfvNV(texCoordSet, pname, value);
 
-SV *
+void
 glGetPathTexGenivNV(texCoordSet, pname, value);
      GLenum texCoordSet;
      GLenum pname;
@@ -10022,7 +10022,7 @@ CODE:
     };
     glGetPathTexGenivNV(texCoordSet, pname, value);
 
-SV *
+void
 glGetPerfCounterInfoINTEL(queryId, counterId, counterNameLength, counterName, counterDescLength, counterDesc, counterOffset, counterDataSize, counterTypeEnum, counterDataTypeEnum, rawCounterMaxValue);
      GLuint queryId;
      GLuint counterId;
@@ -10041,7 +10041,7 @@ CODE:
     };
     glGetPerfCounterInfoINTEL(queryId, counterId, counterNameLength, counterName, counterDescLength, counterDesc, counterOffset, counterDataSize, counterTypeEnum, counterDataTypeEnum, rawCounterMaxValue);
 
-SV *
+void
 glGetPerfMonitorCounterDataAMD(monitor, pname, dataSize, data, bytesWritten);
      GLuint monitor;
      GLenum pname;
@@ -10054,7 +10054,7 @@ CODE:
     };
     glGetPerfMonitorCounterDataAMD(monitor, pname, dataSize, data, bytesWritten);
 
-SV *
+void
 glGetPerfMonitorCounterInfoAMD(group, counter, pname, data);
      GLuint group;
      GLuint counter;
@@ -10066,7 +10066,7 @@ CODE:
     };
     glGetPerfMonitorCounterInfoAMD(group, counter, pname, data);
 
-SV *
+void
 glGetPerfMonitorCountersAMD(group, numCounters, maxActiveCounters, countersSize, counters);
      GLuint group;
      GLint* numCounters;
@@ -10079,7 +10079,7 @@ CODE:
     };
     glGetPerfMonitorCountersAMD(group, numCounters, maxActiveCounters, countersSize, counters);
 
-SV *
+void
 glGetPerfMonitorCounterStringAMD(group, counter, bufSize, length, counterString);
      GLuint group;
      GLuint counter;
@@ -10092,7 +10092,7 @@ CODE:
     };
     glGetPerfMonitorCounterStringAMD(group, counter, bufSize, length, counterString);
 
-SV *
+void
 glGetPerfMonitorGroupsAMD(numGroups, groupsSize, groups);
      GLint* numGroups;
      GLsizei groupsSize;
@@ -10103,7 +10103,7 @@ CODE:
     };
     glGetPerfMonitorGroupsAMD(numGroups, groupsSize, groups);
 
-SV *
+void
 glGetPerfMonitorGroupStringAMD(group, bufSize, length, groupString);
      GLuint group;
      GLsizei bufSize;
@@ -10115,7 +10115,7 @@ CODE:
     };
     glGetPerfMonitorGroupStringAMD(group, bufSize, length, groupString);
 
-SV *
+void
 glGetPerfQueryDataINTEL(queryHandle, flags, dataSize, data, bytesWritten);
      GLuint queryHandle;
      GLuint flags;
@@ -10128,7 +10128,7 @@ CODE:
     };
     glGetPerfQueryDataINTEL(queryHandle, flags, dataSize, data, bytesWritten);
 
-SV *
+void
 glGetPerfQueryIdByNameINTEL(queryName, queryId);
      GLchar* queryName;
      GLuint *queryId;
@@ -10138,7 +10138,7 @@ CODE:
     };
     glGetPerfQueryIdByNameINTEL(queryName, queryId);
 
-SV *
+void
 glGetPerfQueryInfoINTEL(queryId, queryNameLength, queryName, dataSize, noCounters, noInstances, capsMask);
      GLuint queryId;
      GLuint queryNameLength;
@@ -10153,28 +10153,28 @@ CODE:
     };
     glGetPerfQueryInfoINTEL(queryId, queryNameLength, queryName, dataSize, noCounters, noInstances, capsMask);
 
-SV *
+void
 glGetPixelMapfv(map, values);
      GLenum map;
      GLfloat *values;
 CODE:
     glGetPixelMapfv(map, values);
 
-SV *
+void
 glGetPixelMapuiv(map, values);
      GLenum map;
      GLuint *values;
 CODE:
     glGetPixelMapuiv(map, values);
 
-SV *
+void
 glGetPixelMapusv(map, values);
      GLenum map;
      GLushort *values;
 CODE:
     glGetPixelMapusv(map, values);
 
-SV *
+void
 glGetPixelTransformParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10185,7 +10185,7 @@ CODE:
     };
     glGetPixelTransformParameterfvEXT(target, pname, params);
 
-SV *
+void
 glGetPixelTransformParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10196,7 +10196,7 @@ CODE:
     };
     glGetPixelTransformParameterivEXT(target, pname, params);
 
-SV *
+void
 glGetPointerIndexedvEXT(target, index, params);
      GLenum target;
      GLuint index;
@@ -10207,7 +10207,7 @@ CODE:
     };
     glGetPointerIndexedvEXT(target, index, params);
 
-SV *
+void
 glGetPointeri_vEXT(pname, index, params);
      GLenum pname;
      GLuint index;
@@ -10218,20 +10218,20 @@ CODE:
     };
     glGetPointeri_vEXT(pname, index, params);
 
-SV *
+void
 glGetPointerv(pname, params);
      GLenum pname;
      void* *params;
 CODE:
     glGetPointerv(pname, params);
 
-SV *
+void
 glGetPolygonStipple(mask);
      GLubyte *mask;
 CODE:
     glGetPolygonStipple(mask);
 
-SV *
+void
 glGetProgramBinary(program, bufSize, length, binaryFormat, binary);
      GLuint program;
      GLsizei bufSize;
@@ -10244,7 +10244,7 @@ CODE:
     };
     glGetProgramBinary(program, bufSize, length, binaryFormat, binary);
 
-SV *
+void
 glGetProgramEnvParameterdvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -10255,7 +10255,7 @@ CODE:
     };
     glGetProgramEnvParameterdvARB(target, index, params);
 
-SV *
+void
 glGetProgramEnvParameterfvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -10266,7 +10266,7 @@ CODE:
     };
     glGetProgramEnvParameterfvARB(target, index, params);
 
-SV *
+void
 glGetProgramInfoLog(program, bufSize, length, infoLog);
      GLuint program;
      GLsizei bufSize;
@@ -10278,7 +10278,7 @@ CODE:
     };
     glGetProgramInfoLog(program, bufSize, length, infoLog);
 
-SV *
+void
 glGetProgramInterfaceiv(program, programInterface, pname, params);
      GLuint program;
      GLenum programInterface;
@@ -10290,7 +10290,7 @@ CODE:
     };
     glGetProgramInterfaceiv(program, programInterface, pname, params);
 
-SV *
+void
 glGetProgramiv(program, pname, param);
      GLuint program;
      GLenum pname;
@@ -10301,7 +10301,7 @@ CODE:
     };
     glGetProgramiv(program, pname, param);
 
-SV *
+void
 glGetProgramivARB(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10312,7 +10312,7 @@ CODE:
     };
     glGetProgramivARB(target, pname, params);
 
-SV *
+void
 glGetProgramivNV(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10323,7 +10323,7 @@ CODE:
     };
     glGetProgramivNV(id, pname, params);
 
-SV *
+void
 glGetProgramLocalParameterdvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -10334,7 +10334,7 @@ CODE:
     };
     glGetProgramLocalParameterdvARB(target, index, params);
 
-SV *
+void
 glGetProgramLocalParameterfvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -10345,7 +10345,7 @@ CODE:
     };
     glGetProgramLocalParameterfvARB(target, index, params);
 
-SV *
+void
 glGetProgramNamedParameterdvNV(id, len, name, params);
      GLuint id;
      GLsizei len;
@@ -10357,7 +10357,7 @@ CODE:
     };
     glGetProgramNamedParameterdvNV(id, len, name, params);
 
-SV *
+void
 glGetProgramNamedParameterfvNV(id, len, name, params);
      GLuint id;
      GLsizei len;
@@ -10369,7 +10369,7 @@ CODE:
     };
     glGetProgramNamedParameterfvNV(id, len, name, params);
 
-SV *
+void
 glGetProgramParameterdvNV(target, index, pname, params);
      GLenum target;
      GLuint index;
@@ -10381,7 +10381,7 @@ CODE:
     };
     glGetProgramParameterdvNV(target, index, pname, params);
 
-SV *
+void
 glGetProgramParameterfvNV(target, index, pname, params);
      GLenum target;
      GLuint index;
@@ -10393,7 +10393,7 @@ CODE:
     };
     glGetProgramParameterfvNV(target, index, pname, params);
 
-SV *
+void
 glGetProgramPipelineInfoLog(pipeline, bufSize, length, infoLog);
      GLuint pipeline;
      GLsizei bufSize;
@@ -10405,7 +10405,7 @@ CODE:
     };
     glGetProgramPipelineInfoLog(pipeline, bufSize, length, infoLog);
 
-SV *
+void
 glGetProgramPipelineiv(pipeline, pname, params);
      GLuint pipeline;
      GLenum pname;
@@ -10416,7 +10416,7 @@ CODE:
     };
     glGetProgramPipelineiv(pipeline, pname, params);
 
-SV *
+void
 glGetProgramResourcefvNV(program, programInterface, index, propCount, props, bufSize, length, params);
      GLuint program;
      GLenum programInterface;
@@ -10445,7 +10445,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetProgramResourceiv(program, programInterface, index, propCount, props, bufSize, length, params);
      GLuint program;
      GLenum programInterface;
@@ -10487,7 +10487,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetProgramResourceName(program, programInterface, index, bufSize, length, name);
      GLuint program;
      GLenum programInterface;
@@ -10501,7 +10501,7 @@ CODE:
     };
     glGetProgramResourceName(program, programInterface, index, bufSize, length, name);
 
-SV *
+void
 glGetProgramStageiv(program, shadertype, pname, values);
      GLuint program;
      GLenum shadertype;
@@ -10513,7 +10513,7 @@ CODE:
     };
     glGetProgramStageiv(program, shadertype, pname, values);
 
-SV *
+void
 glGetProgramStringARB(target, pname, string);
      GLenum target;
      GLenum pname;
@@ -10524,7 +10524,7 @@ CODE:
     };
     glGetProgramStringARB(target, pname, string);
 
-SV *
+void
 glGetProgramStringNV(id, pname, program);
      GLuint id;
      GLenum pname;
@@ -10535,7 +10535,7 @@ CODE:
     };
     glGetProgramStringNV(id, pname, program);
 
-SV *
+void
 glGetQueryBufferObjecti64v(id,buffer,pname,offset);
      GLuint id;
     GLuint buffer;
@@ -10547,7 +10547,7 @@ CODE:
     };
     glGetQueryBufferObjecti64v(id,buffer,pname,offset);
 
-SV *
+void
 glGetQueryBufferObjectiv(id,buffer,pname,offset);
      GLuint id;
     GLuint buffer;
@@ -10559,7 +10559,7 @@ CODE:
     };
     glGetQueryBufferObjectiv(id,buffer,pname,offset);
 
-SV *
+void
 glGetQueryBufferObjectui64v(id,buffer,pname,offset);
      GLuint id;
     GLuint buffer;
@@ -10571,7 +10571,7 @@ CODE:
     };
     glGetQueryBufferObjectui64v(id,buffer,pname,offset);
 
-SV *
+void
 glGetQueryBufferObjectuiv(id,buffer,pname,offset);
      GLuint id;
     GLuint buffer;
@@ -10583,7 +10583,7 @@ CODE:
     };
     glGetQueryBufferObjectuiv(id,buffer,pname,offset);
 
-SV *
+void
 glGetQueryIndexediv(target, index, pname, params);
      GLenum target;
      GLuint index;
@@ -10595,7 +10595,7 @@ CODE:
     };
     glGetQueryIndexediv(target, index, pname, params);
 
-SV *
+void
 glGetQueryiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10606,7 +10606,7 @@ CODE:
     };
     glGetQueryiv(target, pname, params);
 
-SV *
+void
 glGetQueryivANGLE(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10617,7 +10617,7 @@ CODE:
     };
     glGetQueryivANGLE(target, pname, params);
 
-SV *
+void
 glGetQueryivARB(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10628,7 +10628,7 @@ CODE:
     };
     glGetQueryivARB(target, pname, params);
 
-SV *
+void
 glGetQueryObjecti64v(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10639,7 +10639,7 @@ CODE:
     };
     glGetQueryObjecti64v(id, pname, params);
 
-SV *
+void
 glGetQueryObjecti64vANGLE(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10650,7 +10650,7 @@ CODE:
     };
     glGetQueryObjecti64vANGLE(id, pname, params);
 
-SV *
+void
 glGetQueryObjecti64vEXT(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10661,7 +10661,7 @@ CODE:
     };
     glGetQueryObjecti64vEXT(id, pname, params);
 
-SV *
+void
 glGetQueryObjectiv(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10672,7 +10672,7 @@ CODE:
     };
     glGetQueryObjectiv(id, pname, params);
 
-SV *
+void
 glGetQueryObjectivANGLE(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10683,7 +10683,7 @@ CODE:
     };
     glGetQueryObjectivANGLE(id, pname, params);
 
-SV *
+void
 glGetQueryObjectivARB(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10694,7 +10694,7 @@ CODE:
     };
     glGetQueryObjectivARB(id, pname, params);
 
-SV *
+void
 glGetQueryObjectui64v(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10705,7 +10705,7 @@ CODE:
     };
     glGetQueryObjectui64v(id, pname, params);
 
-SV *
+void
 glGetQueryObjectui64vANGLE(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10716,7 +10716,7 @@ CODE:
     };
     glGetQueryObjectui64vANGLE(id, pname, params);
 
-SV *
+void
 glGetQueryObjectui64vEXT(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10727,7 +10727,7 @@ CODE:
     };
     glGetQueryObjectui64vEXT(id, pname, params);
 
-SV *
+void
 glGetQueryObjectuiv(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10738,7 +10738,7 @@ CODE:
     };
     glGetQueryObjectuiv(id, pname, params);
 
-SV *
+void
 glGetQueryObjectuivANGLE(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10749,7 +10749,7 @@ CODE:
     };
     glGetQueryObjectuivANGLE(id, pname, params);
 
-SV *
+void
 glGetQueryObjectuivARB(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -10760,7 +10760,7 @@ CODE:
     };
     glGetQueryObjectuivARB(id, pname, params);
 
-SV *
+void
 glGetRenderbufferParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10771,7 +10771,7 @@ CODE:
     };
     glGetRenderbufferParameteriv(target, pname, params);
 
-SV *
+void
 glGetRenderbufferParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -10782,7 +10782,7 @@ CODE:
     };
     glGetRenderbufferParameterivEXT(target, pname, params);
 
-SV *
+void
 glGetSamplerParameterfv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -10793,7 +10793,7 @@ CODE:
     };
     glGetSamplerParameterfv(sampler, pname, params);
 
-SV *
+void
 glGetSamplerParameterIiv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -10804,7 +10804,7 @@ CODE:
     };
     glGetSamplerParameterIiv(sampler, pname, params);
 
-SV *
+void
 glGetSamplerParameterIuiv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -10815,7 +10815,7 @@ CODE:
     };
     glGetSamplerParameterIuiv(sampler, pname, params);
 
-SV *
+void
 glGetSamplerParameteriv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -10826,7 +10826,7 @@ CODE:
     };
     glGetSamplerParameteriv(sampler, pname, params);
 
-SV *
+void
 glGetSeparableFilter(target, format, type, row, column, span);
      GLenum target;
      GLenum format;
@@ -10840,7 +10840,7 @@ CODE:
     };
     glGetSeparableFilter(target, format, type, row, column, span);
 
-SV *
+void
 glGetSeparableFilterEXT(target, format, type, row, column, span);
      GLenum target;
      GLenum format;
@@ -10854,7 +10854,7 @@ CODE:
     };
     glGetSeparableFilterEXT(target, format, type, row, column, span);
 
-SV *
+void
 glGetShaderInfoLog(shader, bufSize, length, infoLog);
      GLuint shader;
      GLsizei bufSize;
@@ -10866,7 +10866,7 @@ CODE:
     };
     glGetShaderInfoLog(shader, bufSize, length, infoLog);
 
-SV *
+void
 glGetShaderiv(shader, pname, param);
      GLuint shader;
      GLenum pname;
@@ -10877,7 +10877,7 @@ CODE:
     };
     glGetShaderiv(shader, pname, param);
 
-SV *
+void
 glGetShaderPrecisionFormat(shadertype, precisiontype, range, precision);
      GLenum shadertype;
      GLenum precisiontype;
@@ -10889,7 +10889,7 @@ CODE:
     };
     glGetShaderPrecisionFormat(shadertype, precisiontype, range, precision);
 
-SV *
+void
 glGetShaderSource(obj, maxLength, length, source);
      GLuint obj;
      GLsizei maxLength;
@@ -10901,7 +10901,7 @@ CODE:
     };
     glGetShaderSource(obj, maxLength, length, source);
 
-SV *
+void
 glGetShaderSourceARB(obj, maxLength, length, source);
      GLhandleARB obj;
      GLsizei maxLength;
@@ -10913,7 +10913,7 @@ CODE:
     };
     glGetShaderSourceARB(obj, maxLength, length, source);
 
-SV *
+void
 glGetSharpenTexFuncSGIS(target, points);
      GLenum target;
      GLfloat* points;
@@ -10960,7 +10960,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetSynciv(GLsync,pname,bufSize,length, values);
      GLsync GLsync;
     GLenum pname;
@@ -10973,7 +10973,7 @@ CODE:
     };
     glGetSynciv(GLsync,pname,bufSize,length, values);
 
-SV *
+void
 glGetTexBumpParameterfvATI(pname, param);
      GLenum pname;
      GLfloat *param;
@@ -10983,7 +10983,7 @@ CODE:
     };
     glGetTexBumpParameterfvATI(pname, param);
 
-SV *
+void
 glGetTexBumpParameterivATI(pname, param);
      GLenum pname;
      GLint *param;
@@ -10993,7 +10993,7 @@ CODE:
     };
     glGetTexBumpParameterivATI(pname, param);
 
-SV *
+void
 glGetTexEnvfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11001,7 +11001,7 @@ glGetTexEnvfv(target, pname, params);
 CODE:
     glGetTexEnvfv(target, pname, params);
 
-SV *
+void
 glGetTexEnviv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11009,7 +11009,7 @@ glGetTexEnviv(target, pname, params);
 CODE:
     glGetTexEnviv(target, pname, params);
 
-SV *
+void
 glGetTexEnvxv(env, pname, params);
      GLenum env;
      GLenum pname;
@@ -11020,7 +11020,7 @@ CODE:
     };
     glGetTexEnvxv(env, pname, params);
 
-SV *
+void
 glGetTexFilterFuncSGIS(target, filter, weights);
      GLenum target;
      GLenum filter;
@@ -11031,7 +11031,7 @@ CODE:
     };
     glGetTexFilterFuncSGIS(target, filter, weights);
 
-SV *
+void
 glGetTexGendv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -11039,7 +11039,7 @@ glGetTexGendv(coord, pname, params);
 CODE:
     glGetTexGendv(coord, pname, params);
 
-SV *
+void
 glGetTexGenfv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -11047,7 +11047,7 @@ glGetTexGenfv(coord, pname, params);
 CODE:
     glGetTexGenfv(coord, pname, params);
 
-SV *
+void
 glGetTexGeniv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -11055,7 +11055,7 @@ glGetTexGeniv(coord, pname, params);
 CODE:
     glGetTexGeniv(coord, pname, params);
 
-SV *
+void
 glGetTexImage(target, level, format, type, pixels);
      GLenum target;
      GLint level;
@@ -11065,7 +11065,7 @@ glGetTexImage(target, level, format, type, pixels);
 CODE:
     glGetTexImage(target, level, format, type, pixels);
 
-SV *
+void
 glGetTexLevelParameterfv(target, level, pname, params);
      GLenum target;
      GLint level;
@@ -11074,7 +11074,7 @@ glGetTexLevelParameterfv(target, level, pname, params);
 CODE:
     glGetTexLevelParameterfv(target, level, pname, params);
 
-SV *
+void
 glGetTexLevelParameteriv(target, level, pname, params);
      GLenum target;
      GLint level;
@@ -11083,7 +11083,7 @@ glGetTexLevelParameteriv(target, level, pname, params);
 CODE:
     glGetTexLevelParameteriv(target, level, pname, params);
 
-SV *
+void
 glGetTexParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11091,7 +11091,7 @@ glGetTexParameterfv(target, pname, params);
 CODE:
     glGetTexParameterfv(target, pname, params);
 
-SV *
+void
 glGetTexParameterIiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11102,7 +11102,7 @@ CODE:
     };
     glGetTexParameterIiv(target, pname, params);
 
-SV *
+void
 glGetTexParameterIivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11113,7 +11113,7 @@ CODE:
     };
     glGetTexParameterIivEXT(target, pname, params);
 
-SV *
+void
 glGetTexParameterIuiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11124,7 +11124,7 @@ CODE:
     };
     glGetTexParameterIuiv(target, pname, params);
 
-SV *
+void
 glGetTexParameterIuivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11135,7 +11135,7 @@ CODE:
     };
     glGetTexParameterIuivEXT(target, pname, params);
 
-SV *
+void
 glGetTexParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11143,7 +11143,7 @@ glGetTexParameteriv(target, pname, params);
 CODE:
     glGetTexParameteriv(target, pname, params);
 
-SV *
+void
 glGetTexParameterPointervAPPLE(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11154,7 +11154,7 @@ CODE:
     };
     glGetTexParameterPointervAPPLE(target, pname, params);
 
-SV *
+void
 glGetTexParameterxv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -11187,7 +11187,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetTextureImage(texture, level, format, type, bufSize, pixels);
      GLuint texture;
      GLint level;
@@ -11201,7 +11201,7 @@ CODE:
     };
     glGetTextureImage(texture, level, format, type, bufSize, pixels);
 
-SV *
+void
 glGetTextureImageEXT(texture, target, level, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -11215,7 +11215,7 @@ CODE:
     };
     glGetTextureImageEXT(texture, target, level, format, type, pixels);
 
-SV *
+void
 glGetTextureLevelParameterfv(texture, level, pname, params);
      GLuint texture;
      GLint level;
@@ -11227,7 +11227,7 @@ CODE:
     };
     glGetTextureLevelParameterfv(texture, level, pname, params);
 
-SV *
+void
 glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
      GLuint texture;
      GLenum target;
@@ -11240,7 +11240,7 @@ CODE:
     };
     glGetTextureLevelParameterfvEXT(texture, target, level, pname, params);
 
-SV *
+void
 glGetTextureLevelParameteriv(texture, level, pname, params);
      GLuint texture;
      GLint level;
@@ -11252,7 +11252,7 @@ CODE:
     };
     glGetTextureLevelParameteriv(texture, level, pname, params);
 
-SV *
+void
 glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
      GLuint texture;
      GLenum target;
@@ -11265,7 +11265,7 @@ CODE:
     };
     glGetTextureLevelParameterivEXT(texture, target, level, pname, params);
 
-SV *
+void
 glGetTextureParameterfv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -11276,7 +11276,7 @@ CODE:
     };
     glGetTextureParameterfv(texture, pname, params);
 
-SV *
+void
 glGetTextureParameterfvEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -11288,7 +11288,7 @@ CODE:
     };
     glGetTextureParameterfvEXT(texture, target, pname, params);
 
-SV *
+void
 glGetTextureParameterIiv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -11299,7 +11299,7 @@ CODE:
     };
     glGetTextureParameterIiv(texture, pname, params);
 
-SV *
+void
 glGetTextureParameterIivEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -11311,7 +11311,7 @@ CODE:
     };
     glGetTextureParameterIivEXT(texture, target, pname, params);
 
-SV *
+void
 glGetTextureParameterIuiv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -11322,7 +11322,7 @@ CODE:
     };
     glGetTextureParameterIuiv(texture, pname, params);
 
-SV *
+void
 glGetTextureParameterIuivEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -11334,7 +11334,7 @@ CODE:
     };
     glGetTextureParameterIuivEXT(texture, target, pname, params);
 
-SV *
+void
 glGetTextureParameteriv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -11345,7 +11345,7 @@ CODE:
     };
     glGetTextureParameteriv(texture, pname, params);
 
-SV *
+void
 glGetTextureParameterivEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -11381,7 +11381,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, bufSize, pixels);
      GLuint texture;
      GLint level;
@@ -11401,7 +11401,7 @@ CODE:
     };
     glGetTextureSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, bufSize, pixels);
 
-SV *
+void
 glGetTrackMatrixivNV(target, address, pname, params);
      GLenum target;
      GLuint address;
@@ -11413,7 +11413,7 @@ CODE:
     };
     glGetTrackMatrixivNV(target, address, pname, params);
 
-SV *
+void
 glGetTransformFeedbacki64_v(xfb, pname, index, param);
      GLuint xfb;
      GLenum pname;
@@ -11425,7 +11425,7 @@ CODE:
     };
     glGetTransformFeedbacki64_v(xfb, pname, index, param);
 
-SV *
+void
 glGetTransformFeedbackiv(xfb, pname, param);
      GLuint xfb;
      GLenum pname;
@@ -11436,7 +11436,7 @@ CODE:
     };
     glGetTransformFeedbackiv(xfb, pname, param);
 
-SV *
+void
 glGetTransformFeedbacki_v(xfb, pname, index, param);
      GLuint xfb;
      GLenum pname;
@@ -11448,7 +11448,7 @@ CODE:
     };
     glGetTransformFeedbacki_v(xfb, pname, index, param);
 
-SV *
+void
 glGetTransformFeedbackVarying(program, index, bufSize, length, size, type, name);
      GLuint program;
      GLuint index;
@@ -11463,7 +11463,7 @@ CODE:
     };
     glGetTransformFeedbackVarying(program, index, bufSize, length, size, type, name);
 
-SV *
+void
 glGetTransformFeedbackVaryingEXT(program, index, bufSize, length, size, type, name);
      GLuint program;
      GLuint index;
@@ -11478,7 +11478,7 @@ CODE:
     };
     glGetTransformFeedbackVaryingEXT(program, index, bufSize, length, size, type, name);
 
-SV *
+void
 glGetTransformFeedbackVaryingNV(program, index, location);
      GLuint program;
      GLuint index;
@@ -11489,7 +11489,7 @@ CODE:
     };
     glGetTransformFeedbackVaryingNV(program, index, location);
 
-SV *
+void
 glGetTranslatedShaderSourceANGLE(shader, bufsize, length, source);
      GLuint shader;
      GLsizei bufsize;
@@ -11525,7 +11525,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetUniformdv(program, location, params);
      GLuint program;
      GLint location;
@@ -11536,7 +11536,7 @@ CODE:
     };
     glGetUniformdv(program, location, params);
 
-SV *
+void
 glGetUniformfv(program, location, params);
      GLuint program;
      GLint location;
@@ -11547,7 +11547,7 @@ CODE:
     };
     glGetUniformfv(program, location, params);
 
-SV *
+void
 glGetUniformfvARB(programObj, location, params);
      GLhandleARB programObj;
      GLint location;
@@ -11558,7 +11558,7 @@ CODE:
     };
     glGetUniformfvARB(programObj, location, params);
 
-SV *
+void
 glGetUniformi64vARB(program, location, params);
      GLuint program;
      GLint location;
@@ -11569,7 +11569,7 @@ CODE:
     };
     glGetUniformi64vARB(program, location, params);
 
-SV *
+void
 glGetUniformi64vNV(program, location, params);
      GLuint program;
      GLint location;
@@ -11580,7 +11580,7 @@ CODE:
     };
     glGetUniformi64vNV(program, location, params);
 
-SV *
+void
 glGetUniformIndices(program, uniformCount, uniformNames, uniformIndices);
      GLuint program;
      GLsizei uniformCount;
@@ -11592,7 +11592,7 @@ CODE:
     };
     glGetUniformIndices(program, uniformCount, uniformNames, uniformIndices);
 
-SV *
+void
 glGetUniformiv(program, location, params);
      GLuint program;
      GLint location;
@@ -11603,7 +11603,7 @@ CODE:
     };
     glGetUniformiv(program, location, params);
 
-SV *
+void
 glGetUniformivARB(programObj, location, params);
      GLhandleARB programObj;
      GLint location;
@@ -11650,7 +11650,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetUniformSubroutineuiv(shadertype, location, params);
      GLenum shadertype;
      GLint location;
@@ -11661,7 +11661,7 @@ CODE:
     };
     glGetUniformSubroutineuiv(shadertype, location, params);
 
-SV *
+void
 glGetUniformui64vARB(program, location, params);
      GLuint program;
      GLint location;
@@ -11672,7 +11672,7 @@ CODE:
     };
     glGetUniformui64vARB(program, location, params);
 
-SV *
+void
 glGetUniformui64vNV(program, location, params);
      GLuint program;
      GLint location;
@@ -11683,7 +11683,7 @@ CODE:
     };
     glGetUniformui64vNV(program, location, params);
 
-SV *
+void
 glGetUniformuiv(program, location, params);
      GLuint program;
      GLint location;
@@ -11694,7 +11694,7 @@ CODE:
     };
     glGetUniformuiv(program, location, params);
 
-SV *
+void
 glGetUniformuivEXT(program, location, params);
      GLuint program;
      GLint location;
@@ -11705,7 +11705,7 @@ CODE:
     };
     glGetUniformuivEXT(program, location, params);
 
-SV *
+void
 glGetVariantArrayObjectfvATI(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -11716,7 +11716,7 @@ CODE:
     };
     glGetVariantArrayObjectfvATI(id, pname, params);
 
-SV *
+void
 glGetVariantArrayObjectivATI(id, pname, params);
      GLuint id;
      GLenum pname;
@@ -11727,7 +11727,7 @@ CODE:
     };
     glGetVariantArrayObjectivATI(id, pname, params);
 
-SV *
+void
 glGetVariantBooleanvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -11738,7 +11738,7 @@ CODE:
     };
     glGetVariantBooleanvEXT(id, value, data);
 
-SV *
+void
 glGetVariantFloatvEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -11749,7 +11749,7 @@ CODE:
     };
     glGetVariantFloatvEXT(id, value, data);
 
-SV *
+void
 glGetVariantIntegervEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -11760,7 +11760,7 @@ CODE:
     };
     glGetVariantIntegervEXT(id, value, data);
 
-SV *
+void
 glGetVariantPointervEXT(id, value, data);
      GLuint id;
      GLenum value;
@@ -11783,7 +11783,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGetVertexArrayIndexed64iv(vaobj, index, pname, param);
      GLuint vaobj;
      GLuint index;
@@ -11795,7 +11795,7 @@ CODE:
     };
     glGetVertexArrayIndexed64iv(vaobj, index, pname, param);
 
-SV *
+void
 glGetVertexArrayIndexediv(vaobj, index, pname, param);
      GLuint vaobj;
      GLuint index;
@@ -11807,7 +11807,7 @@ CODE:
     };
     glGetVertexArrayIndexediv(vaobj, index, pname, param);
 
-SV *
+void
 glGetVertexArrayIntegeri_vEXT(vaobj, index, pname, param);
      GLuint vaobj;
      GLuint index;
@@ -11819,7 +11819,7 @@ CODE:
     };
     glGetVertexArrayIntegeri_vEXT(vaobj, index, pname, param);
 
-SV *
+void
 glGetVertexArrayIntegervEXT(vaobj, pname, param);
      GLuint vaobj;
      GLenum pname;
@@ -11830,7 +11830,7 @@ CODE:
     };
     glGetVertexArrayIntegervEXT(vaobj, pname, param);
 
-SV *
+void
 glGetVertexArrayiv(vaobj, pname, param);
      GLuint vaobj;
      GLenum pname;
@@ -11841,7 +11841,7 @@ CODE:
     };
     glGetVertexArrayiv(vaobj, pname, param);
 
-SV *
+void
 glGetVertexArrayPointeri_vEXT(vaobj, index, pname, param);
      GLuint vaobj;
      GLuint index;
@@ -11853,7 +11853,7 @@ CODE:
     };
     glGetVertexArrayPointeri_vEXT(vaobj, index, pname, param);
 
-SV *
+void
 glGetVertexArrayPointervEXT(vaobj, pname, param);
      GLuint vaobj;
      GLenum pname;
@@ -11864,7 +11864,7 @@ CODE:
     };
     glGetVertexArrayPointervEXT(vaobj, pname, param);
 
-SV *
+void
 glGetVertexAttribArrayObjectfvATI(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11875,7 +11875,7 @@ CODE:
     };
     glGetVertexAttribArrayObjectfvATI(index, pname, params);
 
-SV *
+void
 glGetVertexAttribArrayObjectivATI(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11886,7 +11886,7 @@ CODE:
     };
     glGetVertexAttribArrayObjectivATI(index, pname, params);
 
-SV *
+void
 glGetVertexAttribdv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11897,7 +11897,7 @@ CODE:
     };
     glGetVertexAttribdv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribdvARB(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11908,7 +11908,7 @@ CODE:
     };
     glGetVertexAttribdvARB(index, pname, params);
 
-SV *
+void
 glGetVertexAttribdvNV(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11919,7 +11919,7 @@ CODE:
     };
     glGetVertexAttribdvNV(index, pname, params);
 
-SV *
+void
 glGetVertexAttribfv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11930,7 +11930,7 @@ CODE:
     };
     glGetVertexAttribfv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribfvARB(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11941,7 +11941,7 @@ CODE:
     };
     glGetVertexAttribfvARB(index, pname, params);
 
-SV *
+void
 glGetVertexAttribfvNV(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11952,7 +11952,7 @@ CODE:
     };
     glGetVertexAttribfvNV(index, pname, params);
 
-SV *
+void
 glGetVertexAttribIiv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11963,7 +11963,7 @@ CODE:
     };
     glGetVertexAttribIiv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribIivEXT(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11974,7 +11974,7 @@ CODE:
     };
     glGetVertexAttribIivEXT(index, pname, params);
 
-SV *
+void
 glGetVertexAttribIuiv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11985,7 +11985,7 @@ CODE:
     };
     glGetVertexAttribIuiv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribIuivEXT(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -11996,7 +11996,7 @@ CODE:
     };
     glGetVertexAttribIuivEXT(index, pname, params);
 
-SV *
+void
 glGetVertexAttribiv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12007,7 +12007,7 @@ CODE:
     };
     glGetVertexAttribiv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribivARB(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12018,7 +12018,7 @@ CODE:
     };
     glGetVertexAttribivARB(index, pname, params);
 
-SV *
+void
 glGetVertexAttribivNV(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12029,7 +12029,7 @@ CODE:
     };
     glGetVertexAttribivNV(index, pname, params);
 
-SV *
+void
 glGetVertexAttribLdv(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12040,7 +12040,7 @@ CODE:
     };
     glGetVertexAttribLdv(index, pname, params);
 
-SV *
+void
 glGetVertexAttribLdvEXT(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12051,7 +12051,7 @@ CODE:
     };
     glGetVertexAttribLdvEXT(index, pname, params);
 
-SV *
+void
 glGetVertexAttribLi64vNV(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12062,7 +12062,7 @@ CODE:
     };
     glGetVertexAttribLi64vNV(index, pname, params);
 
-SV *
+void
 glGetVertexAttribLui64vARB(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12073,7 +12073,7 @@ CODE:
     };
     glGetVertexAttribLui64vARB(index, pname, params);
 
-SV *
+void
 glGetVertexAttribLui64vNV(index, pname, params);
      GLuint index;
      GLenum pname;
@@ -12084,7 +12084,7 @@ CODE:
     };
     glGetVertexAttribLui64vNV(index, pname, params);
 
-SV *
+void
 glGetVertexAttribPointerv(index, pname, pointer);
      GLuint index;
      GLenum pname;
@@ -12095,7 +12095,7 @@ CODE:
     };
     glGetVertexAttribPointerv(index, pname, pointer);
 
-SV *
+void
 glGetVertexAttribPointervARB(index, pname, pointer);
      GLuint index;
      GLenum pname;
@@ -12106,7 +12106,7 @@ CODE:
     };
     glGetVertexAttribPointervARB(index, pname, pointer);
 
-SV *
+void
 glGetVertexAttribPointervNV(index, pname, pointer);
      GLuint index;
      GLenum pname;
@@ -12117,7 +12117,7 @@ CODE:
     };
     glGetVertexAttribPointervNV(index, pname, pointer);
 
-SV *
+void
 glGetVideoCaptureivNV(video_capture_slot, pname, params);
      GLuint video_capture_slot;
      GLenum pname;
@@ -12128,7 +12128,7 @@ CODE:
     };
     glGetVideoCaptureivNV(video_capture_slot, pname, params);
 
-SV *
+void
 glGetVideoCaptureStreamdvNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -12140,7 +12140,7 @@ CODE:
     };
     glGetVideoCaptureStreamdvNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glGetVideoCaptureStreamfvNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -12152,7 +12152,7 @@ CODE:
     };
     glGetVideoCaptureStreamfvNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glGetVideoCaptureStreamivNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -12164,7 +12164,7 @@ CODE:
     };
     glGetVideoCaptureStreamivNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glGetVideoi64vNV(video_slot, pname, params);
      GLuint video_slot;
      GLenum pname;
@@ -12175,7 +12175,7 @@ CODE:
     };
     glGetVideoi64vNV(video_slot, pname, params);
 
-SV *
+void
 glGetVideoivNV(video_slot, pname, params);
      GLuint video_slot;
      GLenum pname;
@@ -12186,7 +12186,7 @@ CODE:
     };
     glGetVideoivNV(video_slot, pname, params);
 
-SV *
+void
 glGetVideoui64vNV(video_slot, pname, params);
      GLuint video_slot;
      GLenum pname;
@@ -12197,7 +12197,7 @@ CODE:
     };
     glGetVideoui64vNV(video_slot, pname, params);
 
-SV *
+void
 glGetVideouivNV(video_slot, pname, params);
      GLuint video_slot;
      GLenum pname;
@@ -12219,7 +12219,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glGlobalAlphaFactorbSUN(factor);
      GLbyte factor;
 CODE:
@@ -12228,7 +12228,7 @@ CODE:
     };
     glGlobalAlphaFactorbSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactordSUN(factor);
      GLdouble factor;
 CODE:
@@ -12237,7 +12237,7 @@ CODE:
     };
     glGlobalAlphaFactordSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactorfSUN(factor);
      GLfloat factor;
 CODE:
@@ -12246,7 +12246,7 @@ CODE:
     };
     glGlobalAlphaFactorfSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactoriSUN(factor);
      GLint factor;
 CODE:
@@ -12255,7 +12255,7 @@ CODE:
     };
     glGlobalAlphaFactoriSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactorsSUN(factor);
      GLshort factor;
 CODE:
@@ -12264,7 +12264,7 @@ CODE:
     };
     glGlobalAlphaFactorsSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactorubSUN(factor);
      GLubyte factor;
 CODE:
@@ -12273,7 +12273,7 @@ CODE:
     };
     glGlobalAlphaFactorubSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactoruiSUN(factor);
      GLuint factor;
 CODE:
@@ -12282,7 +12282,7 @@ CODE:
     };
     glGlobalAlphaFactoruiSUN(factor);
 
-SV *
+void
 glGlobalAlphaFactorusSUN(factor);
      GLushort factor;
 CODE:
@@ -12291,14 +12291,14 @@ CODE:
     };
     glGlobalAlphaFactorusSUN(factor);
 
-SV *
+void
 glHint(target, mode);
      GLenum target;
      GLenum mode;
 CODE:
     glHint(target, mode);
 
-SV *
+void
 glHistogram(target, width, internalformat, sink);
      GLenum target;
      GLsizei width;
@@ -12310,7 +12310,7 @@ CODE:
     };
     glHistogram(target, width, internalformat, sink);
 
-SV *
+void
 glHistogramEXT(target, width, internalformat, sink);
      GLenum target;
      GLsizei width;
@@ -12322,7 +12322,7 @@ CODE:
     };
     glHistogramEXT(target, width, internalformat, sink);
 
-SV *
+void
 glImageTransformParameterfHP(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -12333,7 +12333,7 @@ CODE:
     };
     glImageTransformParameterfHP(target, pname, param);
 
-SV *
+void
 glImageTransformParameterfvHP(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -12344,7 +12344,7 @@ CODE:
     };
     glImageTransformParameterfvHP(target, pname, params);
 
-SV *
+void
 glImageTransformParameteriHP(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -12355,7 +12355,7 @@ CODE:
     };
     glImageTransformParameteriHP(target, pname, param);
 
-SV *
+void
 glImageTransformParameterivHP(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -12379,25 +12379,25 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glIndexd(c);
      GLdouble c;
 CODE:
     glIndexd(c);
 
-SV *
+void
 glIndexdv(c);
      const GLdouble *c;
 CODE:
     glIndexdv(c);
 
-SV *
+void
 glIndexf(c);
      GLfloat c;
 CODE:
     glIndexf(c);
 
-SV *
+void
 glIndexFormatNV(type, stride);
      GLenum type;
      GLsizei stride;
@@ -12407,7 +12407,7 @@ CODE:
     };
     glIndexFormatNV(type, stride);
 
-SV *
+void
 glIndexFuncEXT(func, ref);
      GLenum func;
      GLfloat ref;
@@ -12417,31 +12417,31 @@ CODE:
     };
     glIndexFuncEXT(func, ref);
 
-SV *
+void
 glIndexfv(c);
      const GLfloat *c;
 CODE:
     glIndexfv(c);
 
-SV *
+void
 glIndexi(c);
      GLint c;
 CODE:
     glIndexi(c);
 
-SV *
+void
 glIndexiv(c);
      const GLint *c;
 CODE:
     glIndexiv(c);
 
-SV *
+void
 glIndexMask(mask);
      GLuint mask;
 CODE:
     glIndexMask(mask);
 
-SV *
+void
 glIndexMaterialEXT(face, mode);
      GLenum face;
      GLenum mode;
@@ -12451,7 +12451,7 @@ CODE:
     };
     glIndexMaterialEXT(face, mode);
 
-SV *
+void
 glIndexPointer(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -12459,7 +12459,7 @@ glIndexPointer(type, stride, pointer);
 CODE:
     glIndexPointer(type, stride, pointer);
 
-SV *
+void
 glIndexPointerEXT(type, stride, count, pointer);
      GLenum type;
      GLsizei stride;
@@ -12471,7 +12471,7 @@ CODE:
     };
     glIndexPointerEXT(type, stride, count, pointer);
 
-SV *
+void
 glIndexPointerListIBM(type, stride, pointer, ptrstride);
      GLenum type;
      GLint stride;
@@ -12483,36 +12483,36 @@ CODE:
     };
     glIndexPointerListIBM(type, stride, pointer, ptrstride);
 
-SV *
+void
 glIndexs(c);
      GLshort c;
 CODE:
     glIndexs(c);
 
-SV *
+void
 glIndexsv(c);
      const GLshort *c;
 CODE:
     glIndexsv(c);
 
-SV *
+void
 glIndexub(c);
      GLubyte c;
 CODE:
     glIndexub(c);
 
-SV *
+void
 glIndexubv(c);
      const GLubyte *c;
 CODE:
     glIndexubv(c);
 
-SV *
+void
 glInitNames();
 CODE:
     glInitNames();
 
-SV *
+void
 glInsertComponentEXT(res, src, num);
      GLuint res;
      GLuint src;
@@ -12523,7 +12523,7 @@ CODE:
     };
     glInsertComponentEXT(res, src, num);
 
-SV *
+void
 glInsertEventMarkerEXT(length, marker);
      GLsizei length;
      const GLchar* marker;
@@ -12533,7 +12533,7 @@ CODE:
     };
     glInsertEventMarkerEXT(length, marker);
 
-SV *
+void
 glInterleavedArrays(format, stride, pointer);
      GLenum format;
      GLsizei stride;
@@ -12541,7 +12541,7 @@ glInterleavedArrays(format, stride, pointer);
 CODE:
     glInterleavedArrays(format, stride, pointer);
 
-SV *
+void
 glInterpolatePathsNV(resultPath, pathA, pathB, weight);
      GLuint resultPath;
      GLuint pathA;
@@ -12553,7 +12553,7 @@ CODE:
     };
     glInterpolatePathsNV(resultPath, pathA, pathB, weight);
 
-SV *
+void
 glInvalidateBufferData(buffer);
      GLuint buffer;
 CODE:
@@ -12562,7 +12562,7 @@ CODE:
     };
     glInvalidateBufferData(buffer);
 
-SV *
+void
 glInvalidateBufferSubData(buffer, offset, length);
      GLuint buffer;
      GLintptr offset;
@@ -12573,7 +12573,7 @@ CODE:
     };
     glInvalidateBufferSubData(buffer, offset, length);
 
-SV *
+void
 glInvalidateFramebuffer(target, numAttachments, attachments);
      GLenum target;
      GLsizei numAttachments;
@@ -12584,7 +12584,7 @@ CODE:
     };
     glInvalidateFramebuffer(target, numAttachments, attachments);
 
-SV *
+void
 glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments);
      GLuint framebuffer;
      GLsizei numAttachments;
@@ -12595,7 +12595,7 @@ CODE:
     };
     glInvalidateNamedFramebufferData(framebuffer, numAttachments, attachments);
 
-SV *
+void
 glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments, x, y, width, height);
      GLuint framebuffer;
      GLsizei numAttachments;
@@ -12610,7 +12610,7 @@ CODE:
     };
     glInvalidateNamedFramebufferSubData(framebuffer, numAttachments, attachments, x, y, width, height);
 
-SV *
+void
 glInvalidateSubFramebuffer(target, numAttachments, attachments, x, y, width, height);
      GLenum target;
      GLsizei numAttachments;
@@ -12625,7 +12625,7 @@ CODE:
     };
     glInvalidateSubFramebuffer(target, numAttachments, attachments, x, y, width, height);
 
-SV *
+void
 glInvalidateTexImage(texture, level);
      GLuint texture;
      GLint level;
@@ -12635,7 +12635,7 @@ CODE:
     };
     glInvalidateTexImage(texture, level);
 
-SV *
+void
 glInvalidateTexSubImage(texture, level, xoffset, yoffset, zoffset, width, height, depth);
      GLuint texture;
      GLint level;
@@ -13170,7 +13170,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glLabelObjectEXT(type, object, length, label);
      GLenum type;
      GLuint object;
@@ -13182,7 +13182,7 @@ CODE:
     };
     glLabelObjectEXT(type, object, length, label);
 
-SV *
+void
 glLGPUCopyImageSubDataNVX(sourceGpu, destinationGpuMask, srcName, srcTarget, srcLevel, srcX, srxY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
      GLuint sourceGpu;
      GLbitfield destinationGpuMask;
@@ -13207,7 +13207,7 @@ CODE:
     };
     glLGPUCopyImageSubDataNVX(sourceGpu, destinationGpuMask, srcName, srcTarget, srcLevel, srcX, srxY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, width, height, depth);
 
-SV *
+void
 glLGPUInterlockNVX();
 CODE:
     if(! __glewLGPUInterlockNVX) {
@@ -13215,7 +13215,7 @@ CODE:
     };
     glLGPUInterlockNVX();
 
-SV *
+void
 glLGPUNamedBufferSubDataNVX(gpuMask, buffer, offset, size, data);
      GLbitfield gpuMask;
      GLuint buffer;
@@ -13228,7 +13228,7 @@ CODE:
     };
     glLGPUNamedBufferSubDataNVX(gpuMask, buffer, offset, size, data);
 
-SV *
+void
 glLightEnviEXT(pname, param);
      GLenum pname;
      GLint param;
@@ -13238,7 +13238,7 @@ CODE:
     };
     glLightEnviEXT(pname, param);
 
-SV *
+void
 glLightf(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -13246,7 +13246,7 @@ glLightf(light, pname, param);
 CODE:
     glLightf(light, pname, param);
 
-SV *
+void
 glLightfv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -13254,7 +13254,7 @@ glLightfv(light, pname, params);
 CODE:
     glLightfv(light, pname, params);
 
-SV *
+void
 glLighti(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -13262,7 +13262,7 @@ glLighti(light, pname, param);
 CODE:
     glLighti(light, pname, param);
 
-SV *
+void
 glLightiv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -13270,35 +13270,35 @@ glLightiv(light, pname, params);
 CODE:
     glLightiv(light, pname, params);
 
-SV *
+void
 glLightModelf(pname, param);
      GLenum pname;
      GLfloat param;
 CODE:
     glLightModelf(pname, param);
 
-SV *
+void
 glLightModelfv(pname, params);
      GLenum pname;
      const GLfloat *params;
 CODE:
     glLightModelfv(pname, params);
 
-SV *
+void
 glLightModeli(pname, param);
      GLenum pname;
      GLint param;
 CODE:
     glLightModeli(pname, param);
 
-SV *
+void
 glLightModeliv(pname, params);
      GLenum pname;
      const GLint *params;
 CODE:
     glLightModeliv(pname, params);
 
-SV *
+void
 glLightModelx(pname, param);
      GLenum pname;
      GLfixed param;
@@ -13308,7 +13308,7 @@ CODE:
     };
     glLightModelx(pname, param);
 
-SV *
+void
 glLightModelxv(pname, params);
      GLenum pname;
      const GLfixed* params;
@@ -13318,7 +13318,7 @@ CODE:
     };
     glLightModelxv(pname, params);
 
-SV *
+void
 glLightx(light, pname, param);
      GLenum light;
      GLenum pname;
@@ -13329,7 +13329,7 @@ CODE:
     };
     glLightx(light, pname, param);
 
-SV *
+void
 glLightxv(light, pname, params);
      GLenum light;
      GLenum pname;
@@ -13340,20 +13340,20 @@ CODE:
     };
     glLightxv(light, pname, params);
 
-SV *
+void
 glLineStipple(factor, pattern);
      GLint factor;
      GLushort pattern;
 CODE:
     glLineStipple(factor, pattern);
 
-SV *
+void
 glLineWidth(width);
      GLfloat width;
 CODE:
     glLineWidth(width);
 
-SV *
+void
 glLineWidthx(width);
      GLfixed width;
 CODE:
@@ -13362,7 +13362,7 @@ CODE:
     };
     glLineWidthx(width);
 
-SV *
+void
 glLinkProgram(program);
      GLuint program;
 CODE:
@@ -13371,7 +13371,7 @@ CODE:
     };
     glLinkProgram(program);
 
-SV *
+void
 glLinkProgramARB(programObj);
      GLhandleARB programObj;
 CODE:
@@ -13380,13 +13380,13 @@ CODE:
     };
     glLinkProgramARB(programObj);
 
-SV *
+void
 glListBase(base);
      GLuint base;
 CODE:
     glListBase(base);
 
-SV *
+void
 glListDrawCommandsStatesClientNV(list, segment, indirects, sizes, states, fbos, count);
      GLuint list;
      GLuint segment;
@@ -13401,24 +13401,24 @@ CODE:
     };
     glListDrawCommandsStatesClientNV(list, segment, indirects, sizes, states, fbos, count);
 
-SV *
+void
 glLoadIdentity();
 CODE:
     glLoadIdentity();
 
-SV *
+void
 glLoadMatrixd(m);
      const GLdouble *m;
 CODE:
     glLoadMatrixd(m);
 
-SV *
+void
 glLoadMatrixf(m);
      const GLfloat *m;
 CODE:
     glLoadMatrixf(m);
 
-SV *
+void
 glLoadMatrixx(m);
      const GLfixed* m;
 CODE:
@@ -13427,13 +13427,13 @@ CODE:
     };
     glLoadMatrixx(m);
 
-SV *
+void
 glLoadName(name);
      GLuint name;
 CODE:
     glLoadName(name);
 
-SV *
+void
 glLoadProgramNV(target, id, len, program);
      GLenum target;
      GLuint id;
@@ -13445,7 +13445,7 @@ CODE:
     };
     glLoadProgramNV(target, id, len, program);
 
-SV *
+void
 glLoadTransposeMatrixd(m);
           const GLdouble * m;
 CODE:
@@ -13454,7 +13454,7 @@ CODE:
     };
     glLoadTransposeMatrixd(m);
 
-SV *
+void
 glLoadTransposeMatrixdARB(m);
           GLdouble * m;
 CODE:
@@ -13463,7 +13463,7 @@ CODE:
     };
     glLoadTransposeMatrixdARB(m);
 
-SV *
+void
 glLoadTransposeMatrixf(m);
           const GLfloat * m;
 CODE:
@@ -13472,7 +13472,7 @@ CODE:
     };
     glLoadTransposeMatrixf(m);
 
-SV *
+void
 glLoadTransposeMatrixfARB(m);
           GLfloat * m;
 CODE:
@@ -13481,7 +13481,7 @@ CODE:
     };
     glLoadTransposeMatrixfARB(m);
 
-SV *
+void
 glLockArraysEXT(first, count);
      GLint first;
      GLsizei count;
@@ -13491,13 +13491,13 @@ CODE:
     };
     glLockArraysEXT(first, count);
 
-SV *
+void
 glLogicOp(opcode);
      GLenum opcode;
 CODE:
     glLogicOp(opcode);
 
-SV *
+void
 glLogMessageCallbackREGAL(callback);
      GLLOGPROCREGAL callback;
 CODE:
@@ -13506,7 +13506,7 @@ CODE:
     };
     glLogMessageCallbackREGAL(callback);
 
-SV *
+void
 glMakeBufferNonResidentNV(target);
      GLenum target;
 CODE:
@@ -13515,7 +13515,7 @@ CODE:
     };
     glMakeBufferNonResidentNV(target);
 
-SV *
+void
 glMakeBufferResidentNV(target, access);
      GLenum target;
      GLenum access;
@@ -13525,7 +13525,7 @@ CODE:
     };
     glMakeBufferResidentNV(target, access);
 
-SV *
+void
 glMakeImageHandleNonResidentARB(handle);
      GLuint64 handle;
 CODE:
@@ -13534,7 +13534,7 @@ CODE:
     };
     glMakeImageHandleNonResidentARB(handle);
 
-SV *
+void
 glMakeImageHandleNonResidentNV(handle);
      GLuint64 handle;
 CODE:
@@ -13543,7 +13543,7 @@ CODE:
     };
     glMakeImageHandleNonResidentNV(handle);
 
-SV *
+void
 glMakeImageHandleResidentARB(handle, access);
      GLuint64 handle;
      GLenum access;
@@ -13553,7 +13553,7 @@ CODE:
     };
     glMakeImageHandleResidentARB(handle, access);
 
-SV *
+void
 glMakeImageHandleResidentNV(handle, access);
      GLuint64 handle;
      GLenum access;
@@ -13563,7 +13563,7 @@ CODE:
     };
     glMakeImageHandleResidentNV(handle, access);
 
-SV *
+void
 glMakeNamedBufferNonResidentNV(buffer);
      GLuint buffer;
 CODE:
@@ -13572,7 +13572,7 @@ CODE:
     };
     glMakeNamedBufferNonResidentNV(buffer);
 
-SV *
+void
 glMakeNamedBufferResidentNV(buffer, access);
      GLuint buffer;
      GLenum access;
@@ -13582,7 +13582,7 @@ CODE:
     };
     glMakeNamedBufferResidentNV(buffer, access);
 
-SV *
+void
 glMakeTextureHandleNonResidentARB(handle);
      GLuint64 handle;
 CODE:
@@ -13591,7 +13591,7 @@ CODE:
     };
     glMakeTextureHandleNonResidentARB(handle);
 
-SV *
+void
 glMakeTextureHandleNonResidentNV(handle);
      GLuint64 handle;
 CODE:
@@ -13600,7 +13600,7 @@ CODE:
     };
     glMakeTextureHandleNonResidentNV(handle);
 
-SV *
+void
 glMakeTextureHandleResidentARB(handle);
      GLuint64 handle;
 CODE:
@@ -13609,7 +13609,7 @@ CODE:
     };
     glMakeTextureHandleResidentARB(handle);
 
-SV *
+void
 glMakeTextureHandleResidentNV(handle);
      GLuint64 handle;
 CODE:
@@ -13618,7 +13618,7 @@ CODE:
     };
     glMakeTextureHandleResidentNV(handle);
 
-SV *
+void
 glMap1d(target, u1, u2, stride, order, points);
      GLenum target;
      GLdouble u1;
@@ -13629,7 +13629,7 @@ glMap1d(target, u1, u2, stride, order, points);
 CODE:
     glMap1d(target, u1, u2, stride, order, points);
 
-SV *
+void
 glMap1f(target, u1, u2, stride, order, points);
      GLenum target;
      GLfloat u1;
@@ -13640,7 +13640,7 @@ glMap1f(target, u1, u2, stride, order, points);
 CODE:
     glMap1f(target, u1, u2, stride, order, points);
 
-SV *
+void
 glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
      GLenum target;
      GLdouble u1;
@@ -13655,7 +13655,7 @@ glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 CODE:
     glMap2d(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 
-SV *
+void
 glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
      GLenum target;
      GLfloat u1;
@@ -13670,7 +13670,7 @@ glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 CODE:
     glMap2f(target, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 
-SV *
+void
 glMapControlPointsNV(target, index, type, ustride, vstride, uorder, vorder, packed, points);
      GLenum target;
      GLuint index;
@@ -13687,7 +13687,7 @@ CODE:
     };
     glMapControlPointsNV(target, index, type, ustride, vstride, uorder, vorder, packed, points);
 
-SV *
+void
 glMapGrid1d(un, u1, u2);
      GLint un;
      GLdouble u1;
@@ -13695,7 +13695,7 @@ glMapGrid1d(un, u1, u2);
 CODE:
     glMapGrid1d(un, u1, u2);
 
-SV *
+void
 glMapGrid1f(un, u1, u2);
      GLint un;
      GLfloat u1;
@@ -13703,7 +13703,7 @@ glMapGrid1f(un, u1, u2);
 CODE:
     glMapGrid1f(un, u1, u2);
 
-SV *
+void
 glMapGrid2d(un, u1, u2, vn, v1, v2);
      GLint un;
      GLdouble u1;
@@ -13714,7 +13714,7 @@ glMapGrid2d(un, u1, u2, vn, v1, v2);
 CODE:
     glMapGrid2d(un, u1, u2, vn, v1, v2);
 
-SV *
+void
 glMapGrid2f(un, u1, u2, vn, v1, v2);
      GLint un;
      GLfloat u1;
@@ -13725,7 +13725,7 @@ glMapGrid2f(un, u1, u2, vn, v1, v2);
 CODE:
     glMapGrid2f(un, u1, u2, vn, v1, v2);
 
-SV *
+void
 glMapParameterfvNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -13736,7 +13736,7 @@ CODE:
     };
     glMapParameterfvNV(target, pname, params);
 
-SV *
+void
 glMapParameterivNV(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -13747,7 +13747,7 @@ CODE:
     };
     glMapParameterivNV(target, pname, params);
 
-SV *
+void
 glMapVertexAttrib1dAPPLE(index, size, u1, u2, stride, order, points);
      GLuint index;
      GLuint size;
@@ -13762,7 +13762,7 @@ CODE:
     };
     glMapVertexAttrib1dAPPLE(index, size, u1, u2, stride, order, points);
 
-SV *
+void
 glMapVertexAttrib1fAPPLE(index, size, u1, u2, stride, order, points);
      GLuint index;
      GLuint size;
@@ -13777,7 +13777,7 @@ CODE:
     };
     glMapVertexAttrib1fAPPLE(index, size, u1, u2, stride, order, points);
 
-SV *
+void
 glMapVertexAttrib2dAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
      GLuint index;
      GLuint size;
@@ -13796,7 +13796,7 @@ CODE:
     };
     glMapVertexAttrib2dAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 
-SV *
+void
 glMapVertexAttrib2fAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
      GLuint index;
      GLuint size;
@@ -13815,7 +13815,7 @@ CODE:
     };
     glMapVertexAttrib2fAPPLE(index, size, u1, u2, ustride, uorder, v1, v2, vstride, vorder, points);
 
-SV *
+void
 glMaterialf(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -13823,7 +13823,7 @@ glMaterialf(face, pname, param);
 CODE:
     glMaterialf(face, pname, param);
 
-SV *
+void
 glMaterialfv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -13831,7 +13831,7 @@ glMaterialfv(face, pname, params);
 CODE:
     glMaterialfv(face, pname, params);
 
-SV *
+void
 glMateriali(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -13839,7 +13839,7 @@ glMateriali(face, pname, param);
 CODE:
     glMateriali(face, pname, param);
 
-SV *
+void
 glMaterialiv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -13847,7 +13847,7 @@ glMaterialiv(face, pname, params);
 CODE:
     glMaterialiv(face, pname, params);
 
-SV *
+void
 glMaterialx(face, pname, param);
      GLenum face;
      GLenum pname;
@@ -13858,7 +13858,7 @@ CODE:
     };
     glMaterialx(face, pname, param);
 
-SV *
+void
 glMaterialxv(face, pname, params);
      GLenum face;
      GLenum pname;
@@ -13869,7 +13869,7 @@ CODE:
     };
     glMaterialxv(face, pname, params);
 
-SV *
+void
 glMatrixFrustumEXT(matrixMode, l, r, b, t, n, f);
      GLenum matrixMode;
      GLdouble l;
@@ -13884,7 +13884,7 @@ CODE:
     };
     glMatrixFrustumEXT(matrixMode, l, r, b, t, n, f);
 
-SV *
+void
 glMatrixIndexPointerARB(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -13896,7 +13896,7 @@ CODE:
     };
     glMatrixIndexPointerARB(size, type, stride, pointer);
 
-SV *
+void
 glMatrixIndexubvARB(size, indices);
      GLint size;
      GLubyte *indices;
@@ -13906,7 +13906,7 @@ CODE:
     };
     glMatrixIndexubvARB(size, indices);
 
-SV *
+void
 glMatrixIndexuivARB(size, indices);
      GLint size;
      GLuint *indices;
@@ -13916,7 +13916,7 @@ CODE:
     };
     glMatrixIndexuivARB(size, indices);
 
-SV *
+void
 glMatrixIndexusvARB(size, indices);
      GLint size;
      GLushort *indices;
@@ -13926,7 +13926,7 @@ CODE:
     };
     glMatrixIndexusvARB(size, indices);
 
-SV *
+void
 glMatrixLoad3x2fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -13936,7 +13936,7 @@ CODE:
     };
     glMatrixLoad3x2fNV(matrixMode, m);
 
-SV *
+void
 glMatrixLoad3x3fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -13946,7 +13946,7 @@ CODE:
     };
     glMatrixLoad3x3fNV(matrixMode, m);
 
-SV *
+void
 glMatrixLoaddEXT(matrixMode, m);
      GLenum matrixMode;
      const GLdouble* m;
@@ -13956,7 +13956,7 @@ CODE:
     };
     glMatrixLoaddEXT(matrixMode, m);
 
-SV *
+void
 glMatrixLoadfEXT(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -13966,7 +13966,7 @@ CODE:
     };
     glMatrixLoadfEXT(matrixMode, m);
 
-SV *
+void
 glMatrixLoadIdentityEXT(matrixMode);
      GLenum matrixMode;
 CODE:
@@ -13975,7 +13975,7 @@ CODE:
     };
     glMatrixLoadIdentityEXT(matrixMode);
 
-SV *
+void
 glMatrixLoadTranspose3x3fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -13985,7 +13985,7 @@ CODE:
     };
     glMatrixLoadTranspose3x3fNV(matrixMode, m);
 
-SV *
+void
 glMatrixLoadTransposedEXT(matrixMode, m);
      GLenum matrixMode;
      const GLdouble* m;
@@ -13995,7 +13995,7 @@ CODE:
     };
     glMatrixLoadTransposedEXT(matrixMode, m);
 
-SV *
+void
 glMatrixLoadTransposefEXT(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14005,13 +14005,13 @@ CODE:
     };
     glMatrixLoadTransposefEXT(matrixMode, m);
 
-SV *
+void
 glMatrixMode(mode);
      GLenum mode;
 CODE:
     glMatrixMode(mode);
 
-SV *
+void
 glMatrixMult3x2fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14021,7 +14021,7 @@ CODE:
     };
     glMatrixMult3x2fNV(matrixMode, m);
 
-SV *
+void
 glMatrixMult3x3fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14031,7 +14031,7 @@ CODE:
     };
     glMatrixMult3x3fNV(matrixMode, m);
 
-SV *
+void
 glMatrixMultdEXT(matrixMode, m);
      GLenum matrixMode;
      const GLdouble* m;
@@ -14041,7 +14041,7 @@ CODE:
     };
     glMatrixMultdEXT(matrixMode, m);
 
-SV *
+void
 glMatrixMultfEXT(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14051,7 +14051,7 @@ CODE:
     };
     glMatrixMultfEXT(matrixMode, m);
 
-SV *
+void
 glMatrixMultTranspose3x3fNV(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14061,7 +14061,7 @@ CODE:
     };
     glMatrixMultTranspose3x3fNV(matrixMode, m);
 
-SV *
+void
 glMatrixMultTransposedEXT(matrixMode, m);
      GLenum matrixMode;
      const GLdouble* m;
@@ -14071,7 +14071,7 @@ CODE:
     };
     glMatrixMultTransposedEXT(matrixMode, m);
 
-SV *
+void
 glMatrixMultTransposefEXT(matrixMode, m);
      GLenum matrixMode;
      const GLfloat* m;
@@ -14081,7 +14081,7 @@ CODE:
     };
     glMatrixMultTransposefEXT(matrixMode, m);
 
-SV *
+void
 glMatrixOrthoEXT(matrixMode, l, r, b, t, n, f);
      GLenum matrixMode;
      GLdouble l;
@@ -14096,7 +14096,7 @@ CODE:
     };
     glMatrixOrthoEXT(matrixMode, l, r, b, t, n, f);
 
-SV *
+void
 glMatrixPopEXT(matrixMode);
      GLenum matrixMode;
 CODE:
@@ -14105,7 +14105,7 @@ CODE:
     };
     glMatrixPopEXT(matrixMode);
 
-SV *
+void
 glMatrixPushEXT(matrixMode);
      GLenum matrixMode;
 CODE:
@@ -14114,7 +14114,7 @@ CODE:
     };
     glMatrixPushEXT(matrixMode);
 
-SV *
+void
 glMatrixRotatedEXT(matrixMode, angle, x, y, z);
      GLenum matrixMode;
      GLdouble angle;
@@ -14127,7 +14127,7 @@ CODE:
     };
     glMatrixRotatedEXT(matrixMode, angle, x, y, z);
 
-SV *
+void
 glMatrixRotatefEXT(matrixMode, angle, x, y, z);
      GLenum matrixMode;
      GLfloat angle;
@@ -14140,7 +14140,7 @@ CODE:
     };
     glMatrixRotatefEXT(matrixMode, angle, x, y, z);
 
-SV *
+void
 glMatrixScaledEXT(matrixMode, x, y, z);
      GLenum matrixMode;
      GLdouble x;
@@ -14152,7 +14152,7 @@ CODE:
     };
     glMatrixScaledEXT(matrixMode, x, y, z);
 
-SV *
+void
 glMatrixScalefEXT(matrixMode, x, y, z);
      GLenum matrixMode;
      GLfloat x;
@@ -14164,7 +14164,7 @@ CODE:
     };
     glMatrixScalefEXT(matrixMode, x, y, z);
 
-SV *
+void
 glMatrixTranslatedEXT(matrixMode, x, y, z);
      GLenum matrixMode;
      GLdouble x;
@@ -14176,7 +14176,7 @@ CODE:
     };
     glMatrixTranslatedEXT(matrixMode, x, y, z);
 
-SV *
+void
 glMatrixTranslatefEXT(matrixMode, x, y, z);
      GLenum matrixMode;
      GLfloat x;
@@ -14188,7 +14188,7 @@ CODE:
     };
     glMatrixTranslatefEXT(matrixMode, x, y, z);
 
-SV *
+void
 glMaxShaderCompilerThreadsARB(count);
      GLuint count;
 CODE:
@@ -14197,7 +14197,7 @@ CODE:
     };
     glMaxShaderCompilerThreadsARB(count);
 
-SV *
+void
 glMemoryBarrier(barriers);
      GLbitfield barriers;
 CODE:
@@ -14206,7 +14206,7 @@ CODE:
     };
     glMemoryBarrier(barriers);
 
-SV *
+void
 glMemoryBarrierByRegion(barriers);
      GLbitfield barriers;
 CODE:
@@ -14215,7 +14215,7 @@ CODE:
     };
     glMemoryBarrierByRegion(barriers);
 
-SV *
+void
 glMemoryBarrierEXT(barriers);
      GLbitfield barriers;
 CODE:
@@ -14224,7 +14224,7 @@ CODE:
     };
     glMemoryBarrierEXT(barriers);
 
-SV *
+void
 glMinmax(target, internalformat, sink);
      GLenum target;
      GLenum internalformat;
@@ -14235,7 +14235,7 @@ CODE:
     };
     glMinmax(target, internalformat, sink);
 
-SV *
+void
 glMinmaxEXT(target, internalformat, sink);
      GLenum target;
      GLenum internalformat;
@@ -14246,7 +14246,7 @@ CODE:
     };
     glMinmaxEXT(target, internalformat, sink);
 
-SV *
+void
 glMinSampleShading(value);
      GLclampf value;
 CODE:
@@ -14255,7 +14255,7 @@ CODE:
     };
     glMinSampleShading(value);
 
-SV *
+void
 glMinSampleShadingARB(value);
      GLclampf value;
 CODE:
@@ -14264,7 +14264,7 @@ CODE:
     };
     glMinSampleShadingARB(value);
 
-SV *
+void
 glMulticastBarrierNV();
 CODE:
     if(! __glewMulticastBarrierNV) {
@@ -14272,7 +14272,7 @@ CODE:
     };
     glMulticastBarrierNV();
 
-SV *
+void
 glMulticastBlitFramebufferNV(srcGpu, dstGpu, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
      GLuint srcGpu;
      GLuint dstGpu;
@@ -14292,7 +14292,7 @@ CODE:
     };
     glMulticastBlitFramebufferNV(srcGpu, dstGpu, srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
 
-SV *
+void
 glMulticastBufferSubDataNV(gpuMask, buffer, offset, size, data);
      GLbitfield gpuMask;
      GLuint buffer;
@@ -14305,7 +14305,7 @@ CODE:
     };
     glMulticastBufferSubDataNV(gpuMask, buffer, offset, size, data);
 
-SV *
+void
 glMulticastCopyBufferSubDataNV(readGpu, writeGpuMask, readBuffer, writeBuffer, readOffset, writeOffset, size);
      GLuint readGpu;
      GLbitfield writeGpuMask;
@@ -14320,7 +14320,7 @@ CODE:
     };
     glMulticastCopyBufferSubDataNV(readGpu, writeGpuMask, readBuffer, writeBuffer, readOffset, writeOffset, size);
 
-SV *
+void
 glMulticastCopyImageSubDataNV(srcGpu, dstGpuMask, srcName, srcTarget, srcLevel, srcX, srxY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
      GLuint srcGpu;
      GLbitfield dstGpuMask;
@@ -14345,7 +14345,7 @@ CODE:
     };
     glMulticastCopyImageSubDataNV(srcGpu, dstGpuMask, srcName, srcTarget, srcLevel, srcX, srxY, srcZ, dstName, dstTarget, dstLevel, dstX, dstY, dstZ, srcWidth, srcHeight, srcDepth);
 
-SV *
+void
 glMulticastFramebufferSampleLocationsfvNV(gpu, framebuffer, start, count, v);
      GLuint gpu;
      GLuint framebuffer;
@@ -14358,7 +14358,7 @@ CODE:
     };
     glMulticastFramebufferSampleLocationsfvNV(gpu, framebuffer, start, count, v);
 
-SV *
+void
 glMulticastGetQueryObjecti64vNV(gpu, id, pname, params);
      GLuint gpu;
      GLuint id;
@@ -14370,7 +14370,7 @@ CODE:
     };
     glMulticastGetQueryObjecti64vNV(gpu, id, pname, params);
 
-SV *
+void
 glMulticastGetQueryObjectivNV(gpu, id, pname, params);
      GLuint gpu;
      GLuint id;
@@ -14382,7 +14382,7 @@ CODE:
     };
     glMulticastGetQueryObjectivNV(gpu, id, pname, params);
 
-SV *
+void
 glMulticastGetQueryObjectui64vNV(gpu, id, pname, params);
      GLuint gpu;
      GLuint id;
@@ -14394,7 +14394,7 @@ CODE:
     };
     glMulticastGetQueryObjectui64vNV(gpu, id, pname, params);
 
-SV *
+void
 glMulticastGetQueryObjectuivNV(gpu, id, pname, params);
      GLuint gpu;
      GLuint id;
@@ -14406,7 +14406,7 @@ CODE:
     };
     glMulticastGetQueryObjectuivNV(gpu, id, pname, params);
 
-SV *
+void
 glMulticastWaitSyncNV(signalGpu, waitGpuMask);
      GLuint signalGpu;
      GLbitfield waitGpuMask;
@@ -14416,7 +14416,7 @@ CODE:
     };
     glMulticastWaitSyncNV(signalGpu, waitGpuMask);
 
-SV *
+void
 glMultiDrawArrays(mode, first, count, drawcount);
      GLenum mode;
      const GLint *first;
@@ -14428,7 +14428,7 @@ CODE:
     };
     glMultiDrawArrays(mode, first, count, drawcount);
 
-SV *
+void
 glMultiDrawArraysEXT(mode, first, count, primcount);
      GLenum mode;
      const GLint* first;
@@ -14440,7 +14440,7 @@ CODE:
     };
     glMultiDrawArraysEXT(mode, first, count, primcount);
 
-SV *
+void
 glMultiDrawArraysIndirect(mode, indirect, primcount, stride);
      GLenum mode;
      const void *indirect;
@@ -14452,7 +14452,7 @@ CODE:
     };
     glMultiDrawArraysIndirect(mode, indirect, primcount, stride);
 
-SV *
+void
 glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
      GLenum mode;
      const void *indirect;
@@ -14464,7 +14464,7 @@ CODE:
     };
     glMultiDrawArraysIndirectAMD(mode, indirect, primcount, stride);
 
-SV *
+void
 glMultiDrawArraysIndirectBindlessCountNV(mode, indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
      GLenum mode;
      const void *indirect;
@@ -14478,7 +14478,7 @@ CODE:
     };
     glMultiDrawArraysIndirectBindlessCountNV(mode, indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
 
-SV *
+void
 glMultiDrawArraysIndirectBindlessNV(mode, indirect, drawCount, stride, vertexBufferCount);
      GLenum mode;
      const void *indirect;
@@ -14491,7 +14491,7 @@ CODE:
     };
     glMultiDrawArraysIndirectBindlessNV(mode, indirect, drawCount, stride, vertexBufferCount);
 
-SV *
+void
 glMultiDrawArraysIndirectCountARB(mode, indirect, drawcount, maxdrawcount, stride);
      GLenum mode;
      const void *indirect;
@@ -14504,7 +14504,7 @@ CODE:
     };
     glMultiDrawArraysIndirectCountARB(mode, indirect, drawcount, maxdrawcount, stride);
 
-SV *
+void
 glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
      GLenum mode;
      const GLint* first;
@@ -14516,7 +14516,7 @@ CODE:
     };
     glMultiDrawElementArrayAPPLE(mode, first, count, primcount);
 
-SV *
+void
 glMultiDrawElements(mode, count, type, indices, drawcount);
      GLenum mode;
      const GLsizei *count;
@@ -14529,7 +14529,7 @@ CODE:
     };
     glMultiDrawElements(mode, count, type, indices, drawcount);
 
-SV *
+void
 glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
      GLenum mode;
      const GLsizei* count;
@@ -14543,7 +14543,7 @@ CODE:
     };
     glMultiDrawElementsBaseVertex(mode, count, type, indices, primcount, basevertex);
 
-SV *
+void
 glMultiDrawElementsEXT(mode, count, type, indices, primcount);
      GLenum mode;
      GLsizei* count;
@@ -14556,7 +14556,7 @@ CODE:
     };
     glMultiDrawElementsEXT(mode, count, type, indices, primcount);
 
-SV *
+void
 glMultiDrawElementsIndirect(mode, type, indirect, primcount, stride);
      GLenum mode;
      GLenum type;
@@ -14569,7 +14569,7 @@ CODE:
     };
     glMultiDrawElementsIndirect(mode, type, indirect, primcount, stride);
 
-SV *
+void
 glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
      GLenum mode;
      GLenum type;
@@ -14582,7 +14582,7 @@ CODE:
     };
     glMultiDrawElementsIndirectAMD(mode, type, indirect, primcount, stride);
 
-SV *
+void
 glMultiDrawElementsIndirectBindlessCountNV(mode, type, indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
      GLenum mode;
      GLenum type;
@@ -14597,7 +14597,7 @@ CODE:
     };
     glMultiDrawElementsIndirectBindlessCountNV(mode, type, indirect, drawCount, maxDrawCount, stride, vertexBufferCount);
 
-SV *
+void
 glMultiDrawElementsIndirectBindlessNV(mode, type, indirect, drawCount, stride, vertexBufferCount);
      GLenum mode;
      GLenum type;
@@ -14611,7 +14611,7 @@ CODE:
     };
     glMultiDrawElementsIndirectBindlessNV(mode, type, indirect, drawCount, stride, vertexBufferCount);
 
-SV *
+void
 glMultiDrawElementsIndirectCountARB(mode, type, indirect, drawcount, maxdrawcount, stride);
      GLenum mode;
      GLenum type;
@@ -14625,7 +14625,7 @@ CODE:
     };
     glMultiDrawElementsIndirectCountARB(mode, type, indirect, drawcount, maxdrawcount, stride);
 
-SV *
+void
 glMultiDrawRangeElementArrayAPPLE(mode, start, end, first, count, primcount);
      GLenum mode;
      GLuint start;
@@ -14639,7 +14639,7 @@ CODE:
     };
     glMultiDrawRangeElementArrayAPPLE(mode, start, end, first, count, primcount);
 
-SV *
+void
 glMultiModeDrawArraysIBM(mode, first, count, primcount, modestride);
      const GLenum* mode;
      const GLint *first;
@@ -14652,7 +14652,7 @@ CODE:
     };
     glMultiModeDrawArraysIBM(mode, first, count, primcount, modestride);
 
-SV *
+void
 glMultiModeDrawElementsIBM(mode, count, type, indices, primcount, modestride);
      const GLenum* mode;
      const GLsizei *count;
@@ -14666,7 +14666,7 @@ CODE:
     };
     glMultiModeDrawElementsIBM(mode, count, type, indices, primcount, modestride);
 
-SV *
+void
 glMultiTexBufferEXT(texunit, target, internalformat, buffer);
      GLenum texunit;
      GLenum target;
@@ -14678,7 +14678,7 @@ CODE:
     };
     glMultiTexBufferEXT(texunit, target, internalformat, buffer);
 
-SV *
+void
 glMultiTexCoord1d(target, s);
      GLenum target;
      GLdouble s;
@@ -14688,7 +14688,7 @@ CODE:
     };
     glMultiTexCoord1d(target, s);
 
-SV *
+void
 glMultiTexCoord1dARB(target, s);
      GLenum target;
      GLdouble s;
@@ -14698,7 +14698,7 @@ CODE:
     };
     glMultiTexCoord1dARB(target, s);
 
-SV *
+void
 glMultiTexCoord1dv(target, v);
      GLenum target;
      const GLdouble *v;
@@ -14708,7 +14708,7 @@ CODE:
     };
     glMultiTexCoord1dv(target, v);
 
-SV *
+void
 glMultiTexCoord1dvARB(target, v);
      GLenum target;
      const GLdouble *v;
@@ -14718,7 +14718,7 @@ CODE:
     };
     glMultiTexCoord1dvARB(target, v);
 
-SV *
+void
 glMultiTexCoord1f(target, s);
      GLenum target;
      GLfloat s;
@@ -14728,7 +14728,7 @@ CODE:
     };
     glMultiTexCoord1f(target, s);
 
-SV *
+void
 glMultiTexCoord1fARB(target, s);
      GLenum target;
      GLfloat s;
@@ -14738,7 +14738,7 @@ CODE:
     };
     glMultiTexCoord1fARB(target, s);
 
-SV *
+void
 glMultiTexCoord1fv(target, v);
      GLenum target;
      const GLfloat *v;
@@ -14748,7 +14748,7 @@ CODE:
     };
     glMultiTexCoord1fv(target, v);
 
-SV *
+void
 glMultiTexCoord1fvARB(target, v);
      GLenum target;
      const GLfloat *v;
@@ -14758,7 +14758,7 @@ CODE:
     };
     glMultiTexCoord1fvARB(target, v);
 
-SV *
+void
 glMultiTexCoord1hNV(target, s);
      GLenum target;
      GLhalf s;
@@ -14768,7 +14768,7 @@ CODE:
     };
     glMultiTexCoord1hNV(target, s);
 
-SV *
+void
 glMultiTexCoord1hvNV(target, v);
      GLenum target;
      const GLhalf* v;
@@ -14778,7 +14778,7 @@ CODE:
     };
     glMultiTexCoord1hvNV(target, v);
 
-SV *
+void
 glMultiTexCoord1i(target, s);
      GLenum target;
      GLint s;
@@ -14788,7 +14788,7 @@ CODE:
     };
     glMultiTexCoord1i(target, s);
 
-SV *
+void
 glMultiTexCoord1iARB(target, s);
      GLenum target;
      GLint s;
@@ -14798,7 +14798,7 @@ CODE:
     };
     glMultiTexCoord1iARB(target, s);
 
-SV *
+void
 glMultiTexCoord1iv(target, v);
      GLenum target;
      const GLint *v;
@@ -14808,7 +14808,7 @@ CODE:
     };
     glMultiTexCoord1iv(target, v);
 
-SV *
+void
 glMultiTexCoord1ivARB(target, v);
      GLenum target;
      const GLint *v;
@@ -14818,7 +14818,7 @@ CODE:
     };
     glMultiTexCoord1ivARB(target, v);
 
-SV *
+void
 glMultiTexCoord1s(target, s);
      GLenum target;
      GLshort s;
@@ -14828,7 +14828,7 @@ CODE:
     };
     glMultiTexCoord1s(target, s);
 
-SV *
+void
 glMultiTexCoord1sARB(target, s);
      GLenum target;
      GLshort s;
@@ -14838,7 +14838,7 @@ CODE:
     };
     glMultiTexCoord1sARB(target, s);
 
-SV *
+void
 glMultiTexCoord1sv(target, v);
      GLenum target;
      const GLshort *v;
@@ -14848,7 +14848,7 @@ CODE:
     };
     glMultiTexCoord1sv(target, v);
 
-SV *
+void
 glMultiTexCoord1svARB(target, v);
      GLenum target;
      const GLshort *v;
@@ -14858,7 +14858,7 @@ CODE:
     };
     glMultiTexCoord1svARB(target, v);
 
-SV *
+void
 glMultiTexCoord2d(target, s, t);
      GLenum target;
      GLdouble s;
@@ -14869,7 +14869,7 @@ CODE:
     };
     glMultiTexCoord2d(target, s, t);
 
-SV *
+void
 glMultiTexCoord2dARB(target, s, t);
      GLenum target;
      GLdouble s;
@@ -14880,7 +14880,7 @@ CODE:
     };
     glMultiTexCoord2dARB(target, s, t);
 
-SV *
+void
 glMultiTexCoord2dv(target, v);
      GLenum target;
      const GLdouble *v;
@@ -14890,7 +14890,7 @@ CODE:
     };
     glMultiTexCoord2dv(target, v);
 
-SV *
+void
 glMultiTexCoord2dvARB(target, v);
      GLenum target;
      const GLdouble *v;
@@ -14900,7 +14900,7 @@ CODE:
     };
     glMultiTexCoord2dvARB(target, v);
 
-SV *
+void
 glMultiTexCoord2f(target, s, t);
      GLenum target;
      GLfloat s;
@@ -14911,7 +14911,7 @@ CODE:
     };
     glMultiTexCoord2f(target, s, t);
 
-SV *
+void
 glMultiTexCoord2fARB(target, s, t);
      GLenum target;
      GLfloat s;
@@ -14922,7 +14922,7 @@ CODE:
     };
     glMultiTexCoord2fARB(target, s, t);
 
-SV *
+void
 glMultiTexCoord2fv(target, v);
      GLenum target;
      const GLfloat *v;
@@ -14932,7 +14932,7 @@ CODE:
     };
     glMultiTexCoord2fv(target, v);
 
-SV *
+void
 glMultiTexCoord2fvARB(target, v);
      GLenum target;
      const GLfloat *v;
@@ -14942,7 +14942,7 @@ CODE:
     };
     glMultiTexCoord2fvARB(target, v);
 
-SV *
+void
 glMultiTexCoord2hNV(target, s, t);
      GLenum target;
      GLhalf s;
@@ -14953,7 +14953,7 @@ CODE:
     };
     glMultiTexCoord2hNV(target, s, t);
 
-SV *
+void
 glMultiTexCoord2hvNV(target, v);
      GLenum target;
      const GLhalf* v;
@@ -14963,7 +14963,7 @@ CODE:
     };
     glMultiTexCoord2hvNV(target, v);
 
-SV *
+void
 glMultiTexCoord2i(target, s, t);
      GLenum target;
      GLint s;
@@ -14974,7 +14974,7 @@ CODE:
     };
     glMultiTexCoord2i(target, s, t);
 
-SV *
+void
 glMultiTexCoord2iARB(target, s, t);
      GLenum target;
      GLint s;
@@ -14985,7 +14985,7 @@ CODE:
     };
     glMultiTexCoord2iARB(target, s, t);
 
-SV *
+void
 glMultiTexCoord2iv(target, v);
      GLenum target;
      const GLint *v;
@@ -14995,7 +14995,7 @@ CODE:
     };
     glMultiTexCoord2iv(target, v);
 
-SV *
+void
 glMultiTexCoord2ivARB(target, v);
      GLenum target;
      const GLint *v;
@@ -15005,7 +15005,7 @@ CODE:
     };
     glMultiTexCoord2ivARB(target, v);
 
-SV *
+void
 glMultiTexCoord2s(target, s, t);
      GLenum target;
      GLshort s;
@@ -15016,7 +15016,7 @@ CODE:
     };
     glMultiTexCoord2s(target, s, t);
 
-SV *
+void
 glMultiTexCoord2sARB(target, s, t);
      GLenum target;
      GLshort s;
@@ -15027,7 +15027,7 @@ CODE:
     };
     glMultiTexCoord2sARB(target, s, t);
 
-SV *
+void
 glMultiTexCoord2sv(target, v);
      GLenum target;
      const GLshort *v;
@@ -15037,7 +15037,7 @@ CODE:
     };
     glMultiTexCoord2sv(target, v);
 
-SV *
+void
 glMultiTexCoord2svARB(target, v);
      GLenum target;
      const GLshort *v;
@@ -15047,7 +15047,7 @@ CODE:
     };
     glMultiTexCoord2svARB(target, v);
 
-SV *
+void
 glMultiTexCoord3d(target, s, t, r);
      GLenum target;
      GLdouble s;
@@ -15059,7 +15059,7 @@ CODE:
     };
     glMultiTexCoord3d(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3dARB(target, s, t, r);
      GLenum target;
      GLdouble s;
@@ -15071,7 +15071,7 @@ CODE:
     };
     glMultiTexCoord3dARB(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3dv(target, v);
      GLenum target;
      const GLdouble *v;
@@ -15081,7 +15081,7 @@ CODE:
     };
     glMultiTexCoord3dv(target, v);
 
-SV *
+void
 glMultiTexCoord3dvARB(target, v);
      GLenum target;
      const GLdouble *v;
@@ -15091,7 +15091,7 @@ CODE:
     };
     glMultiTexCoord3dvARB(target, v);
 
-SV *
+void
 glMultiTexCoord3f(target, s, t, r);
      GLenum target;
      GLfloat s;
@@ -15103,7 +15103,7 @@ CODE:
     };
     glMultiTexCoord3f(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3fARB(target, s, t, r);
      GLenum target;
      GLfloat s;
@@ -15115,7 +15115,7 @@ CODE:
     };
     glMultiTexCoord3fARB(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3fv(target, v);
      GLenum target;
      const GLfloat *v;
@@ -15125,7 +15125,7 @@ CODE:
     };
     glMultiTexCoord3fv(target, v);
 
-SV *
+void
 glMultiTexCoord3fvARB(target, v);
      GLenum target;
      const GLfloat *v;
@@ -15135,7 +15135,7 @@ CODE:
     };
     glMultiTexCoord3fvARB(target, v);
 
-SV *
+void
 glMultiTexCoord3hNV(target, s, t, r);
      GLenum target;
      GLhalf s;
@@ -15147,7 +15147,7 @@ CODE:
     };
     glMultiTexCoord3hNV(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3hvNV(target, v);
      GLenum target;
      const GLhalf* v;
@@ -15157,7 +15157,7 @@ CODE:
     };
     glMultiTexCoord3hvNV(target, v);
 
-SV *
+void
 glMultiTexCoord3i(target, s, t, r);
      GLenum target;
      GLint s;
@@ -15169,7 +15169,7 @@ CODE:
     };
     glMultiTexCoord3i(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3iARB(target, s, t, r);
      GLenum target;
      GLint s;
@@ -15181,7 +15181,7 @@ CODE:
     };
     glMultiTexCoord3iARB(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3iv(target, v);
      GLenum target;
      const GLint *v;
@@ -15191,7 +15191,7 @@ CODE:
     };
     glMultiTexCoord3iv(target, v);
 
-SV *
+void
 glMultiTexCoord3ivARB(target, v);
      GLenum target;
      const GLint *v;
@@ -15201,7 +15201,7 @@ CODE:
     };
     glMultiTexCoord3ivARB(target, v);
 
-SV *
+void
 glMultiTexCoord3s(target, s, t, r);
      GLenum target;
      GLshort s;
@@ -15213,7 +15213,7 @@ CODE:
     };
     glMultiTexCoord3s(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3sARB(target, s, t, r);
      GLenum target;
      GLshort s;
@@ -15225,7 +15225,7 @@ CODE:
     };
     glMultiTexCoord3sARB(target, s, t, r);
 
-SV *
+void
 glMultiTexCoord3sv(target, v);
      GLenum target;
      const GLshort *v;
@@ -15235,7 +15235,7 @@ CODE:
     };
     glMultiTexCoord3sv(target, v);
 
-SV *
+void
 glMultiTexCoord3svARB(target, v);
      GLenum target;
      const GLshort *v;
@@ -15245,7 +15245,7 @@ CODE:
     };
     glMultiTexCoord3svARB(target, v);
 
-SV *
+void
 glMultiTexCoord4d(target, s, t, r, q);
      GLenum target;
      GLdouble s;
@@ -15258,7 +15258,7 @@ CODE:
     };
     glMultiTexCoord4d(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4dARB(target, s, t, r, q);
      GLenum target;
      GLdouble s;
@@ -15271,7 +15271,7 @@ CODE:
     };
     glMultiTexCoord4dARB(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4dv(target, v);
      GLenum target;
      const GLdouble *v;
@@ -15281,7 +15281,7 @@ CODE:
     };
     glMultiTexCoord4dv(target, v);
 
-SV *
+void
 glMultiTexCoord4dvARB(target, v);
      GLenum target;
      const GLdouble *v;
@@ -15291,7 +15291,7 @@ CODE:
     };
     glMultiTexCoord4dvARB(target, v);
 
-SV *
+void
 glMultiTexCoord4f(target, s, t, r, q);
      GLenum target;
      GLfloat s;
@@ -15304,7 +15304,7 @@ CODE:
     };
     glMultiTexCoord4f(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4fARB(target, s, t, r, q);
      GLenum target;
      GLfloat s;
@@ -15317,7 +15317,7 @@ CODE:
     };
     glMultiTexCoord4fARB(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4fv(target, v);
      GLenum target;
      const GLfloat *v;
@@ -15327,7 +15327,7 @@ CODE:
     };
     glMultiTexCoord4fv(target, v);
 
-SV *
+void
 glMultiTexCoord4fvARB(target, v);
      GLenum target;
      const GLfloat *v;
@@ -15337,7 +15337,7 @@ CODE:
     };
     glMultiTexCoord4fvARB(target, v);
 
-SV *
+void
 glMultiTexCoord4hNV(target, s, t, r, q);
      GLenum target;
      GLhalf s;
@@ -15350,7 +15350,7 @@ CODE:
     };
     glMultiTexCoord4hNV(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4hvNV(target, v);
      GLenum target;
      const GLhalf* v;
@@ -15360,7 +15360,7 @@ CODE:
     };
     glMultiTexCoord4hvNV(target, v);
 
-SV *
+void
 glMultiTexCoord4i(target, s, t, r, q);
      GLenum target;
      GLint s;
@@ -15373,7 +15373,7 @@ CODE:
     };
     glMultiTexCoord4i(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4iARB(target, s, t, r, q);
      GLenum target;
      GLint s;
@@ -15386,7 +15386,7 @@ CODE:
     };
     glMultiTexCoord4iARB(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4iv(target, v);
      GLenum target;
      const GLint *v;
@@ -15396,7 +15396,7 @@ CODE:
     };
     glMultiTexCoord4iv(target, v);
 
-SV *
+void
 glMultiTexCoord4ivARB(target, v);
      GLenum target;
      const GLint *v;
@@ -15406,7 +15406,7 @@ CODE:
     };
     glMultiTexCoord4ivARB(target, v);
 
-SV *
+void
 glMultiTexCoord4s(target, s, t, r, q);
      GLenum target;
      GLshort s;
@@ -15419,7 +15419,7 @@ CODE:
     };
     glMultiTexCoord4s(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4sARB(target, s, t, r, q);
      GLenum target;
      GLshort s;
@@ -15432,7 +15432,7 @@ CODE:
     };
     glMultiTexCoord4sARB(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoord4sv(target, v);
      GLenum target;
      const GLshort *v;
@@ -15442,7 +15442,7 @@ CODE:
     };
     glMultiTexCoord4sv(target, v);
 
-SV *
+void
 glMultiTexCoord4svARB(target, v);
      GLenum target;
      const GLshort *v;
@@ -15452,7 +15452,7 @@ CODE:
     };
     glMultiTexCoord4svARB(target, v);
 
-SV *
+void
 glMultiTexCoord4x(target, s, t, r, q);
      GLenum target;
      GLfixed s;
@@ -15465,7 +15465,7 @@ CODE:
     };
     glMultiTexCoord4x(target, s, t, r, q);
 
-SV *
+void
 glMultiTexCoordP1ui(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15476,7 +15476,7 @@ CODE:
     };
     glMultiTexCoordP1ui(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP1uiv(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15487,7 +15487,7 @@ CODE:
     };
     glMultiTexCoordP1uiv(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP2ui(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15498,7 +15498,7 @@ CODE:
     };
     glMultiTexCoordP2ui(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP2uiv(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15509,7 +15509,7 @@ CODE:
     };
     glMultiTexCoordP2uiv(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP3ui(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15520,7 +15520,7 @@ CODE:
     };
     glMultiTexCoordP3ui(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP3uiv(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15531,7 +15531,7 @@ CODE:
     };
     glMultiTexCoordP3uiv(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP4ui(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15542,7 +15542,7 @@ CODE:
     };
     glMultiTexCoordP4ui(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordP4uiv(texture, type, coords);
      GLenum texture;
      GLenum type;
@@ -15553,7 +15553,7 @@ CODE:
     };
     glMultiTexCoordP4uiv(texture, type, coords);
 
-SV *
+void
 glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
      GLenum texunit;
      GLint size;
@@ -15566,7 +15566,7 @@ CODE:
     };
     glMultiTexCoordPointerEXT(texunit, size, type, stride, pointer);
 
-SV *
+void
 glMultiTexEnvfEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15578,7 +15578,7 @@ CODE:
     };
     glMultiTexEnvfEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexEnvfvEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -15590,7 +15590,7 @@ CODE:
     };
     glMultiTexEnvfvEXT(texunit, target, pname, params);
 
-SV *
+void
 glMultiTexEnviEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15602,7 +15602,7 @@ CODE:
     };
     glMultiTexEnviEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexEnvivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -15614,7 +15614,7 @@ CODE:
     };
     glMultiTexEnvivEXT(texunit, target, pname, params);
 
-SV *
+void
 glMultiTexGendEXT(texunit, coord, pname, param);
      GLenum texunit;
      GLenum coord;
@@ -15626,7 +15626,7 @@ CODE:
     };
     glMultiTexGendEXT(texunit, coord, pname, param);
 
-SV *
+void
 glMultiTexGendvEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -15638,7 +15638,7 @@ CODE:
     };
     glMultiTexGendvEXT(texunit, coord, pname, params);
 
-SV *
+void
 glMultiTexGenfEXT(texunit, coord, pname, param);
      GLenum texunit;
      GLenum coord;
@@ -15650,7 +15650,7 @@ CODE:
     };
     glMultiTexGenfEXT(texunit, coord, pname, param);
 
-SV *
+void
 glMultiTexGenfvEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -15662,7 +15662,7 @@ CODE:
     };
     glMultiTexGenfvEXT(texunit, coord, pname, params);
 
-SV *
+void
 glMultiTexGeniEXT(texunit, coord, pname, param);
      GLenum texunit;
      GLenum coord;
@@ -15674,7 +15674,7 @@ CODE:
     };
     glMultiTexGeniEXT(texunit, coord, pname, param);
 
-SV *
+void
 glMultiTexGenivEXT(texunit, coord, pname, params);
      GLenum texunit;
      GLenum coord;
@@ -15686,7 +15686,7 @@ CODE:
     };
     glMultiTexGenivEXT(texunit, coord, pname, params);
 
-SV *
+void
 glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15703,7 +15703,7 @@ CODE:
     };
     glMultiTexImage1DEXT(texunit, target, level, internalformat, width, border, format, type, pixels);
 
-SV *
+void
 glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15721,7 +15721,7 @@ CODE:
     };
     glMultiTexImage2DEXT(texunit, target, level, internalformat, width, height, border, format, type, pixels);
 
-SV *
+void
 glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15740,7 +15740,7 @@ CODE:
     };
     glMultiTexImage3DEXT(texunit, target, level, internalformat, width, height, depth, border, format, type, pixels);
 
-SV *
+void
 glMultiTexParameterfEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15752,7 +15752,7 @@ CODE:
     };
     glMultiTexParameterfEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexParameterfvEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15764,7 +15764,7 @@ CODE:
     };
     glMultiTexParameterfvEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexParameteriEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15776,7 +15776,7 @@ CODE:
     };
     glMultiTexParameteriEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexParameterIivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -15788,7 +15788,7 @@ CODE:
     };
     glMultiTexParameterIivEXT(texunit, target, pname, params);
 
-SV *
+void
 glMultiTexParameterIuivEXT(texunit, target, pname, params);
      GLenum texunit;
      GLenum target;
@@ -15800,7 +15800,7 @@ CODE:
     };
     glMultiTexParameterIuivEXT(texunit, target, pname, params);
 
-SV *
+void
 glMultiTexParameterivEXT(texunit, target, pname, param);
      GLenum texunit;
      GLenum target;
@@ -15812,7 +15812,7 @@ CODE:
     };
     glMultiTexParameterivEXT(texunit, target, pname, param);
 
-SV *
+void
 glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
      GLenum texunit;
      GLenum target;
@@ -15823,7 +15823,7 @@ CODE:
     };
     glMultiTexRenderbufferEXT(texunit, target, renderbuffer);
 
-SV *
+void
 glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15839,7 +15839,7 @@ CODE:
     };
     glMultiTexSubImage1DEXT(texunit, target, level, xoffset, width, format, type, pixels);
 
-SV *
+void
 glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15857,7 +15857,7 @@ CODE:
     };
     glMultiTexSubImage2DEXT(texunit, target, level, xoffset, yoffset, width, height, format, type, pixels);
 
-SV *
+void
 glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
      GLenum texunit;
      GLenum target;
@@ -15877,19 +15877,19 @@ CODE:
     };
     glMultiTexSubImage3DEXT(texunit, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
-SV *
+void
 glMultMatrixd(m);
      const GLdouble *m;
 CODE:
     glMultMatrixd(m);
 
-SV *
+void
 glMultMatrixf(m);
      const GLfloat *m;
 CODE:
     glMultMatrixf(m);
 
-SV *
+void
 glMultMatrixx(m);
      const GLfixed* m;
 CODE:
@@ -15898,7 +15898,7 @@ CODE:
     };
     glMultMatrixx(m);
 
-SV *
+void
 glMultTransposeMatrixd(m);
           const GLdouble * m;
 CODE:
@@ -15907,7 +15907,7 @@ CODE:
     };
     glMultTransposeMatrixd(m);
 
-SV *
+void
 glMultTransposeMatrixdARB(m);
           GLdouble * m;
 CODE:
@@ -15916,7 +15916,7 @@ CODE:
     };
     glMultTransposeMatrixdARB(m);
 
-SV *
+void
 glMultTransposeMatrixf(m);
           const GLfloat * m;
 CODE:
@@ -15925,7 +15925,7 @@ CODE:
     };
     glMultTransposeMatrixf(m);
 
-SV *
+void
 glMultTransposeMatrixfARB(m);
           GLfloat * m;
 CODE:
@@ -15934,7 +15934,7 @@ CODE:
     };
     glMultTransposeMatrixfARB(m);
 
-SV *
+void
 glNamedBufferData(buffer, size, data, usage);
      GLuint buffer;
      GLsizeiptr size;
@@ -15946,7 +15946,7 @@ CODE:
     };
     glNamedBufferData(buffer, size, data, usage);
 
-SV *
+void
 glNamedBufferDataEXT(buffer, size, data, usage);
      GLuint buffer;
      GLsizeiptr size;
@@ -15958,7 +15958,7 @@ CODE:
     };
     glNamedBufferDataEXT(buffer, size, data, usage);
 
-SV *
+void
 glNamedBufferStorage(buffer, size, data, flags);
      GLuint buffer;
      GLsizeiptr size;
@@ -15970,7 +15970,7 @@ CODE:
     };
     glNamedBufferStorage(buffer, size, data, flags);
 
-SV *
+void
 glNamedBufferStorageEXT(buffer, size, data, flags);
      GLuint buffer;
      GLsizeiptr size;
@@ -15982,7 +15982,7 @@ CODE:
     };
     glNamedBufferStorageEXT(buffer, size, data, flags);
 
-SV *
+void
 glNamedBufferSubData(buffer, offset, size, data);
      GLuint buffer;
      GLintptr offset;
@@ -15994,7 +15994,7 @@ CODE:
     };
     glNamedBufferSubData(buffer, offset, size, data);
 
-SV *
+void
 glNamedBufferSubDataEXT(buffer, offset, size, data);
      GLuint buffer;
      GLintptr offset;
@@ -16006,7 +16006,7 @@ CODE:
     };
     glNamedBufferSubDataEXT(buffer, offset, size, data);
 
-SV *
+void
 glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
      GLuint readBuffer;
      GLuint writeBuffer;
@@ -16019,7 +16019,7 @@ CODE:
     };
     glNamedCopyBufferSubDataEXT(readBuffer, writeBuffer, readOffset, writeOffset, size);
 
-SV *
+void
 glNamedFramebufferDrawBuffer(framebuffer, mode);
      GLuint framebuffer;
      GLenum mode;
@@ -16029,7 +16029,7 @@ CODE:
     };
     glNamedFramebufferDrawBuffer(framebuffer, mode);
 
-SV *
+void
 glNamedFramebufferDrawBuffers(framebuffer, n, bufs);
      GLuint framebuffer;
      GLsizei n;
@@ -16040,7 +16040,7 @@ CODE:
     };
     glNamedFramebufferDrawBuffers(framebuffer, n, bufs);
 
-SV *
+void
 glNamedFramebufferParameteri(framebuffer, pname, param);
      GLuint framebuffer;
      GLenum pname;
@@ -16051,7 +16051,7 @@ CODE:
     };
     glNamedFramebufferParameteri(framebuffer, pname, param);
 
-SV *
+void
 glNamedFramebufferParameteriEXT(framebuffer, pname, param);
      GLuint framebuffer;
      GLenum pname;
@@ -16062,7 +16062,7 @@ CODE:
     };
     glNamedFramebufferParameteriEXT(framebuffer, pname, param);
 
-SV *
+void
 glNamedFramebufferReadBuffer(framebuffer, mode);
      GLuint framebuffer;
      GLenum mode;
@@ -16072,7 +16072,7 @@ CODE:
     };
     glNamedFramebufferReadBuffer(framebuffer, mode);
 
-SV *
+void
 glNamedFramebufferRenderbuffer(framebuffer, attachment, renderbuffertarget, renderbuffer);
      GLuint framebuffer;
      GLenum attachment;
@@ -16084,7 +16084,7 @@ CODE:
     };
     glNamedFramebufferRenderbuffer(framebuffer, attachment, renderbuffertarget, renderbuffer);
 
-SV *
+void
 glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
      GLuint framebuffer;
      GLenum attachment;
@@ -16096,7 +16096,7 @@ CODE:
     };
     glNamedFramebufferRenderbufferEXT(framebuffer, attachment, renderbuffertarget, renderbuffer);
 
-SV *
+void
 glNamedFramebufferSampleLocationsfvARB(framebuffer, start, count, v);
      GLuint framebuffer;
      GLuint start;
@@ -16108,7 +16108,7 @@ CODE:
     };
     glNamedFramebufferSampleLocationsfvARB(framebuffer, start, count, v);
 
-SV *
+void
 glNamedFramebufferSampleLocationsfvNV(framebuffer, start, count, v);
      GLuint framebuffer;
      GLuint start;
@@ -16120,7 +16120,7 @@ CODE:
     };
     glNamedFramebufferSampleLocationsfvNV(framebuffer, start, count, v);
 
-SV *
+void
 glNamedFramebufferTexture(framebuffer, attachment, texture, level);
      GLuint framebuffer;
      GLenum attachment;
@@ -16132,7 +16132,7 @@ CODE:
     };
     glNamedFramebufferTexture(framebuffer, attachment, texture, level);
 
-SV *
+void
 glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
      GLuint framebuffer;
      GLenum attachment;
@@ -16145,7 +16145,7 @@ CODE:
     };
     glNamedFramebufferTexture1DEXT(framebuffer, attachment, textarget, texture, level);
 
-SV *
+void
 glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
      GLuint framebuffer;
      GLenum attachment;
@@ -16158,7 +16158,7 @@ CODE:
     };
     glNamedFramebufferTexture2DEXT(framebuffer, attachment, textarget, texture, level);
 
-SV *
+void
 glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
      GLuint framebuffer;
      GLenum attachment;
@@ -16172,7 +16172,7 @@ CODE:
     };
     glNamedFramebufferTexture3DEXT(framebuffer, attachment, textarget, texture, level, zoffset);
 
-SV *
+void
 glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
      GLuint framebuffer;
      GLenum attachment;
@@ -16184,7 +16184,7 @@ CODE:
     };
     glNamedFramebufferTextureEXT(framebuffer, attachment, texture, level);
 
-SV *
+void
 glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
      GLuint framebuffer;
      GLenum attachment;
@@ -16197,7 +16197,7 @@ CODE:
     };
     glNamedFramebufferTextureFaceEXT(framebuffer, attachment, texture, level, face);
 
-SV *
+void
 glNamedFramebufferTextureLayer(framebuffer, attachment, texture, level, layer);
      GLuint framebuffer;
      GLenum attachment;
@@ -16210,7 +16210,7 @@ CODE:
     };
     glNamedFramebufferTextureLayer(framebuffer, attachment, texture, level, layer);
 
-SV *
+void
 glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
      GLuint framebuffer;
      GLenum attachment;
@@ -16223,7 +16223,7 @@ CODE:
     };
     glNamedFramebufferTextureLayerEXT(framebuffer, attachment, texture, level, layer);
 
-SV *
+void
 glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
      GLuint program;
      GLenum target;
@@ -16238,7 +16238,7 @@ CODE:
     };
     glNamedProgramLocalParameter4dEXT(program, target, index, x, y, z, w);
 
-SV *
+void
 glNamedProgramLocalParameter4dvEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -16250,7 +16250,7 @@ CODE:
     };
     glNamedProgramLocalParameter4dvEXT(program, target, index, params);
 
-SV *
+void
 glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
      GLuint program;
      GLenum target;
@@ -16265,7 +16265,7 @@ CODE:
     };
     glNamedProgramLocalParameter4fEXT(program, target, index, x, y, z, w);
 
-SV *
+void
 glNamedProgramLocalParameter4fvEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -16277,7 +16277,7 @@ CODE:
     };
     glNamedProgramLocalParameter4fvEXT(program, target, index, params);
 
-SV *
+void
 glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
      GLuint program;
      GLenum target;
@@ -16292,7 +16292,7 @@ CODE:
     };
     glNamedProgramLocalParameterI4iEXT(program, target, index, x, y, z, w);
 
-SV *
+void
 glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -16304,7 +16304,7 @@ CODE:
     };
     glNamedProgramLocalParameterI4ivEXT(program, target, index, params);
 
-SV *
+void
 glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
      GLuint program;
      GLenum target;
@@ -16319,7 +16319,7 @@ CODE:
     };
     glNamedProgramLocalParameterI4uiEXT(program, target, index, x, y, z, w);
 
-SV *
+void
 glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
      GLuint program;
      GLenum target;
@@ -16331,7 +16331,7 @@ CODE:
     };
     glNamedProgramLocalParameterI4uivEXT(program, target, index, params);
 
-SV *
+void
 glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
      GLuint program;
      GLenum target;
@@ -16344,7 +16344,7 @@ CODE:
     };
     glNamedProgramLocalParameters4fvEXT(program, target, index, count, params);
 
-SV *
+void
 glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
      GLuint program;
      GLenum target;
@@ -16357,7 +16357,7 @@ CODE:
     };
     glNamedProgramLocalParametersI4ivEXT(program, target, index, count, params);
 
-SV *
+void
 glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
      GLuint program;
      GLenum target;
@@ -16370,7 +16370,7 @@ CODE:
     };
     glNamedProgramLocalParametersI4uivEXT(program, target, index, count, params);
 
-SV *
+void
 glNamedProgramStringEXT(program, target, format, len, string);
      GLuint program;
      GLenum target;
@@ -16383,7 +16383,7 @@ CODE:
     };
     glNamedProgramStringEXT(program, target, format, len, string);
 
-SV *
+void
 glNamedRenderbufferStorage(renderbuffer, internalformat, width, height);
      GLuint renderbuffer;
      GLenum internalformat;
@@ -16395,7 +16395,7 @@ CODE:
     };
     glNamedRenderbufferStorage(renderbuffer, internalformat, width, height);
 
-SV *
+void
 glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
      GLuint renderbuffer;
      GLenum internalformat;
@@ -16407,7 +16407,7 @@ CODE:
     };
     glNamedRenderbufferStorageEXT(renderbuffer, internalformat, width, height);
 
-SV *
+void
 glNamedRenderbufferStorageMultisample(renderbuffer, samples, internalformat, width, height);
      GLuint renderbuffer;
      GLsizei samples;
@@ -16420,7 +16420,7 @@ CODE:
     };
     glNamedRenderbufferStorageMultisample(renderbuffer, samples, internalformat, width, height);
 
-SV *
+void
 glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
      GLuint renderbuffer;
      GLsizei coverageSamples;
@@ -16434,7 +16434,7 @@ CODE:
     };
     glNamedRenderbufferStorageMultisampleCoverageEXT(renderbuffer, coverageSamples, colorSamples, internalformat, width, height);
 
-SV *
+void
 glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
      GLuint renderbuffer;
      GLsizei samples;
@@ -16447,7 +16447,7 @@ CODE:
     };
     glNamedRenderbufferStorageMultisampleEXT(renderbuffer, samples, internalformat, width, height);
 
-SV *
+void
 glNamedStringARB(type, namelen, name, stringlen, string);
      GLenum type;
      GLint namelen;
@@ -16471,7 +16471,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glNewList(list, mode);
      GLuint list;
      GLenum mode;
@@ -16491,7 +16491,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glNormal3b(nx, ny, nz);
      GLbyte nx;
      GLbyte ny;
@@ -16499,13 +16499,13 @@ glNormal3b(nx, ny, nz);
 CODE:
     glNormal3b(nx, ny, nz);
 
-SV *
+void
 glNormal3bv(v);
      const GLbyte *v;
 CODE:
     glNormal3bv(v);
 
-SV *
+void
 glNormal3d(nx, ny, nz);
      GLdouble nx;
      GLdouble ny;
@@ -16513,13 +16513,13 @@ glNormal3d(nx, ny, nz);
 CODE:
     glNormal3d(nx, ny, nz);
 
-SV *
+void
 glNormal3dv(v);
      const GLdouble *v;
 CODE:
     glNormal3dv(v);
 
-SV *
+void
 glNormal3f(nx, ny, nz);
      GLfloat nx;
      GLfloat ny;
@@ -16527,13 +16527,13 @@ glNormal3f(nx, ny, nz);
 CODE:
     glNormal3f(nx, ny, nz);
 
-SV *
+void
 glNormal3fv(v);
      const GLfloat *v;
 CODE:
     glNormal3fv(v);
 
-SV *
+void
 glNormal3fVertex3fSUN(nx, ny, nz, x, y, z);
      GLfloat nx;
      GLfloat ny;
@@ -16547,7 +16547,7 @@ CODE:
     };
     glNormal3fVertex3fSUN(nx, ny, nz, x, y, z);
 
-SV *
+void
 glNormal3fVertex3fvSUN(n, v);
      const GLfloat* n;
      const GLfloat *v;
@@ -16557,7 +16557,7 @@ CODE:
     };
     glNormal3fVertex3fvSUN(n, v);
 
-SV *
+void
 glNormal3hNV(nx, ny, nz);
      GLhalf nx;
      GLhalf ny;
@@ -16568,7 +16568,7 @@ CODE:
     };
     glNormal3hNV(nx, ny, nz);
 
-SV *
+void
 glNormal3hvNV(v);
      const GLhalf* v;
 CODE:
@@ -16577,7 +16577,7 @@ CODE:
     };
     glNormal3hvNV(v);
 
-SV *
+void
 glNormal3i(nx, ny, nz);
      GLint nx;
      GLint ny;
@@ -16585,13 +16585,13 @@ glNormal3i(nx, ny, nz);
 CODE:
     glNormal3i(nx, ny, nz);
 
-SV *
+void
 glNormal3iv(v);
      const GLint *v;
 CODE:
     glNormal3iv(v);
 
-SV *
+void
 glNormal3s(nx, ny, nz);
      GLshort nx;
      GLshort ny;
@@ -16599,13 +16599,13 @@ glNormal3s(nx, ny, nz);
 CODE:
     glNormal3s(nx, ny, nz);
 
-SV *
+void
 glNormal3sv(v);
      const GLshort *v;
 CODE:
     glNormal3sv(v);
 
-SV *
+void
 glNormal3x(nx, ny, nz);
      GLfixed nx;
      GLfixed ny;
@@ -16616,7 +16616,7 @@ CODE:
     };
     glNormal3x(nx, ny, nz);
 
-SV *
+void
 glNormalFormatNV(type, stride);
      GLenum type;
      GLsizei stride;
@@ -16626,7 +16626,7 @@ CODE:
     };
     glNormalFormatNV(type, stride);
 
-SV *
+void
 glNormalP3ui(type, coords);
      GLenum type;
      GLuint coords;
@@ -16636,7 +16636,7 @@ CODE:
     };
     glNormalP3ui(type, coords);
 
-SV *
+void
 glNormalP3uiv(type, coords);
      GLenum type;
      const GLuint* coords;
@@ -16646,7 +16646,7 @@ CODE:
     };
     glNormalP3uiv(type, coords);
 
-SV *
+void
 glNormalPointer(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -16654,7 +16654,7 @@ glNormalPointer(type, stride, pointer);
 CODE:
     glNormalPointer(type, stride, pointer);
 
-SV *
+void
 glNormalPointerEXT(type, stride, count, pointer);
      GLenum type;
      GLsizei stride;
@@ -16666,7 +16666,7 @@ CODE:
     };
     glNormalPointerEXT(type, stride, count, pointer);
 
-SV *
+void
 glNormalPointerListIBM(type, stride, pointer, ptrstride);
      GLenum type;
      GLint stride;
@@ -16678,7 +16678,7 @@ CODE:
     };
     glNormalPointerListIBM(type, stride, pointer, ptrstride);
 
-SV *
+void
 glNormalPointervINTEL(type, pointer);
      GLenum type;
      const void** pointer;
@@ -16688,7 +16688,7 @@ CODE:
     };
     glNormalPointervINTEL(type, pointer);
 
-SV *
+void
 glNormalStream3bATI(stream, x, y, z);
      GLenum stream;
      GLbyte x;
@@ -16700,7 +16700,7 @@ CODE:
     };
     glNormalStream3bATI(stream, x, y, z);
 
-SV *
+void
 glNormalStream3bvATI(stream, coords);
      GLenum stream;
      const GLbyte *coords;
@@ -16710,7 +16710,7 @@ CODE:
     };
     glNormalStream3bvATI(stream, coords);
 
-SV *
+void
 glNormalStream3dATI(stream, x, y, z);
      GLenum stream;
      GLdouble x;
@@ -16722,7 +16722,7 @@ CODE:
     };
     glNormalStream3dATI(stream, x, y, z);
 
-SV *
+void
 glNormalStream3dvATI(stream, coords);
      GLenum stream;
      const GLdouble *coords;
@@ -16732,7 +16732,7 @@ CODE:
     };
     glNormalStream3dvATI(stream, coords);
 
-SV *
+void
 glNormalStream3fATI(stream, x, y, z);
      GLenum stream;
      GLfloat x;
@@ -16744,7 +16744,7 @@ CODE:
     };
     glNormalStream3fATI(stream, x, y, z);
 
-SV *
+void
 glNormalStream3fvATI(stream, coords);
      GLenum stream;
      const GLfloat *coords;
@@ -16754,7 +16754,7 @@ CODE:
     };
     glNormalStream3fvATI(stream, coords);
 
-SV *
+void
 glNormalStream3iATI(stream, x, y, z);
      GLenum stream;
      GLint x;
@@ -16766,7 +16766,7 @@ CODE:
     };
     glNormalStream3iATI(stream, x, y, z);
 
-SV *
+void
 glNormalStream3ivATI(stream, coords);
      GLenum stream;
      const GLint *coords;
@@ -16776,7 +16776,7 @@ CODE:
     };
     glNormalStream3ivATI(stream, coords);
 
-SV *
+void
 glNormalStream3sATI(stream, x, y, z);
      GLenum stream;
      GLshort x;
@@ -16788,7 +16788,7 @@ CODE:
     };
     glNormalStream3sATI(stream, x, y, z);
 
-SV *
+void
 glNormalStream3svATI(stream, coords);
      GLenum stream;
      const GLshort *coords;
@@ -16798,7 +16798,7 @@ CODE:
     };
     glNormalStream3svATI(stream, coords);
 
-SV *
+void
 glObjectLabel(identifier, name, length, label);
      GLenum identifier;
      GLuint name;
@@ -16810,7 +16810,7 @@ CODE:
     };
     glObjectLabel(identifier, name, length, label);
 
-SV *
+void
 glObjectPtrLabel(ptr, length, label);
      const void *ptr;
      GLsizei length;
@@ -16847,7 +16847,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glOrtho(left, right, bottom, top, zNear, zFar);
      GLdouble left;
      GLdouble right;
@@ -16858,7 +16858,7 @@ glOrtho(left, right, bottom, top, zNear, zFar);
 CODE:
     glOrtho(left, right, bottom, top, zNear, zFar);
 
-SV *
+void
 glOrthof(left, right, bottom, top, zNear, zFar);
      GLfloat left;
      GLfloat right;
@@ -16872,7 +16872,7 @@ CODE:
     };
     glOrthof(left, right, bottom, top, zNear, zFar);
 
-SV *
+void
 glOrthofOES(l, r, b, t, n, f);
      GLfloat l;
      GLfloat r;
@@ -16886,7 +16886,7 @@ CODE:
     };
     glOrthofOES(l, r, b, t, n, f);
 
-SV *
+void
 glOrthox(left, right, bottom, top, zNear, zFar);
      GLfixed left;
      GLfixed right;
@@ -16900,7 +16900,7 @@ CODE:
     };
     glOrthox(left, right, bottom, top, zNear, zFar);
 
-SV *
+void
 glPassTexCoordATI(dst, coord, swizzle);
      GLuint dst;
      GLuint coord;
@@ -16911,13 +16911,13 @@ CODE:
     };
     glPassTexCoordATI(dst, coord, swizzle);
 
-SV *
+void
 glPassThrough(token);
      GLfloat token;
 CODE:
     glPassThrough(token);
 
-SV *
+void
 glPatchParameterfv(pname, values);
      GLenum pname;
      const GLfloat* values;
@@ -16927,7 +16927,7 @@ CODE:
     };
     glPatchParameterfv(pname, values);
 
-SV *
+void
 glPatchParameteri(pname, value);
      GLenum pname;
      GLint value;
@@ -16937,7 +16937,7 @@ CODE:
     };
     glPatchParameteri(pname, value);
 
-SV *
+void
 glPathColorGenNV(color, genMode, colorFormat, coeffs);
      GLenum color;
      GLenum genMode;
@@ -16949,7 +16949,7 @@ CODE:
     };
     glPathColorGenNV(color, genMode, colorFormat, coeffs);
 
-SV *
+void
 glPathCommandsNV(path, numCommands, commands, numCoords, coordType, coords);
      GLuint path;
      GLsizei numCommands;
@@ -16963,7 +16963,7 @@ CODE:
     };
     glPathCommandsNV(path, numCommands, commands, numCoords, coordType, coords);
 
-SV *
+void
 glPathCoordsNV(path, numCoords, coordType, coords);
      GLuint path;
      GLsizei numCoords;
@@ -16975,7 +16975,7 @@ CODE:
     };
     glPathCoordsNV(path, numCoords, coordType, coords);
 
-SV *
+void
 glPathCoverDepthFuncNV(zfunc);
      GLenum zfunc;
 CODE:
@@ -16984,7 +16984,7 @@ CODE:
     };
     glPathCoverDepthFuncNV(zfunc);
 
-SV *
+void
 glPathDashArrayNV(path, dashCount, dashArray);
      GLuint path;
      GLsizei dashCount;
@@ -16995,7 +16995,7 @@ CODE:
     };
     glPathDashArrayNV(path, dashCount, dashArray);
 
-SV *
+void
 glPathFogGenNV(genMode);
      GLenum genMode;
 CODE:
@@ -17038,7 +17038,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glPathGlyphRangeNV(firstPathName, fontTarget, fontName, fontStyle, firstGlyph, numGlyphs, handleMissingGlyphs, pathParameterTemplate, emScale);
      GLuint firstPathName;
      GLenum fontTarget;
@@ -17055,7 +17055,7 @@ CODE:
     };
     glPathGlyphRangeNV(firstPathName, fontTarget, fontName, fontStyle, firstGlyph, numGlyphs, handleMissingGlyphs, pathParameterTemplate, emScale);
 
-SV *
+void
 glPathGlyphsNV(firstPathName, fontTarget, fontName, fontStyle, numGlyphs, type, charcodes, handleMissingGlyphs, pathParameterTemplate, emScale);
      GLuint firstPathName;
      GLenum fontTarget;
@@ -17092,7 +17092,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glPathParameterfNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -17103,7 +17103,7 @@ CODE:
     };
     glPathParameterfNV(path, pname, value);
 
-SV *
+void
 glPathParameterfvNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -17114,7 +17114,7 @@ CODE:
     };
     glPathParameterfvNV(path, pname, value);
 
-SV *
+void
 glPathParameteriNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -17125,7 +17125,7 @@ CODE:
     };
     glPathParameteriNV(path, pname, value);
 
-SV *
+void
 glPathParameterivNV(path, pname, value);
      GLuint path;
      GLenum pname;
@@ -17136,7 +17136,7 @@ CODE:
     };
     glPathParameterivNV(path, pname, value);
 
-SV *
+void
 glPathStencilDepthOffsetNV(factor, units);
      GLfloat factor;
      GLfloat units;
@@ -17146,7 +17146,7 @@ CODE:
     };
     glPathStencilDepthOffsetNV(factor, units);
 
-SV *
+void
 glPathStencilFuncNV(func, ref, mask);
      GLenum func;
      GLint ref;
@@ -17157,7 +17157,7 @@ CODE:
     };
     glPathStencilFuncNV(func, ref, mask);
 
-SV *
+void
 glPathStringNV(path, format, length, pathString);
      GLuint path;
      GLenum format;
@@ -17169,7 +17169,7 @@ CODE:
     };
     glPathStringNV(path, format, length, pathString);
 
-SV *
+void
 glPathSubCommandsNV(path, commandStart, commandsToDelete, numCommands, commands, numCoords, coordType, coords);
      GLuint path;
      GLsizei commandStart;
@@ -17185,7 +17185,7 @@ CODE:
     };
     glPathSubCommandsNV(path, commandStart, commandsToDelete, numCommands, commands, numCoords, coordType, coords);
 
-SV *
+void
 glPathSubCoordsNV(path, coordStart, numCoords, coordType, coords);
      GLuint path;
      GLsizei coordStart;
@@ -17198,7 +17198,7 @@ CODE:
     };
     glPathSubCoordsNV(path, coordStart, numCoords, coordType, coords);
 
-SV *
+void
 glPathTexGenNV(texCoordSet, genMode, components, coeffs);
      GLenum texCoordSet;
      GLenum genMode;
@@ -17210,7 +17210,7 @@ CODE:
     };
     glPathTexGenNV(texCoordSet, genMode, components, coeffs);
 
-SV *
+void
 glPauseTransformFeedback();
 CODE:
     if(! __glewPauseTransformFeedback) {
@@ -17218,7 +17218,7 @@ CODE:
     };
     glPauseTransformFeedback();
 
-SV *
+void
 glPauseTransformFeedbackNV();
 CODE:
     if(! __glewPauseTransformFeedbackNV) {
@@ -17226,7 +17226,7 @@ CODE:
     };
     glPauseTransformFeedbackNV();
 
-SV *
+void
 glPixelDataRangeNV(target, length, pointer);
      GLenum target;
      GLsizei length;
@@ -17237,7 +17237,7 @@ CODE:
     };
     glPixelDataRangeNV(target, length, pointer);
 
-SV *
+void
 glPixelMapfv(map, mapsize, values);
      GLenum map;
      GLsizei mapsize;
@@ -17245,7 +17245,7 @@ glPixelMapfv(map, mapsize, values);
 CODE:
     glPixelMapfv(map, mapsize, values);
 
-SV *
+void
 glPixelMapuiv(map, mapsize, values);
      GLenum map;
      GLsizei mapsize;
@@ -17253,7 +17253,7 @@ glPixelMapuiv(map, mapsize, values);
 CODE:
     glPixelMapuiv(map, mapsize, values);
 
-SV *
+void
 glPixelMapusv(map, mapsize, values);
      GLenum map;
      GLsizei mapsize;
@@ -17261,21 +17261,21 @@ glPixelMapusv(map, mapsize, values);
 CODE:
     glPixelMapusv(map, mapsize, values);
 
-SV *
+void
 glPixelStoref(pname, param);
      GLenum pname;
      GLfloat param;
 CODE:
     glPixelStoref(pname, param);
 
-SV *
+void
 glPixelStorei(pname, param);
      GLenum pname;
      GLint param;
 CODE:
     glPixelStorei(pname, param);
 
-SV *
+void
 glPixelTexGenSGIX(mode);
      GLenum mode;
 CODE:
@@ -17284,21 +17284,21 @@ CODE:
     };
     glPixelTexGenSGIX(mode);
 
-SV *
+void
 glPixelTransferf(pname, param);
      GLenum pname;
      GLfloat param;
 CODE:
     glPixelTransferf(pname, param);
 
-SV *
+void
 glPixelTransferi(pname, param);
      GLenum pname;
      GLint param;
 CODE:
     glPixelTransferi(pname, param);
 
-SV *
+void
 glPixelTransformParameterfEXT(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -17309,7 +17309,7 @@ CODE:
     };
     glPixelTransformParameterfEXT(target, pname, param);
 
-SV *
+void
 glPixelTransformParameterfvEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -17320,7 +17320,7 @@ CODE:
     };
     glPixelTransformParameterfvEXT(target, pname, params);
 
-SV *
+void
 glPixelTransformParameteriEXT(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -17331,7 +17331,7 @@ CODE:
     };
     glPixelTransformParameteriEXT(target, pname, param);
 
-SV *
+void
 glPixelTransformParameterivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -17342,14 +17342,14 @@ CODE:
     };
     glPixelTransformParameterivEXT(target, pname, params);
 
-SV *
+void
 glPixelZoom(xfactor, yfactor);
      GLfloat xfactor;
      GLfloat yfactor;
 CODE:
     glPixelZoom(xfactor, yfactor);
 
-SV *
+void
 glPNTrianglesfATI(pname, param);
      GLenum pname;
      GLfloat param;
@@ -17359,7 +17359,7 @@ CODE:
     };
     glPNTrianglesfATI(pname, param);
 
-SV *
+void
 glPNTrianglesiATI(pname, param);
      GLenum pname;
      GLint param;
@@ -17387,7 +17387,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glPointParameterf(pname, param);
      GLenum pname;
      GLfloat param;
@@ -17397,7 +17397,7 @@ CODE:
     };
     glPointParameterf(pname, param);
 
-SV *
+void
 glPointParameterfARB(pname, param);
      GLenum pname;
      GLfloat param;
@@ -17407,7 +17407,7 @@ CODE:
     };
     glPointParameterfARB(pname, param);
 
-SV *
+void
 glPointParameterfEXT(pname, param);
      GLenum pname;
      GLfloat param;
@@ -17417,7 +17417,7 @@ CODE:
     };
     glPointParameterfEXT(pname, param);
 
-SV *
+void
 glPointParameterfv(pname, params);
      GLenum pname;
      const GLfloat *params;
@@ -17427,7 +17427,7 @@ CODE:
     };
     glPointParameterfv(pname, params);
 
-SV *
+void
 glPointParameterfvARB(pname, params);
      GLenum pname;
      const GLfloat* params;
@@ -17437,7 +17437,7 @@ CODE:
     };
     glPointParameterfvARB(pname, params);
 
-SV *
+void
 glPointParameterfvEXT(pname, params);
      GLenum pname;
      const GLfloat* params;
@@ -17447,7 +17447,7 @@ CODE:
     };
     glPointParameterfvEXT(pname, params);
 
-SV *
+void
 glPointParameteri(pname, param);
      GLenum pname;
      GLint param;
@@ -17457,7 +17457,7 @@ CODE:
     };
     glPointParameteri(pname, param);
 
-SV *
+void
 glPointParameteriNV(pname, param);
      GLenum pname;
      GLint param;
@@ -17467,7 +17467,7 @@ CODE:
     };
     glPointParameteriNV(pname, param);
 
-SV *
+void
 glPointParameteriv(pname, params);
      GLenum pname;
      const GLint *params;
@@ -17477,7 +17477,7 @@ CODE:
     };
     glPointParameteriv(pname, params);
 
-SV *
+void
 glPointParameterivNV(pname, params);
      GLenum pname;
      const GLint* params;
@@ -17487,7 +17487,7 @@ CODE:
     };
     glPointParameterivNV(pname, params);
 
-SV *
+void
 glPointParameterx(pname, param);
      GLenum pname;
      GLfixed param;
@@ -17497,7 +17497,7 @@ CODE:
     };
     glPointParameterx(pname, param);
 
-SV *
+void
 glPointParameterxv(pname, params);
      GLenum pname;
      const GLfixed* params;
@@ -17507,13 +17507,13 @@ CODE:
     };
     glPointParameterxv(pname, params);
 
-SV *
+void
 glPointSize(size);
      GLfloat size;
 CODE:
     glPointSize(size);
 
-SV *
+void
 glPointSizePointerOES(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -17524,7 +17524,7 @@ CODE:
     };
     glPointSizePointerOES(type, stride, pointer);
 
-SV *
+void
 glPointSizex(size);
      GLfixed size;
 CODE:
@@ -17544,21 +17544,21 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glPolygonMode(face, mode);
      GLenum face;
      GLenum mode;
 CODE:
     glPolygonMode(face, mode);
 
-SV *
+void
 glPolygonOffset(factor, units);
      GLfloat factor;
      GLfloat units;
 CODE:
     glPolygonOffset(factor, units);
 
-SV *
+void
 glPolygonOffsetClampEXT(factor, units, clamp);
      GLfloat factor;
      GLfloat units;
@@ -17569,7 +17569,7 @@ CODE:
     };
     glPolygonOffsetClampEXT(factor, units, clamp);
 
-SV *
+void
 glPolygonOffsetEXT(factor, bias);
      GLfloat factor;
      GLfloat bias;
@@ -17579,7 +17579,7 @@ CODE:
     };
     glPolygonOffsetEXT(factor, bias);
 
-SV *
+void
 glPolygonOffsetx(factor, units);
      GLfixed factor;
      GLfixed units;
@@ -17589,23 +17589,23 @@ CODE:
     };
     glPolygonOffsetx(factor, units);
 
-SV *
+void
 glPolygonStipple(mask);
      const GLubyte *mask;
 CODE:
     glPolygonStipple(mask);
 
-SV *
+void
 glPopAttrib();
 CODE:
     glPopAttrib();
 
-SV *
+void
 glPopClientAttrib();
 CODE:
     glPopClientAttrib();
 
-SV *
+void
 glPopDebugGroup();
 CODE:
     if(! __glewPopDebugGroup) {
@@ -17613,7 +17613,7 @@ CODE:
     };
     glPopDebugGroup();
 
-SV *
+void
 glPopGroupMarkerEXT();
 CODE:
     if(! __glewPopGroupMarkerEXT) {
@@ -17621,17 +17621,17 @@ CODE:
     };
     glPopGroupMarkerEXT();
 
-SV *
+void
 glPopMatrix();
 CODE:
     glPopMatrix();
 
-SV *
+void
 glPopName();
 CODE:
     glPopName();
 
-SV *
+void
 glPresentFrameDualFillNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, target1, fill1, target2, fill2, target3, fill3);
      GLuint video_slot;
      GLuint64EXT minPresentTime;
@@ -17652,7 +17652,7 @@ CODE:
     };
     glPresentFrameDualFillNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, target1, fill1, target2, fill2, target3, fill3);
 
-SV *
+void
 glPresentFrameKeyedNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, key0, target1, fill1, key1);
      GLuint video_slot;
      GLuint64EXT minPresentTime;
@@ -17671,7 +17671,7 @@ CODE:
     };
     glPresentFrameKeyedNV(video_slot, minPresentTime, beginPresentTimeId, presentDurationId, type, target0, fill0, key0, target1, fill1, key1);
 
-SV *
+void
 glPrimitiveBoundingBoxARB(minX, minY, minZ, minW, maxX, maxY, maxZ, maxW);
      GLfloat minX;
      GLfloat minY;
@@ -17687,7 +17687,7 @@ CODE:
     };
     glPrimitiveBoundingBoxARB(minX, minY, minZ, minW, maxX, maxY, maxZ, maxW);
 
-SV *
+void
 glPrimitiveRestartIndex(buffer);
      GLuint buffer;
 CODE:
@@ -17696,7 +17696,7 @@ CODE:
     };
     glPrimitiveRestartIndex(buffer);
 
-SV *
+void
 glPrimitiveRestartIndexNV(index);
      GLuint index;
 CODE:
@@ -17705,7 +17705,7 @@ CODE:
     };
     glPrimitiveRestartIndexNV(index);
 
-SV *
+void
 glPrimitiveRestartNV();
 CODE:
     if(! __glewPrimitiveRestartNV) {
@@ -17713,7 +17713,7 @@ CODE:
     };
     glPrimitiveRestartNV();
 
-SV *
+void
 glPrioritizeTextures(n, textures, priorities);
      GLsizei n;
      const GLuint *textures;
@@ -17721,7 +17721,7 @@ glPrioritizeTextures(n, textures, priorities);
 CODE:
     glPrioritizeTextures(n, textures, priorities);
 
-SV *
+void
 glPrioritizeTexturesEXT(n, textures, priorities);
      GLsizei n;
      const GLuint* textures;
@@ -17732,7 +17732,7 @@ CODE:
     };
     glPrioritizeTexturesEXT(n, textures, priorities);
 
-SV *
+void
 glProgramBinary(program, binaryFormat, binary, length);
      GLuint program;
      GLenum binaryFormat;
@@ -17744,7 +17744,7 @@ CODE:
     };
     glProgramBinary(program, binaryFormat, binary, length);
 
-SV *
+void
 glProgramBufferParametersfvNV(target, buffer, index, count, params);
      GLenum target;
      GLuint buffer;
@@ -17757,7 +17757,7 @@ CODE:
     };
     glProgramBufferParametersfvNV(target, buffer, index, count, params);
 
-SV *
+void
 glProgramBufferParametersIivNV(target, buffer, index, count, params);
      GLenum target;
      GLuint buffer;
@@ -17770,7 +17770,7 @@ CODE:
     };
     glProgramBufferParametersIivNV(target, buffer, index, count, params);
 
-SV *
+void
 glProgramBufferParametersIuivNV(target, buffer, index, count, params);
      GLenum target;
      GLuint buffer;
@@ -17783,7 +17783,7 @@ CODE:
     };
     glProgramBufferParametersIuivNV(target, buffer, index, count, params);
 
-SV *
+void
 glProgramEnvParameter4dARB(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17797,7 +17797,7 @@ CODE:
     };
     glProgramEnvParameter4dARB(target, index, x, y, z, w);
 
-SV *
+void
 glProgramEnvParameter4dvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -17808,7 +17808,7 @@ CODE:
     };
     glProgramEnvParameter4dvARB(target, index, params);
 
-SV *
+void
 glProgramEnvParameter4fARB(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17822,7 +17822,7 @@ CODE:
     };
     glProgramEnvParameter4fARB(target, index, x, y, z, w);
 
-SV *
+void
 glProgramEnvParameter4fvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -17833,7 +17833,7 @@ CODE:
     };
     glProgramEnvParameter4fvARB(target, index, params);
 
-SV *
+void
 glProgramEnvParameterI4iNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17847,7 +17847,7 @@ CODE:
     };
     glProgramEnvParameterI4iNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramEnvParameterI4ivNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -17858,7 +17858,7 @@ CODE:
     };
     glProgramEnvParameterI4ivNV(target, index, params);
 
-SV *
+void
 glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17872,7 +17872,7 @@ CODE:
     };
     glProgramEnvParameterI4uiNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramEnvParameterI4uivNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -17883,7 +17883,7 @@ CODE:
     };
     glProgramEnvParameterI4uivNV(target, index, params);
 
-SV *
+void
 glProgramEnvParameters4fvEXT(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -17895,7 +17895,7 @@ CODE:
     };
     glProgramEnvParameters4fvEXT(target, index, count, params);
 
-SV *
+void
 glProgramEnvParametersI4ivNV(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -17907,7 +17907,7 @@ CODE:
     };
     glProgramEnvParametersI4ivNV(target, index, count, params);
 
-SV *
+void
 glProgramEnvParametersI4uivNV(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -17919,7 +17919,7 @@ CODE:
     };
     glProgramEnvParametersI4uivNV(target, index, count, params);
 
-SV *
+void
 glProgramLocalParameter4dARB(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17933,7 +17933,7 @@ CODE:
     };
     glProgramLocalParameter4dARB(target, index, x, y, z, w);
 
-SV *
+void
 glProgramLocalParameter4dvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -17944,7 +17944,7 @@ CODE:
     };
     glProgramLocalParameter4dvARB(target, index, params);
 
-SV *
+void
 glProgramLocalParameter4fARB(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17958,7 +17958,7 @@ CODE:
     };
     glProgramLocalParameter4fARB(target, index, x, y, z, w);
 
-SV *
+void
 glProgramLocalParameter4fvARB(target, index, params);
      GLenum target;
      GLuint index;
@@ -17969,7 +17969,7 @@ CODE:
     };
     glProgramLocalParameter4fvARB(target, index, params);
 
-SV *
+void
 glProgramLocalParameterI4iNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -17983,7 +17983,7 @@ CODE:
     };
     glProgramLocalParameterI4iNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramLocalParameterI4ivNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -17994,7 +17994,7 @@ CODE:
     };
     glProgramLocalParameterI4ivNV(target, index, params);
 
-SV *
+void
 glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -18008,7 +18008,7 @@ CODE:
     };
     glProgramLocalParameterI4uiNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramLocalParameterI4uivNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -18019,7 +18019,7 @@ CODE:
     };
     glProgramLocalParameterI4uivNV(target, index, params);
 
-SV *
+void
 glProgramLocalParameters4fvEXT(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -18031,7 +18031,7 @@ CODE:
     };
     glProgramLocalParameters4fvEXT(target, index, count, params);
 
-SV *
+void
 glProgramLocalParametersI4ivNV(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -18043,7 +18043,7 @@ CODE:
     };
     glProgramLocalParametersI4ivNV(target, index, count, params);
 
-SV *
+void
 glProgramLocalParametersI4uivNV(target, index, count, params);
      GLenum target;
      GLuint index;
@@ -18055,7 +18055,7 @@ CODE:
     };
     glProgramLocalParametersI4uivNV(target, index, count, params);
 
-SV *
+void
 glProgramNamedParameter4dNV(id, len, name, x, y, z, w);
      GLuint id;
      GLsizei len;
@@ -18070,7 +18070,7 @@ CODE:
     };
     glProgramNamedParameter4dNV(id, len, name, x, y, z, w);
 
-SV *
+void
 glProgramNamedParameter4dvNV(id, len, name, v);
      GLuint id;
      GLsizei len;
@@ -18082,7 +18082,7 @@ CODE:
     };
     glProgramNamedParameter4dvNV(id, len, name, v);
 
-SV *
+void
 glProgramNamedParameter4fNV(id, len, name, x, y, z, w);
      GLuint id;
      GLsizei len;
@@ -18097,7 +18097,7 @@ CODE:
     };
     glProgramNamedParameter4fNV(id, len, name, x, y, z, w);
 
-SV *
+void
 glProgramNamedParameter4fvNV(id, len, name, v);
      GLuint id;
      GLsizei len;
@@ -18109,7 +18109,7 @@ CODE:
     };
     glProgramNamedParameter4fvNV(id, len, name, v);
 
-SV *
+void
 glProgramParameter4dNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -18123,7 +18123,7 @@ CODE:
     };
     glProgramParameter4dNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramParameter4dvNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -18134,7 +18134,7 @@ CODE:
     };
     glProgramParameter4dvNV(target, index, params);
 
-SV *
+void
 glProgramParameter4fNV(target, index, x, y, z, w);
      GLenum target;
      GLuint index;
@@ -18148,7 +18148,7 @@ CODE:
     };
     glProgramParameter4fNV(target, index, x, y, z, w);
 
-SV *
+void
 glProgramParameter4fvNV(target, index, params);
      GLenum target;
      GLuint index;
@@ -18159,7 +18159,7 @@ CODE:
     };
     glProgramParameter4fvNV(target, index, params);
 
-SV *
+void
 glProgramParameteri(program, pname, value);
      GLuint program;
      GLenum pname;
@@ -18170,7 +18170,7 @@ CODE:
     };
     glProgramParameteri(program, pname, value);
 
-SV *
+void
 glProgramParameteriARB(program, pname, value);
      GLuint program;
      GLenum pname;
@@ -18181,7 +18181,7 @@ CODE:
     };
     glProgramParameteriARB(program, pname, value);
 
-SV *
+void
 glProgramParameteriEXT(program, pname, value);
      GLuint program;
      GLenum pname;
@@ -18192,7 +18192,7 @@ CODE:
     };
     glProgramParameteriEXT(program, pname, value);
 
-SV *
+void
 glProgramParameters4dvNV(target, index, num, params);
      GLenum target;
      GLuint index;
@@ -18204,7 +18204,7 @@ CODE:
     };
     glProgramParameters4dvNV(target, index, num, params);
 
-SV *
+void
 glProgramParameters4fvNV(target, index, num, params);
      GLenum target;
      GLuint index;
@@ -18216,7 +18216,7 @@ CODE:
     };
     glProgramParameters4fvNV(target, index, num, params);
 
-SV *
+void
 glProgramPathFragmentInputGenNV(program, location, genMode, components, coeffs);
      GLuint program;
      GLint location;
@@ -18229,7 +18229,7 @@ CODE:
     };
     glProgramPathFragmentInputGenNV(program, location, genMode, components, coeffs);
 
-SV *
+void
 glProgramStringARB(target, format, len, string);
      GLenum target;
      GLenum format;
@@ -18241,7 +18241,7 @@ CODE:
     };
     glProgramStringARB(target, format, len, string);
 
-SV *
+void
 glProgramUniform1d(program, location, x);
      GLuint program;
      GLint location;
@@ -18252,7 +18252,7 @@ CODE:
     };
     glProgramUniform1d(program, location, x);
 
-SV *
+void
 glProgramUniform1dv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18264,7 +18264,7 @@ CODE:
     };
     glProgramUniform1dv(program, location, count, value);
 
-SV *
+void
 glProgramUniform1f(program, location, x);
      GLuint program;
      GLint location;
@@ -18275,7 +18275,7 @@ CODE:
     };
     glProgramUniform1f(program, location, x);
 
-SV *
+void
 glProgramUniform1fEXT(program, location, v0);
      GLuint program;
      GLint location;
@@ -18286,7 +18286,7 @@ CODE:
     };
     glProgramUniform1fEXT(program, location, v0);
 
-SV *
+void
 glProgramUniform1fv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18298,7 +18298,7 @@ CODE:
     };
     glProgramUniform1fv(program, location, count, value);
 
-SV *
+void
 glProgramUniform1fvEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18310,7 +18310,7 @@ CODE:
     };
     glProgramUniform1fvEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform1i(program, location, x);
      GLuint program;
      GLint location;
@@ -18321,7 +18321,7 @@ CODE:
     };
     glProgramUniform1i(program, location, x);
 
-SV *
+void
 glProgramUniform1i64ARB(program, location, x);
      GLuint program;
      GLint location;
@@ -18332,7 +18332,7 @@ CODE:
     };
     glProgramUniform1i64ARB(program, location, x);
 
-SV *
+void
 glProgramUniform1i64NV(program, location, x);
      GLuint program;
      GLint location;
@@ -18343,7 +18343,7 @@ CODE:
     };
     glProgramUniform1i64NV(program, location, x);
 
-SV *
+void
 glProgramUniform1i64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18355,7 +18355,7 @@ CODE:
     };
     glProgramUniform1i64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform1i64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18367,7 +18367,7 @@ CODE:
     };
     glProgramUniform1i64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform1iEXT(program, location, v0);
      GLuint program;
      GLint location;
@@ -18378,7 +18378,7 @@ CODE:
     };
     glProgramUniform1iEXT(program, location, v0);
 
-SV *
+void
 glProgramUniform1iv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18390,7 +18390,7 @@ CODE:
     };
     glProgramUniform1iv(program, location, count, value);
 
-SV *
+void
 glProgramUniform1ivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18402,7 +18402,7 @@ CODE:
     };
     glProgramUniform1ivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform1ui(program, location, x);
      GLuint program;
      GLint location;
@@ -18413,7 +18413,7 @@ CODE:
     };
     glProgramUniform1ui(program, location, x);
 
-SV *
+void
 glProgramUniform1ui64ARB(program, location, x);
      GLuint program;
      GLint location;
@@ -18424,7 +18424,7 @@ CODE:
     };
     glProgramUniform1ui64ARB(program, location, x);
 
-SV *
+void
 glProgramUniform1ui64NV(program, location, x);
      GLuint program;
      GLint location;
@@ -18435,7 +18435,7 @@ CODE:
     };
     glProgramUniform1ui64NV(program, location, x);
 
-SV *
+void
 glProgramUniform1ui64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18447,7 +18447,7 @@ CODE:
     };
     glProgramUniform1ui64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform1ui64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18459,7 +18459,7 @@ CODE:
     };
     glProgramUniform1ui64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform1uiEXT(program, location, v0);
      GLuint program;
      GLint location;
@@ -18470,7 +18470,7 @@ CODE:
     };
     glProgramUniform1uiEXT(program, location, v0);
 
-SV *
+void
 glProgramUniform1uiv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18482,7 +18482,7 @@ CODE:
     };
     glProgramUniform1uiv(program, location, count, value);
 
-SV *
+void
 glProgramUniform1uivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18494,7 +18494,7 @@ CODE:
     };
     glProgramUniform1uivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform2d(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18506,7 +18506,7 @@ CODE:
     };
     glProgramUniform2d(program, location, x, y);
 
-SV *
+void
 glProgramUniform2dv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18518,7 +18518,7 @@ CODE:
     };
     glProgramUniform2dv(program, location, count, value);
 
-SV *
+void
 glProgramUniform2f(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18530,7 +18530,7 @@ CODE:
     };
     glProgramUniform2f(program, location, x, y);
 
-SV *
+void
 glProgramUniform2fEXT(program, location, v0, v1);
      GLuint program;
      GLint location;
@@ -18542,7 +18542,7 @@ CODE:
     };
     glProgramUniform2fEXT(program, location, v0, v1);
 
-SV *
+void
 glProgramUniform2fv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18554,7 +18554,7 @@ CODE:
     };
     glProgramUniform2fv(program, location, count, value);
 
-SV *
+void
 glProgramUniform2fvEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18566,7 +18566,7 @@ CODE:
     };
     glProgramUniform2fvEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform2i(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18578,7 +18578,7 @@ CODE:
     };
     glProgramUniform2i(program, location, x, y);
 
-SV *
+void
 glProgramUniform2i64ARB(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18590,7 +18590,7 @@ CODE:
     };
     glProgramUniform2i64ARB(program, location, x, y);
 
-SV *
+void
 glProgramUniform2i64NV(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18602,7 +18602,7 @@ CODE:
     };
     glProgramUniform2i64NV(program, location, x, y);
 
-SV *
+void
 glProgramUniform2i64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18614,7 +18614,7 @@ CODE:
     };
     glProgramUniform2i64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform2i64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18626,7 +18626,7 @@ CODE:
     };
     glProgramUniform2i64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform2iEXT(program, location, v0, v1);
      GLuint program;
      GLint location;
@@ -18638,7 +18638,7 @@ CODE:
     };
     glProgramUniform2iEXT(program, location, v0, v1);
 
-SV *
+void
 glProgramUniform2iv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18650,7 +18650,7 @@ CODE:
     };
     glProgramUniform2iv(program, location, count, value);
 
-SV *
+void
 glProgramUniform2ivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18662,7 +18662,7 @@ CODE:
     };
     glProgramUniform2ivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform2ui(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18674,7 +18674,7 @@ CODE:
     };
     glProgramUniform2ui(program, location, x, y);
 
-SV *
+void
 glProgramUniform2ui64ARB(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18686,7 +18686,7 @@ CODE:
     };
     glProgramUniform2ui64ARB(program, location, x, y);
 
-SV *
+void
 glProgramUniform2ui64NV(program, location, x, y);
      GLuint program;
      GLint location;
@@ -18698,7 +18698,7 @@ CODE:
     };
     glProgramUniform2ui64NV(program, location, x, y);
 
-SV *
+void
 glProgramUniform2ui64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18710,7 +18710,7 @@ CODE:
     };
     glProgramUniform2ui64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform2ui64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18722,7 +18722,7 @@ CODE:
     };
     glProgramUniform2ui64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform2uiEXT(program, location, v0, v1);
      GLuint program;
      GLint location;
@@ -18734,7 +18734,7 @@ CODE:
     };
     glProgramUniform2uiEXT(program, location, v0, v1);
 
-SV *
+void
 glProgramUniform2uiv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18746,7 +18746,7 @@ CODE:
     };
     glProgramUniform2uiv(program, location, count, value);
 
-SV *
+void
 glProgramUniform2uivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18758,7 +18758,7 @@ CODE:
     };
     glProgramUniform2uivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform3d(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18771,7 +18771,7 @@ CODE:
     };
     glProgramUniform3d(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3dv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18783,7 +18783,7 @@ CODE:
     };
     glProgramUniform3dv(program, location, count, value);
 
-SV *
+void
 glProgramUniform3f(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18796,7 +18796,7 @@ CODE:
     };
     glProgramUniform3f(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3fEXT(program, location, v0, v1, v2);
      GLuint program;
      GLint location;
@@ -18809,7 +18809,7 @@ CODE:
     };
     glProgramUniform3fEXT(program, location, v0, v1, v2);
 
-SV *
+void
 glProgramUniform3fv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18821,7 +18821,7 @@ CODE:
     };
     glProgramUniform3fv(program, location, count, value);
 
-SV *
+void
 glProgramUniform3fvEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18833,7 +18833,7 @@ CODE:
     };
     glProgramUniform3fvEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform3i(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18846,7 +18846,7 @@ CODE:
     };
     glProgramUniform3i(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3i64ARB(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18859,7 +18859,7 @@ CODE:
     };
     glProgramUniform3i64ARB(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3i64NV(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18872,7 +18872,7 @@ CODE:
     };
     glProgramUniform3i64NV(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3i64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18884,7 +18884,7 @@ CODE:
     };
     glProgramUniform3i64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform3i64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18896,7 +18896,7 @@ CODE:
     };
     glProgramUniform3i64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform3iEXT(program, location, v0, v1, v2);
      GLuint program;
      GLint location;
@@ -18909,7 +18909,7 @@ CODE:
     };
     glProgramUniform3iEXT(program, location, v0, v1, v2);
 
-SV *
+void
 glProgramUniform3iv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18921,7 +18921,7 @@ CODE:
     };
     glProgramUniform3iv(program, location, count, value);
 
-SV *
+void
 glProgramUniform3ivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18933,7 +18933,7 @@ CODE:
     };
     glProgramUniform3ivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform3ui(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18946,7 +18946,7 @@ CODE:
     };
     glProgramUniform3ui(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3ui64ARB(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18959,7 +18959,7 @@ CODE:
     };
     glProgramUniform3ui64ARB(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3ui64NV(program, location, x, y, z);
      GLuint program;
      GLint location;
@@ -18972,7 +18972,7 @@ CODE:
     };
     glProgramUniform3ui64NV(program, location, x, y, z);
 
-SV *
+void
 glProgramUniform3ui64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18984,7 +18984,7 @@ CODE:
     };
     glProgramUniform3ui64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform3ui64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -18996,7 +18996,7 @@ CODE:
     };
     glProgramUniform3ui64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform3uiEXT(program, location, v0, v1, v2);
      GLuint program;
      GLint location;
@@ -19009,7 +19009,7 @@ CODE:
     };
     glProgramUniform3uiEXT(program, location, v0, v1, v2);
 
-SV *
+void
 glProgramUniform3uiv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19021,7 +19021,7 @@ CODE:
     };
     glProgramUniform3uiv(program, location, count, value);
 
-SV *
+void
 glProgramUniform3uivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19033,7 +19033,7 @@ CODE:
     };
     glProgramUniform3uivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform4d(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19047,7 +19047,7 @@ CODE:
     };
     glProgramUniform4d(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4dv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19059,7 +19059,7 @@ CODE:
     };
     glProgramUniform4dv(program, location, count, value);
 
-SV *
+void
 glProgramUniform4f(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19073,7 +19073,7 @@ CODE:
     };
     glProgramUniform4f(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
      GLuint program;
      GLint location;
@@ -19087,7 +19087,7 @@ CODE:
     };
     glProgramUniform4fEXT(program, location, v0, v1, v2, v3);
 
-SV *
+void
 glProgramUniform4fv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19099,7 +19099,7 @@ CODE:
     };
     glProgramUniform4fv(program, location, count, value);
 
-SV *
+void
 glProgramUniform4fvEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19111,7 +19111,7 @@ CODE:
     };
     glProgramUniform4fvEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform4i(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19125,7 +19125,7 @@ CODE:
     };
     glProgramUniform4i(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4i64ARB(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19139,7 +19139,7 @@ CODE:
     };
     glProgramUniform4i64ARB(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4i64NV(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19153,7 +19153,7 @@ CODE:
     };
     glProgramUniform4i64NV(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4i64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19165,7 +19165,7 @@ CODE:
     };
     glProgramUniform4i64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform4i64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19177,7 +19177,7 @@ CODE:
     };
     glProgramUniform4i64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
      GLuint program;
      GLint location;
@@ -19191,7 +19191,7 @@ CODE:
     };
     glProgramUniform4iEXT(program, location, v0, v1, v2, v3);
 
-SV *
+void
 glProgramUniform4iv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19203,7 +19203,7 @@ CODE:
     };
     glProgramUniform4iv(program, location, count, value);
 
-SV *
+void
 glProgramUniform4ivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19215,7 +19215,7 @@ CODE:
     };
     glProgramUniform4ivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniform4ui(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19229,7 +19229,7 @@ CODE:
     };
     glProgramUniform4ui(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4ui64ARB(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19243,7 +19243,7 @@ CODE:
     };
     glProgramUniform4ui64ARB(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4ui64NV(program, location, x, y, z, w);
      GLuint program;
      GLint location;
@@ -19257,7 +19257,7 @@ CODE:
     };
     glProgramUniform4ui64NV(program, location, x, y, z, w);
 
-SV *
+void
 glProgramUniform4ui64vARB(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19269,7 +19269,7 @@ CODE:
     };
     glProgramUniform4ui64vARB(program, location, count, value);
 
-SV *
+void
 glProgramUniform4ui64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19281,7 +19281,7 @@ CODE:
     };
     glProgramUniform4ui64vNV(program, location, count, value);
 
-SV *
+void
 glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
      GLuint program;
      GLint location;
@@ -19295,7 +19295,7 @@ CODE:
     };
     glProgramUniform4uiEXT(program, location, v0, v1, v2, v3);
 
-SV *
+void
 glProgramUniform4uiv(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19307,7 +19307,7 @@ CODE:
     };
     glProgramUniform4uiv(program, location, count, value);
 
-SV *
+void
 glProgramUniform4uivEXT(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19319,7 +19319,7 @@ CODE:
     };
     glProgramUniform4uivEXT(program, location, count, value);
 
-SV *
+void
 glProgramUniformHandleui64ARB(program, location, value);
      GLuint program;
      GLint location;
@@ -19330,7 +19330,7 @@ CODE:
     };
     glProgramUniformHandleui64ARB(program, location, value);
 
-SV *
+void
 glProgramUniformHandleui64NV(program, location, value);
      GLuint program;
      GLint location;
@@ -19341,7 +19341,7 @@ CODE:
     };
     glProgramUniformHandleui64NV(program, location, value);
 
-SV *
+void
 glProgramUniformHandleui64vARB(program, location, count, values);
      GLuint program;
      GLint location;
@@ -19353,7 +19353,7 @@ CODE:
     };
     glProgramUniformHandleui64vARB(program, location, count, values);
 
-SV *
+void
 glProgramUniformHandleui64vNV(program, location, count, values);
      GLuint program;
      GLint location;
@@ -19365,7 +19365,7 @@ CODE:
     };
     glProgramUniformHandleui64vNV(program, location, count, values);
 
-SV *
+void
 glProgramUniformMatrix2dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19378,7 +19378,7 @@ CODE:
     };
     glProgramUniformMatrix2dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19391,7 +19391,7 @@ CODE:
     };
     glProgramUniformMatrix2fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19404,7 +19404,7 @@ CODE:
     };
     glProgramUniformMatrix2fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x3dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19417,7 +19417,7 @@ CODE:
     };
     glProgramUniformMatrix2x3dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x3fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19430,7 +19430,7 @@ CODE:
     };
     glProgramUniformMatrix2x3fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19443,7 +19443,7 @@ CODE:
     };
     glProgramUniformMatrix2x3fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x4dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19456,7 +19456,7 @@ CODE:
     };
     glProgramUniformMatrix2x4dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x4fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19469,7 +19469,7 @@ CODE:
     };
     glProgramUniformMatrix2x4fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19482,7 +19482,7 @@ CODE:
     };
     glProgramUniformMatrix2x4fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19495,7 +19495,7 @@ CODE:
     };
     glProgramUniformMatrix3dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19508,7 +19508,7 @@ CODE:
     };
     glProgramUniformMatrix3fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19521,7 +19521,7 @@ CODE:
     };
     glProgramUniformMatrix3fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x2dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19534,7 +19534,7 @@ CODE:
     };
     glProgramUniformMatrix3x2dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x2fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19547,7 +19547,7 @@ CODE:
     };
     glProgramUniformMatrix3x2fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19560,7 +19560,7 @@ CODE:
     };
     glProgramUniformMatrix3x2fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x4dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19573,7 +19573,7 @@ CODE:
     };
     glProgramUniformMatrix3x4dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x4fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19586,7 +19586,7 @@ CODE:
     };
     glProgramUniformMatrix3x4fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19599,7 +19599,7 @@ CODE:
     };
     glProgramUniformMatrix3x4fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19612,7 +19612,7 @@ CODE:
     };
     glProgramUniformMatrix4dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19625,7 +19625,7 @@ CODE:
     };
     glProgramUniformMatrix4fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19638,7 +19638,7 @@ CODE:
     };
     glProgramUniformMatrix4fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x2dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19651,7 +19651,7 @@ CODE:
     };
     glProgramUniformMatrix4x2dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x2fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19664,7 +19664,7 @@ CODE:
     };
     glProgramUniformMatrix4x2fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19677,7 +19677,7 @@ CODE:
     };
     glProgramUniformMatrix4x2fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x3dv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19690,7 +19690,7 @@ CODE:
     };
     glProgramUniformMatrix4x3dv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x3fv(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19703,7 +19703,7 @@ CODE:
     };
     glProgramUniformMatrix4x3fv(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
      GLuint program;
      GLint location;
@@ -19716,7 +19716,7 @@ CODE:
     };
     glProgramUniformMatrix4x3fvEXT(program, location, count, transpose, value);
 
-SV *
+void
 glProgramUniformui64NV(program, location, value);
      GLuint program;
      GLint location;
@@ -19727,7 +19727,7 @@ CODE:
     };
     glProgramUniformui64NV(program, location, value);
 
-SV *
+void
 glProgramUniformui64vNV(program, location, count, value);
      GLuint program;
      GLint location;
@@ -19739,7 +19739,7 @@ CODE:
     };
     glProgramUniformui64vNV(program, location, count, value);
 
-SV *
+void
 glProgramVertexLimitNV(target, limit);
      GLenum target;
      GLint limit;
@@ -19749,7 +19749,7 @@ CODE:
     };
     glProgramVertexLimitNV(target, limit);
 
-SV *
+void
 glProvokingVertex(mode);
      GLenum mode;
 CODE:
@@ -19758,7 +19758,7 @@ CODE:
     };
     glProvokingVertex(mode);
 
-SV *
+void
 glProvokingVertexEXT(mode);
      GLenum mode;
 CODE:
@@ -19767,19 +19767,19 @@ CODE:
     };
     glProvokingVertexEXT(mode);
 
-SV *
+void
 glPushAttrib(mask);
      GLbitfield mask;
 CODE:
     glPushAttrib(mask);
 
-SV *
+void
 glPushClientAttrib(mask);
      GLbitfield mask;
 CODE:
     glPushClientAttrib(mask);
 
-SV *
+void
 glPushClientAttribDefaultEXT(mask);
      GLbitfield mask;
 CODE:
@@ -19788,7 +19788,7 @@ CODE:
     };
     glPushClientAttribDefaultEXT(mask);
 
-SV *
+void
 glPushDebugGroup(source, id, length, message);
      GLenum source;
      GLuint id;
@@ -19800,7 +19800,7 @@ CODE:
     };
     glPushDebugGroup(source, id, length, message);
 
-SV *
+void
 glPushGroupMarkerEXT(length, marker);
      GLsizei length;
      const GLchar* marker;
@@ -19810,18 +19810,18 @@ CODE:
     };
     glPushGroupMarkerEXT(length, marker);
 
-SV *
+void
 glPushMatrix();
 CODE:
     glPushMatrix();
 
-SV *
+void
 glPushName(name);
      GLuint name;
 CODE:
     glPushName(name);
 
-SV *
+void
 glQueryCounter(id, target);
      GLuint id;
      GLenum target;
@@ -19831,7 +19831,7 @@ CODE:
     };
     glQueryCounter(id, target);
 
-SV *
+void
 glQueryCounterANGLE(id, target);
      GLuint id;
      GLenum target;
@@ -19841,7 +19841,7 @@ CODE:
     };
     glQueryCounterANGLE(id, target);
 
-SV *
+void
 glQueryObjectParameteruiAMD(target, id, pname, param);
      GLenum target;
      GLuint id;
@@ -19853,59 +19853,59 @@ CODE:
     };
     glQueryObjectParameteruiAMD(target, id, pname, param);
 
-SV *
+void
 glRasterPos2d(x, y);
      GLdouble x;
      GLdouble y;
 CODE:
     glRasterPos2d(x, y);
 
-SV *
+void
 glRasterPos2dv(v);
      const GLdouble *v;
 CODE:
     glRasterPos2dv(v);
 
-SV *
+void
 glRasterPos2f(x, y);
      GLfloat x;
      GLfloat y;
 CODE:
     glRasterPos2f(x, y);
 
-SV *
+void
 glRasterPos2fv(v);
      const GLfloat *v;
 CODE:
     glRasterPos2fv(v);
 
-SV *
+void
 glRasterPos2i(x, y);
      GLint x;
      GLint y;
 CODE:
     glRasterPos2i(x, y);
 
-SV *
+void
 glRasterPos2iv(v);
      const GLint *v;
 CODE:
     glRasterPos2iv(v);
 
-SV *
+void
 glRasterPos2s(x, y);
      GLshort x;
      GLshort y;
 CODE:
     glRasterPos2s(x, y);
 
-SV *
+void
 glRasterPos2sv(v);
      const GLshort *v;
 CODE:
     glRasterPos2sv(v);
 
-SV *
+void
 glRasterPos3d(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -19913,13 +19913,13 @@ glRasterPos3d(x, y, z);
 CODE:
     glRasterPos3d(x, y, z);
 
-SV *
+void
 glRasterPos3dv(v);
      const GLdouble *v;
 CODE:
     glRasterPos3dv(v);
 
-SV *
+void
 glRasterPos3f(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -19927,13 +19927,13 @@ glRasterPos3f(x, y, z);
 CODE:
     glRasterPos3f(x, y, z);
 
-SV *
+void
 glRasterPos3fv(v);
      const GLfloat *v;
 CODE:
     glRasterPos3fv(v);
 
-SV *
+void
 glRasterPos3i(x, y, z);
      GLint x;
      GLint y;
@@ -19941,13 +19941,13 @@ glRasterPos3i(x, y, z);
 CODE:
     glRasterPos3i(x, y, z);
 
-SV *
+void
 glRasterPos3iv(v);
      const GLint *v;
 CODE:
     glRasterPos3iv(v);
 
-SV *
+void
 glRasterPos3s(x, y, z);
      GLshort x;
      GLshort y;
@@ -19955,13 +19955,13 @@ glRasterPos3s(x, y, z);
 CODE:
     glRasterPos3s(x, y, z);
 
-SV *
+void
 glRasterPos3sv(v);
      const GLshort *v;
 CODE:
     glRasterPos3sv(v);
 
-SV *
+void
 glRasterPos4d(x, y, z, w);
      GLdouble x;
      GLdouble y;
@@ -19970,13 +19970,13 @@ glRasterPos4d(x, y, z, w);
 CODE:
     glRasterPos4d(x, y, z, w);
 
-SV *
+void
 glRasterPos4dv(v);
      const GLdouble *v;
 CODE:
     glRasterPos4dv(v);
 
-SV *
+void
 glRasterPos4f(x, y, z, w);
      GLfloat x;
      GLfloat y;
@@ -19985,13 +19985,13 @@ glRasterPos4f(x, y, z, w);
 CODE:
     glRasterPos4f(x, y, z, w);
 
-SV *
+void
 glRasterPos4fv(v);
      const GLfloat *v;
 CODE:
     glRasterPos4fv(v);
 
-SV *
+void
 glRasterPos4i(x, y, z, w);
      GLint x;
      GLint y;
@@ -20000,13 +20000,13 @@ glRasterPos4i(x, y, z, w);
 CODE:
     glRasterPos4i(x, y, z, w);
 
-SV *
+void
 glRasterPos4iv(v);
      const GLint *v;
 CODE:
     glRasterPos4iv(v);
 
-SV *
+void
 glRasterPos4s(x, y, z, w);
      GLshort x;
      GLshort y;
@@ -20015,13 +20015,13 @@ glRasterPos4s(x, y, z, w);
 CODE:
     glRasterPos4s(x, y, z, w);
 
-SV *
+void
 glRasterPos4sv(v);
      const GLshort *v;
 CODE:
     glRasterPos4sv(v);
 
-SV *
+void
 glRasterSamplesEXT(samples, fixedsamplelocations);
      GLuint samples;
      GLboolean fixedsamplelocations;
@@ -20031,13 +20031,13 @@ CODE:
     };
     glRasterSamplesEXT(samples, fixedsamplelocations);
 
-SV *
+void
 glReadBuffer(mode);
      GLenum mode;
 CODE:
     glReadBuffer(mode);
 
-SV *
+void
 glReadBufferRegion(region, x, y, width, height);
      GLuint region;
      GLint x;
@@ -20050,7 +20050,7 @@ CODE:
     };
     glReadBufferRegion(region, x, y, width, height);
 
-SV *
+void
 glReadnPixels(x, y, width, height, format, type, bufSize, data);
      GLint x;
      GLint y;
@@ -20066,7 +20066,7 @@ CODE:
     };
     glReadnPixels(x, y, width, height, format, type, bufSize, data);
 
-SV *
+void
 glReadnPixelsARB(x, y, width, height, format, type, bufSize, data);
      GLint x;
      GLint y;
@@ -20082,7 +20082,7 @@ CODE:
     };
     glReadnPixelsARB(x, y, width, height, format, type, bufSize, data);
 
-SV *
+void
 glReadPixels(x, y, width, height, format, type, pixels);
      GLint x;
      GLint y;
@@ -20094,7 +20094,7 @@ glReadPixels(x, y, width, height, format, type, pixels);
 CODE:
     glReadPixels(x, y, width, height, format, type, pixels);
 
-SV *
+void
 glReadVideoPixelsSUN(x, y, width, height, format, type, pixels);
      GLint x;
      GLint y;
@@ -20109,7 +20109,7 @@ CODE:
     };
     glReadVideoPixelsSUN(x, y, width, height, format, type, pixels);
 
-SV *
+void
 glRectd(x1, y1, x2, y2);
      GLdouble x1;
      GLdouble y1;
@@ -20118,14 +20118,14 @@ glRectd(x1, y1, x2, y2);
 CODE:
     glRectd(x1, y1, x2, y2);
 
-SV *
+void
 glRectdv(v1, v2);
      const GLdouble *v1;
      const GLdouble *v2;
 CODE:
     glRectdv(v1, v2);
 
-SV *
+void
 glRectf(x1, y1, x2, y2);
      GLfloat x1;
      GLfloat y1;
@@ -20134,14 +20134,14 @@ glRectf(x1, y1, x2, y2);
 CODE:
     glRectf(x1, y1, x2, y2);
 
-SV *
+void
 glRectfv(v1, v2);
      const GLfloat *v1;
      const GLfloat *v2;
 CODE:
     glRectfv(v1, v2);
 
-SV *
+void
 glRecti(x1, y1, x2, y2);
      GLint x1;
      GLint y1;
@@ -20150,14 +20150,14 @@ glRecti(x1, y1, x2, y2);
 CODE:
     glRecti(x1, y1, x2, y2);
 
-SV *
+void
 glRectiv(v1, v2);
      const GLint *v1;
      const GLint *v2;
 CODE:
     glRectiv(v1, v2);
 
-SV *
+void
 glRects(x1, y1, x2, y2);
      GLshort x1;
      GLshort y1;
@@ -20166,14 +20166,14 @@ glRects(x1, y1, x2, y2);
 CODE:
     glRects(x1, y1, x2, y2);
 
-SV *
+void
 glRectsv(v1, v2);
      const GLshort *v1;
      const GLshort *v2;
 CODE:
     glRectsv(v1, v2);
 
-SV *
+void
 glReferencePlaneSGIX(equation);
      const GLdouble* equation;
 CODE:
@@ -20182,7 +20182,7 @@ CODE:
     };
     glReferencePlaneSGIX(equation);
 
-SV *
+void
 glReleaseShaderCompiler();
 CODE:
     if(! __glewReleaseShaderCompiler) {
@@ -20190,7 +20190,7 @@ CODE:
     };
     glReleaseShaderCompiler();
 
-SV *
+void
 glRenderbufferStorage(target, internalformat, width, height);
      GLenum target;
      GLenum internalformat;
@@ -20202,7 +20202,7 @@ CODE:
     };
     glRenderbufferStorage(target, internalformat, width, height);
 
-SV *
+void
 glRenderbufferStorageEXT(target, internalformat, width, height);
      GLenum target;
      GLenum internalformat;
@@ -20214,7 +20214,7 @@ CODE:
     };
     glRenderbufferStorageEXT(target, internalformat, width, height);
 
-SV *
+void
 glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
      GLenum target;
      GLsizei samples;
@@ -20227,7 +20227,7 @@ CODE:
     };
     glRenderbufferStorageMultisample(target, samples, internalformat, width, height);
 
-SV *
+void
 glRenderbufferStorageMultisampleANGLE(target, samples, internalformat, width, height);
      GLenum target;
      GLsizei samples;
@@ -20240,7 +20240,7 @@ CODE:
     };
     glRenderbufferStorageMultisampleANGLE(target, samples, internalformat, width, height);
 
-SV *
+void
 glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
      GLenum target;
      GLsizei coverageSamples;
@@ -20254,7 +20254,7 @@ CODE:
     };
     glRenderbufferStorageMultisampleCoverageNV(target, coverageSamples, colorSamples, internalformat, width, height);
 
-SV *
+void
 glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
      GLenum target;
      GLsizei samples;
@@ -20267,7 +20267,7 @@ CODE:
     };
     glRenderbufferStorageMultisampleEXT(target, samples, internalformat, width, height);
 
-SV *
+void
 glRenderGpuMaskNV(mask);
      GLbitfield mask;
 CODE:
@@ -20284,7 +20284,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glReplacementCodePointerSUN(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -20295,7 +20295,7 @@ CODE:
     };
     glReplacementCodePointerSUN(type, stride, pointer);
 
-SV *
+void
 glReplacementCodeubSUN(code);
      GLubyte code;
 CODE:
@@ -20304,7 +20304,7 @@ CODE:
     };
     glReplacementCodeubSUN(code);
 
-SV *
+void
 glReplacementCodeubvSUN(code);
      const GLubyte* code;
 CODE:
@@ -20313,7 +20313,7 @@ CODE:
     };
     glReplacementCodeubvSUN(code);
 
-SV *
+void
 glReplacementCodeuiColor3fVertex3fSUN(rc, r, g, b, x, y, z);
      GLuint rc;
      GLfloat r;
@@ -20328,7 +20328,7 @@ CODE:
     };
     glReplacementCodeuiColor3fVertex3fSUN(rc, r, g, b, x, y, z);
 
-SV *
+void
 glReplacementCodeuiColor3fVertex3fvSUN(rc, c, v);
      const GLuint* rc;
      const GLfloat *c;
@@ -20339,7 +20339,7 @@ CODE:
     };
     glReplacementCodeuiColor3fVertex3fvSUN(rc, c, v);
 
-SV *
+void
 glReplacementCodeuiColor4fNormal3fVertex3fSUN(rc, r, g, b, a, nx, ny, nz, x, y, z);
      GLuint rc;
      GLfloat r;
@@ -20358,7 +20358,7 @@ CODE:
     };
     glReplacementCodeuiColor4fNormal3fVertex3fSUN(rc, r, g, b, a, nx, ny, nz, x, y, z);
 
-SV *
+void
 glReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc, c, n, v);
      const GLuint* rc;
      const GLfloat *c;
@@ -20370,7 +20370,7 @@ CODE:
     };
     glReplacementCodeuiColor4fNormal3fVertex3fvSUN(rc, c, n, v);
 
-SV *
+void
 glReplacementCodeuiColor4ubVertex3fSUN(rc, r, g, b, a, x, y, z);
      GLuint rc;
      GLubyte r;
@@ -20386,7 +20386,7 @@ CODE:
     };
     glReplacementCodeuiColor4ubVertex3fSUN(rc, r, g, b, a, x, y, z);
 
-SV *
+void
 glReplacementCodeuiColor4ubVertex3fvSUN(rc, c, v);
      const GLuint* rc;
      const GLubyte *c;
@@ -20397,7 +20397,7 @@ CODE:
     };
     glReplacementCodeuiColor4ubVertex3fvSUN(rc, c, v);
 
-SV *
+void
 glReplacementCodeuiNormal3fVertex3fSUN(rc, nx, ny, nz, x, y, z);
      GLuint rc;
      GLfloat nx;
@@ -20412,7 +20412,7 @@ CODE:
     };
     glReplacementCodeuiNormal3fVertex3fSUN(rc, nx, ny, nz, x, y, z);
 
-SV *
+void
 glReplacementCodeuiNormal3fVertex3fvSUN(rc, n, v);
      const GLuint* rc;
      const GLfloat *n;
@@ -20423,7 +20423,7 @@ CODE:
     };
     glReplacementCodeuiNormal3fVertex3fvSUN(rc, n, v);
 
-SV *
+void
 glReplacementCodeuiSUN(code);
      GLuint code;
 CODE:
@@ -20432,7 +20432,7 @@ CODE:
     };
     glReplacementCodeuiSUN(code);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc, s, t, r, g, b, a, nx, ny, nz, x, y, z);
      GLuint rc;
      GLfloat s;
@@ -20453,7 +20453,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN(rc, s, t, r, g, b, a, nx, ny, nz, x, y, z);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc, tc, c, n, v);
      const GLuint* rc;
      const GLfloat *tc;
@@ -20466,7 +20466,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN(rc, tc, c, n, v);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(rc, s, t, nx, ny, nz, x, y, z);
      GLuint rc;
      GLfloat s;
@@ -20483,7 +20483,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fNormal3fVertex3fSUN(rc, s, t, nx, ny, nz, x, y, z);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc, tc, n, v);
      const GLuint* rc;
      const GLfloat *tc;
@@ -20495,7 +20495,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN(rc, tc, n, v);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fVertex3fSUN(rc, s, t, x, y, z);
      GLuint rc;
      GLfloat s;
@@ -20509,7 +20509,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fVertex3fSUN(rc, s, t, x, y, z);
 
-SV *
+void
 glReplacementCodeuiTexCoord2fVertex3fvSUN(rc, tc, v);
      const GLuint* rc;
      const GLfloat *tc;
@@ -20520,7 +20520,7 @@ CODE:
     };
     glReplacementCodeuiTexCoord2fVertex3fvSUN(rc, tc, v);
 
-SV *
+void
 glReplacementCodeuiVertex3fSUN(rc, x, y, z);
      GLuint rc;
      GLfloat x;
@@ -20532,7 +20532,7 @@ CODE:
     };
     glReplacementCodeuiVertex3fSUN(rc, x, y, z);
 
-SV *
+void
 glReplacementCodeuiVertex3fvSUN(rc, v);
      const GLuint* rc;
      const GLfloat *v;
@@ -20542,7 +20542,7 @@ CODE:
     };
     glReplacementCodeuiVertex3fvSUN(rc, v);
 
-SV *
+void
 glReplacementCodeuivSUN(code);
      const GLuint* code;
 CODE:
@@ -20551,7 +20551,7 @@ CODE:
     };
     glReplacementCodeuivSUN(code);
 
-SV *
+void
 glReplacementCodeusSUN(code);
      GLushort code;
 CODE:
@@ -20560,7 +20560,7 @@ CODE:
     };
     glReplacementCodeusSUN(code);
 
-SV *
+void
 glReplacementCodeusvSUN(code);
      const GLushort* code;
 CODE:
@@ -20569,7 +20569,7 @@ CODE:
     };
     glReplacementCodeusvSUN(code);
 
-SV *
+void
 glRequestResidentProgramsNV(n, ids);
      GLsizei n;
      GLuint* ids;
@@ -20579,7 +20579,7 @@ CODE:
     };
     glRequestResidentProgramsNV(n, ids);
 
-SV *
+void
 glResetHistogram(target);
      GLenum target;
 CODE:
@@ -20588,7 +20588,7 @@ CODE:
     };
     glResetHistogram(target);
 
-SV *
+void
 glResetHistogramEXT(target);
      GLenum target;
 CODE:
@@ -20597,7 +20597,7 @@ CODE:
     };
     glResetHistogramEXT(target);
 
-SV *
+void
 glResetMinmax(target);
      GLenum target;
 CODE:
@@ -20606,7 +20606,7 @@ CODE:
     };
     glResetMinmax(target);
 
-SV *
+void
 glResetMinmaxEXT(target);
      GLenum target;
 CODE:
@@ -20615,7 +20615,7 @@ CODE:
     };
     glResetMinmaxEXT(target);
 
-SV *
+void
 glResizeBuffersMESA();
 CODE:
     if(! __glewResizeBuffersMESA) {
@@ -20623,7 +20623,7 @@ CODE:
     };
     glResizeBuffersMESA();
 
-SV *
+void
 glResumeTransformFeedback();
 CODE:
     if(! __glewResumeTransformFeedback) {
@@ -20631,7 +20631,7 @@ CODE:
     };
     glResumeTransformFeedback();
 
-SV *
+void
 glResumeTransformFeedbackNV();
 CODE:
     if(! __glewResumeTransformFeedbackNV) {
@@ -20639,7 +20639,7 @@ CODE:
     };
     glResumeTransformFeedbackNV();
 
-SV *
+void
 glRotated(angle, x, y, z);
      GLdouble angle;
      GLdouble x;
@@ -20648,7 +20648,7 @@ glRotated(angle, x, y, z);
 CODE:
     glRotated(angle, x, y, z);
 
-SV *
+void
 glRotatef(angle, x, y, z);
      GLfloat angle;
      GLfloat x;
@@ -20657,7 +20657,7 @@ glRotatef(angle, x, y, z);
 CODE:
     glRotatef(angle, x, y, z);
 
-SV *
+void
 glRotatex(angle, x, y, z);
      GLfixed angle;
      GLfixed x;
@@ -20669,7 +20669,7 @@ CODE:
     };
     glRotatex(angle, x, y, z);
 
-SV *
+void
 glSampleCoverage(value, invert);
      GLclampf value;
      GLboolean invert;
@@ -20679,7 +20679,7 @@ CODE:
     };
     glSampleCoverage(value, invert);
 
-SV *
+void
 glSampleCoverageARB(value, invert);
      GLclampf value;
      GLboolean invert;
@@ -20689,7 +20689,7 @@ CODE:
     };
     glSampleCoverageARB(value, invert);
 
-SV *
+void
 glSampleCoveragex(value, invert);
      GLclampx value;
      GLboolean invert;
@@ -20699,7 +20699,7 @@ CODE:
     };
     glSampleCoveragex(value, invert);
 
-SV *
+void
 glSampleMapATI(dst, interp, swizzle);
      GLuint dst;
      GLuint interp;
@@ -20710,7 +20710,7 @@ CODE:
     };
     glSampleMapATI(dst, interp, swizzle);
 
-SV *
+void
 glSampleMaskEXT(value, invert);
      GLclampf value;
      GLboolean invert;
@@ -20720,7 +20720,7 @@ CODE:
     };
     glSampleMaskEXT(value, invert);
 
-SV *
+void
 glSampleMaski(index, mask);
      GLuint index;
      GLbitfield mask;
@@ -20730,7 +20730,7 @@ CODE:
     };
     glSampleMaski(index, mask);
 
-SV *
+void
 glSampleMaskIndexedNV(index, mask);
      GLuint index;
      GLbitfield mask;
@@ -20740,7 +20740,7 @@ CODE:
     };
     glSampleMaskIndexedNV(index, mask);
 
-SV *
+void
 glSampleMaskSGIS(value, invert);
      GLclampf value;
      GLboolean invert;
@@ -20750,7 +20750,7 @@ CODE:
     };
     glSampleMaskSGIS(value, invert);
 
-SV *
+void
 glSamplePatternEXT(pattern);
      GLenum pattern;
 CODE:
@@ -20759,7 +20759,7 @@ CODE:
     };
     glSamplePatternEXT(pattern);
 
-SV *
+void
 glSamplePatternSGIS(pattern);
      GLenum pattern;
 CODE:
@@ -20768,7 +20768,7 @@ CODE:
     };
     glSamplePatternSGIS(pattern);
 
-SV *
+void
 glSamplerParameterf(sampler, pname, param);
      GLuint sampler;
      GLenum pname;
@@ -20779,7 +20779,7 @@ CODE:
     };
     glSamplerParameterf(sampler, pname, param);
 
-SV *
+void
 glSamplerParameterfv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -20790,7 +20790,7 @@ CODE:
     };
     glSamplerParameterfv(sampler, pname, params);
 
-SV *
+void
 glSamplerParameteri(sampler, pname, param);
      GLuint sampler;
      GLenum pname;
@@ -20801,7 +20801,7 @@ CODE:
     };
     glSamplerParameteri(sampler, pname, param);
 
-SV *
+void
 glSamplerParameterIiv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -20812,7 +20812,7 @@ CODE:
     };
     glSamplerParameterIiv(sampler, pname, params);
 
-SV *
+void
 glSamplerParameterIuiv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -20823,7 +20823,7 @@ CODE:
     };
     glSamplerParameterIuiv(sampler, pname, params);
 
-SV *
+void
 glSamplerParameteriv(sampler, pname, params);
      GLuint sampler;
      GLenum pname;
@@ -20834,7 +20834,7 @@ CODE:
     };
     glSamplerParameteriv(sampler, pname, params);
 
-SV *
+void
 glScaled(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -20842,7 +20842,7 @@ glScaled(x, y, z);
 CODE:
     glScaled(x, y, z);
 
-SV *
+void
 glScalef(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -20850,7 +20850,7 @@ glScalef(x, y, z);
 CODE:
     glScalef(x, y, z);
 
-SV *
+void
 glScalex(x, y, z);
      GLfixed x;
      GLfixed y;
@@ -20861,7 +20861,7 @@ CODE:
     };
     glScalex(x, y, z);
 
-SV *
+void
 glScissor(x, y, width, height);
      GLint x;
      GLint y;
@@ -20870,7 +20870,7 @@ glScissor(x, y, width, height);
 CODE:
     glScissor(x, y, width, height);
 
-SV *
+void
 glScissorArrayv(first, count, v);
      GLuint first;
      GLsizei count;
@@ -20881,7 +20881,7 @@ CODE:
     };
     glScissorArrayv(first, count, v);
 
-SV *
+void
 glScissorIndexed(index, left, bottom, width, height);
      GLuint index;
      GLint left;
@@ -20894,7 +20894,7 @@ CODE:
     };
     glScissorIndexed(index, left, bottom, width, height);
 
-SV *
+void
 glScissorIndexedv(index, v);
      GLuint index;
      const GLint * v;
@@ -20904,7 +20904,7 @@ CODE:
     };
     glScissorIndexedv(index, v);
 
-SV *
+void
 glSecondaryColor3b(red, green, blue);
      GLbyte red;
      GLbyte green;
@@ -20915,7 +20915,7 @@ CODE:
     };
     glSecondaryColor3b(red, green, blue);
 
-SV *
+void
 glSecondaryColor3bEXT(red, green, blue);
      GLbyte red;
      GLbyte green;
@@ -20926,7 +20926,7 @@ CODE:
     };
     glSecondaryColor3bEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3bv(v);
      const GLbyte *v;
 CODE:
@@ -20935,7 +20935,7 @@ CODE:
     };
     glSecondaryColor3bv(v);
 
-SV *
+void
 glSecondaryColor3bvEXT(v);
      const GLbyte *v;
 CODE:
@@ -20944,7 +20944,7 @@ CODE:
     };
     glSecondaryColor3bvEXT(v);
 
-SV *
+void
 glSecondaryColor3d(red, green, blue);
      GLdouble red;
      GLdouble green;
@@ -20955,7 +20955,7 @@ CODE:
     };
     glSecondaryColor3d(red, green, blue);
 
-SV *
+void
 glSecondaryColor3dEXT(red, green, blue);
      GLdouble red;
      GLdouble green;
@@ -20966,7 +20966,7 @@ CODE:
     };
     glSecondaryColor3dEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3dv(v);
      const GLdouble *v;
 CODE:
@@ -20975,7 +20975,7 @@ CODE:
     };
     glSecondaryColor3dv(v);
 
-SV *
+void
 glSecondaryColor3dvEXT(v);
      const GLdouble *v;
 CODE:
@@ -20984,7 +20984,7 @@ CODE:
     };
     glSecondaryColor3dvEXT(v);
 
-SV *
+void
 glSecondaryColor3f(red, green, blue);
      GLfloat red;
      GLfloat green;
@@ -20995,7 +20995,7 @@ CODE:
     };
     glSecondaryColor3f(red, green, blue);
 
-SV *
+void
 glSecondaryColor3fEXT(red, green, blue);
      GLfloat red;
      GLfloat green;
@@ -21006,7 +21006,7 @@ CODE:
     };
     glSecondaryColor3fEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3fv(v);
      const GLfloat *v;
 CODE:
@@ -21015,7 +21015,7 @@ CODE:
     };
     glSecondaryColor3fv(v);
 
-SV *
+void
 glSecondaryColor3fvEXT(v);
      const GLfloat *v;
 CODE:
@@ -21024,7 +21024,7 @@ CODE:
     };
     glSecondaryColor3fvEXT(v);
 
-SV *
+void
 glSecondaryColor3hNV(red, green, blue);
      GLhalf red;
      GLhalf green;
@@ -21035,7 +21035,7 @@ CODE:
     };
     glSecondaryColor3hNV(red, green, blue);
 
-SV *
+void
 glSecondaryColor3hvNV(v);
      const GLhalf* v;
 CODE:
@@ -21044,7 +21044,7 @@ CODE:
     };
     glSecondaryColor3hvNV(v);
 
-SV *
+void
 glSecondaryColor3i(red, green, blue);
      GLint red;
      GLint green;
@@ -21055,7 +21055,7 @@ CODE:
     };
     glSecondaryColor3i(red, green, blue);
 
-SV *
+void
 glSecondaryColor3iEXT(red, green, blue);
      GLint red;
      GLint green;
@@ -21066,7 +21066,7 @@ CODE:
     };
     glSecondaryColor3iEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3iv(v);
      const GLint *v;
 CODE:
@@ -21075,7 +21075,7 @@ CODE:
     };
     glSecondaryColor3iv(v);
 
-SV *
+void
 glSecondaryColor3ivEXT(v);
      const GLint *v;
 CODE:
@@ -21084,7 +21084,7 @@ CODE:
     };
     glSecondaryColor3ivEXT(v);
 
-SV *
+void
 glSecondaryColor3s(red, green, blue);
      GLshort red;
      GLshort green;
@@ -21095,7 +21095,7 @@ CODE:
     };
     glSecondaryColor3s(red, green, blue);
 
-SV *
+void
 glSecondaryColor3sEXT(red, green, blue);
      GLshort red;
      GLshort green;
@@ -21106,7 +21106,7 @@ CODE:
     };
     glSecondaryColor3sEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3sv(v);
      const GLshort *v;
 CODE:
@@ -21115,7 +21115,7 @@ CODE:
     };
     glSecondaryColor3sv(v);
 
-SV *
+void
 glSecondaryColor3svEXT(v);
      const GLshort *v;
 CODE:
@@ -21124,7 +21124,7 @@ CODE:
     };
     glSecondaryColor3svEXT(v);
 
-SV *
+void
 glSecondaryColor3ub(red, green, blue);
      GLubyte red;
      GLubyte green;
@@ -21135,7 +21135,7 @@ CODE:
     };
     glSecondaryColor3ub(red, green, blue);
 
-SV *
+void
 glSecondaryColor3ubEXT(red, green, blue);
      GLubyte red;
      GLubyte green;
@@ -21146,7 +21146,7 @@ CODE:
     };
     glSecondaryColor3ubEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3ubv(v);
      const GLubyte *v;
 CODE:
@@ -21155,7 +21155,7 @@ CODE:
     };
     glSecondaryColor3ubv(v);
 
-SV *
+void
 glSecondaryColor3ubvEXT(v);
      const GLubyte *v;
 CODE:
@@ -21164,7 +21164,7 @@ CODE:
     };
     glSecondaryColor3ubvEXT(v);
 
-SV *
+void
 glSecondaryColor3ui(red, green, blue);
      GLuint red;
      GLuint green;
@@ -21175,7 +21175,7 @@ CODE:
     };
     glSecondaryColor3ui(red, green, blue);
 
-SV *
+void
 glSecondaryColor3uiEXT(red, green, blue);
      GLuint red;
      GLuint green;
@@ -21186,7 +21186,7 @@ CODE:
     };
     glSecondaryColor3uiEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3uiv(v);
      const GLuint *v;
 CODE:
@@ -21195,7 +21195,7 @@ CODE:
     };
     glSecondaryColor3uiv(v);
 
-SV *
+void
 glSecondaryColor3uivEXT(v);
      const GLuint *v;
 CODE:
@@ -21204,7 +21204,7 @@ CODE:
     };
     glSecondaryColor3uivEXT(v);
 
-SV *
+void
 glSecondaryColor3us(red, green, blue);
      GLushort red;
      GLushort green;
@@ -21215,7 +21215,7 @@ CODE:
     };
     glSecondaryColor3us(red, green, blue);
 
-SV *
+void
 glSecondaryColor3usEXT(red, green, blue);
      GLushort red;
      GLushort green;
@@ -21226,7 +21226,7 @@ CODE:
     };
     glSecondaryColor3usEXT(red, green, blue);
 
-SV *
+void
 glSecondaryColor3usv(v);
      const GLushort *v;
 CODE:
@@ -21235,7 +21235,7 @@ CODE:
     };
     glSecondaryColor3usv(v);
 
-SV *
+void
 glSecondaryColor3usvEXT(v);
      const GLushort *v;
 CODE:
@@ -21244,7 +21244,7 @@ CODE:
     };
     glSecondaryColor3usvEXT(v);
 
-SV *
+void
 glSecondaryColorFormatNV(size, type, stride);
      GLint size;
      GLenum type;
@@ -21255,7 +21255,7 @@ CODE:
     };
     glSecondaryColorFormatNV(size, type, stride);
 
-SV *
+void
 glSecondaryColorP3ui(type, color);
      GLenum type;
      GLuint color;
@@ -21265,7 +21265,7 @@ CODE:
     };
     glSecondaryColorP3ui(type, color);
 
-SV *
+void
 glSecondaryColorP3uiv(type, color);
      GLenum type;
      const GLuint* color;
@@ -21275,7 +21275,7 @@ CODE:
     };
     glSecondaryColorP3uiv(type, color);
 
-SV *
+void
 glSecondaryColorPointer(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -21287,7 +21287,7 @@ CODE:
     };
     glSecondaryColorPointer(size, type, stride, pointer);
 
-SV *
+void
 glSecondaryColorPointerEXT(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -21299,7 +21299,7 @@ CODE:
     };
     glSecondaryColorPointerEXT(size, type, stride, pointer);
 
-SV *
+void
 glSecondaryColorPointerListIBM(size, type, stride, pointer, ptrstride);
      GLint size;
      GLenum type;
@@ -21312,14 +21312,14 @@ CODE:
     };
     glSecondaryColorPointerListIBM(size, type, stride, pointer, ptrstride);
 
-SV *
+void
 glSelectBuffer(size, buffer);
      GLsizei size;
      GLuint *buffer;
 CODE:
     glSelectBuffer(size, buffer);
 
-SV *
+void
 glSelectPerfMonitorCountersAMD(monitor, enable, group, numCounters, counterList);
      GLuint monitor;
      GLboolean enable;
@@ -21332,7 +21332,7 @@ CODE:
     };
     glSelectPerfMonitorCountersAMD(monitor, enable, group, numCounters, counterList);
 
-SV *
+void
 glSeparableFilter2D(target, internalformat, width, height, format, type, row, column);
      GLenum target;
      GLenum internalformat;
@@ -21348,7 +21348,7 @@ CODE:
     };
     glSeparableFilter2D(target, internalformat, width, height, format, type, row, column);
 
-SV *
+void
 glSeparableFilter2DEXT(target, internalformat, width, height, format, type, row, column);
      GLenum target;
      GLenum internalformat;
@@ -21364,7 +21364,7 @@ CODE:
     };
     glSeparableFilter2DEXT(target, internalformat, width, height, format, type, row, column);
 
-SV *
+void
 glSetFenceAPPLE(fence);
      GLuint fence;
 CODE:
@@ -21373,7 +21373,7 @@ CODE:
     };
     glSetFenceAPPLE(fence);
 
-SV *
+void
 glSetFenceNV(fence, condition);
      GLuint fence;
      GLenum condition;
@@ -21383,7 +21383,7 @@ CODE:
     };
     glSetFenceNV(fence, condition);
 
-SV *
+void
 glSetFragmentShaderConstantATI(dst, value);
      GLuint dst;
      const GLfloat* value;
@@ -21393,7 +21393,7 @@ CODE:
     };
     glSetFragmentShaderConstantATI(dst, value);
 
-SV *
+void
 glSetInvariantEXT(id, type, addr);
      GLuint id;
      GLenum type;
@@ -21404,7 +21404,7 @@ CODE:
     };
     glSetInvariantEXT(id, type, addr);
 
-SV *
+void
 glSetLocalConstantEXT(id, type, addr);
      GLuint id;
      GLenum type;
@@ -21415,7 +21415,7 @@ CODE:
     };
     glSetLocalConstantEXT(id, type, addr);
 
-SV *
+void
 glSetMultisamplefvAMD(pname, index, val);
      GLenum pname;
      GLuint index;
@@ -21426,13 +21426,13 @@ CODE:
     };
     glSetMultisamplefvAMD(pname, index, val);
 
-SV *
+void
 glShadeModel(mode);
      GLenum mode;
 CODE:
     glShadeModel(mode);
 
-SV *
+void
 glShaderBinary(count, shaders, binaryformat, binary, length);
      GLsizei count;
      const GLuint* shaders;
@@ -21445,7 +21445,7 @@ CODE:
     };
     glShaderBinary(count, shaders, binaryformat, binary, length);
 
-SV *
+void
 glShaderOp1EXT(op, res, arg1);
      GLenum op;
      GLuint res;
@@ -21456,7 +21456,7 @@ CODE:
     };
     glShaderOp1EXT(op, res, arg1);
 
-SV *
+void
 glShaderOp2EXT(op, res, arg1, arg2);
      GLenum op;
      GLuint res;
@@ -21468,7 +21468,7 @@ CODE:
     };
     glShaderOp2EXT(op, res, arg1, arg2);
 
-SV *
+void
 glShaderOp3EXT(op, res, arg1, arg2, arg3);
      GLenum op;
      GLuint res;
@@ -21481,7 +21481,7 @@ CODE:
     };
     glShaderOp3EXT(op, res, arg1, arg2, arg3);
 
-SV *
+void
 glShaderSourceARB(shaderObj, count, string, length);
      GLhandleARB shaderObj;
      GLsizei count;
@@ -21493,7 +21493,7 @@ CODE:
     };
     glShaderSourceARB(shaderObj, count, string, length);
 
-SV *
+void
 glShaderStorageBlockBinding(program, storageBlockIndex, storageBlockBinding);
      GLuint program;
      GLuint storageBlockIndex;
@@ -21504,7 +21504,7 @@ CODE:
     };
     glShaderStorageBlockBinding(program, storageBlockIndex, storageBlockBinding);
 
-SV *
+void
 glSharpenTexFuncSGIS(target, n, points);
      GLenum target;
      GLsizei n;
@@ -21515,7 +21515,7 @@ CODE:
     };
     glSharpenTexFuncSGIS(target, n, points);
 
-SV *
+void
 glSignalVkFenceNV(vkFence);
      GLuint64 vkFence;
 CODE:
@@ -21524,7 +21524,7 @@ CODE:
     };
     glSignalVkFenceNV(vkFence);
 
-SV *
+void
 glSignalVkSemaphoreNV(vkSemaphore);
      GLuint64 vkSemaphore;
 CODE:
@@ -21533,7 +21533,7 @@ CODE:
     };
     glSignalVkSemaphoreNV(vkSemaphore);
 
-SV *
+void
 glSpecializeShaderARB(shader, pEntryPoint, numSpecializationConstants, pConstantIndex, pConstantValue);
      GLuint shader;
      const GLchar* pEntryPoint;
@@ -21546,7 +21546,7 @@ CODE:
     };
     glSpecializeShaderARB(shader, pEntryPoint, numSpecializationConstants, pConstantIndex, pConstantValue);
 
-SV *
+void
 glSpriteParameterfSGIX(pname, param);
      GLenum pname;
      GLfloat param;
@@ -21556,7 +21556,7 @@ CODE:
     };
     glSpriteParameterfSGIX(pname, param);
 
-SV *
+void
 glSpriteParameterfvSGIX(pname, params);
      GLenum pname;
      GLfloat* params;
@@ -21566,7 +21566,7 @@ CODE:
     };
     glSpriteParameterfvSGIX(pname, params);
 
-SV *
+void
 glSpriteParameteriSGIX(pname, param);
      GLenum pname;
      GLint param;
@@ -21576,7 +21576,7 @@ CODE:
     };
     glSpriteParameteriSGIX(pname, param);
 
-SV *
+void
 glSpriteParameterivSGIX(pname, params);
      GLenum pname;
      GLint* params;
@@ -21586,7 +21586,7 @@ CODE:
     };
     glSpriteParameterivSGIX(pname, params);
 
-SV *
+void
 glStateCaptureNV(state, mode);
      GLuint state;
      GLenum mode;
@@ -21596,7 +21596,7 @@ CODE:
     };
     glStateCaptureNV(state, mode);
 
-SV *
+void
 glStencilFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -21612,7 +21612,7 @@ CODE:
     };
     glStencilFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, transformType, transformValues);
 
-SV *
+void
 glStencilFillPathNV(path, fillMode, mask);
      GLuint path;
      GLenum fillMode;
@@ -21623,7 +21623,7 @@ CODE:
     };
     glStencilFillPathNV(path, fillMode, mask);
 
-SV *
+void
 glStencilFunc(func, ref, mask);
      GLenum func;
      GLint ref;
@@ -21631,7 +21631,7 @@ glStencilFunc(func, ref, mask);
 CODE:
     glStencilFunc(func, ref, mask);
 
-SV *
+void
 glStencilFuncSeparate(frontfunc, backfunc, ref, mask);
      GLenum frontfunc;
      GLenum backfunc;
@@ -21643,7 +21643,7 @@ CODE:
     };
     glStencilFuncSeparate(frontfunc, backfunc, ref, mask);
 
-SV *
+void
 glStencilFuncSeparateATI(frontfunc, backfunc, ref, mask);
      GLenum frontfunc;
      GLenum backfunc;
@@ -21655,13 +21655,13 @@ CODE:
     };
     glStencilFuncSeparateATI(frontfunc, backfunc, ref, mask);
 
-SV *
+void
 glStencilMask(mask);
      GLuint mask;
 CODE:
     glStencilMask(mask);
 
-SV *
+void
 glStencilMaskSeparate(face, mask);
      GLenum face;
      GLuint mask;
@@ -21671,7 +21671,7 @@ CODE:
     };
     glStencilMaskSeparate(face, mask);
 
-SV *
+void
 glStencilOp(fail, zfail, zpass);
      GLenum fail;
      GLenum zfail;
@@ -21679,7 +21679,7 @@ glStencilOp(fail, zfail, zpass);
 CODE:
     glStencilOp(fail, zfail, zpass);
 
-SV *
+void
 glStencilOpSeparate(face, sfail, dpfail, dppass);
      GLenum face;
      GLenum sfail;
@@ -21691,7 +21691,7 @@ CODE:
     };
     glStencilOpSeparate(face, sfail, dpfail, dppass);
 
-SV *
+void
 glStencilOpSeparateATI(face, sfail, dpfail, dppass);
      GLenum face;
      GLenum sfail;
@@ -21703,7 +21703,7 @@ CODE:
     };
     glStencilOpSeparateATI(face, sfail, dpfail, dppass);
 
-SV *
+void
 glStencilOpValueAMD(face, value);
      GLenum face;
      GLuint value;
@@ -21713,7 +21713,7 @@ CODE:
     };
     glStencilOpValueAMD(face, value);
 
-SV *
+void
 glStencilStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -21729,7 +21729,7 @@ CODE:
     };
     glStencilStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, transformType, transformValues);
 
-SV *
+void
 glStencilStrokePathNV(path, reference, mask);
      GLuint path;
      GLint reference;
@@ -21740,7 +21740,7 @@ CODE:
     };
     glStencilStrokePathNV(path, reference, mask);
 
-SV *
+void
 glStencilThenCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, coverMode, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -21757,7 +21757,7 @@ CODE:
     };
     glStencilThenCoverFillPathInstancedNV(numPaths, pathNameType, paths, pathBase, fillMode, mask, coverMode, transformType, transformValues);
 
-SV *
+void
 glStencilThenCoverFillPathNV(path, fillMode, mask, coverMode);
      GLuint path;
      GLenum fillMode;
@@ -21769,7 +21769,7 @@ CODE:
     };
     glStencilThenCoverFillPathNV(path, fillMode, mask, coverMode);
 
-SV *
+void
 glStencilThenCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, coverMode, transformType, transformValues);
      GLsizei numPaths;
      GLenum pathNameType;
@@ -21786,7 +21786,7 @@ CODE:
     };
     glStencilThenCoverStrokePathInstancedNV(numPaths, pathNameType, paths, pathBase, reference, mask, coverMode, transformType, transformValues);
 
-SV *
+void
 glStencilThenCoverStrokePathNV(path, reference, mask, coverMode);
      GLuint path;
      GLint reference;
@@ -21798,7 +21798,7 @@ CODE:
     };
     glStencilThenCoverStrokePathNV(path, reference, mask, coverMode);
 
-SV *
+void
 glStringMarkerGREMEDY(len, string);
      GLsizei len;
      const void *string;
@@ -21808,7 +21808,7 @@ CODE:
     };
     glStringMarkerGREMEDY(len, string);
 
-SV *
+void
 glSubpixelPrecisionBiasNV(xbits, ybits);
      GLuint xbits;
      GLuint ybits;
@@ -21818,7 +21818,7 @@ CODE:
     };
     glSubpixelPrecisionBiasNV(xbits, ybits);
 
-SV *
+void
 glSwizzleEXT(res, in, outX, outY, outZ, outW);
      GLuint res;
      GLuint in;
@@ -21832,7 +21832,7 @@ CODE:
     };
     glSwizzleEXT(res, in, outX, outY, outZ, outW);
 
-SV *
+void
 glSyncTextureINTEL(texture);
      GLuint texture;
 CODE:
@@ -21841,7 +21841,7 @@ CODE:
     };
     glSyncTextureINTEL(texture);
 
-SV *
+void
 glTagSampleBufferSGIX();
 CODE:
     if(! __glewTagSampleBufferSGIX) {
@@ -21849,7 +21849,7 @@ CODE:
     };
     glTagSampleBufferSGIX();
 
-SV *
+void
 glTangentPointerEXT(type, stride, pointer);
      GLenum type;
      GLsizei stride;
@@ -21860,7 +21860,7 @@ CODE:
     };
     glTangentPointerEXT(type, stride, pointer);
 
-SV *
+void
 glTbufferMask3DFX(mask);
      GLuint mask;
 CODE:
@@ -21869,7 +21869,7 @@ CODE:
     };
     glTbufferMask3DFX(mask);
 
-SV *
+void
 glTessellationFactorAMD(factor);
      GLfloat factor;
 CODE:
@@ -21878,7 +21878,7 @@ CODE:
     };
     glTessellationFactorAMD(factor);
 
-SV *
+void
 glTessellationModeAMD(mode);
      GLenum mode;
 CODE:
@@ -21921,7 +21921,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glTexBuffer(target, internalFormat, buffer);
      GLenum target;
      GLenum internalFormat;
@@ -21932,7 +21932,7 @@ CODE:
     };
     glTexBuffer(target, internalFormat, buffer);
 
-SV *
+void
 glTexBufferARB(target, internalformat, buffer);
      GLenum target;
      GLenum internalformat;
@@ -21943,7 +21943,7 @@ CODE:
     };
     glTexBufferARB(target, internalformat, buffer);
 
-SV *
+void
 glTexBufferEXT(target, internalformat, buffer);
      GLenum target;
      GLenum internalformat;
@@ -21954,7 +21954,7 @@ CODE:
     };
     glTexBufferEXT(target, internalformat, buffer);
 
-SV *
+void
 glTexBufferRange(target, internalformat, buffer, offset, size);
      GLenum target;
      GLenum internalformat;
@@ -21967,7 +21967,7 @@ CODE:
     };
     glTexBufferRange(target, internalformat, buffer, offset, size);
 
-SV *
+void
 glTexBumpParameterfvATI(pname, param);
      GLenum pname;
      GLfloat *param;
@@ -21977,7 +21977,7 @@ CODE:
     };
     glTexBumpParameterfvATI(pname, param);
 
-SV *
+void
 glTexBumpParameterivATI(pname, param);
      GLenum pname;
      GLint *param;
@@ -21987,31 +21987,31 @@ CODE:
     };
     glTexBumpParameterivATI(pname, param);
 
-SV *
+void
 glTexCoord1d(s);
      GLdouble s;
 CODE:
     glTexCoord1d(s);
 
-SV *
+void
 glTexCoord1dv(v);
      const GLdouble *v;
 CODE:
     glTexCoord1dv(v);
 
-SV *
+void
 glTexCoord1f(s);
      GLfloat s;
 CODE:
     glTexCoord1f(s);
 
-SV *
+void
 glTexCoord1fv(v);
      const GLfloat *v;
 CODE:
     glTexCoord1fv(v);
 
-SV *
+void
 glTexCoord1hNV(s);
      GLhalf s;
 CODE:
@@ -22020,7 +22020,7 @@ CODE:
     };
     glTexCoord1hNV(s);
 
-SV *
+void
 glTexCoord1hvNV(v);
      const GLhalf* v;
 CODE:
@@ -22029,51 +22029,51 @@ CODE:
     };
     glTexCoord1hvNV(v);
 
-SV *
+void
 glTexCoord1i(s);
      GLint s;
 CODE:
     glTexCoord1i(s);
 
-SV *
+void
 glTexCoord1iv(v);
      const GLint *v;
 CODE:
     glTexCoord1iv(v);
 
-SV *
+void
 glTexCoord1s(s);
      GLshort s;
 CODE:
     glTexCoord1s(s);
 
-SV *
+void
 glTexCoord1sv(v);
      const GLshort *v;
 CODE:
     glTexCoord1sv(v);
 
-SV *
+void
 glTexCoord2d(s, t);
      GLdouble s;
      GLdouble t;
 CODE:
     glTexCoord2d(s, t);
 
-SV *
+void
 glTexCoord2dv(v);
      const GLdouble *v;
 CODE:
     glTexCoord2dv(v);
 
-SV *
+void
 glTexCoord2f(s, t);
      GLfloat s;
      GLfloat t;
 CODE:
     glTexCoord2f(s, t);
 
-SV *
+void
 glTexCoord2fColor3fVertex3fSUN(s, t, r, g, b, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -22089,7 +22089,7 @@ CODE:
     };
     glTexCoord2fColor3fVertex3fSUN(s, t, r, g, b, x, y, z);
 
-SV *
+void
 glTexCoord2fColor3fVertex3fvSUN(tc, c, v);
      const GLfloat* tc;
      const GLfloat *c;
@@ -22100,7 +22100,7 @@ CODE:
     };
     glTexCoord2fColor3fVertex3fvSUN(tc, c, v);
 
-SV *
+void
 glTexCoord2fColor4fNormal3fVertex3fSUN(s, t, r, g, b, a, nx, ny, nz, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -22120,7 +22120,7 @@ CODE:
     };
     glTexCoord2fColor4fNormal3fVertex3fSUN(s, t, r, g, b, a, nx, ny, nz, x, y, z);
 
-SV *
+void
 glTexCoord2fColor4fNormal3fVertex3fvSUN(tc, c, n, v);
      const GLfloat* tc;
      const GLfloat *c;
@@ -22132,7 +22132,7 @@ CODE:
     };
     glTexCoord2fColor4fNormal3fVertex3fvSUN(tc, c, n, v);
 
-SV *
+void
 glTexCoord2fColor4ubVertex3fSUN(s, t, r, g, b, a, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -22149,7 +22149,7 @@ CODE:
     };
     glTexCoord2fColor4ubVertex3fSUN(s, t, r, g, b, a, x, y, z);
 
-SV *
+void
 glTexCoord2fColor4ubVertex3fvSUN(tc, c, v);
      const GLfloat* tc;
      const GLubyte *c;
@@ -22160,7 +22160,7 @@ CODE:
     };
     glTexCoord2fColor4ubVertex3fvSUN(tc, c, v);
 
-SV *
+void
 glTexCoord2fNormal3fVertex3fSUN(s, t, nx, ny, nz, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -22176,7 +22176,7 @@ CODE:
     };
     glTexCoord2fNormal3fVertex3fSUN(s, t, nx, ny, nz, x, y, z);
 
-SV *
+void
 glTexCoord2fNormal3fVertex3fvSUN(tc, n, v);
      const GLfloat* tc;
      const GLfloat *n;
@@ -22187,13 +22187,13 @@ CODE:
     };
     glTexCoord2fNormal3fVertex3fvSUN(tc, n, v);
 
-SV *
+void
 glTexCoord2fv(v);
      const GLfloat *v;
 CODE:
     glTexCoord2fv(v);
 
-SV *
+void
 glTexCoord2fVertex3fSUN(s, t, x, y, z);
      GLfloat s;
      GLfloat t;
@@ -22206,7 +22206,7 @@ CODE:
     };
     glTexCoord2fVertex3fSUN(s, t, x, y, z);
 
-SV *
+void
 glTexCoord2fVertex3fvSUN(tc, v);
      const GLfloat* tc;
      const GLfloat *v;
@@ -22216,7 +22216,7 @@ CODE:
     };
     glTexCoord2fVertex3fvSUN(tc, v);
 
-SV *
+void
 glTexCoord2hNV(s, t);
      GLhalf s;
      GLhalf t;
@@ -22226,7 +22226,7 @@ CODE:
     };
     glTexCoord2hNV(s, t);
 
-SV *
+void
 glTexCoord2hvNV(v);
      const GLhalf* v;
 CODE:
@@ -22235,33 +22235,33 @@ CODE:
     };
     glTexCoord2hvNV(v);
 
-SV *
+void
 glTexCoord2i(s, t);
      GLint s;
      GLint t;
 CODE:
     glTexCoord2i(s, t);
 
-SV *
+void
 glTexCoord2iv(v);
      const GLint *v;
 CODE:
     glTexCoord2iv(v);
 
-SV *
+void
 glTexCoord2s(s, t);
      GLshort s;
      GLshort t;
 CODE:
     glTexCoord2s(s, t);
 
-SV *
+void
 glTexCoord2sv(v);
      const GLshort *v;
 CODE:
     glTexCoord2sv(v);
 
-SV *
+void
 glTexCoord3d(s, t, r);
      GLdouble s;
      GLdouble t;
@@ -22269,13 +22269,13 @@ glTexCoord3d(s, t, r);
 CODE:
     glTexCoord3d(s, t, r);
 
-SV *
+void
 glTexCoord3dv(v);
      const GLdouble *v;
 CODE:
     glTexCoord3dv(v);
 
-SV *
+void
 glTexCoord3f(s, t, r);
      GLfloat s;
      GLfloat t;
@@ -22283,13 +22283,13 @@ glTexCoord3f(s, t, r);
 CODE:
     glTexCoord3f(s, t, r);
 
-SV *
+void
 glTexCoord3fv(v);
      const GLfloat *v;
 CODE:
     glTexCoord3fv(v);
 
-SV *
+void
 glTexCoord3hNV(s, t, r);
      GLhalf s;
      GLhalf t;
@@ -22300,7 +22300,7 @@ CODE:
     };
     glTexCoord3hNV(s, t, r);
 
-SV *
+void
 glTexCoord3hvNV(v);
      const GLhalf* v;
 CODE:
@@ -22309,7 +22309,7 @@ CODE:
     };
     glTexCoord3hvNV(v);
 
-SV *
+void
 glTexCoord3i(s, t, r);
      GLint s;
      GLint t;
@@ -22317,13 +22317,13 @@ glTexCoord3i(s, t, r);
 CODE:
     glTexCoord3i(s, t, r);
 
-SV *
+void
 glTexCoord3iv(v);
      const GLint *v;
 CODE:
     glTexCoord3iv(v);
 
-SV *
+void
 glTexCoord3s(s, t, r);
      GLshort s;
      GLshort t;
@@ -22331,13 +22331,13 @@ glTexCoord3s(s, t, r);
 CODE:
     glTexCoord3s(s, t, r);
 
-SV *
+void
 glTexCoord3sv(v);
      const GLshort *v;
 CODE:
     glTexCoord3sv(v);
 
-SV *
+void
 glTexCoord4d(s, t, r, q);
      GLdouble s;
      GLdouble t;
@@ -22346,13 +22346,13 @@ glTexCoord4d(s, t, r, q);
 CODE:
     glTexCoord4d(s, t, r, q);
 
-SV *
+void
 glTexCoord4dv(v);
      const GLdouble *v;
 CODE:
     glTexCoord4dv(v);
 
-SV *
+void
 glTexCoord4f(s, t, r, q);
      GLfloat s;
      GLfloat t;
@@ -22361,7 +22361,7 @@ glTexCoord4f(s, t, r, q);
 CODE:
     glTexCoord4f(s, t, r, q);
 
-SV *
+void
 glTexCoord4fColor4fNormal3fVertex4fSUN(s, t, p, q, r, g, b, a, nx, ny, nz, x, y, z, w);
      GLfloat s;
      GLfloat t;
@@ -22384,7 +22384,7 @@ CODE:
     };
     glTexCoord4fColor4fNormal3fVertex4fSUN(s, t, p, q, r, g, b, a, nx, ny, nz, x, y, z, w);
 
-SV *
+void
 glTexCoord4fColor4fNormal3fVertex4fvSUN(tc, c, n, v);
      const GLfloat* tc;
      const GLfloat *c;
@@ -22396,13 +22396,13 @@ CODE:
     };
     glTexCoord4fColor4fNormal3fVertex4fvSUN(tc, c, n, v);
 
-SV *
+void
 glTexCoord4fv(v);
      const GLfloat *v;
 CODE:
     glTexCoord4fv(v);
 
-SV *
+void
 glTexCoord4fVertex4fSUN(s, t, p, q, x, y, z, w);
      GLfloat s;
      GLfloat t;
@@ -22418,7 +22418,7 @@ CODE:
     };
     glTexCoord4fVertex4fSUN(s, t, p, q, x, y, z, w);
 
-SV *
+void
 glTexCoord4fVertex4fvSUN(tc, v);
      const GLfloat* tc;
      const GLfloat *v;
@@ -22428,7 +22428,7 @@ CODE:
     };
     glTexCoord4fVertex4fvSUN(tc, v);
 
-SV *
+void
 glTexCoord4hNV(s, t, r, q);
      GLhalf s;
      GLhalf t;
@@ -22440,7 +22440,7 @@ CODE:
     };
     glTexCoord4hNV(s, t, r, q);
 
-SV *
+void
 glTexCoord4hvNV(v);
      const GLhalf* v;
 CODE:
@@ -22449,7 +22449,7 @@ CODE:
     };
     glTexCoord4hvNV(v);
 
-SV *
+void
 glTexCoord4i(s, t, r, q);
      GLint s;
      GLint t;
@@ -22458,13 +22458,13 @@ glTexCoord4i(s, t, r, q);
 CODE:
     glTexCoord4i(s, t, r, q);
 
-SV *
+void
 glTexCoord4iv(v);
      const GLint *v;
 CODE:
     glTexCoord4iv(v);
 
-SV *
+void
 glTexCoord4s(s, t, r, q);
      GLshort s;
      GLshort t;
@@ -22473,13 +22473,13 @@ glTexCoord4s(s, t, r, q);
 CODE:
     glTexCoord4s(s, t, r, q);
 
-SV *
+void
 glTexCoord4sv(v);
      const GLshort *v;
 CODE:
     glTexCoord4sv(v);
 
-SV *
+void
 glTexCoordFormatNV(size, type, stride);
      GLint size;
      GLenum type;
@@ -22490,7 +22490,7 @@ CODE:
     };
     glTexCoordFormatNV(size, type, stride);
 
-SV *
+void
 glTexCoordP1ui(type, coords);
      GLenum type;
      GLuint coords;
@@ -22500,7 +22500,7 @@ CODE:
     };
     glTexCoordP1ui(type, coords);
 
-SV *
+void
 glTexCoordP1uiv(type, coords);
      GLenum type;
      const GLuint* coords;
@@ -22510,7 +22510,7 @@ CODE:
     };
     glTexCoordP1uiv(type, coords);
 
-SV *
+void
 glTexCoordP2ui(type, coords);
      GLenum type;
      GLuint coords;
@@ -22520,7 +22520,7 @@ CODE:
     };
     glTexCoordP2ui(type, coords);
 
-SV *
+void
 glTexCoordP2uiv(type, coords);
      GLenum type;
      const GLuint* coords;
@@ -22530,7 +22530,7 @@ CODE:
     };
     glTexCoordP2uiv(type, coords);
 
-SV *
+void
 glTexCoordP3ui(type, coords);
      GLenum type;
      GLuint coords;
@@ -22540,7 +22540,7 @@ CODE:
     };
     glTexCoordP3ui(type, coords);
 
-SV *
+void
 glTexCoordP3uiv(type, coords);
      GLenum type;
      const GLuint* coords;
@@ -22550,7 +22550,7 @@ CODE:
     };
     glTexCoordP3uiv(type, coords);
 
-SV *
+void
 glTexCoordP4ui(type, coords);
      GLenum type;
      GLuint coords;
@@ -22560,7 +22560,7 @@ CODE:
     };
     glTexCoordP4ui(type, coords);
 
-SV *
+void
 glTexCoordP4uiv(type, coords);
      GLenum type;
      const GLuint* coords;
@@ -22570,7 +22570,7 @@ CODE:
     };
     glTexCoordP4uiv(type, coords);
 
-SV *
+void
 glTexCoordPointer(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -22579,7 +22579,7 @@ glTexCoordPointer(size, type, stride, pointer);
 CODE:
     glTexCoordPointer(size, type, stride, pointer);
 
-SV *
+void
 glTexCoordPointerEXT(size, type, stride, count, pointer);
      GLint size;
      GLenum type;
@@ -22592,7 +22592,7 @@ CODE:
     };
     glTexCoordPointerEXT(size, type, stride, count, pointer);
 
-SV *
+void
 glTexCoordPointerListIBM(size, type, stride, pointer, ptrstride);
      GLint size;
      GLenum type;
@@ -22605,7 +22605,7 @@ CODE:
     };
     glTexCoordPointerListIBM(size, type, stride, pointer, ptrstride);
 
-SV *
+void
 glTexCoordPointervINTEL(size, type, pointer);
      GLint size;
      GLenum type;
@@ -22616,7 +22616,7 @@ CODE:
     };
     glTexCoordPointervINTEL(size, type, pointer);
 
-SV *
+void
 glTexEnvf(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22624,7 +22624,7 @@ glTexEnvf(target, pname, param);
 CODE:
     glTexEnvf(target, pname, param);
 
-SV *
+void
 glTexEnvfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22632,7 +22632,7 @@ glTexEnvfv(target, pname, params);
 CODE:
     glTexEnvfv(target, pname, params);
 
-SV *
+void
 glTexEnvi(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22640,7 +22640,7 @@ glTexEnvi(target, pname, param);
 CODE:
     glTexEnvi(target, pname, param);
 
-SV *
+void
 glTexEnviv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22648,7 +22648,7 @@ glTexEnviv(target, pname, params);
 CODE:
     glTexEnviv(target, pname, params);
 
-SV *
+void
 glTexEnvx(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22659,7 +22659,7 @@ CODE:
     };
     glTexEnvx(target, pname, param);
 
-SV *
+void
 glTexEnvxv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22670,7 +22670,7 @@ CODE:
     };
     glTexEnvxv(target, pname, params);
 
-SV *
+void
 glTexFilterFuncSGIS(target, filter, n, weights);
      GLenum target;
      GLenum filter;
@@ -22682,7 +22682,7 @@ CODE:
     };
     glTexFilterFuncSGIS(target, filter, n, weights);
 
-SV *
+void
 glTexGend(coord, pname, param);
      GLenum coord;
      GLenum pname;
@@ -22690,7 +22690,7 @@ glTexGend(coord, pname, param);
 CODE:
     glTexGend(coord, pname, param);
 
-SV *
+void
 glTexGendv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -22698,7 +22698,7 @@ glTexGendv(coord, pname, params);
 CODE:
     glTexGendv(coord, pname, params);
 
-SV *
+void
 glTexGenf(coord, pname, param);
      GLenum coord;
      GLenum pname;
@@ -22706,7 +22706,7 @@ glTexGenf(coord, pname, param);
 CODE:
     glTexGenf(coord, pname, param);
 
-SV *
+void
 glTexGenfv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -22714,7 +22714,7 @@ glTexGenfv(coord, pname, params);
 CODE:
     glTexGenfv(coord, pname, params);
 
-SV *
+void
 glTexGeni(coord, pname, param);
      GLenum coord;
      GLenum pname;
@@ -22722,7 +22722,7 @@ glTexGeni(coord, pname, param);
 CODE:
     glTexGeni(coord, pname, param);
 
-SV *
+void
 glTexGeniv(coord, pname, params);
      GLenum coord;
      GLenum pname;
@@ -22730,7 +22730,7 @@ glTexGeniv(coord, pname, params);
 CODE:
     glTexGeniv(coord, pname, params);
 
-SV *
+void
 glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
      GLenum target;
      GLint level;
@@ -22743,7 +22743,7 @@ glTexImage1D(target, level, internalformat, width, border, format, type, pixels)
 CODE:
     glTexImage1D(target, level, internalformat, width, border, format, type, pixels);
 
-SV *
+void
 glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
      GLenum target;
      GLint level;
@@ -22757,7 +22757,7 @@ glTexImage2D(target, level, internalformat, width, height, border, format, type,
 CODE:
     glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
-SV *
+void
 glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
      GLenum target;
      GLsizei samples;
@@ -22771,7 +22771,7 @@ CODE:
     };
     glTexImage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
 
-SV *
+void
 glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
      GLenum target;
      GLsizei coverageSamples;
@@ -22786,7 +22786,7 @@ CODE:
     };
     glTexImage2DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
 
-SV *
+void
 glTexImage3D(target, level, internalFormat, width, height, depth, border, format, type, pixels);
      GLenum target;
      GLint level;
@@ -22804,7 +22804,7 @@ CODE:
     };
     glTexImage3D(target, level, internalFormat, width, height, depth, border, format, type, pixels);
 
-SV *
+void
 glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
      GLenum target;
      GLint level;
@@ -22822,7 +22822,7 @@ CODE:
     };
     glTexImage3DEXT(target, level, internalformat, width, height, depth, border, format, type, pixels);
 
-SV *
+void
 glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
      GLenum target;
      GLsizei samples;
@@ -22837,7 +22837,7 @@ CODE:
     };
     glTexImage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 
-SV *
+void
 glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
      GLenum target;
      GLsizei coverageSamples;
@@ -22853,7 +22853,7 @@ CODE:
     };
     glTexImage3DMultisampleCoverageNV(target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
 
-SV *
+void
 glTexImage4DSGIS(target, level, internalformat, width, height, depth, extent, border, format, type, pixels);
      GLenum target;
      GLint level;
@@ -22872,7 +22872,7 @@ CODE:
     };
     glTexImage4DSGIS(target, level, internalformat, width, height, depth, extent, border, format, type, pixels);
 
-SV *
+void
 glTexPageCommitmentARB(target, level, xoffset, yoffset, zoffset, width, height, depth, commit);
      GLenum target;
      GLint level;
@@ -22889,7 +22889,7 @@ CODE:
     };
     glTexPageCommitmentARB(target, level, xoffset, yoffset, zoffset, width, height, depth, commit);
 
-SV *
+void
 glTexParameterf(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22897,7 +22897,7 @@ glTexParameterf(target, pname, param);
 CODE:
     glTexParameterf(target, pname, param);
 
-SV *
+void
 glTexParameterfv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22905,7 +22905,7 @@ glTexParameterfv(target, pname, params);
 CODE:
     glTexParameterfv(target, pname, params);
 
-SV *
+void
 glTexParameteri(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22913,7 +22913,7 @@ glTexParameteri(target, pname, param);
 CODE:
     glTexParameteri(target, pname, param);
 
-SV *
+void
 glTexParameterIiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22924,7 +22924,7 @@ CODE:
     };
     glTexParameterIiv(target, pname, params);
 
-SV *
+void
 glTexParameterIivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22935,7 +22935,7 @@ CODE:
     };
     glTexParameterIivEXT(target, pname, params);
 
-SV *
+void
 glTexParameterIuiv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22946,7 +22946,7 @@ CODE:
     };
     glTexParameterIuiv(target, pname, params);
 
-SV *
+void
 glTexParameterIuivEXT(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22957,7 +22957,7 @@ CODE:
     };
     glTexParameterIuivEXT(target, pname, params);
 
-SV *
+void
 glTexParameteriv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22965,7 +22965,7 @@ glTexParameteriv(target, pname, params);
 CODE:
     glTexParameteriv(target, pname, params);
 
-SV *
+void
 glTexParameterx(target, pname, param);
      GLenum target;
      GLenum pname;
@@ -22976,7 +22976,7 @@ CODE:
     };
     glTexParameterx(target, pname, param);
 
-SV *
+void
 glTexParameterxv(target, pname, params);
      GLenum target;
      GLenum pname;
@@ -22987,7 +22987,7 @@ CODE:
     };
     glTexParameterxv(target, pname, params);
 
-SV *
+void
 glTexRenderbufferNV(target, renderbuffer);
      GLenum target;
      GLuint renderbuffer;
@@ -22997,7 +22997,7 @@ CODE:
     };
     glTexRenderbufferNV(target, renderbuffer);
 
-SV *
+void
 glTexScissorFuncINTEL(target, lfunc, hfunc);
      GLenum target;
      GLenum lfunc;
@@ -23008,7 +23008,7 @@ CODE:
     };
     glTexScissorFuncINTEL(target, lfunc, hfunc);
 
-SV *
+void
 glTexScissorINTEL(target, tlow, thigh);
      GLenum target;
      GLclampf tlow;
@@ -23019,7 +23019,7 @@ CODE:
     };
     glTexScissorINTEL(target, tlow, thigh);
 
-SV *
+void
 glTexStorage1D(target, levels, internalformat, width);
      GLenum target;
      GLsizei levels;
@@ -23031,7 +23031,7 @@ CODE:
     };
     glTexStorage1D(target, levels, internalformat, width);
 
-SV *
+void
 glTexStorage2D(target, levels, internalformat, width, height);
      GLenum target;
      GLsizei levels;
@@ -23044,7 +23044,7 @@ CODE:
     };
     glTexStorage2D(target, levels, internalformat, width, height);
 
-SV *
+void
 glTexStorage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
      GLenum target;
      GLsizei samples;
@@ -23058,7 +23058,7 @@ CODE:
     };
     glTexStorage2DMultisample(target, samples, internalformat, width, height, fixedsamplelocations);
 
-SV *
+void
 glTexStorage3D(target, levels, internalformat, width, height, depth);
      GLenum target;
      GLsizei levels;
@@ -23072,7 +23072,7 @@ CODE:
     };
     glTexStorage3D(target, levels, internalformat, width, height, depth);
 
-SV *
+void
 glTexStorage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
      GLenum target;
      GLsizei samples;
@@ -23087,7 +23087,7 @@ CODE:
     };
     glTexStorage3DMultisample(target, samples, internalformat, width, height, depth, fixedsamplelocations);
 
-SV *
+void
 glTexStorageSparseAMD(target, internalFormat, width, height, depth, layers, flags);
      GLenum target;
      GLenum internalFormat;
@@ -23102,7 +23102,7 @@ CODE:
     };
     glTexStorageSparseAMD(target, internalFormat, width, height, depth, layers, flags);
 
-SV *
+void
 glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23114,7 +23114,7 @@ glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 CODE:
     glTexSubImage1D(target, level, xoffset, width, format, type, pixels);
 
-SV *
+void
 glTexSubImage1DEXT(target, level, xoffset, width, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23129,7 +23129,7 @@ CODE:
     };
     glTexSubImage1DEXT(target, level, xoffset, width, format, type, pixels);
 
-SV *
+void
 glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23143,7 +23143,7 @@ glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pi
 CODE:
     glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
-SV *
+void
 glTexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23160,7 +23160,7 @@ CODE:
     };
     glTexSubImage2DEXT(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
-SV *
+void
 glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23179,7 +23179,7 @@ CODE:
     };
     glTexSubImage3D(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
-SV *
+void
 glTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23198,7 +23198,7 @@ CODE:
     };
     glTexSubImage3DEXT(target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
-SV *
+void
 glTexSubImage4DSGIS(target, level, xoffset, yoffset, zoffset, woffset, width, height, depth, extent, format, type, pixels);
      GLenum target;
      GLint level;
@@ -23219,7 +23219,7 @@ CODE:
     };
     glTexSubImage4DSGIS(target, level, xoffset, yoffset, zoffset, woffset, width, height, depth, extent, format, type, pixels);
 
-SV *
+void
 glTextureBarrier();
 CODE:
     if(! __glewTextureBarrier) {
@@ -23227,7 +23227,7 @@ CODE:
     };
     glTextureBarrier();
 
-SV *
+void
 glTextureBarrierNV();
 CODE:
     if(! __glewTextureBarrierNV) {
@@ -23235,7 +23235,7 @@ CODE:
     };
     glTextureBarrierNV();
 
-SV *
+void
 glTextureBuffer(texture, internalformat, buffer);
      GLuint texture;
      GLenum internalformat;
@@ -23246,7 +23246,7 @@ CODE:
     };
     glTextureBuffer(texture, internalformat, buffer);
 
-SV *
+void
 glTextureBufferEXT(texture, target, internalformat, buffer);
      GLuint texture;
      GLenum target;
@@ -23258,7 +23258,7 @@ CODE:
     };
     glTextureBufferEXT(texture, target, internalformat, buffer);
 
-SV *
+void
 glTextureBufferRange(texture, internalformat, buffer, offset, size);
      GLuint texture;
      GLenum internalformat;
@@ -23271,7 +23271,7 @@ CODE:
     };
     glTextureBufferRange(texture, internalformat, buffer, offset, size);
 
-SV *
+void
 glTextureBufferRangeEXT(texture, target, internalformat, buffer, offset, size);
      GLuint texture;
      GLenum target;
@@ -23285,7 +23285,7 @@ CODE:
     };
     glTextureBufferRangeEXT(texture, target, internalformat, buffer, offset, size);
 
-SV *
+void
 glTextureFogSGIX(pname);
      GLenum pname;
 CODE:
@@ -23294,7 +23294,7 @@ CODE:
     };
     glTextureFogSGIX(pname);
 
-SV *
+void
 glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23311,7 +23311,7 @@ CODE:
     };
     glTextureImage1DEXT(texture, target, level, internalformat, width, border, format, type, pixels);
 
-SV *
+void
 glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23329,7 +23329,7 @@ CODE:
     };
     glTextureImage2DEXT(texture, target, level, internalformat, width, height, border, format, type, pixels);
 
-SV *
+void
 glTextureImage2DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
      GLuint texture;
      GLenum target;
@@ -23345,7 +23345,7 @@ CODE:
     };
     glTextureImage2DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, fixedSampleLocations);
 
-SV *
+void
 glTextureImage2DMultisampleNV(texture, target, samples, internalFormat, width, height, fixedSampleLocations);
      GLuint texture;
      GLenum target;
@@ -23360,7 +23360,7 @@ CODE:
     };
     glTextureImage2DMultisampleNV(texture, target, samples, internalFormat, width, height, fixedSampleLocations);
 
-SV *
+void
 glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23379,7 +23379,7 @@ CODE:
     };
     glTextureImage3DEXT(texture, target, level, internalformat, width, height, depth, border, format, type, pixels);
 
-SV *
+void
 glTextureImage3DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
      GLuint texture;
      GLenum target;
@@ -23396,7 +23396,7 @@ CODE:
     };
     glTextureImage3DMultisampleCoverageNV(texture, target, coverageSamples, colorSamples, internalFormat, width, height, depth, fixedSampleLocations);
 
-SV *
+void
 glTextureImage3DMultisampleNV(texture, target, samples, internalFormat, width, height, depth, fixedSampleLocations);
      GLuint texture;
      GLenum target;
@@ -23412,7 +23412,7 @@ CODE:
     };
     glTextureImage3DMultisampleNV(texture, target, samples, internalFormat, width, height, depth, fixedSampleLocations);
 
-SV *
+void
 glTextureLightEXT(pname);
      GLenum pname;
 CODE:
@@ -23421,7 +23421,7 @@ CODE:
     };
     glTextureLightEXT(pname);
 
-SV *
+void
 glTextureMaterialEXT(face, mode);
      GLenum face;
      GLenum mode;
@@ -23431,7 +23431,7 @@ CODE:
     };
     glTextureMaterialEXT(face, mode);
 
-SV *
+void
 glTextureNormalEXT(mode);
      GLenum mode;
 CODE:
@@ -23440,7 +23440,7 @@ CODE:
     };
     glTextureNormalEXT(mode);
 
-SV *
+void
 glTexturePageCommitmentEXT(texture, level, xoffset, yoffset, zoffset, width, height, depth, commit);
      GLuint texture;
      GLint level;
@@ -23457,7 +23457,7 @@ CODE:
     };
     glTexturePageCommitmentEXT(texture, level, xoffset, yoffset, zoffset, width, height, depth, commit);
 
-SV *
+void
 glTextureParameterf(texture, pname, param);
      GLuint texture;
      GLenum pname;
@@ -23468,7 +23468,7 @@ CODE:
     };
     glTextureParameterf(texture, pname, param);
 
-SV *
+void
 glTextureParameterfEXT(texture, target, pname, param);
      GLuint texture;
      GLenum target;
@@ -23480,7 +23480,7 @@ CODE:
     };
     glTextureParameterfEXT(texture, target, pname, param);
 
-SV *
+void
 glTextureParameterfv(texture, pname, param);
      GLuint texture;
      GLenum pname;
@@ -23491,7 +23491,7 @@ CODE:
     };
     glTextureParameterfv(texture, pname, param);
 
-SV *
+void
 glTextureParameterfvEXT(texture, target, pname, param);
      GLuint texture;
      GLenum target;
@@ -23503,7 +23503,7 @@ CODE:
     };
     glTextureParameterfvEXT(texture, target, pname, param);
 
-SV *
+void
 glTextureParameteri(texture, pname, param);
      GLuint texture;
      GLenum pname;
@@ -23514,7 +23514,7 @@ CODE:
     };
     glTextureParameteri(texture, pname, param);
 
-SV *
+void
 glTextureParameteriEXT(texture, target, pname, param);
      GLuint texture;
      GLenum target;
@@ -23526,7 +23526,7 @@ CODE:
     };
     glTextureParameteriEXT(texture, target, pname, param);
 
-SV *
+void
 glTextureParameterIiv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -23537,7 +23537,7 @@ CODE:
     };
     glTextureParameterIiv(texture, pname, params);
 
-SV *
+void
 glTextureParameterIivEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -23549,7 +23549,7 @@ CODE:
     };
     glTextureParameterIivEXT(texture, target, pname, params);
 
-SV *
+void
 glTextureParameterIuiv(texture, pname, params);
      GLuint texture;
      GLenum pname;
@@ -23560,7 +23560,7 @@ CODE:
     };
     glTextureParameterIuiv(texture, pname, params);
 
-SV *
+void
 glTextureParameterIuivEXT(texture, target, pname, params);
      GLuint texture;
      GLenum target;
@@ -23572,7 +23572,7 @@ CODE:
     };
     glTextureParameterIuivEXT(texture, target, pname, params);
 
-SV *
+void
 glTextureParameteriv(texture, pname, param);
      GLuint texture;
      GLenum pname;
@@ -23583,7 +23583,7 @@ CODE:
     };
     glTextureParameteriv(texture, pname, param);
 
-SV *
+void
 glTextureParameterivEXT(texture, target, pname, param);
      GLuint texture;
      GLenum target;
@@ -23595,7 +23595,7 @@ CODE:
     };
     glTextureParameterivEXT(texture, target, pname, param);
 
-SV *
+void
 glTextureRangeAPPLE(target, length, pointer);
      GLenum target;
      GLsizei length;
@@ -23606,7 +23606,7 @@ CODE:
     };
     glTextureRangeAPPLE(target, length, pointer);
 
-SV *
+void
 glTextureRenderbufferEXT(texture, target, renderbuffer);
      GLuint texture;
      GLenum target;
@@ -23617,7 +23617,7 @@ CODE:
     };
     glTextureRenderbufferEXT(texture, target, renderbuffer);
 
-SV *
+void
 glTextureStorage1D(texture, levels, internalformat, width);
      GLuint texture;
      GLsizei levels;
@@ -23629,7 +23629,7 @@ CODE:
     };
     glTextureStorage1D(texture, levels, internalformat, width);
 
-SV *
+void
 glTextureStorage1DEXT(texture, target, levels, internalformat, width);
      GLuint texture;
      GLenum target;
@@ -23642,7 +23642,7 @@ CODE:
     };
     glTextureStorage1DEXT(texture, target, levels, internalformat, width);
 
-SV *
+void
 glTextureStorage2D(texture, levels, internalformat, width, height);
      GLuint texture;
      GLsizei levels;
@@ -23655,7 +23655,7 @@ CODE:
     };
     glTextureStorage2D(texture, levels, internalformat, width, height);
 
-SV *
+void
 glTextureStorage2DEXT(texture, target, levels, internalformat, width, height);
      GLuint texture;
      GLenum target;
@@ -23669,7 +23669,7 @@ CODE:
     };
     glTextureStorage2DEXT(texture, target, levels, internalformat, width, height);
 
-SV *
+void
 glTextureStorage2DMultisample(texture, samples, internalformat, width, height, fixedsamplelocations);
      GLuint texture;
      GLsizei samples;
@@ -23683,7 +23683,7 @@ CODE:
     };
     glTextureStorage2DMultisample(texture, samples, internalformat, width, height, fixedsamplelocations);
 
-SV *
+void
 glTextureStorage2DMultisampleEXT(texture, target, samples, internalformat, width, height, fixedsamplelocations);
      GLuint texture;
      GLenum target;
@@ -23698,7 +23698,7 @@ CODE:
     };
     glTextureStorage2DMultisampleEXT(texture, target, samples, internalformat, width, height, fixedsamplelocations);
 
-SV *
+void
 glTextureStorage3D(texture, levels, internalformat, width, height, depth);
      GLuint texture;
      GLsizei levels;
@@ -23712,7 +23712,7 @@ CODE:
     };
     glTextureStorage3D(texture, levels, internalformat, width, height, depth);
 
-SV *
+void
 glTextureStorage3DEXT(texture, target, levels, internalformat, width, height, depth);
      GLuint texture;
      GLenum target;
@@ -23727,7 +23727,7 @@ CODE:
     };
     glTextureStorage3DEXT(texture, target, levels, internalformat, width, height, depth);
 
-SV *
+void
 glTextureStorage3DMultisample(texture, samples, internalformat, width, height, depth, fixedsamplelocations);
      GLuint texture;
      GLsizei samples;
@@ -23742,7 +23742,7 @@ CODE:
     };
     glTextureStorage3DMultisample(texture, samples, internalformat, width, height, depth, fixedsamplelocations);
 
-SV *
+void
 glTextureStorage3DMultisampleEXT(texture, target, samples, internalformat, width, height, depth, fixedsamplelocations);
      GLuint texture;
      GLenum target;
@@ -23758,7 +23758,7 @@ CODE:
     };
     glTextureStorage3DMultisampleEXT(texture, target, samples, internalformat, width, height, depth, fixedsamplelocations);
 
-SV *
+void
 glTextureStorageSparseAMD(texture, target, internalFormat, width, height, depth, layers, flags);
      GLuint texture;
      GLenum target;
@@ -23774,7 +23774,7 @@ CODE:
     };
     glTextureStorageSparseAMD(texture, target, internalFormat, width, height, depth, layers, flags);
 
-SV *
+void
 glTextureSubImage1D(texture, level, xoffset, width, format, type, pixels);
      GLuint texture;
      GLint level;
@@ -23789,7 +23789,7 @@ CODE:
     };
     glTextureSubImage1D(texture, level, xoffset, width, format, type, pixels);
 
-SV *
+void
 glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23805,7 +23805,7 @@ CODE:
     };
     glTextureSubImage1DEXT(texture, target, level, xoffset, width, format, type, pixels);
 
-SV *
+void
 glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, type, pixels);
      GLuint texture;
      GLint level;
@@ -23822,7 +23822,7 @@ CODE:
     };
     glTextureSubImage2D(texture, level, xoffset, yoffset, width, height, format, type, pixels);
 
-SV *
+void
 glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23840,7 +23840,7 @@ CODE:
     };
     glTextureSubImage2DEXT(texture, target, level, xoffset, yoffset, width, height, format, type, pixels);
 
-SV *
+void
 glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
      GLuint texture;
      GLint level;
@@ -23859,7 +23859,7 @@ CODE:
     };
     glTextureSubImage3D(texture, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
-SV *
+void
 glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
      GLuint texture;
      GLenum target;
@@ -23879,7 +23879,7 @@ CODE:
     };
     glTextureSubImage3DEXT(texture, target, level, xoffset, yoffset, zoffset, width, height, depth, format, type, pixels);
 
-SV *
+void
 glTextureView(texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers);
      GLuint texture;
      GLenum target;
@@ -23895,7 +23895,7 @@ CODE:
     };
     glTextureView(texture, target, origtexture, internalformat, minlevel, numlevels, minlayer, numlayers);
 
-SV *
+void
 glTrackMatrixNV(target, address, matrix, transform);
      GLenum target;
      GLuint address;
@@ -23907,7 +23907,7 @@ CODE:
     };
     glTrackMatrixNV(target, address, matrix, transform);
 
-SV *
+void
 glTransformFeedbackAttribsNV(count, attribs, bufferMode);
      GLuint count;
      const GLint *attribs;
@@ -23918,7 +23918,7 @@ CODE:
     };
     glTransformFeedbackAttribsNV(count, attribs, bufferMode);
 
-SV *
+void
 glTransformFeedbackBufferBase(xfb, index, buffer);
      GLuint xfb;
      GLuint index;
@@ -23929,7 +23929,7 @@ CODE:
     };
     glTransformFeedbackBufferBase(xfb, index, buffer);
 
-SV *
+void
 glTransformFeedbackBufferRange(xfb, index, buffer, offset, size);
      GLuint xfb;
      GLuint index;
@@ -23942,7 +23942,7 @@ CODE:
     };
     glTransformFeedbackBufferRange(xfb, index, buffer, offset, size);
 
-SV *
+void
 glTransformFeedbackVaryings(program, count, varyings, bufferMode);
      GLuint program;
      GLsizei count;
@@ -23954,7 +23954,7 @@ CODE:
     };
     glTransformFeedbackVaryings(program, count, varyings, bufferMode);
 
-SV *
+void
 glTransformFeedbackVaryingsEXT(program, count, varyings, bufferMode);
      GLuint program;
      GLsizei count;
@@ -23966,7 +23966,7 @@ CODE:
     };
     glTransformFeedbackVaryingsEXT(program, count, varyings, bufferMode);
 
-SV *
+void
 glTransformFeedbackVaryingsNV(program, count, locations, bufferMode);
      GLuint program;
      GLsizei count;
@@ -23978,7 +23978,7 @@ CODE:
     };
     glTransformFeedbackVaryingsNV(program, count, locations, bufferMode);
 
-SV *
+void
 glTransformPathNV(resultPath, srcPath, transformType, transformValues);
      GLuint resultPath;
      GLuint srcPath;
@@ -23990,7 +23990,7 @@ CODE:
     };
     glTransformPathNV(resultPath, srcPath, transformType, transformValues);
 
-SV *
+void
 glTranslated(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -23998,7 +23998,7 @@ glTranslated(x, y, z);
 CODE:
     glTranslated(x, y, z);
 
-SV *
+void
 glTranslatef(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -24006,7 +24006,7 @@ glTranslatef(x, y, z);
 CODE:
     glTranslatef(x, y, z);
 
-SV *
+void
 glTranslatex(x, y, z);
      GLfixed x;
      GLfixed y;
@@ -24017,7 +24017,7 @@ CODE:
     };
     glTranslatex(x, y, z);
 
-SV *
+void
 glUniform1d(location, x);
      GLint location;
      GLdouble x;
@@ -24027,7 +24027,7 @@ CODE:
     };
     glUniform1d(location, x);
 
-SV *
+void
 glUniform1dv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24038,7 +24038,7 @@ CODE:
     };
     glUniform1dv(location, count, value);
 
-SV *
+void
 glUniform1f(location, v0);
      GLint location;
      GLfloat v0;
@@ -24048,7 +24048,7 @@ CODE:
     };
     glUniform1f(location, v0);
 
-SV *
+void
 glUniform1fARB(location, v0);
      GLint location;
      GLfloat v0;
@@ -24058,7 +24058,7 @@ CODE:
     };
     glUniform1fARB(location, v0);
 
-SV *
+void
 glUniform1fv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24069,7 +24069,7 @@ CODE:
     };
     glUniform1fv(location, count, value);
 
-SV *
+void
 glUniform1fvARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24080,7 +24080,7 @@ CODE:
     };
     glUniform1fvARB(location, count, value);
 
-SV *
+void
 glUniform1i(location, v0);
      GLint location;
      GLint v0;
@@ -24090,7 +24090,7 @@ CODE:
     };
     glUniform1i(location, v0);
 
-SV *
+void
 glUniform1i64ARB(location, x);
      GLint location;
      GLint64 x;
@@ -24100,7 +24100,7 @@ CODE:
     };
     glUniform1i64ARB(location, x);
 
-SV *
+void
 glUniform1i64NV(location, x);
      GLint location;
      GLint64EXT x;
@@ -24110,7 +24110,7 @@ CODE:
     };
     glUniform1i64NV(location, x);
 
-SV *
+void
 glUniform1i64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24121,7 +24121,7 @@ CODE:
     };
     glUniform1i64vARB(location, count, value);
 
-SV *
+void
 glUniform1i64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24132,7 +24132,7 @@ CODE:
     };
     glUniform1i64vNV(location, count, value);
 
-SV *
+void
 glUniform1iARB(location, v0);
      GLint location;
      GLint v0;
@@ -24142,7 +24142,7 @@ CODE:
     };
     glUniform1iARB(location, v0);
 
-SV *
+void
 glUniform1iv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24153,7 +24153,7 @@ CODE:
     };
     glUniform1iv(location, count, value);
 
-SV *
+void
 glUniform1ivARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24164,7 +24164,7 @@ CODE:
     };
     glUniform1ivARB(location, count, value);
 
-SV *
+void
 glUniform1ui(location, v0);
      GLint location;
      GLuint v0;
@@ -24174,7 +24174,7 @@ CODE:
     };
     glUniform1ui(location, v0);
 
-SV *
+void
 glUniform1ui64ARB(location, x);
      GLint location;
      GLuint64 x;
@@ -24184,7 +24184,7 @@ CODE:
     };
     glUniform1ui64ARB(location, x);
 
-SV *
+void
 glUniform1ui64NV(location, x);
      GLint location;
      GLuint64EXT x;
@@ -24194,7 +24194,7 @@ CODE:
     };
     glUniform1ui64NV(location, x);
 
-SV *
+void
 glUniform1ui64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24205,7 +24205,7 @@ CODE:
     };
     glUniform1ui64vARB(location, count, value);
 
-SV *
+void
 glUniform1ui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24216,7 +24216,7 @@ CODE:
     };
     glUniform1ui64vNV(location, count, value);
 
-SV *
+void
 glUniform1uiEXT(location, v0);
      GLint location;
      GLuint v0;
@@ -24226,7 +24226,7 @@ CODE:
     };
     glUniform1uiEXT(location, v0);
 
-SV *
+void
 glUniform1uiv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24237,7 +24237,7 @@ CODE:
     };
     glUniform1uiv(location, count, value);
 
-SV *
+void
 glUniform1uivEXT(location, count, value);
      GLint location;
      GLsizei count;
@@ -24248,7 +24248,7 @@ CODE:
     };
     glUniform1uivEXT(location, count, value);
 
-SV *
+void
 glUniform2d(location, x, y);
      GLint location;
      GLdouble x;
@@ -24259,7 +24259,7 @@ CODE:
     };
     glUniform2d(location, x, y);
 
-SV *
+void
 glUniform2dv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24270,7 +24270,7 @@ CODE:
     };
     glUniform2dv(location, count, value);
 
-SV *
+void
 glUniform2f(location, v0, v1);
      GLint location;
      GLfloat v0;
@@ -24281,7 +24281,7 @@ CODE:
     };
     glUniform2f(location, v0, v1);
 
-SV *
+void
 glUniform2fARB(location, v0, v1);
      GLint location;
      GLfloat v0;
@@ -24292,7 +24292,7 @@ CODE:
     };
     glUniform2fARB(location, v0, v1);
 
-SV *
+void
 glUniform2fv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24303,7 +24303,7 @@ CODE:
     };
     glUniform2fv(location, count, value);
 
-SV *
+void
 glUniform2fvARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24314,7 +24314,7 @@ CODE:
     };
     glUniform2fvARB(location, count, value);
 
-SV *
+void
 glUniform2i(location, v0, v1);
      GLint location;
      GLint v0;
@@ -24325,7 +24325,7 @@ CODE:
     };
     glUniform2i(location, v0, v1);
 
-SV *
+void
 glUniform2i64ARB(location, x, y);
      GLint location;
      GLint64 x;
@@ -24336,7 +24336,7 @@ CODE:
     };
     glUniform2i64ARB(location, x, y);
 
-SV *
+void
 glUniform2i64NV(location, x, y);
      GLint location;
      GLint64EXT x;
@@ -24347,7 +24347,7 @@ CODE:
     };
     glUniform2i64NV(location, x, y);
 
-SV *
+void
 glUniform2i64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24358,7 +24358,7 @@ CODE:
     };
     glUniform2i64vARB(location, count, value);
 
-SV *
+void
 glUniform2i64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24369,7 +24369,7 @@ CODE:
     };
     glUniform2i64vNV(location, count, value);
 
-SV *
+void
 glUniform2iARB(location, v0, v1);
      GLint location;
      GLint v0;
@@ -24380,7 +24380,7 @@ CODE:
     };
     glUniform2iARB(location, v0, v1);
 
-SV *
+void
 glUniform2iv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24391,7 +24391,7 @@ CODE:
     };
     glUniform2iv(location, count, value);
 
-SV *
+void
 glUniform2ivARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24402,7 +24402,7 @@ CODE:
     };
     glUniform2ivARB(location, count, value);
 
-SV *
+void
 glUniform2ui(location, v0, v1);
      GLint location;
      GLuint v0;
@@ -24413,7 +24413,7 @@ CODE:
     };
     glUniform2ui(location, v0, v1);
 
-SV *
+void
 glUniform2ui64ARB(location, x, y);
      GLint location;
      GLuint64 x;
@@ -24424,7 +24424,7 @@ CODE:
     };
     glUniform2ui64ARB(location, x, y);
 
-SV *
+void
 glUniform2ui64NV(location, x, y);
      GLint location;
      GLuint64EXT x;
@@ -24435,7 +24435,7 @@ CODE:
     };
     glUniform2ui64NV(location, x, y);
 
-SV *
+void
 glUniform2ui64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24446,7 +24446,7 @@ CODE:
     };
     glUniform2ui64vARB(location, count, value);
 
-SV *
+void
 glUniform2ui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24457,7 +24457,7 @@ CODE:
     };
     glUniform2ui64vNV(location, count, value);
 
-SV *
+void
 glUniform2uiEXT(location, v0, v1);
      GLint location;
      GLuint v0;
@@ -24468,7 +24468,7 @@ CODE:
     };
     glUniform2uiEXT(location, v0, v1);
 
-SV *
+void
 glUniform2uiv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24479,7 +24479,7 @@ CODE:
     };
     glUniform2uiv(location, count, value);
 
-SV *
+void
 glUniform2uivEXT(location, count, value);
      GLint location;
      GLsizei count;
@@ -24490,7 +24490,7 @@ CODE:
     };
     glUniform2uivEXT(location, count, value);
 
-SV *
+void
 glUniform3d(location, x, y, z);
      GLint location;
      GLdouble x;
@@ -24502,7 +24502,7 @@ CODE:
     };
     glUniform3d(location, x, y, z);
 
-SV *
+void
 glUniform3dv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24513,7 +24513,7 @@ CODE:
     };
     glUniform3dv(location, count, value);
 
-SV *
+void
 glUniform3f(location, v0, v1, v2);
      GLint location;
      GLfloat v0;
@@ -24525,7 +24525,7 @@ CODE:
     };
     glUniform3f(location, v0, v1, v2);
 
-SV *
+void
 glUniform3fARB(location, v0, v1, v2);
      GLint location;
      GLfloat v0;
@@ -24537,7 +24537,7 @@ CODE:
     };
     glUniform3fARB(location, v0, v1, v2);
 
-SV *
+void
 glUniform3fv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24548,7 +24548,7 @@ CODE:
     };
     glUniform3fv(location, count, value);
 
-SV *
+void
 glUniform3fvARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24559,7 +24559,7 @@ CODE:
     };
     glUniform3fvARB(location, count, value);
 
-SV *
+void
 glUniform3i(location, v0, v1, v2);
      GLint location;
      GLint v0;
@@ -24571,7 +24571,7 @@ CODE:
     };
     glUniform3i(location, v0, v1, v2);
 
-SV *
+void
 glUniform3i64ARB(location, x, y, z);
      GLint location;
      GLint64 x;
@@ -24583,7 +24583,7 @@ CODE:
     };
     glUniform3i64ARB(location, x, y, z);
 
-SV *
+void
 glUniform3i64NV(location, x, y, z);
      GLint location;
      GLint64EXT x;
@@ -24595,7 +24595,7 @@ CODE:
     };
     glUniform3i64NV(location, x, y, z);
 
-SV *
+void
 glUniform3i64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24606,7 +24606,7 @@ CODE:
     };
     glUniform3i64vARB(location, count, value);
 
-SV *
+void
 glUniform3i64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24617,7 +24617,7 @@ CODE:
     };
     glUniform3i64vNV(location, count, value);
 
-SV *
+void
 glUniform3iARB(location, v0, v1, v2);
      GLint location;
      GLint v0;
@@ -24629,7 +24629,7 @@ CODE:
     };
     glUniform3iARB(location, v0, v1, v2);
 
-SV *
+void
 glUniform3iv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24640,7 +24640,7 @@ CODE:
     };
     glUniform3iv(location, count, value);
 
-SV *
+void
 glUniform3ivARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24651,7 +24651,7 @@ CODE:
     };
     glUniform3ivARB(location, count, value);
 
-SV *
+void
 glUniform3ui(location, v0, v1, v2);
      GLint location;
      GLuint v0;
@@ -24663,7 +24663,7 @@ CODE:
     };
     glUniform3ui(location, v0, v1, v2);
 
-SV *
+void
 glUniform3ui64ARB(location, x, y, z);
      GLint location;
      GLuint64 x;
@@ -24675,7 +24675,7 @@ CODE:
     };
     glUniform3ui64ARB(location, x, y, z);
 
-SV *
+void
 glUniform3ui64NV(location, x, y, z);
      GLint location;
      GLuint64EXT x;
@@ -24687,7 +24687,7 @@ CODE:
     };
     glUniform3ui64NV(location, x, y, z);
 
-SV *
+void
 glUniform3ui64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24698,7 +24698,7 @@ CODE:
     };
     glUniform3ui64vARB(location, count, value);
 
-SV *
+void
 glUniform3ui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24709,7 +24709,7 @@ CODE:
     };
     glUniform3ui64vNV(location, count, value);
 
-SV *
+void
 glUniform3uiEXT(location, v0, v1, v2);
      GLint location;
      GLuint v0;
@@ -24721,7 +24721,7 @@ CODE:
     };
     glUniform3uiEXT(location, v0, v1, v2);
 
-SV *
+void
 glUniform3uiv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24732,7 +24732,7 @@ CODE:
     };
     glUniform3uiv(location, count, value);
 
-SV *
+void
 glUniform3uivEXT(location, count, value);
      GLint location;
      GLsizei count;
@@ -24743,7 +24743,7 @@ CODE:
     };
     glUniform3uivEXT(location, count, value);
 
-SV *
+void
 glUniform4d(location, x, y, z, w);
      GLint location;
      GLdouble x;
@@ -24756,7 +24756,7 @@ CODE:
     };
     glUniform4d(location, x, y, z, w);
 
-SV *
+void
 glUniform4dv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24767,7 +24767,7 @@ CODE:
     };
     glUniform4dv(location, count, value);
 
-SV *
+void
 glUniform4f(location, v0, v1, v2, v3);
      GLint location;
      GLfloat v0;
@@ -24780,7 +24780,7 @@ CODE:
     };
     glUniform4f(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4fARB(location, v0, v1, v2, v3);
      GLint location;
      GLfloat v0;
@@ -24793,7 +24793,7 @@ CODE:
     };
     glUniform4fARB(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4fv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24804,7 +24804,7 @@ CODE:
     };
     glUniform4fv(location, count, value);
 
-SV *
+void
 glUniform4fvARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24815,7 +24815,7 @@ CODE:
     };
     glUniform4fvARB(location, count, value);
 
-SV *
+void
 glUniform4i(location, v0, v1, v2, v3);
      GLint location;
      GLint v0;
@@ -24828,7 +24828,7 @@ CODE:
     };
     glUniform4i(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4i64ARB(location, x, y, z, w);
      GLint location;
      GLint64 x;
@@ -24841,7 +24841,7 @@ CODE:
     };
     glUniform4i64ARB(location, x, y, z, w);
 
-SV *
+void
 glUniform4i64NV(location, x, y, z, w);
      GLint location;
      GLint64EXT x;
@@ -24854,7 +24854,7 @@ CODE:
     };
     glUniform4i64NV(location, x, y, z, w);
 
-SV *
+void
 glUniform4i64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24865,7 +24865,7 @@ CODE:
     };
     glUniform4i64vARB(location, count, value);
 
-SV *
+void
 glUniform4i64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24876,7 +24876,7 @@ CODE:
     };
     glUniform4i64vNV(location, count, value);
 
-SV *
+void
 glUniform4iARB(location, v0, v1, v2, v3);
      GLint location;
      GLint v0;
@@ -24889,7 +24889,7 @@ CODE:
     };
     glUniform4iARB(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4iv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24900,7 +24900,7 @@ CODE:
     };
     glUniform4iv(location, count, value);
 
-SV *
+void
 glUniform4ivARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24911,7 +24911,7 @@ CODE:
     };
     glUniform4ivARB(location, count, value);
 
-SV *
+void
 glUniform4ui(location, v0, v1, v2, v3);
      GLint location;
      GLuint v0;
@@ -24924,7 +24924,7 @@ CODE:
     };
     glUniform4ui(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4ui64ARB(location, x, y, z, w);
      GLint location;
      GLuint64 x;
@@ -24937,7 +24937,7 @@ CODE:
     };
     glUniform4ui64ARB(location, x, y, z, w);
 
-SV *
+void
 glUniform4ui64NV(location, x, y, z, w);
      GLint location;
      GLuint64EXT x;
@@ -24950,7 +24950,7 @@ CODE:
     };
     glUniform4ui64NV(location, x, y, z, w);
 
-SV *
+void
 glUniform4ui64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -24961,7 +24961,7 @@ CODE:
     };
     glUniform4ui64vARB(location, count, value);
 
-SV *
+void
 glUniform4ui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -24972,7 +24972,7 @@ CODE:
     };
     glUniform4ui64vNV(location, count, value);
 
-SV *
+void
 glUniform4uiEXT(location, v0, v1, v2, v3);
      GLint location;
      GLuint v0;
@@ -24985,7 +24985,7 @@ CODE:
     };
     glUniform4uiEXT(location, v0, v1, v2, v3);
 
-SV *
+void
 glUniform4uiv(location, count, value);
      GLint location;
      GLsizei count;
@@ -24996,7 +24996,7 @@ CODE:
     };
     glUniform4uiv(location, count, value);
 
-SV *
+void
 glUniform4uivEXT(location, count, value);
      GLint location;
      GLsizei count;
@@ -25007,7 +25007,7 @@ CODE:
     };
     glUniform4uivEXT(location, count, value);
 
-SV *
+void
 glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
      GLuint program;
      GLuint uniformBlockIndex;
@@ -25018,7 +25018,7 @@ CODE:
     };
     glUniformBlockBinding(program, uniformBlockIndex, uniformBlockBinding);
 
-SV *
+void
 glUniformBufferEXT(program, location, buffer);
      GLuint program;
      GLint location;
@@ -25029,7 +25029,7 @@ CODE:
     };
     glUniformBufferEXT(program, location, buffer);
 
-SV *
+void
 glUniformHandleui64ARB(location, value);
      GLint location;
      GLuint64 value;
@@ -25039,7 +25039,7 @@ CODE:
     };
     glUniformHandleui64ARB(location, value);
 
-SV *
+void
 glUniformHandleui64NV(location, value);
      GLint location;
      GLuint64 value;
@@ -25049,7 +25049,7 @@ CODE:
     };
     glUniformHandleui64NV(location, value);
 
-SV *
+void
 glUniformHandleui64vARB(location, count, value);
      GLint location;
      GLsizei count;
@@ -25060,7 +25060,7 @@ CODE:
     };
     glUniformHandleui64vARB(location, count, value);
 
-SV *
+void
 glUniformHandleui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -25071,7 +25071,7 @@ CODE:
     };
     glUniformHandleui64vNV(location, count, value);
 
-SV *
+void
 glUniformMatrix2dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25083,7 +25083,7 @@ CODE:
     };
     glUniformMatrix2dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25095,7 +25095,7 @@ CODE:
     };
     glUniformMatrix2fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2fvARB(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25107,7 +25107,7 @@ CODE:
     };
     glUniformMatrix2fvARB(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2x3dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25119,7 +25119,7 @@ CODE:
     };
     glUniformMatrix2x3dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2x3fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25131,7 +25131,7 @@ CODE:
     };
     glUniformMatrix2x3fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2x4dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25143,7 +25143,7 @@ CODE:
     };
     glUniformMatrix2x4dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix2x4fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25155,7 +25155,7 @@ CODE:
     };
     glUniformMatrix2x4fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25167,7 +25167,7 @@ CODE:
     };
     glUniformMatrix3dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25179,7 +25179,7 @@ CODE:
     };
     glUniformMatrix3fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3fvARB(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25191,7 +25191,7 @@ CODE:
     };
     glUniformMatrix3fvARB(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3x2dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25203,7 +25203,7 @@ CODE:
     };
     glUniformMatrix3x2dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3x2fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25215,7 +25215,7 @@ CODE:
     };
     glUniformMatrix3x2fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3x4dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25227,7 +25227,7 @@ CODE:
     };
     glUniformMatrix3x4dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix3x4fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25239,7 +25239,7 @@ CODE:
     };
     glUniformMatrix3x4fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25251,7 +25251,7 @@ CODE:
     };
     glUniformMatrix4dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25263,7 +25263,7 @@ CODE:
     };
     glUniformMatrix4fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4fvARB(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25275,7 +25275,7 @@ CODE:
     };
     glUniformMatrix4fvARB(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4x2dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25287,7 +25287,7 @@ CODE:
     };
     glUniformMatrix4x2dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4x2fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25299,7 +25299,7 @@ CODE:
     };
     glUniformMatrix4x2fv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4x3dv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25311,7 +25311,7 @@ CODE:
     };
     glUniformMatrix4x3dv(location, count, transpose, value);
 
-SV *
+void
 glUniformMatrix4x3fv(location, count, transpose, value);
      GLint location;
      GLsizei count;
@@ -25323,7 +25323,7 @@ CODE:
     };
     glUniformMatrix4x3fv(location, count, transpose, value);
 
-SV *
+void
 glUniformSubroutinesuiv(shadertype, count, indices);
      GLenum shadertype;
      GLsizei count;
@@ -25334,7 +25334,7 @@ CODE:
     };
     glUniformSubroutinesuiv(shadertype, count, indices);
 
-SV *
+void
 glUniformui64NV(location, value);
      GLint location;
      GLuint64EXT value;
@@ -25344,7 +25344,7 @@ CODE:
     };
     glUniformui64NV(location, value);
 
-SV *
+void
 glUniformui64vNV(location, count, value);
      GLint location;
      GLsizei count;
@@ -25355,7 +25355,7 @@ CODE:
     };
     glUniformui64vNV(location, count, value);
 
-SV *
+void
 glUnlockArraysEXT();
 CODE:
     if(! __glewUnlockArraysEXT) {
@@ -25407,7 +25407,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glUnmapObjectBufferATI(buffer);
      GLuint buffer;
 CODE:
@@ -25416,7 +25416,7 @@ CODE:
     };
     glUnmapObjectBufferATI(buffer);
 
-SV *
+void
 glUnmapTexture2DINTEL(texture, level);
      GLuint texture;
      GLint level;
@@ -25426,7 +25426,7 @@ CODE:
     };
     glUnmapTexture2DINTEL(texture, level);
 
-SV *
+void
 glUpdateObjectBufferATI(buffer, offset, size, pointer, preserve);
      GLuint buffer;
      GLuint offset;
@@ -25439,7 +25439,7 @@ CODE:
     };
     glUpdateObjectBufferATI(buffer, offset, size, pointer, preserve);
 
-SV *
+void
 glUseProgram(program);
      GLuint program;
 CODE:
@@ -25448,7 +25448,7 @@ CODE:
     };
     glUseProgram(program);
 
-SV *
+void
 glUseProgramObjectARB(programObj);
      GLhandleARB programObj;
 CODE:
@@ -25457,7 +25457,7 @@ CODE:
     };
     glUseProgramObjectARB(programObj);
 
-SV *
+void
 glUseProgramStages(pipeline, stages, program);
      GLuint pipeline;
      GLbitfield stages;
@@ -25468,7 +25468,7 @@ CODE:
     };
     glUseProgramStages(pipeline, stages, program);
 
-SV *
+void
 glUseShaderProgramEXT(type, program);
      GLenum type;
      GLuint program;
@@ -25478,7 +25478,7 @@ CODE:
     };
     glUseShaderProgramEXT(type, program);
 
-SV *
+void
 glValidateProgram(program);
      GLuint program;
 CODE:
@@ -25487,7 +25487,7 @@ CODE:
     };
     glValidateProgram(program);
 
-SV *
+void
 glValidateProgramARB(programObj);
      GLhandleARB programObj;
 CODE:
@@ -25496,7 +25496,7 @@ CODE:
     };
     glValidateProgramARB(programObj);
 
-SV *
+void
 glValidateProgramPipeline(pipeline);
      GLuint pipeline;
 CODE:
@@ -25505,7 +25505,7 @@ CODE:
     };
     glValidateProgramPipeline(pipeline);
 
-SV *
+void
 glVariantArrayObjectATI(id, type, stride, buffer, offset);
      GLuint id;
      GLenum type;
@@ -25518,7 +25518,7 @@ CODE:
     };
     glVariantArrayObjectATI(id, type, stride, buffer, offset);
 
-SV *
+void
 glVariantbvEXT(id, addr);
      GLuint id;
      GLbyte *addr;
@@ -25528,7 +25528,7 @@ CODE:
     };
     glVariantbvEXT(id, addr);
 
-SV *
+void
 glVariantdvEXT(id, addr);
      GLuint id;
      GLdouble *addr;
@@ -25538,7 +25538,7 @@ CODE:
     };
     glVariantdvEXT(id, addr);
 
-SV *
+void
 glVariantfvEXT(id, addr);
      GLuint id;
      GLfloat *addr;
@@ -25548,7 +25548,7 @@ CODE:
     };
     glVariantfvEXT(id, addr);
 
-SV *
+void
 glVariantivEXT(id, addr);
      GLuint id;
      GLint *addr;
@@ -25558,7 +25558,7 @@ CODE:
     };
     glVariantivEXT(id, addr);
 
-SV *
+void
 glVariantPointerEXT(id, type, stride, addr);
      GLuint id;
      GLenum type;
@@ -25570,7 +25570,7 @@ CODE:
     };
     glVariantPointerEXT(id, type, stride, addr);
 
-SV *
+void
 glVariantsvEXT(id, addr);
      GLuint id;
      GLshort *addr;
@@ -25580,7 +25580,7 @@ CODE:
     };
     glVariantsvEXT(id, addr);
 
-SV *
+void
 glVariantubvEXT(id, addr);
      GLuint id;
      GLubyte *addr;
@@ -25590,7 +25590,7 @@ CODE:
     };
     glVariantubvEXT(id, addr);
 
-SV *
+void
 glVariantuivEXT(id, addr);
      GLuint id;
      GLuint *addr;
@@ -25600,7 +25600,7 @@ CODE:
     };
     glVariantuivEXT(id, addr);
 
-SV *
+void
 glVariantusvEXT(id, addr);
      GLuint id;
      GLushort *addr;
@@ -25610,7 +25610,7 @@ CODE:
     };
     glVariantusvEXT(id, addr);
 
-SV *
+void
 glVDPAUFiniNV();
 CODE:
     if(! __glewVDPAUFiniNV) {
@@ -25618,7 +25618,7 @@ CODE:
     };
     glVDPAUFiniNV();
 
-SV *
+void
 glVDPAUGetSurfaceivNV(surface, pname, bufSize, length, values);
      GLvdpauSurfaceNV surface;
      GLenum pname;
@@ -25631,7 +25631,7 @@ CODE:
     };
     glVDPAUGetSurfaceivNV(surface, pname, bufSize, length, values);
 
-SV *
+void
 glVDPAUInitNV(vdpDevice, getProcAddress);
      const void* vdpDevice;
      const void*getProcAddress;
@@ -25641,7 +25641,7 @@ CODE:
     };
     glVDPAUInitNV(vdpDevice, getProcAddress);
 
-SV *
+void
 glVDPAUIsSurfaceNV(surface);
      GLvdpauSurfaceNV surface;
 CODE:
@@ -25650,7 +25650,7 @@ CODE:
     };
     glVDPAUIsSurfaceNV(surface);
 
-SV *
+void
 glVDPAUMapSurfacesNV(numSurfaces, surfaces);
      GLsizei numSurfaces;
      const GLvdpauSurfaceNV* surfaces;
@@ -25688,7 +25688,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glVDPAUSurfaceAccessNV(surface, access);
      GLvdpauSurfaceNV surface;
      GLenum access;
@@ -25698,7 +25698,7 @@ CODE:
     };
     glVDPAUSurfaceAccessNV(surface, access);
 
-SV *
+void
 glVDPAUUnmapSurfacesNV(numSurface, surfaces);
      GLsizei numSurface;
      const GLvdpauSurfaceNV* surfaces;
@@ -25708,7 +25708,7 @@ CODE:
     };
     glVDPAUUnmapSurfacesNV(numSurface, surfaces);
 
-SV *
+void
 glVDPAUUnregisterSurfaceNV(surface);
      GLvdpauSurfaceNV surface;
 CODE:
@@ -25717,33 +25717,33 @@ CODE:
     };
     glVDPAUUnregisterSurfaceNV(surface);
 
-SV *
+void
 glVertex2d(x, y);
      GLdouble x;
      GLdouble y;
 CODE:
     glVertex2d(x, y);
 
-SV *
+void
 glVertex2dv(v);
      const GLdouble *v;
 CODE:
     glVertex2dv(v);
 
-SV *
+void
 glVertex2f(x, y);
      GLfloat x;
      GLfloat y;
 CODE:
     glVertex2f(x, y);
 
-SV *
+void
 glVertex2fv(v);
      const GLfloat *v;
 CODE:
     glVertex2fv(v);
 
-SV *
+void
 glVertex2hNV(x, y);
      GLhalf x;
      GLhalf y;
@@ -25753,7 +25753,7 @@ CODE:
     };
     glVertex2hNV(x, y);
 
-SV *
+void
 glVertex2hvNV(v);
      const GLhalf* v;
 CODE:
@@ -25762,33 +25762,33 @@ CODE:
     };
     glVertex2hvNV(v);
 
-SV *
+void
 glVertex2i(x, y);
      GLint x;
      GLint y;
 CODE:
     glVertex2i(x, y);
 
-SV *
+void
 glVertex2iv(v);
      const GLint *v;
 CODE:
     glVertex2iv(v);
 
-SV *
+void
 glVertex2s(x, y);
      GLshort x;
      GLshort y;
 CODE:
     glVertex2s(x, y);
 
-SV *
+void
 glVertex2sv(v);
      const GLshort *v;
 CODE:
     glVertex2sv(v);
 
-SV *
+void
 glVertex3d(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -25796,13 +25796,13 @@ glVertex3d(x, y, z);
 CODE:
     glVertex3d(x, y, z);
 
-SV *
+void
 glVertex3dv(v);
      const GLdouble *v;
 CODE:
     glVertex3dv(v);
 
-SV *
+void
 glVertex3f(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -25810,13 +25810,13 @@ glVertex3f(x, y, z);
 CODE:
     glVertex3f(x, y, z);
 
-SV *
+void
 glVertex3fv(v);
      const GLfloat *v;
 CODE:
     glVertex3fv(v);
 
-SV *
+void
 glVertex3hNV(x, y, z);
      GLhalf x;
      GLhalf y;
@@ -25827,7 +25827,7 @@ CODE:
     };
     glVertex3hNV(x, y, z);
 
-SV *
+void
 glVertex3hvNV(v);
      const GLhalf* v;
 CODE:
@@ -25836,7 +25836,7 @@ CODE:
     };
     glVertex3hvNV(v);
 
-SV *
+void
 glVertex3i(x, y, z);
      GLint x;
      GLint y;
@@ -25844,13 +25844,13 @@ glVertex3i(x, y, z);
 CODE:
     glVertex3i(x, y, z);
 
-SV *
+void
 glVertex3iv(v);
      const GLint *v;
 CODE:
     glVertex3iv(v);
 
-SV *
+void
 glVertex3s(x, y, z);
      GLshort x;
      GLshort y;
@@ -25858,13 +25858,13 @@ glVertex3s(x, y, z);
 CODE:
     glVertex3s(x, y, z);
 
-SV *
+void
 glVertex3sv(v);
      const GLshort *v;
 CODE:
     glVertex3sv(v);
 
-SV *
+void
 glVertex4d(x, y, z, w);
      GLdouble x;
      GLdouble y;
@@ -25873,13 +25873,13 @@ glVertex4d(x, y, z, w);
 CODE:
     glVertex4d(x, y, z, w);
 
-SV *
+void
 glVertex4dv(v);
      const GLdouble *v;
 CODE:
     glVertex4dv(v);
 
-SV *
+void
 glVertex4f(x, y, z, w);
      GLfloat x;
      GLfloat y;
@@ -25888,13 +25888,13 @@ glVertex4f(x, y, z, w);
 CODE:
     glVertex4f(x, y, z, w);
 
-SV *
+void
 glVertex4fv(v);
      const GLfloat *v;
 CODE:
     glVertex4fv(v);
 
-SV *
+void
 glVertex4hNV(x, y, z, w);
      GLhalf x;
      GLhalf y;
@@ -25906,7 +25906,7 @@ CODE:
     };
     glVertex4hNV(x, y, z, w);
 
-SV *
+void
 glVertex4hvNV(v);
      const GLhalf* v;
 CODE:
@@ -25915,7 +25915,7 @@ CODE:
     };
     glVertex4hvNV(v);
 
-SV *
+void
 glVertex4i(x, y, z, w);
      GLint x;
      GLint y;
@@ -25924,13 +25924,13 @@ glVertex4i(x, y, z, w);
 CODE:
     glVertex4i(x, y, z, w);
 
-SV *
+void
 glVertex4iv(v);
      const GLint *v;
 CODE:
     glVertex4iv(v);
 
-SV *
+void
 glVertex4s(x, y, z, w);
      GLshort x;
      GLshort y;
@@ -25939,13 +25939,13 @@ glVertex4s(x, y, z, w);
 CODE:
     glVertex4s(x, y, z, w);
 
-SV *
+void
 glVertex4sv(v);
      const GLshort *v;
 CODE:
     glVertex4sv(v);
 
-SV *
+void
 glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
      GLuint vaobj;
      GLuint attribindex;
@@ -25956,7 +25956,7 @@ CODE:
     };
     glVertexArrayAttribBinding(vaobj, attribindex, bindingindex);
 
-SV *
+void
 glVertexArrayAttribFormat(vaobj, attribindex, size, type, normalized, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -25970,7 +25970,7 @@ CODE:
     };
     glVertexArrayAttribFormat(vaobj, attribindex, size, type, normalized, relativeoffset);
 
-SV *
+void
 glVertexArrayAttribIFormat(vaobj, attribindex, size, type, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -25983,7 +25983,7 @@ CODE:
     };
     glVertexArrayAttribIFormat(vaobj, attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexArrayAttribLFormat(vaobj, attribindex, size, type, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -25996,7 +25996,7 @@ CODE:
     };
     glVertexArrayAttribLFormat(vaobj, attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexArrayBindingDivisor(vaobj, bindingindex, divisor);
      GLuint vaobj;
      GLuint bindingindex;
@@ -26007,7 +26007,7 @@ CODE:
     };
     glVertexArrayBindingDivisor(vaobj, bindingindex, divisor);
 
-SV *
+void
 glVertexArrayBindVertexBufferEXT(vaobj, bindingindex, buffer, offset, stride);
      GLuint vaobj;
      GLuint bindingindex;
@@ -26020,7 +26020,7 @@ CODE:
     };
     glVertexArrayBindVertexBufferEXT(vaobj, bindingindex, buffer, offset, stride);
 
-SV *
+void
 glVertexArrayColorOffsetEXT(vaobj, buffer, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26034,7 +26034,7 @@ CODE:
     };
     glVertexArrayColorOffsetEXT(vaobj, buffer, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayEdgeFlagOffsetEXT(vaobj, buffer, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26046,7 +26046,7 @@ CODE:
     };
     glVertexArrayEdgeFlagOffsetEXT(vaobj, buffer, stride, offset);
 
-SV *
+void
 glVertexArrayElementBuffer(vaobj, buffer);
      GLuint vaobj;
      GLuint buffer;
@@ -26056,7 +26056,7 @@ CODE:
     };
     glVertexArrayElementBuffer(vaobj, buffer);
 
-SV *
+void
 glVertexArrayFogCoordOffsetEXT(vaobj, buffer, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26069,7 +26069,7 @@ CODE:
     };
     glVertexArrayFogCoordOffsetEXT(vaobj, buffer, type, stride, offset);
 
-SV *
+void
 glVertexArrayIndexOffsetEXT(vaobj, buffer, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26082,7 +26082,7 @@ CODE:
     };
     glVertexArrayIndexOffsetEXT(vaobj, buffer, type, stride, offset);
 
-SV *
+void
 glVertexArrayMultiTexCoordOffsetEXT(vaobj, buffer, texunit, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26097,7 +26097,7 @@ CODE:
     };
     glVertexArrayMultiTexCoordOffsetEXT(vaobj, buffer, texunit, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayNormalOffsetEXT(vaobj, buffer, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26110,7 +26110,7 @@ CODE:
     };
     glVertexArrayNormalOffsetEXT(vaobj, buffer, type, stride, offset);
 
-SV *
+void
 glVertexArrayParameteriAPPLE(pname, param);
      GLenum pname;
      GLint param;
@@ -26120,7 +26120,7 @@ CODE:
     };
     glVertexArrayParameteriAPPLE(pname, param);
 
-SV *
+void
 glVertexArrayRangeAPPLE(length, pointer);
      GLsizei length;
      void *pointer;
@@ -26130,7 +26130,7 @@ CODE:
     };
     glVertexArrayRangeAPPLE(length, pointer);
 
-SV *
+void
 glVertexArrayRangeNV(length, pointer);
      GLsizei length;
      void *pointer;
@@ -26140,7 +26140,7 @@ CODE:
     };
     glVertexArrayRangeNV(length, pointer);
 
-SV *
+void
 glVertexArraySecondaryColorOffsetEXT(vaobj, buffer, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26154,7 +26154,7 @@ CODE:
     };
     glVertexArraySecondaryColorOffsetEXT(vaobj, buffer, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayTexCoordOffsetEXT(vaobj, buffer, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26168,7 +26168,7 @@ CODE:
     };
     glVertexArrayTexCoordOffsetEXT(vaobj, buffer, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayVertexAttribBindingEXT(vaobj, attribindex, bindingindex);
      GLuint vaobj;
      GLuint attribindex;
@@ -26179,7 +26179,7 @@ CODE:
     };
     glVertexArrayVertexAttribBindingEXT(vaobj, attribindex, bindingindex);
 
-SV *
+void
 glVertexArrayVertexAttribDivisorEXT(vaobj, index, divisor);
      GLuint vaobj;
      GLuint index;
@@ -26190,7 +26190,7 @@ CODE:
     };
     glVertexArrayVertexAttribDivisorEXT(vaobj, index, divisor);
 
-SV *
+void
 glVertexArrayVertexAttribFormatEXT(vaobj, attribindex, size, type, normalized, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -26204,7 +26204,7 @@ CODE:
     };
     glVertexArrayVertexAttribFormatEXT(vaobj, attribindex, size, type, normalized, relativeoffset);
 
-SV *
+void
 glVertexArrayVertexAttribIFormatEXT(vaobj, attribindex, size, type, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -26217,7 +26217,7 @@ CODE:
     };
     glVertexArrayVertexAttribIFormatEXT(vaobj, attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexArrayVertexAttribIOffsetEXT(vaobj, buffer, index, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26232,7 +26232,7 @@ CODE:
     };
     glVertexArrayVertexAttribIOffsetEXT(vaobj, buffer, index, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayVertexAttribLFormatEXT(vaobj, attribindex, size, type, relativeoffset);
      GLuint vaobj;
      GLuint attribindex;
@@ -26245,7 +26245,7 @@ CODE:
     };
     glVertexArrayVertexAttribLFormatEXT(vaobj, attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexArrayVertexAttribLOffsetEXT(vaobj, buffer, index, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26260,7 +26260,7 @@ CODE:
     };
     glVertexArrayVertexAttribLOffsetEXT(vaobj, buffer, index, size, type, stride, offset);
 
-SV *
+void
 glVertexArrayVertexAttribOffsetEXT(vaobj, buffer, index, size, type, normalized, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26276,7 +26276,7 @@ CODE:
     };
     glVertexArrayVertexAttribOffsetEXT(vaobj, buffer, index, size, type, normalized, stride, offset);
 
-SV *
+void
 glVertexArrayVertexBindingDivisorEXT(vaobj, bindingindex, divisor);
      GLuint vaobj;
      GLuint bindingindex;
@@ -26287,7 +26287,7 @@ CODE:
     };
     glVertexArrayVertexBindingDivisorEXT(vaobj, bindingindex, divisor);
 
-SV *
+void
 glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset, stride);
      GLuint vaobj;
      GLuint bindingindex;
@@ -26300,7 +26300,7 @@ CODE:
     };
     glVertexArrayVertexBuffer(vaobj, bindingindex, buffer, offset, stride);
 
-SV *
+void
 glVertexArrayVertexBuffers(vaobj, first, count, buffers, offsets, strides);
      GLuint vaobj;
      GLuint first;
@@ -26314,7 +26314,7 @@ CODE:
     };
     glVertexArrayVertexBuffers(vaobj, first, count, buffers, offsets, strides);
 
-SV *
+void
 glVertexArrayVertexOffsetEXT(vaobj, buffer, size, type, stride, offset);
      GLuint vaobj;
      GLuint buffer;
@@ -26328,7 +26328,7 @@ CODE:
     };
     glVertexArrayVertexOffsetEXT(vaobj, buffer, size, type, stride, offset);
 
-SV *
+void
 glVertexAttrib1d(index, x);
      GLuint index;
      GLdouble x;
@@ -26338,7 +26338,7 @@ CODE:
     };
     glVertexAttrib1d(index, x);
 
-SV *
+void
 glVertexAttrib1dARB(index, x);
      GLuint index;
      GLdouble x;
@@ -26348,7 +26348,7 @@ CODE:
     };
     glVertexAttrib1dARB(index, x);
 
-SV *
+void
 glVertexAttrib1dNV(index, x);
      GLuint index;
      GLdouble x;
@@ -26358,7 +26358,7 @@ CODE:
     };
     glVertexAttrib1dNV(index, x);
 
-SV *
+void
 glVertexAttrib1dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26368,7 +26368,7 @@ CODE:
     };
     glVertexAttrib1dv(index, v);
 
-SV *
+void
 glVertexAttrib1dvARB(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26378,7 +26378,7 @@ CODE:
     };
     glVertexAttrib1dvARB(index, v);
 
-SV *
+void
 glVertexAttrib1dvNV(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26388,7 +26388,7 @@ CODE:
     };
     glVertexAttrib1dvNV(index, v);
 
-SV *
+void
 glVertexAttrib1f(index, x);
      GLuint index;
      GLfloat x;
@@ -26398,7 +26398,7 @@ CODE:
     };
     glVertexAttrib1f(index, x);
 
-SV *
+void
 glVertexAttrib1fARB(index, x);
      GLuint index;
      GLfloat x;
@@ -26408,7 +26408,7 @@ CODE:
     };
     glVertexAttrib1fARB(index, x);
 
-SV *
+void
 glVertexAttrib1fNV(index, x);
      GLuint index;
      GLfloat x;
@@ -26418,7 +26418,7 @@ CODE:
     };
     glVertexAttrib1fNV(index, x);
 
-SV *
+void
 glVertexAttrib1fv(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26428,7 +26428,7 @@ CODE:
     };
     glVertexAttrib1fv(index, v);
 
-SV *
+void
 glVertexAttrib1fvARB(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26438,7 +26438,7 @@ CODE:
     };
     glVertexAttrib1fvARB(index, v);
 
-SV *
+void
 glVertexAttrib1fvNV(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26448,7 +26448,7 @@ CODE:
     };
     glVertexAttrib1fvNV(index, v);
 
-SV *
+void
 glVertexAttrib1hNV(index, x);
      GLuint index;
      GLhalf x;
@@ -26458,7 +26458,7 @@ CODE:
     };
     glVertexAttrib1hNV(index, x);
 
-SV *
+void
 glVertexAttrib1hvNV(index, v);
      GLuint index;
      const GLhalf* v;
@@ -26468,7 +26468,7 @@ CODE:
     };
     glVertexAttrib1hvNV(index, v);
 
-SV *
+void
 glVertexAttrib1s(index, x);
      GLuint index;
      GLshort x;
@@ -26478,7 +26478,7 @@ CODE:
     };
     glVertexAttrib1s(index, x);
 
-SV *
+void
 glVertexAttrib1sARB(index, x);
      GLuint index;
      GLshort x;
@@ -26488,7 +26488,7 @@ CODE:
     };
     glVertexAttrib1sARB(index, x);
 
-SV *
+void
 glVertexAttrib1sNV(index, x);
      GLuint index;
      GLshort x;
@@ -26498,7 +26498,7 @@ CODE:
     };
     glVertexAttrib1sNV(index, x);
 
-SV *
+void
 glVertexAttrib1sv(index, v);
      GLuint index;
      const GLshort* v;
@@ -26508,7 +26508,7 @@ CODE:
     };
     glVertexAttrib1sv(index, v);
 
-SV *
+void
 glVertexAttrib1svARB(index, v);
      GLuint index;
      const GLshort* v;
@@ -26518,7 +26518,7 @@ CODE:
     };
     glVertexAttrib1svARB(index, v);
 
-SV *
+void
 glVertexAttrib1svNV(index, v);
      GLuint index;
      const GLshort* v;
@@ -26528,7 +26528,7 @@ CODE:
     };
     glVertexAttrib1svNV(index, v);
 
-SV *
+void
 glVertexAttrib2d(index, x, y);
      GLuint index;
      GLdouble x;
@@ -26539,7 +26539,7 @@ CODE:
     };
     glVertexAttrib2d(index, x, y);
 
-SV *
+void
 glVertexAttrib2dARB(index, x, y);
      GLuint index;
      GLdouble x;
@@ -26550,7 +26550,7 @@ CODE:
     };
     glVertexAttrib2dARB(index, x, y);
 
-SV *
+void
 glVertexAttrib2dNV(index, x, y);
      GLuint index;
      GLdouble x;
@@ -26561,7 +26561,7 @@ CODE:
     };
     glVertexAttrib2dNV(index, x, y);
 
-SV *
+void
 glVertexAttrib2dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26571,7 +26571,7 @@ CODE:
     };
     glVertexAttrib2dv(index, v);
 
-SV *
+void
 glVertexAttrib2dvARB(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26581,7 +26581,7 @@ CODE:
     };
     glVertexAttrib2dvARB(index, v);
 
-SV *
+void
 glVertexAttrib2dvNV(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26591,7 +26591,7 @@ CODE:
     };
     glVertexAttrib2dvNV(index, v);
 
-SV *
+void
 glVertexAttrib2f(index, x, y);
      GLuint index;
      GLfloat x;
@@ -26602,7 +26602,7 @@ CODE:
     };
     glVertexAttrib2f(index, x, y);
 
-SV *
+void
 glVertexAttrib2fARB(index, x, y);
      GLuint index;
      GLfloat x;
@@ -26613,7 +26613,7 @@ CODE:
     };
     glVertexAttrib2fARB(index, x, y);
 
-SV *
+void
 glVertexAttrib2fNV(index, x, y);
      GLuint index;
      GLfloat x;
@@ -26624,7 +26624,7 @@ CODE:
     };
     glVertexAttrib2fNV(index, x, y);
 
-SV *
+void
 glVertexAttrib2fv(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26634,7 +26634,7 @@ CODE:
     };
     glVertexAttrib2fv(index, v);
 
-SV *
+void
 glVertexAttrib2fvARB(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26644,7 +26644,7 @@ CODE:
     };
     glVertexAttrib2fvARB(index, v);
 
-SV *
+void
 glVertexAttrib2fvNV(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26654,7 +26654,7 @@ CODE:
     };
     glVertexAttrib2fvNV(index, v);
 
-SV *
+void
 glVertexAttrib2hNV(index, x, y);
      GLuint index;
      GLhalf x;
@@ -26665,7 +26665,7 @@ CODE:
     };
     glVertexAttrib2hNV(index, x, y);
 
-SV *
+void
 glVertexAttrib2hvNV(index, v);
      GLuint index;
      const GLhalf* v;
@@ -26675,7 +26675,7 @@ CODE:
     };
     glVertexAttrib2hvNV(index, v);
 
-SV *
+void
 glVertexAttrib2s(index, x, y);
      GLuint index;
      GLshort x;
@@ -26686,7 +26686,7 @@ CODE:
     };
     glVertexAttrib2s(index, x, y);
 
-SV *
+void
 glVertexAttrib2sARB(index, x, y);
      GLuint index;
      GLshort x;
@@ -26697,7 +26697,7 @@ CODE:
     };
     glVertexAttrib2sARB(index, x, y);
 
-SV *
+void
 glVertexAttrib2sNV(index, x, y);
      GLuint index;
      GLshort x;
@@ -26708,7 +26708,7 @@ CODE:
     };
     glVertexAttrib2sNV(index, x, y);
 
-SV *
+void
 glVertexAttrib2sv(index, v);
      GLuint index;
      const GLshort* v;
@@ -26718,7 +26718,7 @@ CODE:
     };
     glVertexAttrib2sv(index, v);
 
-SV *
+void
 glVertexAttrib2svARB(index, v);
      GLuint index;
      const GLshort* v;
@@ -26728,7 +26728,7 @@ CODE:
     };
     glVertexAttrib2svARB(index, v);
 
-SV *
+void
 glVertexAttrib2svNV(index, v);
      GLuint index;
      const GLshort* v;
@@ -26738,7 +26738,7 @@ CODE:
     };
     glVertexAttrib2svNV(index, v);
 
-SV *
+void
 glVertexAttrib3d(index, x, y, z);
      GLuint index;
      GLdouble x;
@@ -26750,7 +26750,7 @@ CODE:
     };
     glVertexAttrib3d(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3dARB(index, x, y, z);
      GLuint index;
      GLdouble x;
@@ -26762,7 +26762,7 @@ CODE:
     };
     glVertexAttrib3dARB(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3dNV(index, x, y, z);
      GLuint index;
      GLdouble x;
@@ -26774,7 +26774,7 @@ CODE:
     };
     glVertexAttrib3dNV(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26784,7 +26784,7 @@ CODE:
     };
     glVertexAttrib3dv(index, v);
 
-SV *
+void
 glVertexAttrib3dvARB(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26794,7 +26794,7 @@ CODE:
     };
     glVertexAttrib3dvARB(index, v);
 
-SV *
+void
 glVertexAttrib3dvNV(index, v);
      GLuint index;
      const GLdouble* v;
@@ -26804,7 +26804,7 @@ CODE:
     };
     glVertexAttrib3dvNV(index, v);
 
-SV *
+void
 glVertexAttrib3f(index, x, y, z);
      GLuint index;
      GLfloat x;
@@ -26816,7 +26816,7 @@ CODE:
     };
     glVertexAttrib3f(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3fARB(index, x, y, z);
      GLuint index;
      GLfloat x;
@@ -26828,7 +26828,7 @@ CODE:
     };
     glVertexAttrib3fARB(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3fNV(index, x, y, z);
      GLuint index;
      GLfloat x;
@@ -26840,7 +26840,7 @@ CODE:
     };
     glVertexAttrib3fNV(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3fv(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26850,7 +26850,7 @@ CODE:
     };
     glVertexAttrib3fv(index, v);
 
-SV *
+void
 glVertexAttrib3fvARB(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26860,7 +26860,7 @@ CODE:
     };
     glVertexAttrib3fvARB(index, v);
 
-SV *
+void
 glVertexAttrib3fvNV(index, v);
      GLuint index;
      const GLfloat* v;
@@ -26870,7 +26870,7 @@ CODE:
     };
     glVertexAttrib3fvNV(index, v);
 
-SV *
+void
 glVertexAttrib3hNV(index, x, y, z);
      GLuint index;
      GLhalf x;
@@ -26882,7 +26882,7 @@ CODE:
     };
     glVertexAttrib3hNV(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3hvNV(index, v);
      GLuint index;
      const GLhalf* v;
@@ -26892,7 +26892,7 @@ CODE:
     };
     glVertexAttrib3hvNV(index, v);
 
-SV *
+void
 glVertexAttrib3s(index, x, y, z);
      GLuint index;
      GLshort x;
@@ -26904,7 +26904,7 @@ CODE:
     };
     glVertexAttrib3s(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3sARB(index, x, y, z);
      GLuint index;
      GLshort x;
@@ -26916,7 +26916,7 @@ CODE:
     };
     glVertexAttrib3sARB(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3sNV(index, x, y, z);
      GLuint index;
      GLshort x;
@@ -26928,7 +26928,7 @@ CODE:
     };
     glVertexAttrib3sNV(index, x, y, z);
 
-SV *
+void
 glVertexAttrib3sv(index, v);
      GLuint index;
      const GLshort* v;
@@ -26938,7 +26938,7 @@ CODE:
     };
     glVertexAttrib3sv(index, v);
 
-SV *
+void
 glVertexAttrib3svARB(index, v);
      GLuint index;
      const GLshort* v;
@@ -26948,7 +26948,7 @@ CODE:
     };
     glVertexAttrib3svARB(index, v);
 
-SV *
+void
 glVertexAttrib3svNV(index, v);
      GLuint index;
      const GLshort* v;
@@ -26958,7 +26958,7 @@ CODE:
     };
     glVertexAttrib3svNV(index, v);
 
-SV *
+void
 glVertexAttrib4bv(index, v);
      GLuint index;
      const GLbyte* v;
@@ -26968,7 +26968,7 @@ CODE:
     };
     glVertexAttrib4bv(index, v);
 
-SV *
+void
 glVertexAttrib4bvARB(index, v);
      GLuint index;
      const GLbyte* v;
@@ -26978,7 +26978,7 @@ CODE:
     };
     glVertexAttrib4bvARB(index, v);
 
-SV *
+void
 glVertexAttrib4d(index, x, y, z, w);
      GLuint index;
      GLdouble x;
@@ -26991,7 +26991,7 @@ CODE:
     };
     glVertexAttrib4d(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4dARB(index, x, y, z, w);
      GLuint index;
      GLdouble x;
@@ -27004,7 +27004,7 @@ CODE:
     };
     glVertexAttrib4dARB(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4dNV(index, x, y, z, w);
      GLuint index;
      GLdouble x;
@@ -27017,7 +27017,7 @@ CODE:
     };
     glVertexAttrib4dNV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -27027,7 +27027,7 @@ CODE:
     };
     glVertexAttrib4dv(index, v);
 
-SV *
+void
 glVertexAttrib4dvARB(index, v);
      GLuint index;
      const GLdouble* v;
@@ -27037,7 +27037,7 @@ CODE:
     };
     glVertexAttrib4dvARB(index, v);
 
-SV *
+void
 glVertexAttrib4dvNV(index, v);
      GLuint index;
      const GLdouble* v;
@@ -27047,7 +27047,7 @@ CODE:
     };
     glVertexAttrib4dvNV(index, v);
 
-SV *
+void
 glVertexAttrib4f(index, x, y, z, w);
      GLuint index;
      GLfloat x;
@@ -27060,7 +27060,7 @@ CODE:
     };
     glVertexAttrib4f(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4fARB(index, x, y, z, w);
      GLuint index;
      GLfloat x;
@@ -27073,7 +27073,7 @@ CODE:
     };
     glVertexAttrib4fARB(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4fNV(index, x, y, z, w);
      GLuint index;
      GLfloat x;
@@ -27086,7 +27086,7 @@ CODE:
     };
     glVertexAttrib4fNV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4fv(index, v);
      GLuint index;
      const GLfloat* v;
@@ -27096,7 +27096,7 @@ CODE:
     };
     glVertexAttrib4fv(index, v);
 
-SV *
+void
 glVertexAttrib4fvARB(index, v);
      GLuint index;
      const GLfloat* v;
@@ -27106,7 +27106,7 @@ CODE:
     };
     glVertexAttrib4fvARB(index, v);
 
-SV *
+void
 glVertexAttrib4fvNV(index, v);
      GLuint index;
      const GLfloat* v;
@@ -27116,7 +27116,7 @@ CODE:
     };
     glVertexAttrib4fvNV(index, v);
 
-SV *
+void
 glVertexAttrib4hNV(index, x, y, z, w);
      GLuint index;
      GLhalf x;
@@ -27129,7 +27129,7 @@ CODE:
     };
     glVertexAttrib4hNV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4hvNV(index, v);
      GLuint index;
      const GLhalf* v;
@@ -27139,7 +27139,7 @@ CODE:
     };
     glVertexAttrib4hvNV(index, v);
 
-SV *
+void
 glVertexAttrib4iv(index, v);
      GLuint index;
      const GLint* v;
@@ -27149,7 +27149,7 @@ CODE:
     };
     glVertexAttrib4iv(index, v);
 
-SV *
+void
 glVertexAttrib4ivARB(index, v);
      GLuint index;
      const GLint* v;
@@ -27159,7 +27159,7 @@ CODE:
     };
     glVertexAttrib4ivARB(index, v);
 
-SV *
+void
 glVertexAttrib4Nbv(index, v);
      GLuint index;
      const GLbyte* v;
@@ -27169,7 +27169,7 @@ CODE:
     };
     glVertexAttrib4Nbv(index, v);
 
-SV *
+void
 glVertexAttrib4NbvARB(index, v);
      GLuint index;
      const GLbyte* v;
@@ -27179,7 +27179,7 @@ CODE:
     };
     glVertexAttrib4NbvARB(index, v);
 
-SV *
+void
 glVertexAttrib4Niv(index, v);
      GLuint index;
      const GLint* v;
@@ -27189,7 +27189,7 @@ CODE:
     };
     glVertexAttrib4Niv(index, v);
 
-SV *
+void
 glVertexAttrib4NivARB(index, v);
      GLuint index;
      const GLint* v;
@@ -27199,7 +27199,7 @@ CODE:
     };
     glVertexAttrib4NivARB(index, v);
 
-SV *
+void
 glVertexAttrib4Nsv(index, v);
      GLuint index;
      const GLshort* v;
@@ -27209,7 +27209,7 @@ CODE:
     };
     glVertexAttrib4Nsv(index, v);
 
-SV *
+void
 glVertexAttrib4NsvARB(index, v);
      GLuint index;
      const GLshort* v;
@@ -27219,7 +27219,7 @@ CODE:
     };
     glVertexAttrib4NsvARB(index, v);
 
-SV *
+void
 glVertexAttrib4Nub(index, x, y, z, w);
      GLuint index;
      GLubyte x;
@@ -27232,7 +27232,7 @@ CODE:
     };
     glVertexAttrib4Nub(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4NubARB(index, x, y, z, w);
      GLuint index;
      GLubyte x;
@@ -27245,7 +27245,7 @@ CODE:
     };
     glVertexAttrib4NubARB(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4Nubv(index, v);
      GLuint index;
      const GLubyte* v;
@@ -27255,7 +27255,7 @@ CODE:
     };
     glVertexAttrib4Nubv(index, v);
 
-SV *
+void
 glVertexAttrib4NubvARB(index, v);
      GLuint index;
      const GLubyte* v;
@@ -27265,7 +27265,7 @@ CODE:
     };
     glVertexAttrib4NubvARB(index, v);
 
-SV *
+void
 glVertexAttrib4Nuiv(index, v);
      GLuint index;
      const GLuint* v;
@@ -27275,7 +27275,7 @@ CODE:
     };
     glVertexAttrib4Nuiv(index, v);
 
-SV *
+void
 glVertexAttrib4NuivARB(index, v);
      GLuint index;
      const GLuint* v;
@@ -27285,7 +27285,7 @@ CODE:
     };
     glVertexAttrib4NuivARB(index, v);
 
-SV *
+void
 glVertexAttrib4Nusv(index, v);
      GLuint index;
      const GLushort* v;
@@ -27295,7 +27295,7 @@ CODE:
     };
     glVertexAttrib4Nusv(index, v);
 
-SV *
+void
 glVertexAttrib4NusvARB(index, v);
      GLuint index;
      const GLushort* v;
@@ -27305,7 +27305,7 @@ CODE:
     };
     glVertexAttrib4NusvARB(index, v);
 
-SV *
+void
 glVertexAttrib4s(index, x, y, z, w);
      GLuint index;
      GLshort x;
@@ -27318,7 +27318,7 @@ CODE:
     };
     glVertexAttrib4s(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4sARB(index, x, y, z, w);
      GLuint index;
      GLshort x;
@@ -27331,7 +27331,7 @@ CODE:
     };
     glVertexAttrib4sARB(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4sNV(index, x, y, z, w);
      GLuint index;
      GLshort x;
@@ -27344,7 +27344,7 @@ CODE:
     };
     glVertexAttrib4sNV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4sv(index, v);
      GLuint index;
      const GLshort* v;
@@ -27354,7 +27354,7 @@ CODE:
     };
     glVertexAttrib4sv(index, v);
 
-SV *
+void
 glVertexAttrib4svARB(index, v);
      GLuint index;
      const GLshort* v;
@@ -27364,7 +27364,7 @@ CODE:
     };
     glVertexAttrib4svARB(index, v);
 
-SV *
+void
 glVertexAttrib4svNV(index, v);
      GLuint index;
      const GLshort* v;
@@ -27374,7 +27374,7 @@ CODE:
     };
     glVertexAttrib4svNV(index, v);
 
-SV *
+void
 glVertexAttrib4ubNV(index, x, y, z, w);
      GLuint index;
      GLubyte x;
@@ -27387,7 +27387,7 @@ CODE:
     };
     glVertexAttrib4ubNV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttrib4ubv(index, v);
      GLuint index;
      const GLubyte* v;
@@ -27397,7 +27397,7 @@ CODE:
     };
     glVertexAttrib4ubv(index, v);
 
-SV *
+void
 glVertexAttrib4ubvARB(index, v);
      GLuint index;
      const GLubyte* v;
@@ -27407,7 +27407,7 @@ CODE:
     };
     glVertexAttrib4ubvARB(index, v);
 
-SV *
+void
 glVertexAttrib4ubvNV(index, v);
      GLuint index;
      const GLubyte* v;
@@ -27417,7 +27417,7 @@ CODE:
     };
     glVertexAttrib4ubvNV(index, v);
 
-SV *
+void
 glVertexAttrib4uiv(index, v);
      GLuint index;
      const GLuint* v;
@@ -27427,7 +27427,7 @@ CODE:
     };
     glVertexAttrib4uiv(index, v);
 
-SV *
+void
 glVertexAttrib4uivARB(index, v);
      GLuint index;
      const GLuint* v;
@@ -27437,7 +27437,7 @@ CODE:
     };
     glVertexAttrib4uivARB(index, v);
 
-SV *
+void
 glVertexAttrib4usv(index, v);
      GLuint index;
      const GLushort* v;
@@ -27447,7 +27447,7 @@ CODE:
     };
     glVertexAttrib4usv(index, v);
 
-SV *
+void
 glVertexAttrib4usvARB(index, v);
      GLuint index;
      const GLushort* v;
@@ -27457,7 +27457,7 @@ CODE:
     };
     glVertexAttrib4usvARB(index, v);
 
-SV *
+void
 glVertexAttribArrayObjectATI(index, size, type, normalized, stride, buffer, offset);
      GLuint index;
      GLint size;
@@ -27472,7 +27472,7 @@ CODE:
     };
     glVertexAttribArrayObjectATI(index, size, type, normalized, stride, buffer, offset);
 
-SV *
+void
 glVertexAttribBinding(attribindex, bindingindex);
      GLuint attribindex;
      GLuint bindingindex;
@@ -27482,7 +27482,7 @@ CODE:
     };
     glVertexAttribBinding(attribindex, bindingindex);
 
-SV *
+void
 glVertexAttribDivisor(index, divisor);
      GLuint index;
      GLuint divisor;
@@ -27492,7 +27492,7 @@ CODE:
     };
     glVertexAttribDivisor(index, divisor);
 
-SV *
+void
 glVertexAttribDivisorANGLE(index, divisor);
      GLuint index;
      GLuint divisor;
@@ -27502,7 +27502,7 @@ CODE:
     };
     glVertexAttribDivisorANGLE(index, divisor);
 
-SV *
+void
 glVertexAttribDivisorARB(index, divisor);
      GLuint index;
      GLuint divisor;
@@ -27512,7 +27512,7 @@ CODE:
     };
     glVertexAttribDivisorARB(index, divisor);
 
-SV *
+void
 glVertexAttribFormat(attribindex, size, type, normalized, relativeoffset);
      GLuint attribindex;
      GLint size;
@@ -27525,7 +27525,7 @@ CODE:
     };
     glVertexAttribFormat(attribindex, size, type, normalized, relativeoffset);
 
-SV *
+void
 glVertexAttribFormatNV(index, size, type, normalized, stride);
      GLuint index;
      GLint size;
@@ -27538,7 +27538,7 @@ CODE:
     };
     glVertexAttribFormatNV(index, size, type, normalized, stride);
 
-SV *
+void
 glVertexAttribI1i(index, v0);
      GLuint index;
      GLint v0;
@@ -27548,7 +27548,7 @@ CODE:
     };
     glVertexAttribI1i(index, v0);
 
-SV *
+void
 glVertexAttribI1iEXT(index, x);
      GLuint index;
      GLint x;
@@ -27558,7 +27558,7 @@ CODE:
     };
     glVertexAttribI1iEXT(index, x);
 
-SV *
+void
 glVertexAttribI1iv(index, v0);
      GLuint index;
      const GLint* v0;
@@ -27568,7 +27568,7 @@ CODE:
     };
     glVertexAttribI1iv(index, v0);
 
-SV *
+void
 glVertexAttribI1ivEXT(index, v);
      GLuint index;
      const GLint *v;
@@ -27578,7 +27578,7 @@ CODE:
     };
     glVertexAttribI1ivEXT(index, v);
 
-SV *
+void
 glVertexAttribI1ui(index, v0);
      GLuint index;
      GLuint v0;
@@ -27588,7 +27588,7 @@ CODE:
     };
     glVertexAttribI1ui(index, v0);
 
-SV *
+void
 glVertexAttribI1uiEXT(index, x);
      GLuint index;
      GLuint x;
@@ -27598,7 +27598,7 @@ CODE:
     };
     glVertexAttribI1uiEXT(index, x);
 
-SV *
+void
 glVertexAttribI1uiv(index, v0);
      GLuint index;
      const GLuint* v0;
@@ -27608,7 +27608,7 @@ CODE:
     };
     glVertexAttribI1uiv(index, v0);
 
-SV *
+void
 glVertexAttribI1uivEXT(index, v);
      GLuint index;
      const GLuint *v;
@@ -27618,7 +27618,7 @@ CODE:
     };
     glVertexAttribI1uivEXT(index, v);
 
-SV *
+void
 glVertexAttribI2i(index, v0, v1);
      GLuint index;
      GLint v0;
@@ -27629,7 +27629,7 @@ CODE:
     };
     glVertexAttribI2i(index, v0, v1);
 
-SV *
+void
 glVertexAttribI2iEXT(index, x, y);
      GLuint index;
      GLint x;
@@ -27640,7 +27640,7 @@ CODE:
     };
     glVertexAttribI2iEXT(index, x, y);
 
-SV *
+void
 glVertexAttribI2iv(index, v0);
      GLuint index;
      const GLint* v0;
@@ -27650,7 +27650,7 @@ CODE:
     };
     glVertexAttribI2iv(index, v0);
 
-SV *
+void
 glVertexAttribI2ivEXT(index, v);
      GLuint index;
      const GLint *v;
@@ -27660,7 +27660,7 @@ CODE:
     };
     glVertexAttribI2ivEXT(index, v);
 
-SV *
+void
 glVertexAttribI2ui(index, v0, v1);
      GLuint index;
      GLuint v0;
@@ -27671,7 +27671,7 @@ CODE:
     };
     glVertexAttribI2ui(index, v0, v1);
 
-SV *
+void
 glVertexAttribI2uiEXT(index, x, y);
      GLuint index;
      GLuint x;
@@ -27682,7 +27682,7 @@ CODE:
     };
     glVertexAttribI2uiEXT(index, x, y);
 
-SV *
+void
 glVertexAttribI2uiv(index, v0);
      GLuint index;
      const GLuint* v0;
@@ -27692,7 +27692,7 @@ CODE:
     };
     glVertexAttribI2uiv(index, v0);
 
-SV *
+void
 glVertexAttribI2uivEXT(index, v);
      GLuint index;
      const GLuint *v;
@@ -27702,7 +27702,7 @@ CODE:
     };
     glVertexAttribI2uivEXT(index, v);
 
-SV *
+void
 glVertexAttribI3i(index, v0, v1, v2);
      GLuint index;
      GLint v0;
@@ -27714,7 +27714,7 @@ CODE:
     };
     glVertexAttribI3i(index, v0, v1, v2);
 
-SV *
+void
 glVertexAttribI3iEXT(index, x, y, z);
      GLuint index;
      GLint x;
@@ -27726,7 +27726,7 @@ CODE:
     };
     glVertexAttribI3iEXT(index, x, y, z);
 
-SV *
+void
 glVertexAttribI3iv(index, v0);
      GLuint index;
      const GLint* v0;
@@ -27736,7 +27736,7 @@ CODE:
     };
     glVertexAttribI3iv(index, v0);
 
-SV *
+void
 glVertexAttribI3ivEXT(index, v);
      GLuint index;
      const GLint *v;
@@ -27746,7 +27746,7 @@ CODE:
     };
     glVertexAttribI3ivEXT(index, v);
 
-SV *
+void
 glVertexAttribI3ui(index, v0, v1, v2);
      GLuint index;
      GLuint v0;
@@ -27758,7 +27758,7 @@ CODE:
     };
     glVertexAttribI3ui(index, v0, v1, v2);
 
-SV *
+void
 glVertexAttribI3uiEXT(index, x, y, z);
      GLuint index;
      GLuint x;
@@ -27770,7 +27770,7 @@ CODE:
     };
     glVertexAttribI3uiEXT(index, x, y, z);
 
-SV *
+void
 glVertexAttribI3uiv(index, v0);
      GLuint index;
      const GLuint* v0;
@@ -27780,7 +27780,7 @@ CODE:
     };
     glVertexAttribI3uiv(index, v0);
 
-SV *
+void
 glVertexAttribI3uivEXT(index, v);
      GLuint index;
      const GLuint *v;
@@ -27790,7 +27790,7 @@ CODE:
     };
     glVertexAttribI3uivEXT(index, v);
 
-SV *
+void
 glVertexAttribI4bv(index, v0);
      GLuint index;
      const GLbyte* v0;
@@ -27800,7 +27800,7 @@ CODE:
     };
     glVertexAttribI4bv(index, v0);
 
-SV *
+void
 glVertexAttribI4bvEXT(index, v);
      GLuint index;
      const GLbyte *v;
@@ -27810,7 +27810,7 @@ CODE:
     };
     glVertexAttribI4bvEXT(index, v);
 
-SV *
+void
 glVertexAttribI4i(index, v0, v1, v2, v3);
      GLuint index;
      GLint v0;
@@ -27823,7 +27823,7 @@ CODE:
     };
     glVertexAttribI4i(index, v0, v1, v2, v3);
 
-SV *
+void
 glVertexAttribI4iEXT(index, x, y, z, w);
      GLuint index;
      GLint x;
@@ -27836,7 +27836,7 @@ CODE:
     };
     glVertexAttribI4iEXT(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribI4iv(index, v0);
      GLuint index;
      const GLint* v0;
@@ -27846,7 +27846,7 @@ CODE:
     };
     glVertexAttribI4iv(index, v0);
 
-SV *
+void
 glVertexAttribI4ivEXT(index, v);
      GLuint index;
      const GLint *v;
@@ -27856,7 +27856,7 @@ CODE:
     };
     glVertexAttribI4ivEXT(index, v);
 
-SV *
+void
 glVertexAttribI4sv(index, v0);
      GLuint index;
      const GLshort* v0;
@@ -27866,7 +27866,7 @@ CODE:
     };
     glVertexAttribI4sv(index, v0);
 
-SV *
+void
 glVertexAttribI4svEXT(index, v);
      GLuint index;
      const GLshort *v;
@@ -27876,7 +27876,7 @@ CODE:
     };
     glVertexAttribI4svEXT(index, v);
 
-SV *
+void
 glVertexAttribI4ubv(index, v0);
      GLuint index;
      const GLubyte* v0;
@@ -27886,7 +27886,7 @@ CODE:
     };
     glVertexAttribI4ubv(index, v0);
 
-SV *
+void
 glVertexAttribI4ubvEXT(index, v);
      GLuint index;
      const GLubyte *v;
@@ -27896,7 +27896,7 @@ CODE:
     };
     glVertexAttribI4ubvEXT(index, v);
 
-SV *
+void
 glVertexAttribI4ui(index, v0, v1, v2, v3);
      GLuint index;
      GLuint v0;
@@ -27909,7 +27909,7 @@ CODE:
     };
     glVertexAttribI4ui(index, v0, v1, v2, v3);
 
-SV *
+void
 glVertexAttribI4uiEXT(index, x, y, z, w);
      GLuint index;
      GLuint x;
@@ -27922,7 +27922,7 @@ CODE:
     };
     glVertexAttribI4uiEXT(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribI4uiv(index, v0);
      GLuint index;
      const GLuint* v0;
@@ -27932,7 +27932,7 @@ CODE:
     };
     glVertexAttribI4uiv(index, v0);
 
-SV *
+void
 glVertexAttribI4uivEXT(index, v);
      GLuint index;
      const GLuint *v;
@@ -27942,7 +27942,7 @@ CODE:
     };
     glVertexAttribI4uivEXT(index, v);
 
-SV *
+void
 glVertexAttribI4usv(index, v0);
      GLuint index;
      const GLushort* v0;
@@ -27952,7 +27952,7 @@ CODE:
     };
     glVertexAttribI4usv(index, v0);
 
-SV *
+void
 glVertexAttribI4usvEXT(index, v);
      GLuint index;
      const GLushort *v;
@@ -27962,7 +27962,7 @@ CODE:
     };
     glVertexAttribI4usvEXT(index, v);
 
-SV *
+void
 glVertexAttribIFormat(attribindex, size, type, relativeoffset);
      GLuint attribindex;
      GLint size;
@@ -27974,7 +27974,7 @@ CODE:
     };
     glVertexAttribIFormat(attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexAttribIFormatNV(index, size, type, stride);
      GLuint index;
      GLint size;
@@ -27986,7 +27986,7 @@ CODE:
     };
     glVertexAttribIFormatNV(index, size, type, stride);
 
-SV *
+void
 glVertexAttribIPointer(index, size, type, stride, pointer);
      GLuint index;
      GLint size;
@@ -27999,7 +27999,7 @@ CODE:
     };
     glVertexAttribIPointer(index, size, type, stride, pointer);
 
-SV *
+void
 glVertexAttribIPointerEXT(index, size, type, stride, pointer);
      GLuint index;
      GLint size;
@@ -28012,7 +28012,7 @@ CODE:
     };
     glVertexAttribIPointerEXT(index, size, type, stride, pointer);
 
-SV *
+void
 glVertexAttribL1d(index, x);
      GLuint index;
      GLdouble x;
@@ -28022,7 +28022,7 @@ CODE:
     };
     glVertexAttribL1d(index, x);
 
-SV *
+void
 glVertexAttribL1dEXT(index, x);
      GLuint index;
      GLdouble x;
@@ -28032,7 +28032,7 @@ CODE:
     };
     glVertexAttribL1dEXT(index, x);
 
-SV *
+void
 glVertexAttribL1dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28042,7 +28042,7 @@ CODE:
     };
     glVertexAttribL1dv(index, v);
 
-SV *
+void
 glVertexAttribL1dvEXT(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28052,7 +28052,7 @@ CODE:
     };
     glVertexAttribL1dvEXT(index, v);
 
-SV *
+void
 glVertexAttribL1i64NV(index, x);
      GLuint index;
      GLint64EXT x;
@@ -28062,7 +28062,7 @@ CODE:
     };
     glVertexAttribL1i64NV(index, x);
 
-SV *
+void
 glVertexAttribL1i64vNV(index, v);
      GLuint index;
      const GLint64EXT* v;
@@ -28072,7 +28072,7 @@ CODE:
     };
     glVertexAttribL1i64vNV(index, v);
 
-SV *
+void
 glVertexAttribL1ui64ARB(index, x);
      GLuint index;
      GLuint64EXT x;
@@ -28082,7 +28082,7 @@ CODE:
     };
     glVertexAttribL1ui64ARB(index, x);
 
-SV *
+void
 glVertexAttribL1ui64NV(index, x);
      GLuint index;
      GLuint64EXT x;
@@ -28092,7 +28092,7 @@ CODE:
     };
     glVertexAttribL1ui64NV(index, x);
 
-SV *
+void
 glVertexAttribL1ui64vARB(index, v);
      GLuint index;
      const GLuint64EXT* v;
@@ -28102,7 +28102,7 @@ CODE:
     };
     glVertexAttribL1ui64vARB(index, v);
 
-SV *
+void
 glVertexAttribL1ui64vNV(index, v);
      GLuint index;
      const GLuint64EXT* v;
@@ -28112,7 +28112,7 @@ CODE:
     };
     glVertexAttribL1ui64vNV(index, v);
 
-SV *
+void
 glVertexAttribL2d(index, x, y);
      GLuint index;
      GLdouble x;
@@ -28123,7 +28123,7 @@ CODE:
     };
     glVertexAttribL2d(index, x, y);
 
-SV *
+void
 glVertexAttribL2dEXT(index, x, y);
      GLuint index;
      GLdouble x;
@@ -28134,7 +28134,7 @@ CODE:
     };
     glVertexAttribL2dEXT(index, x, y);
 
-SV *
+void
 glVertexAttribL2dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28144,7 +28144,7 @@ CODE:
     };
     glVertexAttribL2dv(index, v);
 
-SV *
+void
 glVertexAttribL2dvEXT(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28154,7 +28154,7 @@ CODE:
     };
     glVertexAttribL2dvEXT(index, v);
 
-SV *
+void
 glVertexAttribL2i64NV(index, x, y);
      GLuint index;
      GLint64EXT x;
@@ -28165,7 +28165,7 @@ CODE:
     };
     glVertexAttribL2i64NV(index, x, y);
 
-SV *
+void
 glVertexAttribL2i64vNV(index, v);
      GLuint index;
      const GLint64EXT* v;
@@ -28175,7 +28175,7 @@ CODE:
     };
     glVertexAttribL2i64vNV(index, v);
 
-SV *
+void
 glVertexAttribL2ui64NV(index, x, y);
      GLuint index;
      GLuint64EXT x;
@@ -28186,7 +28186,7 @@ CODE:
     };
     glVertexAttribL2ui64NV(index, x, y);
 
-SV *
+void
 glVertexAttribL2ui64vNV(index, v);
      GLuint index;
      const GLuint64EXT* v;
@@ -28196,7 +28196,7 @@ CODE:
     };
     glVertexAttribL2ui64vNV(index, v);
 
-SV *
+void
 glVertexAttribL3d(index, x, y, z);
      GLuint index;
      GLdouble x;
@@ -28208,7 +28208,7 @@ CODE:
     };
     glVertexAttribL3d(index, x, y, z);
 
-SV *
+void
 glVertexAttribL3dEXT(index, x, y, z);
      GLuint index;
      GLdouble x;
@@ -28220,7 +28220,7 @@ CODE:
     };
     glVertexAttribL3dEXT(index, x, y, z);
 
-SV *
+void
 glVertexAttribL3dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28230,7 +28230,7 @@ CODE:
     };
     glVertexAttribL3dv(index, v);
 
-SV *
+void
 glVertexAttribL3dvEXT(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28240,7 +28240,7 @@ CODE:
     };
     glVertexAttribL3dvEXT(index, v);
 
-SV *
+void
 glVertexAttribL3i64NV(index, x, y, z);
      GLuint index;
      GLint64EXT x;
@@ -28252,7 +28252,7 @@ CODE:
     };
     glVertexAttribL3i64NV(index, x, y, z);
 
-SV *
+void
 glVertexAttribL3i64vNV(index, v);
      GLuint index;
      const GLint64EXT* v;
@@ -28262,7 +28262,7 @@ CODE:
     };
     glVertexAttribL3i64vNV(index, v);
 
-SV *
+void
 glVertexAttribL3ui64NV(index, x, y, z);
      GLuint index;
      GLuint64EXT x;
@@ -28274,7 +28274,7 @@ CODE:
     };
     glVertexAttribL3ui64NV(index, x, y, z);
 
-SV *
+void
 glVertexAttribL3ui64vNV(index, v);
      GLuint index;
      const GLuint64EXT* v;
@@ -28284,7 +28284,7 @@ CODE:
     };
     glVertexAttribL3ui64vNV(index, v);
 
-SV *
+void
 glVertexAttribL4d(index, x, y, z, w);
      GLuint index;
      GLdouble x;
@@ -28297,7 +28297,7 @@ CODE:
     };
     glVertexAttribL4d(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribL4dEXT(index, x, y, z, w);
      GLuint index;
      GLdouble x;
@@ -28310,7 +28310,7 @@ CODE:
     };
     glVertexAttribL4dEXT(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribL4dv(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28320,7 +28320,7 @@ CODE:
     };
     glVertexAttribL4dv(index, v);
 
-SV *
+void
 glVertexAttribL4dvEXT(index, v);
      GLuint index;
      const GLdouble* v;
@@ -28330,7 +28330,7 @@ CODE:
     };
     glVertexAttribL4dvEXT(index, v);
 
-SV *
+void
 glVertexAttribL4i64NV(index, x, y, z, w);
      GLuint index;
      GLint64EXT x;
@@ -28343,7 +28343,7 @@ CODE:
     };
     glVertexAttribL4i64NV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribL4i64vNV(index, v);
      GLuint index;
      const GLint64EXT* v;
@@ -28353,7 +28353,7 @@ CODE:
     };
     glVertexAttribL4i64vNV(index, v);
 
-SV *
+void
 glVertexAttribL4ui64NV(index, x, y, z, w);
      GLuint index;
      GLuint64EXT x;
@@ -28366,7 +28366,7 @@ CODE:
     };
     glVertexAttribL4ui64NV(index, x, y, z, w);
 
-SV *
+void
 glVertexAttribL4ui64vNV(index, v);
      GLuint index;
      const GLuint64EXT* v;
@@ -28376,7 +28376,7 @@ CODE:
     };
     glVertexAttribL4ui64vNV(index, v);
 
-SV *
+void
 glVertexAttribLFormat(attribindex, size, type, relativeoffset);
      GLuint attribindex;
      GLint size;
@@ -28388,7 +28388,7 @@ CODE:
     };
     glVertexAttribLFormat(attribindex, size, type, relativeoffset);
 
-SV *
+void
 glVertexAttribLFormatNV(index, size, type, stride);
      GLuint index;
      GLint size;
@@ -28400,7 +28400,7 @@ CODE:
     };
     glVertexAttribLFormatNV(index, size, type, stride);
 
-SV *
+void
 glVertexAttribLPointer(index, size, type, stride, pointer);
      GLuint index;
      GLint size;
@@ -28413,7 +28413,7 @@ CODE:
     };
     glVertexAttribLPointer(index, size, type, stride, pointer);
 
-SV *
+void
 glVertexAttribLPointerEXT(index, size, type, stride, pointer);
      GLuint index;
      GLint size;
@@ -28426,7 +28426,7 @@ CODE:
     };
     glVertexAttribLPointerEXT(index, size, type, stride, pointer);
 
-SV *
+void
 glVertexAttribP1ui(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28438,7 +28438,7 @@ CODE:
     };
     glVertexAttribP1ui(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP1uiv(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28450,7 +28450,7 @@ CODE:
     };
     glVertexAttribP1uiv(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP2ui(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28462,7 +28462,7 @@ CODE:
     };
     glVertexAttribP2ui(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP2uiv(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28474,7 +28474,7 @@ CODE:
     };
     glVertexAttribP2uiv(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP3ui(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28486,7 +28486,7 @@ CODE:
     };
     glVertexAttribP3ui(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP3uiv(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28498,7 +28498,7 @@ CODE:
     };
     glVertexAttribP3uiv(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP4ui(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28510,7 +28510,7 @@ CODE:
     };
     glVertexAttribP4ui(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribP4uiv(index, type, normalized, value);
      GLuint index;
      GLenum type;
@@ -28522,7 +28522,7 @@ CODE:
     };
     glVertexAttribP4uiv(index, type, normalized, value);
 
-SV *
+void
 glVertexAttribParameteriAMD(index, pname, param);
      GLuint index;
      GLenum pname;
@@ -28533,7 +28533,7 @@ CODE:
     };
     glVertexAttribParameteriAMD(index, pname, param);
 
-SV *
+void
 glVertexAttribPointer(index, size, type, normalized, stride, pointer);
      GLuint index;
      GLint size;
@@ -28547,7 +28547,7 @@ CODE:
     };
     glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 
-SV *
+void
 glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
      GLuint index;
      GLint size;
@@ -28561,7 +28561,7 @@ CODE:
     };
     glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
 
-SV *
+void
 glVertexAttribPointerNV(index, size, type, stride, pointer);
      GLuint index;
      GLint size;
@@ -28574,7 +28574,7 @@ CODE:
     };
     glVertexAttribPointerNV(index, size, type, stride, pointer);
 
-SV *
+void
 glVertexAttribs1dvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28585,7 +28585,7 @@ CODE:
     };
     glVertexAttribs1dvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs1fvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28596,7 +28596,7 @@ CODE:
     };
     glVertexAttribs1fvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs1hvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28607,7 +28607,7 @@ CODE:
     };
     glVertexAttribs1hvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs1svNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28618,7 +28618,7 @@ CODE:
     };
     glVertexAttribs1svNV(index, n, v);
 
-SV *
+void
 glVertexAttribs2dvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28629,7 +28629,7 @@ CODE:
     };
     glVertexAttribs2dvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs2fvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28640,7 +28640,7 @@ CODE:
     };
     glVertexAttribs2fvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs2hvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28651,7 +28651,7 @@ CODE:
     };
     glVertexAttribs2hvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs2svNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28662,7 +28662,7 @@ CODE:
     };
     glVertexAttribs2svNV(index, n, v);
 
-SV *
+void
 glVertexAttribs3dvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28673,7 +28673,7 @@ CODE:
     };
     glVertexAttribs3dvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs3fvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28684,7 +28684,7 @@ CODE:
     };
     glVertexAttribs3fvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs3hvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28695,7 +28695,7 @@ CODE:
     };
     glVertexAttribs3hvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs3svNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28706,7 +28706,7 @@ CODE:
     };
     glVertexAttribs3svNV(index, n, v);
 
-SV *
+void
 glVertexAttribs4dvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28717,7 +28717,7 @@ CODE:
     };
     glVertexAttribs4dvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs4fvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28728,7 +28728,7 @@ CODE:
     };
     glVertexAttribs4fvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs4hvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28739,7 +28739,7 @@ CODE:
     };
     glVertexAttribs4hvNV(index, n, v);
 
-SV *
+void
 glVertexAttribs4svNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28750,7 +28750,7 @@ CODE:
     };
     glVertexAttribs4svNV(index, n, v);
 
-SV *
+void
 glVertexAttribs4ubvNV(index, n, v);
      GLuint index;
      GLsizei n;
@@ -28761,7 +28761,7 @@ CODE:
     };
     glVertexAttribs4ubvNV(index, n, v);
 
-SV *
+void
 glVertexBindingDivisor(bindingindex, divisor);
      GLuint bindingindex;
      GLuint divisor;
@@ -28771,7 +28771,7 @@ CODE:
     };
     glVertexBindingDivisor(bindingindex, divisor);
 
-SV *
+void
 glVertexBlendARB(count);
      GLint count;
 CODE:
@@ -28780,7 +28780,7 @@ CODE:
     };
     glVertexBlendARB(count);
 
-SV *
+void
 glVertexBlendEnvfATI(pname, param);
      GLenum pname;
      GLfloat param;
@@ -28790,7 +28790,7 @@ CODE:
     };
     glVertexBlendEnvfATI(pname, param);
 
-SV *
+void
 glVertexBlendEnviATI(pname, param);
      GLenum pname;
      GLint param;
@@ -28800,7 +28800,7 @@ CODE:
     };
     glVertexBlendEnviATI(pname, param);
 
-SV *
+void
 glVertexFormatNV(size, type, stride);
      GLint size;
      GLenum type;
@@ -28811,7 +28811,7 @@ CODE:
     };
     glVertexFormatNV(size, type, stride);
 
-SV *
+void
 glVertexP2ui(type, value);
      GLenum type;
      GLuint value;
@@ -28821,7 +28821,7 @@ CODE:
     };
     glVertexP2ui(type, value);
 
-SV *
+void
 glVertexP2uiv(type, value);
      GLenum type;
      const GLuint* value;
@@ -28831,7 +28831,7 @@ CODE:
     };
     glVertexP2uiv(type, value);
 
-SV *
+void
 glVertexP3ui(type, value);
      GLenum type;
      GLuint value;
@@ -28841,7 +28841,7 @@ CODE:
     };
     glVertexP3ui(type, value);
 
-SV *
+void
 glVertexP3uiv(type, value);
      GLenum type;
      const GLuint* value;
@@ -28851,7 +28851,7 @@ CODE:
     };
     glVertexP3uiv(type, value);
 
-SV *
+void
 glVertexP4ui(type, value);
      GLenum type;
      GLuint value;
@@ -28861,7 +28861,7 @@ CODE:
     };
     glVertexP4ui(type, value);
 
-SV *
+void
 glVertexP4uiv(type, value);
      GLenum type;
      const GLuint* value;
@@ -28871,7 +28871,7 @@ CODE:
     };
     glVertexP4uiv(type, value);
 
-SV *
+void
 glVertexPointer(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -28880,7 +28880,7 @@ glVertexPointer(size, type, stride, pointer);
 CODE:
     glVertexPointer(size, type, stride, pointer);
 
-SV *
+void
 glVertexPointerEXT(size, type, stride, count, pointer);
      GLint size;
      GLenum type;
@@ -28893,7 +28893,7 @@ CODE:
     };
     glVertexPointerEXT(size, type, stride, count, pointer);
 
-SV *
+void
 glVertexPointerListIBM(size, type, stride, pointer, ptrstride);
      GLint size;
      GLenum type;
@@ -28906,7 +28906,7 @@ CODE:
     };
     glVertexPointerListIBM(size, type, stride, pointer, ptrstride);
 
-SV *
+void
 glVertexPointervINTEL(size, type, pointer);
      GLint size;
      GLenum type;
@@ -28917,7 +28917,7 @@ CODE:
     };
     glVertexPointervINTEL(size, type, pointer);
 
-SV *
+void
 glVertexStream1dATI(stream, x);
      GLenum stream;
      GLdouble x;
@@ -28927,7 +28927,7 @@ CODE:
     };
     glVertexStream1dATI(stream, x);
 
-SV *
+void
 glVertexStream1dvATI(stream, coords);
      GLenum stream;
      const GLdouble *coords;
@@ -28937,7 +28937,7 @@ CODE:
     };
     glVertexStream1dvATI(stream, coords);
 
-SV *
+void
 glVertexStream1fATI(stream, x);
      GLenum stream;
      GLfloat x;
@@ -28947,7 +28947,7 @@ CODE:
     };
     glVertexStream1fATI(stream, x);
 
-SV *
+void
 glVertexStream1fvATI(stream, coords);
      GLenum stream;
      const GLfloat *coords;
@@ -28957,7 +28957,7 @@ CODE:
     };
     glVertexStream1fvATI(stream, coords);
 
-SV *
+void
 glVertexStream1iATI(stream, x);
      GLenum stream;
      GLint x;
@@ -28967,7 +28967,7 @@ CODE:
     };
     glVertexStream1iATI(stream, x);
 
-SV *
+void
 glVertexStream1ivATI(stream, coords);
      GLenum stream;
      const GLint *coords;
@@ -28977,7 +28977,7 @@ CODE:
     };
     glVertexStream1ivATI(stream, coords);
 
-SV *
+void
 glVertexStream1sATI(stream, x);
      GLenum stream;
      GLshort x;
@@ -28987,7 +28987,7 @@ CODE:
     };
     glVertexStream1sATI(stream, x);
 
-SV *
+void
 glVertexStream1svATI(stream, coords);
      GLenum stream;
      const GLshort *coords;
@@ -28997,7 +28997,7 @@ CODE:
     };
     glVertexStream1svATI(stream, coords);
 
-SV *
+void
 glVertexStream2dATI(stream, x, y);
      GLenum stream;
      GLdouble x;
@@ -29008,7 +29008,7 @@ CODE:
     };
     glVertexStream2dATI(stream, x, y);
 
-SV *
+void
 glVertexStream2dvATI(stream, coords);
      GLenum stream;
      const GLdouble *coords;
@@ -29018,7 +29018,7 @@ CODE:
     };
     glVertexStream2dvATI(stream, coords);
 
-SV *
+void
 glVertexStream2fATI(stream, x, y);
      GLenum stream;
      GLfloat x;
@@ -29029,7 +29029,7 @@ CODE:
     };
     glVertexStream2fATI(stream, x, y);
 
-SV *
+void
 glVertexStream2fvATI(stream, coords);
      GLenum stream;
      const GLfloat *coords;
@@ -29039,7 +29039,7 @@ CODE:
     };
     glVertexStream2fvATI(stream, coords);
 
-SV *
+void
 glVertexStream2iATI(stream, x, y);
      GLenum stream;
      GLint x;
@@ -29050,7 +29050,7 @@ CODE:
     };
     glVertexStream2iATI(stream, x, y);
 
-SV *
+void
 glVertexStream2ivATI(stream, coords);
      GLenum stream;
      const GLint *coords;
@@ -29060,7 +29060,7 @@ CODE:
     };
     glVertexStream2ivATI(stream, coords);
 
-SV *
+void
 glVertexStream2sATI(stream, x, y);
      GLenum stream;
      GLshort x;
@@ -29071,7 +29071,7 @@ CODE:
     };
     glVertexStream2sATI(stream, x, y);
 
-SV *
+void
 glVertexStream2svATI(stream, coords);
      GLenum stream;
      const GLshort *coords;
@@ -29081,7 +29081,7 @@ CODE:
     };
     glVertexStream2svATI(stream, coords);
 
-SV *
+void
 glVertexStream3dATI(stream, x, y, z);
      GLenum stream;
      GLdouble x;
@@ -29093,7 +29093,7 @@ CODE:
     };
     glVertexStream3dATI(stream, x, y, z);
 
-SV *
+void
 glVertexStream3dvATI(stream, coords);
      GLenum stream;
      const GLdouble *coords;
@@ -29103,7 +29103,7 @@ CODE:
     };
     glVertexStream3dvATI(stream, coords);
 
-SV *
+void
 glVertexStream3fATI(stream, x, y, z);
      GLenum stream;
      GLfloat x;
@@ -29115,7 +29115,7 @@ CODE:
     };
     glVertexStream3fATI(stream, x, y, z);
 
-SV *
+void
 glVertexStream3fvATI(stream, coords);
      GLenum stream;
      const GLfloat *coords;
@@ -29125,7 +29125,7 @@ CODE:
     };
     glVertexStream3fvATI(stream, coords);
 
-SV *
+void
 glVertexStream3iATI(stream, x, y, z);
      GLenum stream;
      GLint x;
@@ -29137,7 +29137,7 @@ CODE:
     };
     glVertexStream3iATI(stream, x, y, z);
 
-SV *
+void
 glVertexStream3ivATI(stream, coords);
      GLenum stream;
      const GLint *coords;
@@ -29147,7 +29147,7 @@ CODE:
     };
     glVertexStream3ivATI(stream, coords);
 
-SV *
+void
 glVertexStream3sATI(stream, x, y, z);
      GLenum stream;
      GLshort x;
@@ -29159,7 +29159,7 @@ CODE:
     };
     glVertexStream3sATI(stream, x, y, z);
 
-SV *
+void
 glVertexStream3svATI(stream, coords);
      GLenum stream;
      const GLshort *coords;
@@ -29169,7 +29169,7 @@ CODE:
     };
     glVertexStream3svATI(stream, coords);
 
-SV *
+void
 glVertexStream4dATI(stream, x, y, z, w);
      GLenum stream;
      GLdouble x;
@@ -29182,7 +29182,7 @@ CODE:
     };
     glVertexStream4dATI(stream, x, y, z, w);
 
-SV *
+void
 glVertexStream4dvATI(stream, coords);
      GLenum stream;
      const GLdouble *coords;
@@ -29192,7 +29192,7 @@ CODE:
     };
     glVertexStream4dvATI(stream, coords);
 
-SV *
+void
 glVertexStream4fATI(stream, x, y, z, w);
      GLenum stream;
      GLfloat x;
@@ -29205,7 +29205,7 @@ CODE:
     };
     glVertexStream4fATI(stream, x, y, z, w);
 
-SV *
+void
 glVertexStream4fvATI(stream, coords);
      GLenum stream;
      const GLfloat *coords;
@@ -29215,7 +29215,7 @@ CODE:
     };
     glVertexStream4fvATI(stream, coords);
 
-SV *
+void
 glVertexStream4iATI(stream, x, y, z, w);
      GLenum stream;
      GLint x;
@@ -29228,7 +29228,7 @@ CODE:
     };
     glVertexStream4iATI(stream, x, y, z, w);
 
-SV *
+void
 glVertexStream4ivATI(stream, coords);
      GLenum stream;
      const GLint *coords;
@@ -29238,7 +29238,7 @@ CODE:
     };
     glVertexStream4ivATI(stream, coords);
 
-SV *
+void
 glVertexStream4sATI(stream, x, y, z, w);
      GLenum stream;
      GLshort x;
@@ -29251,7 +29251,7 @@ CODE:
     };
     glVertexStream4sATI(stream, x, y, z, w);
 
-SV *
+void
 glVertexStream4svATI(stream, coords);
      GLenum stream;
      const GLshort *coords;
@@ -29261,7 +29261,7 @@ CODE:
     };
     glVertexStream4svATI(stream, coords);
 
-SV *
+void
 glVertexWeightfEXT(weight);
      GLfloat weight;
 CODE:
@@ -29270,7 +29270,7 @@ CODE:
     };
     glVertexWeightfEXT(weight);
 
-SV *
+void
 glVertexWeightfvEXT(weight);
      GLfloat* weight;
 CODE:
@@ -29279,7 +29279,7 @@ CODE:
     };
     glVertexWeightfvEXT(weight);
 
-SV *
+void
 glVertexWeighthNV(weight);
      GLhalf weight;
 CODE:
@@ -29288,7 +29288,7 @@ CODE:
     };
     glVertexWeighthNV(weight);
 
-SV *
+void
 glVertexWeighthvNV(weight);
      const GLhalf* weight;
 CODE:
@@ -29297,7 +29297,7 @@ CODE:
     };
     glVertexWeighthvNV(weight);
 
-SV *
+void
 glVertexWeightPointerEXT(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -29322,7 +29322,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-SV *
+void
 glVideoCaptureStreamParameterdvNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -29334,7 +29334,7 @@ CODE:
     };
     glVideoCaptureStreamParameterdvNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glVideoCaptureStreamParameterfvNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -29346,7 +29346,7 @@ CODE:
     };
     glVideoCaptureStreamParameterfvNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glVideoCaptureStreamParameterivNV(video_capture_slot, stream, pname, params);
      GLuint video_capture_slot;
      GLuint stream;
@@ -29358,7 +29358,7 @@ CODE:
     };
     glVideoCaptureStreamParameterivNV(video_capture_slot, stream, pname, params);
 
-SV *
+void
 glViewport(x, y, width, height);
      GLint x;
      GLint y;
@@ -29367,7 +29367,7 @@ glViewport(x, y, width, height);
 CODE:
     glViewport(x, y, width, height);
 
-SV *
+void
 glViewportArrayv(first, count, v);
      GLuint first;
      GLsizei count;
@@ -29378,7 +29378,7 @@ CODE:
     };
     glViewportArrayv(first, count, v);
 
-SV *
+void
 glViewportIndexedf(index, x, y, w, h);
      GLuint index;
      GLfloat x;
@@ -29391,7 +29391,7 @@ CODE:
     };
     glViewportIndexedf(index, x, y, w, h);
 
-SV *
+void
 glViewportIndexedfv(index, v);
      GLuint index;
      const GLfloat * v;
@@ -29401,7 +29401,7 @@ CODE:
     };
     glViewportIndexedfv(index, v);
 
-SV *
+void
 glViewportPositionWScaleNV(index, xcoeff, ycoeff);
      GLuint index;
      GLfloat xcoeff;
@@ -29412,7 +29412,7 @@ CODE:
     };
     glViewportPositionWScaleNV(index, xcoeff, ycoeff);
 
-SV *
+void
 glViewportSwizzleNV(index, swizzlex, swizzley, swizzlez, swizzlew);
      GLuint index;
      GLenum swizzlex;
@@ -29425,7 +29425,7 @@ CODE:
     };
     glViewportSwizzleNV(index, swizzlex, swizzley, swizzlez, swizzlew);
 
-SV *
+void
 glWaitSync(GLsync,flags,timeout);
      GLsync GLsync;
     GLbitfield flags;
@@ -29436,7 +29436,7 @@ CODE:
     };
     glWaitSync(GLsync,flags,timeout);
 
-SV *
+void
 glWaitVkSemaphoreNV(vkSemaphore);
      GLuint64 vkSemaphore;
 CODE:
@@ -29445,7 +29445,7 @@ CODE:
     };
     glWaitVkSemaphoreNV(vkSemaphore);
 
-SV *
+void
 glWeightbvARB(size, weights);
      GLint size;
      GLbyte *weights;
@@ -29455,7 +29455,7 @@ CODE:
     };
     glWeightbvARB(size, weights);
 
-SV *
+void
 glWeightdvARB(size, weights);
      GLint size;
      GLdouble *weights;
@@ -29465,7 +29465,7 @@ CODE:
     };
     glWeightdvARB(size, weights);
 
-SV *
+void
 glWeightfvARB(size, weights);
      GLint size;
      GLfloat *weights;
@@ -29475,7 +29475,7 @@ CODE:
     };
     glWeightfvARB(size, weights);
 
-SV *
+void
 glWeightivARB(size, weights);
      GLint size;
      GLint *weights;
@@ -29485,7 +29485,7 @@ CODE:
     };
     glWeightivARB(size, weights);
 
-SV *
+void
 glWeightPathsNV(resultPath, numPaths, paths, weights);
      GLuint resultPath;
      GLsizei numPaths;
@@ -29497,7 +29497,7 @@ CODE:
     };
     glWeightPathsNV(resultPath, numPaths, paths, weights);
 
-SV *
+void
 glWeightPointerARB(size, type, stride, pointer);
      GLint size;
      GLenum type;
@@ -29509,7 +29509,7 @@ CODE:
     };
     glWeightPointerARB(size, type, stride, pointer);
 
-SV *
+void
 glWeightsvARB(size, weights);
      GLint size;
      GLshort *weights;
@@ -29519,7 +29519,7 @@ CODE:
     };
     glWeightsvARB(size, weights);
 
-SV *
+void
 glWeightubvARB(size, weights);
      GLint size;
      GLubyte *weights;
@@ -29529,7 +29529,7 @@ CODE:
     };
     glWeightubvARB(size, weights);
 
-SV *
+void
 glWeightuivARB(size, weights);
      GLint size;
      GLuint *weights;
@@ -29539,7 +29539,7 @@ CODE:
     };
     glWeightuivARB(size, weights);
 
-SV *
+void
 glWeightusvARB(size, weights);
      GLint size;
      GLushort *weights;
@@ -29549,7 +29549,7 @@ CODE:
     };
     glWeightusvARB(size, weights);
 
-SV *
+void
 glWindowPos2d(x, y);
      GLdouble x;
      GLdouble y;
@@ -29559,7 +29559,7 @@ CODE:
     };
     glWindowPos2d(x, y);
 
-SV *
+void
 glWindowPos2dARB(x, y);
      GLdouble x;
      GLdouble y;
@@ -29569,7 +29569,7 @@ CODE:
     };
     glWindowPos2dARB(x, y);
 
-SV *
+void
 glWindowPos2dMESA(x, y);
      GLdouble x;
      GLdouble y;
@@ -29579,7 +29579,7 @@ CODE:
     };
     glWindowPos2dMESA(x, y);
 
-SV *
+void
 glWindowPos2dv(p);
      const GLdouble *p;
 CODE:
@@ -29588,7 +29588,7 @@ CODE:
     };
     glWindowPos2dv(p);
 
-SV *
+void
 glWindowPos2dvARB(p);
      const GLdouble* p;
 CODE:
@@ -29597,7 +29597,7 @@ CODE:
     };
     glWindowPos2dvARB(p);
 
-SV *
+void
 glWindowPos2dvMESA(p);
      const GLdouble* p;
 CODE:
@@ -29606,7 +29606,7 @@ CODE:
     };
     glWindowPos2dvMESA(p);
 
-SV *
+void
 glWindowPos2f(x, y);
      GLfloat x;
      GLfloat y;
@@ -29616,7 +29616,7 @@ CODE:
     };
     glWindowPos2f(x, y);
 
-SV *
+void
 glWindowPos2fARB(x, y);
      GLfloat x;
      GLfloat y;
@@ -29626,7 +29626,7 @@ CODE:
     };
     glWindowPos2fARB(x, y);
 
-SV *
+void
 glWindowPos2fMESA(x, y);
      GLfloat x;
      GLfloat y;
@@ -29636,7 +29636,7 @@ CODE:
     };
     glWindowPos2fMESA(x, y);
 
-SV *
+void
 glWindowPos2fv(p);
      const GLfloat *p;
 CODE:
@@ -29645,7 +29645,7 @@ CODE:
     };
     glWindowPos2fv(p);
 
-SV *
+void
 glWindowPos2fvARB(p);
      const GLfloat* p;
 CODE:
@@ -29654,7 +29654,7 @@ CODE:
     };
     glWindowPos2fvARB(p);
 
-SV *
+void
 glWindowPos2fvMESA(p);
      const GLfloat* p;
 CODE:
@@ -29663,7 +29663,7 @@ CODE:
     };
     glWindowPos2fvMESA(p);
 
-SV *
+void
 glWindowPos2i(x, y);
      GLint x;
      GLint y;
@@ -29673,7 +29673,7 @@ CODE:
     };
     glWindowPos2i(x, y);
 
-SV *
+void
 glWindowPos2iARB(x, y);
      GLint x;
      GLint y;
@@ -29683,7 +29683,7 @@ CODE:
     };
     glWindowPos2iARB(x, y);
 
-SV *
+void
 glWindowPos2iMESA(x, y);
      GLint x;
      GLint y;
@@ -29693,7 +29693,7 @@ CODE:
     };
     glWindowPos2iMESA(x, y);
 
-SV *
+void
 glWindowPos2iv(p);
      const GLint *p;
 CODE:
@@ -29702,7 +29702,7 @@ CODE:
     };
     glWindowPos2iv(p);
 
-SV *
+void
 glWindowPos2ivARB(p);
      const GLint* p;
 CODE:
@@ -29711,7 +29711,7 @@ CODE:
     };
     glWindowPos2ivARB(p);
 
-SV *
+void
 glWindowPos2ivMESA(p);
      const GLint* p;
 CODE:
@@ -29720,7 +29720,7 @@ CODE:
     };
     glWindowPos2ivMESA(p);
 
-SV *
+void
 glWindowPos2s(x, y);
      GLshort x;
      GLshort y;
@@ -29730,7 +29730,7 @@ CODE:
     };
     glWindowPos2s(x, y);
 
-SV *
+void
 glWindowPos2sARB(x, y);
      GLshort x;
      GLshort y;
@@ -29740,7 +29740,7 @@ CODE:
     };
     glWindowPos2sARB(x, y);
 
-SV *
+void
 glWindowPos2sMESA(x, y);
      GLshort x;
      GLshort y;
@@ -29750,7 +29750,7 @@ CODE:
     };
     glWindowPos2sMESA(x, y);
 
-SV *
+void
 glWindowPos2sv(p);
      const GLshort *p;
 CODE:
@@ -29759,7 +29759,7 @@ CODE:
     };
     glWindowPos2sv(p);
 
-SV *
+void
 glWindowPos2svARB(p);
      const GLshort* p;
 CODE:
@@ -29768,7 +29768,7 @@ CODE:
     };
     glWindowPos2svARB(p);
 
-SV *
+void
 glWindowPos2svMESA(p);
      const GLshort* p;
 CODE:
@@ -29777,7 +29777,7 @@ CODE:
     };
     glWindowPos2svMESA(p);
 
-SV *
+void
 glWindowPos3d(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -29788,7 +29788,7 @@ CODE:
     };
     glWindowPos3d(x, y, z);
 
-SV *
+void
 glWindowPos3dARB(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -29799,7 +29799,7 @@ CODE:
     };
     glWindowPos3dARB(x, y, z);
 
-SV *
+void
 glWindowPos3dMESA(x, y, z);
      GLdouble x;
      GLdouble y;
@@ -29810,7 +29810,7 @@ CODE:
     };
     glWindowPos3dMESA(x, y, z);
 
-SV *
+void
 glWindowPos3dv(p);
      const GLdouble *p;
 CODE:
@@ -29819,7 +29819,7 @@ CODE:
     };
     glWindowPos3dv(p);
 
-SV *
+void
 glWindowPos3dvARB(p);
      const GLdouble* p;
 CODE:
@@ -29828,7 +29828,7 @@ CODE:
     };
     glWindowPos3dvARB(p);
 
-SV *
+void
 glWindowPos3dvMESA(p);
      const GLdouble* p;
 CODE:
@@ -29837,7 +29837,7 @@ CODE:
     };
     glWindowPos3dvMESA(p);
 
-SV *
+void
 glWindowPos3f(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -29848,7 +29848,7 @@ CODE:
     };
     glWindowPos3f(x, y, z);
 
-SV *
+void
 glWindowPos3fARB(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -29859,7 +29859,7 @@ CODE:
     };
     glWindowPos3fARB(x, y, z);
 
-SV *
+void
 glWindowPos3fMESA(x, y, z);
      GLfloat x;
      GLfloat y;
@@ -29870,7 +29870,7 @@ CODE:
     };
     glWindowPos3fMESA(x, y, z);
 
-SV *
+void
 glWindowPos3fv(p);
      const GLfloat *p;
 CODE:
@@ -29879,7 +29879,7 @@ CODE:
     };
     glWindowPos3fv(p);
 
-SV *
+void
 glWindowPos3fvARB(p);
      const GLfloat* p;
 CODE:
@@ -29888,7 +29888,7 @@ CODE:
     };
     glWindowPos3fvARB(p);
 
-SV *
+void
 glWindowPos3fvMESA(p);
      const GLfloat* p;
 CODE:
@@ -29897,7 +29897,7 @@ CODE:
     };
     glWindowPos3fvMESA(p);
 
-SV *
+void
 glWindowPos3i(x, y, z);
      GLint x;
      GLint y;
@@ -29908,7 +29908,7 @@ CODE:
     };
     glWindowPos3i(x, y, z);
 
-SV *
+void
 glWindowPos3iARB(x, y, z);
      GLint x;
      GLint y;
@@ -29919,7 +29919,7 @@ CODE:
     };
     glWindowPos3iARB(x, y, z);
 
-SV *
+void
 glWindowPos3iMESA(x, y, z);
      GLint x;
      GLint y;
@@ -29930,7 +29930,7 @@ CODE:
     };
     glWindowPos3iMESA(x, y, z);
 
-SV *
+void
 glWindowPos3iv(p);
      const GLint *p;
 CODE:
@@ -29939,7 +29939,7 @@ CODE:
     };
     glWindowPos3iv(p);
 
-SV *
+void
 glWindowPos3ivARB(p);
      const GLint* p;
 CODE:
@@ -29948,7 +29948,7 @@ CODE:
     };
     glWindowPos3ivARB(p);
 
-SV *
+void
 glWindowPos3ivMESA(p);
      const GLint* p;
 CODE:
@@ -29957,7 +29957,7 @@ CODE:
     };
     glWindowPos3ivMESA(p);
 
-SV *
+void
 glWindowPos3s(x, y, z);
      GLshort x;
      GLshort y;
@@ -29968,7 +29968,7 @@ CODE:
     };
     glWindowPos3s(x, y, z);
 
-SV *
+void
 glWindowPos3sARB(x, y, z);
      GLshort x;
      GLshort y;
@@ -29979,7 +29979,7 @@ CODE:
     };
     glWindowPos3sARB(x, y, z);
 
-SV *
+void
 glWindowPos3sMESA(x, y, z);
      GLshort x;
      GLshort y;
@@ -29990,7 +29990,7 @@ CODE:
     };
     glWindowPos3sMESA(x, y, z);
 
-SV *
+void
 glWindowPos3sv(p);
      const GLshort *p;
 CODE:
@@ -29999,7 +29999,7 @@ CODE:
     };
     glWindowPos3sv(p);
 
-SV *
+void
 glWindowPos3svARB(p);
      const GLshort* p;
 CODE:
@@ -30008,7 +30008,7 @@ CODE:
     };
     glWindowPos3svARB(p);
 
-SV *
+void
 glWindowPos3svMESA(p);
      const GLshort* p;
 CODE:
@@ -30017,7 +30017,7 @@ CODE:
     };
     glWindowPos3svMESA(p);
 
-SV *
+void
 glWindowPos4dMESA(x, y, z, w);
      GLdouble x;
      GLdouble y;
@@ -30029,7 +30029,7 @@ CODE:
     };
     glWindowPos4dMESA(x, y, z, w);
 
-SV *
+void
 glWindowPos4dvMESA(p);
      const GLdouble* p;
 CODE:
@@ -30038,7 +30038,7 @@ CODE:
     };
     glWindowPos4dvMESA(p);
 
-SV *
+void
 glWindowPos4fMESA(x, y, z, w);
      GLfloat x;
      GLfloat y;
@@ -30050,7 +30050,7 @@ CODE:
     };
     glWindowPos4fMESA(x, y, z, w);
 
-SV *
+void
 glWindowPos4fvMESA(p);
      const GLfloat* p;
 CODE:
@@ -30059,7 +30059,7 @@ CODE:
     };
     glWindowPos4fvMESA(p);
 
-SV *
+void
 glWindowPos4iMESA(x, y, z, w);
      GLint x;
      GLint y;
@@ -30071,7 +30071,7 @@ CODE:
     };
     glWindowPos4iMESA(x, y, z, w);
 
-SV *
+void
 glWindowPos4ivMESA(p);
      const GLint* p;
 CODE:
@@ -30080,7 +30080,7 @@ CODE:
     };
     glWindowPos4ivMESA(p);
 
-SV *
+void
 glWindowPos4sMESA(x, y, z, w);
      GLshort x;
      GLshort y;
@@ -30092,7 +30092,7 @@ CODE:
     };
     glWindowPos4sMESA(x, y, z, w);
 
-SV *
+void
 glWindowPos4svMESA(p);
      const GLshort* p;
 CODE:
@@ -30101,7 +30101,7 @@ CODE:
     };
     glWindowPos4svMESA(p);
 
-SV *
+void
 glWindowRectanglesEXT(mode, count, box);
      GLenum mode;
      GLsizei count;
@@ -30112,7 +30112,7 @@ CODE:
     };
     glWindowRectanglesEXT(mode, count, box);
 
-SV *
+void
 glWriteMaskEXT(res, in, outX, outY, outZ, outW);
      GLuint res;
      GLuint in;

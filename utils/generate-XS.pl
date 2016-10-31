@@ -140,8 +140,6 @@ for my $upper (@process) {
     my $no_return_value;
     
     if( $type eq 'void' ) {
-        # See perlxs
-        $type = 'SV *';
         $no_return_value = 1;
     };
 
