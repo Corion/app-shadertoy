@@ -53,30 +53,25 @@ no warnings 'experimental::signatures';
 
 =cut
 
-my $header = join "",
-	"uniform vec3      iResolution;\n",
-	"uniform float     iGlobalTime;\n",
-	"uniform float     iChannelTime[4];\n",
-	"uniform vec4      iMouse;\n",
-	"uniform vec4      iDate;\n",
-	"uniform float     iSampleRate;\n",
-	"uniform vec3      iChannelResolution[4];\n",
-	"uniform int       iFrame;\n",
-	"uniform float     iTimeDelta;\n",
-	"uniform float     iFrameRate;\n",
-	"struct Channel
+my $header = <<HEADER;
+	uniform vec3      iResolution;
+	uniform float     iGlobalTime;
+	uniform float     iChannelTime[4];
+	uniform vec4      iMouse;
+	uniform vec4      iDate;
+	uniform float     iSampleRate;
+	uniform vec3      iChannelResolution[4];
+	uniform int       iFrame;
+	uniform float     iTimeDelta;
+	uniform float     iFrameRate;
+	struct Channel
 	{
 		vec3 resolution;
 		float time;
 	};
 	uniform Channel iChannel[4];
-	
-	uniform vec4 v;
-	uniform sampler2D t;
-	// void main() { gl_FragColor = texture2D(t, gl_FragCoord.xy / v.zw, -100.0); }
-	void main() { gl_FragColor = vec4(1.,.0,.0,1); }
-	"
-	;
+HEADER
+
 sub init_shaders {
 	my $pipeline = OpenGL::Shader::OpenGL4->new();
 	
@@ -84,20 +79,11 @@ sub init_shaders {
 #version 330 core
 layout(location = 0) in vec2 pos;
 void main() {
-	gl_Position = vec4(pos.xy,0.0,1.0);
+	gl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
 
-    my $f = <<'FRAGMENT';
-#version 330 core
-out vec3 color;
-void main(){
-  color = vec3(1,0,0);
-}
-FRAGMENT
-
-
-	my $_f = $header . <<'FRAGMENT';
+	my $f = $header . <<'FRAGMENT';
 /*
 "Seascape" by Alexander Alekseev aka TDM - 2014
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
@@ -286,6 +272,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     // post
 	fragColor = vec4(pow(color,vec3(0.75)), 1.0);
 }
+
+void main() {
+    vec4 color = vec4(0.0,0.0,0.0,1.0);
+    mainImage( color, gl_FragCoord.xy );
+    gl_FragColor = color;
+}
 FRAGMENT
 	
 	my $err = $pipeline->Load(
@@ -302,7 +294,8 @@ FRAGMENT
 # We want static memory here
 # A 2x2 flat-screen set of coordinates for the triangles
 my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,    
-                  1.0, -1.0,   1.0,  1.0,    -1.0,  1.0 );
+                  1.0, -1.0,   1.0,  1.0,    -1.0,  1.0
+               );
 my $vertices = pack_GLfloat(@vertices);
 my $VAO;
 my $VBO_Quad;
