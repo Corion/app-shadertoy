@@ -75,8 +75,6 @@ for my $file (@headers) {
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
     while( my $line = <$fh>) {
-        warn $line if $line =~ /gl(ew)?ClearColor\b/;
-
         if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
             $signature{ $name } = { signature => $sig, restype => $restype };
