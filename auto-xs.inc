@@ -28540,7 +28540,7 @@ glVertexAttribPointer(index, size, type, normalized, stride, pointer);
      GLenum type;
      GLboolean normalized;
      GLsizei stride;
-     const void* pointer;
+     GLsizeiptr pointer;
 CODE:
     if(! __glewVertexAttribPointer) {
         croak("glVertexAttribPointer not available on this machine");
