@@ -306,7 +306,7 @@ sub createUnitQuad($pipeline) {
     glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
     warn "Created VAO: " . glGetError;
     
-    glGenBuffers( 1, xs_buffer(my $buffer, 8));
+    glGenBuffers( 1, xs_buffer($buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
 	glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     #glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
@@ -351,12 +351,12 @@ sub createUnitQuad($pipeline) {
 sub drawUnitQuad_XY($pipeline) {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
 
-	warn "Bound:" . glGetError;
+	#warn "Bound:" . glGetError;
 	# We have pairs of coordinates:
 	glDrawArrays( GL_TRIANGLES, 0, 6 ); # 2 times 3 elements
-	warn "Drawn: " . glGetError;
+	#warn "Drawn: " . glGetError;
 	#glDisableVertexAttribArray( $vpos );
-	warn "Disabled array drawn";
+	#warn "Disabled array drawn";
 }
 
 use vars qw($xres $yres);
@@ -366,11 +366,25 @@ my $frame = 1;
 my $time;
 my $started = time();
 my $iMouse = pack_GLfloat(0,0,0,0);
+
+my $config = {
+	grab => 0,
+};
+
+my $pipeline;
+my $glWidget;
+
 sub updateShaderVariables($pipeline,$xres,$yres) {
 	$time = time - $started;
 	$pipeline->setUniform1f( "iGlobalTime", $time);
     $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
-    #$pipeline->setUniform4fv( "iMouse", $iMouse);
+    
+    if ( $config->{grab} ) {
+		my ( $x, $y ) = $glWidget->pointerPos;
+		$iMouse = pack_GLfloat($x,$y,0,0);
+		$pipeline->setUniform4fv( "iMouse", $iMouse);
+	}		
+
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
     #glSetShaderTextureUnit( "iChannel0", 0 );
@@ -382,14 +396,12 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
 }
 
-my $pipeline;
-
 my $window = Prima::MainWindow->create(
     width => 500,
     height => 500,
 );
 
-my $glWidget = $window->insert(
+$glWidget = $window->insert(
     'Prima::GLWidget' =>
 	pack    => { expand => 1, fill => 'both'},
 	gl_config => {
@@ -429,8 +441,10 @@ my $glWidget = $window->insert(
 			glFlush();
 			
 		};
-		warn "Leaving call";
+		#warn "Leaving call";
 	},
+    onMouseDown  => sub { $config->{grab} = 1 },
+    onMouseUp    => sub { $config->{grab} = 0 },
 	onSize => sub {
 		my( $self ) = @_;
 		( $xres,$yres ) = $self->size;
