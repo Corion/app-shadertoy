@@ -125,7 +125,6 @@ sub Load($self, %shaders) {
     my $log = glGetProgramInfoLog_p($sp);
     warn $log if $log;
     for my $shader (sort keys %shaders) {
-        warn sprintf "glAttachShader(%d,%d)\n", $sp,$self->{$shader . "_id"};
         glAttachShader($sp, $self->{$shader . "_id"});
         my $err = glGetError;
         warn glGetProgramInfoLog_p($sp) if $err;
@@ -159,7 +158,7 @@ sub Load($self, %shaders) {
         $length = unpack 'I', $length;
         $name = substr $name, 0, $length;
         $self->{uniforms}->{$name} = $index;
-        warn "$index [$name]";
+        #warn "$index [$name]";
     };
 
     $self->{program} = $sp;
