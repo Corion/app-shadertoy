@@ -28540,7 +28540,7 @@ glVertexAttribPointer(index, size, type, normalized, stride, pointer);
      GLenum type;
      GLboolean normalized;
      GLsizei stride;
-     GLsizeiptr pointer;
+    GLsizeiptr pointer;
 CODE:
     if(! __glewVertexAttribPointer) {
         croak("glVertexAttribPointer not available on this machine");
@@ -28554,7 +28554,7 @@ glVertexAttribPointerARB(index, size, type, normalized, stride, pointer);
      GLenum type;
      GLboolean normalized;
      GLsizei stride;
-     const void *pointer;
+    GLsizeiptr pointer;
 CODE:
     if(! __glewVertexAttribPointerARB) {
         croak("glVertexAttribPointerARB not available on this machine");
@@ -28567,7 +28567,7 @@ glVertexAttribPointerNV(index, size, type, stride, pointer);
      GLint size;
      GLenum type;
      GLsizei stride;
-     const void *pointer;
+    GLsizeiptr pointer;
 CODE:
     if(! __glewVertexAttribPointerNV) {
         croak("glVertexAttribPointerNV not available on this machine");
