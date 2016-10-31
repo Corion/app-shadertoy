@@ -26,6 +26,8 @@ _glGetProgramiv
 glClear
 glClearColor
 glDrawArrays
+glFlush
+glObjectLabel
 
 	GLEW_3DFX_multisample
 	GLEW_3DFX_tbuffer
