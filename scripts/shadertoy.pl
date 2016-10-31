@@ -372,6 +372,11 @@ $window->set(
     left => 128,
 );
 
+my ($filename)= @ARGV;
+
+$window->set(
+    text => "$filename - ShaderToy",
+);
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
 	pack    => { expand => 1, fill => 'both'},
