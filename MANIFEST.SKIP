@@ -22,3 +22,6 @@ x64/
 demo/
 .*\.tmp
 ^.*\.o
+^Glew\.bs
+^Glew\.c
+^Glew\.def
