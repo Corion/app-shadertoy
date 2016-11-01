@@ -198,6 +198,19 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 my $window = Prima::MainWindow->create(
     width => 500,
     height => 200,
+    onKeyDown        => sub {
+		my( $self, $code, $key, $mod ) = @_;
+		print "@_\n";
+		if( $key == kb::F11 ) {
+			print "Fullscreen\n";
+			my @wsaverect = $self-> rect;
+			$self->rect( 0, 0, $self->owner->size);
+
+		} elsif( $key == kb::Esc ) {
+			print "Bye\n";
+			$::application->close
+		};
+	},
 );
 $window->set(
     top => 1000,
@@ -227,7 +240,6 @@ $glWidget = $window->insert(
 			};
 			print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
 			print sprintf "%s\n", glGetString(GL_VERSION);
-			#print sprintf "GL_VERSION_4_5 is supported: %d", glewIsSupported("GL_VERSION_4_5");
 
 			#glClearColor(0,0,0.5,1);
 
@@ -245,11 +257,9 @@ $glWidget = $window->insert(
 			
 			drawUnitQuad_XY($pipeline);
 			#$pipeline->Disable();
-			#warn "Shader disabled";
 			glFlush();
 			
 		};
-		#warn "Leaving call";
 	},
     onMouseDown  => sub { $config->{grab} = 1 },
     onMouseUp    => sub { $config->{grab} = 0 },
