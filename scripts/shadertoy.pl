@@ -198,6 +198,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
 my $window = Prima::MainWindow->create(
     width => 500,
+    height => 500,
     height => 200,
     onKeyDown        => sub {
 		my( $self, $code, $key, $mod ) = @_;
@@ -213,10 +214,10 @@ my $window = Prima::MainWindow->create(
 		};
 	},
 );
-$window->set(
-    top => 1000,
-    left => 128,
-);
+#$window->set(
+#    top => 1000,
+#    left => 128,
+#);
 
 my ($filename)= @ARGV;
 
