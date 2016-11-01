@@ -15,6 +15,7 @@ no warnings 'experimental::signatures';
 # TO-DO: Add "debug" shader that renders any FBO to the screen (side) as two triangles
 # TO-DO: Add configuration to specify which FBOs are the source for other shaders
 # TO-DO: Add live-editor for shader(s)
+# TO-DO: Add animated (modern) GIF export and automatic upload
 # TO-DO: Shadow mapping for distant lights
 #          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-16-shadow-mapping/
 #        Easily also for directional lights
