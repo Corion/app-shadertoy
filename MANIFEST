@@ -5,9 +5,6 @@ const-c.inc
 const-xs.inc
 fallback/const-c.inc
 fallback/const-xs.inc
-Glew.bs
-Glew.c
-Glew.def
 Glew.xs
 include/GL/eglew.h
 include/GL/glew.h
