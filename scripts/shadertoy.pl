@@ -4,6 +4,7 @@ use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use Prima qw( Application GLWidget );
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
+use OpenGL::ScreenCapture 'capture';
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -201,11 +202,16 @@ my $window = Prima::MainWindow->create(
     height => 200,
     onKeyDown        => sub {
 		my( $self, $code, $key, $mod ) = @_;
-		print "@_\n";
+		#print "@_\n";
 		if( $key == kb::F11 ) {
 			print "Fullscreen\n";
 			my @wsaverect = $self-> rect;
 			$self->rect( 0, 0, $self->owner->size);
+
+		} elsif( $key == kb::F5 ) {
+			my( $name ) = 'capture.png';
+			capture()->write(file => $name);
+			print "Saved to '$name'\n";
 
 		} elsif( $key == kb::Esc ) {
 			print "Bye\n";
