@@ -133,6 +133,8 @@ for my $upper (@process) {
     my $impl = $case_map{ $upper } || $upper;
     my $name = $alias{ $impl } || $impl;
     
+    push @exported_functions, $name;
+    
     if( $manual{ $name }) {
         #warn "Skipping $name, already implemented in Glew.xs";
         next
@@ -230,18 +232,16 @@ XS
 
 # Now rewrite OpenGL::Glew.pm if we need to:
 my $module = 'lib/OpenGL/Glew.pm';
-open my $fh, $module
+open my $old_fh, '<:raw', $module
     or die "Couldn't read '$module': $!";
-my $old = do { local(@ARGV, $/)= $module; <> };
-my $glFunctions = sprintf "our \@glFunctions = qw(\n%s\n);", join "\n", @exported_functions;
+my $old = join '', <$old_fh>;
+my $glFunctions = sprintf "our \@glFunctions = qw(\n    %s\n);", join "\n    ", @exported_functions;
 
-(my( $new )= $old) =~ s!^our \@glFunctions = qw\(.*\)!$glFunctions!sm;
-
-
+(my $new = $old) =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
 
 if( $new ne $old ) {
-    open my $fh, '>', $module
+    warn "Saving new version of $module";
+    open my $fh, '>:raw', $module
         or die "Couldn't write new version of '$module': $!";
-    binmode ':raw', $fh;
     print $fh $new;
 };
