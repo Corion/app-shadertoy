@@ -28,6 +28,8 @@ my @manual = qw(
 
 my %manual; @manual{@manual} = (1) x @manual;
 
+my @exported_functions; # here we'll collect the names the module exports
+
 my @known_type = sort { $b cmp $a } qw(
     GLbitfield
     GLboolean
@@ -224,4 +226,22 @@ XS
     };
 
     print $res;
+};
+
+# Now rewrite OpenGL::Glew.pm if we need to:
+my $module = 'lib/OpenGL/Glew.pm';
+open my $fh, $module
+    or die "Couldn't read '$module': $!";
+my $old = do { local(@ARGV, $/)= $module; <> };
+my $glFunctions = sprintf "our \@glFunctions = qw(\n%s\n);", join "\n", @exported_functions;
+
+(my( $new )= $old) =~ s!^our \@glFunctions = qw\(.*\)!$glFunctions!sm;
+
+
+
+if( $new ne $old ) {
+    open my $fh, '>', $module
+        or die "Couldn't write new version of '$module': $!";
+    binmode ':raw', $fh;
+    print $fh $new;
 };

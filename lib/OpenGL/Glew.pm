@@ -12,7 +12,13 @@ use AutoLoader;
 # This allows declaration	use OpenGL::Glew ':all';
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
+our @glFunctions = qw(
+);
+
+our %EXPORT_TAGS = ( 'all' => [ 
+    @glFunctions,
+    qw(
+
 glewCreateContext
 glGetError
 glewGetErrorString
@@ -22477,8 +22483,9 @@ None by default.
   GL_ZOOM_Y
   GL_Z_EXT
   MAX_VERTEX_TEXTURE_IMAGE_UNITS_ARB
-  WINGDIAPI
-  _W64
+  
+=head2 Exportable functions
+  
   glActiveProgramEXT
   glActiveShaderProgram
   glActiveStencilFaceEXT
@@ -24906,15 +24913,14 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-A. U. Thor, E<lt>a.u.thor@a.galaxy.far.far.awayE<gt>
+Max Maischein , E<lt>corion@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2016 by A. U. Thor
+Copyright (C) 2016 by Max Maischein
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.20.1 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
