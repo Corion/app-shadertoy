@@ -58400,7 +58400,7 @@ constant (pTHX_ const char *name, STRLEN len, IV *iv_return) {
      Regenerate these constant functions by feeding this entire source file to
      perl -x
 
-#!C:\strawberry-perl-5.20.1.1-x64\perl\bin\perl.exe -w
+#!C:\Strawberry-5.22\perl\bin\perl.exe -w
 use ExtUtils::Constant qw (constant_types C_constant XS_constant);
 
 my $types = {map {($_, 1)} qw(UV)};
