@@ -11,21 +11,38 @@ mainline OpenGL distribution.
 The program requires an OpenGL 4 compatible graphics card. Users of
 Intel integrated graphics will likely not be able to enjoy this.
 
-INSTALLATION
+# INSTALLATION
 
-To install this module type the following:
+See [INSTALL.mkdn] for detailed instructions.
 
-   perl Makefile.PL
-   make
-   make test
-   make install
+These are the installation instructions for App::ShaderToy from the Github
+repository:
 
-DEPENDENCIES
+## Unix / Linux / Mac OS
+
+    git clone https://github.com/Corion/app-shadertoy.git
+    cd app-shadertoy
+    cpanm --installdeps .
+    perl Makefile.PL
+    make
+
+## Windows / Strawberry Perl
+
+    git clone https://github.com/Corion/app-shadertoy.git
+    cd app-shadertoy
+    cpanm --installdeps .
+    perl Makefile.PL
+    dmake
+
+# DEPENDENCIES
 
 This module requires these other modules and libraries:
 
   Prima
-  Prima::OpenGL 0.07 (not yet on CPAN)
+  Prima::OpenGL 0.07
+  Imager
+
+These will all be picked up by the `cpanm` tool.
 
 COPYRIGHT AND LICENCE
 
