@@ -42,7 +42,7 @@ my %GL_shader_names = (
 sub new ($this,@args) {
   my $class = ref($this) || $this;
 
-  my $self = {};
+  my $self = { @args };
   bless($self => $class);
   
   my $glVersion = glGetString(GL_VERSION);
@@ -58,6 +58,9 @@ sub new ($this,@args) {
   $self->{version} = '';
   $self->{description} = '';
   $self->{uniforms} = {};
+  if(! exists $self->{strict_uniforms} ) {
+    $self->{strict_uniforms} = 1;
+};
   
   my %shaders;
   for ( keys %GL_shader_names ) {
@@ -95,16 +98,16 @@ sub DESTROY {
 # Load shader strings
 sub Load($self, %shaders) {
     for my $shader (sort keys %shaders) {
-        warn "Creating $shader shader";
+        #warn "Creating $shader shader";
         my $id = glCreateShader($GL_shader_names{ $shader });
         warn "Couldn't create a '$shader' shader?!"
             unless $id; 
         croak_on_gl_error;
-        warn "Got $shader shader $id, setting source";
+        #warn "Got $shader shader $id, setting source";
         glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr(my $shader_length, 8));
         croak_on_gl_error;
 
-        warn "Compiling $shader shader";
+        #warn "Compiling $shader shader";
         glCompileShader($id);
         croak_on_gl_error;
         
@@ -118,7 +121,7 @@ sub Load($self, %shaders) {
     }
 
     # Link shaders
-    warn "Attaching shaders to program";
+    #warn "Attaching shaders to program";
     my $sp = glCreateProgram();
     return "Couldn't create shader program: " . glGetError()
         unless $sp;
@@ -140,7 +143,7 @@ sub Load($self, %shaders) {
         return "Link shader to program: $log" if ($log);
         return 'Unable to link shader';
     }
-    warn "Program status OK";
+    #warn "Program status OK";
 
     # Free up the shader memory, later
 	#glDetachShader(ProgramID, VertexShaderID);
@@ -171,7 +174,6 @@ sub Load($self, %shaders) {
 sub Enable {
   my($self) = @_;
   glUseProgram($self->{program}) if ($self->{program});
-  warn glGetError;
 }
 
 
@@ -203,7 +205,7 @@ sub Map {
 
 sub setUniform1i( $self, $name, $value ) {
     return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
   glProgramUniform1i( $self->{program}, $self->{uniforms}->{$name}, $value );
@@ -212,7 +214,7 @@ sub setUniform1i( $self, $name, $value ) {
 
 sub setUniform1f( $self, $name, $float ) {
     return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
     glProgramUniform1f( $self->{program}, $self->{uniforms}->{$name}, $float );
@@ -221,7 +223,7 @@ sub setUniform1f( $self, $name, $float ) {
 
 sub setUniform2f( $self, $name, $x, $y) {
   return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
   glProgramUniform2f( $self->{program}, $self->{uniforms}->{$name}, $x, $y );
@@ -230,7 +232,7 @@ sub setUniform2f( $self, $name, $x, $y) {
 
 sub setUniform3f( $self, $name, $x,$y,$z ) {
     return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
     glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
@@ -238,17 +240,17 @@ sub setUniform3f( $self, $name, $x,$y,$z ) {
 }
 
 sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
-  return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    return undef if (!$self->{program});
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
-  glProgramUniform4f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z,$w );
-  croak_on_gl_error;
+    glProgramUniform4f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z,$w );
+    croak_on_gl_error;
 }
 
 sub setUniform4fv( $self, $name, $vec ) {
     return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
     glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(4*4), $vec );
@@ -256,12 +258,12 @@ sub setUniform4fv( $self, $name, $vec ) {
 }
 
 sub setUniform2v( $self, $name, @values ) {
-  return undef if (!$self->{program});
-    if( ! exists $self->{uniforms}->{$name}) {
+    return undef if (!$self->{program});
+    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
         croak "Unknown shader uniform '$name'";
     };
-  glProgramUniform2v( $self->{program}, $self->{uniforms}->{$name}, @values );
-  croak_on_gl_error;
+    glProgramUniform2v( $self->{program}, $self->{uniforms}->{$name}, @values );
+    croak_on_gl_error;
 }
 
 1;
