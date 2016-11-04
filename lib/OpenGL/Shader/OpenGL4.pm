@@ -97,6 +97,8 @@ sub DESTROY {
 
 # Load shader strings
 sub Load($self, %shaders) {
+    # Instead of a loop, we should make one call to glShaderSource, passing in
+    # all shaders
     for my $shader (sort keys %shaders) {
         #warn "Creating $shader shader";
         my $id = glCreateShader($GL_shader_names{ $shader });
