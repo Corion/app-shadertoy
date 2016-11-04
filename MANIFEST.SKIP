@@ -25,3 +25,5 @@ demo/
 ^Glew\.bs
 ^Glew\.c
 ^Glew\.def
+^capture.*
+^debug.*

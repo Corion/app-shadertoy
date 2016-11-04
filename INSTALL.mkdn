@@ -1,0 +1,20 @@
+# INSTALLATION
+
+These are the installation instructions for App::ShaderToy:
+
+## Unix / Linux / Mac OS
+
+    git clone https://github.com/Corion/app-shadertoy.git
+    cd app-shadertoy
+    cpanm --installdeps .
+    perl Makefile.PL
+    make
+
+## Windows / Strawberry Perl
+
+    git clone https://github.com/Corion/app-shadertoy.git
+    cd app-shadertoy
+    cpanm --installdeps .
+    perl Makefile.PL
+    dmake
+

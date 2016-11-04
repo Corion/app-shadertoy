@@ -10,8 +10,11 @@ include/GL/eglew.h
 include/GL/glew.h
 include/GL/glxew.h
 include/GL/wglew.h
+INSTALL
+INSTALL.mkdn
 lib/OpenGL/Glew.pm
 lib/OpenGL/Glew/Helpers.pm
+lib/OpenGL/ScreenCapture.pm
 lib/OpenGL/Shader/OpenGL4.pm
 Makefile.mingw
 Makefile.PL
@@ -25,6 +28,11 @@ ppport.h
 README
 README.md
 scripts/shadertoy.pl
+shaders/foggy-mountain.fragment
+shaders/kaliset.fragment
+shaders/realistic-eye.fragment
+shaders/seascape.fragment
+shaders/ultra-liquid-bokeh.fragment
 src/glew-context.c
 src/glew.c
 src/glewinfo.c
