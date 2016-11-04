@@ -1,6 +1,7 @@
 # INSTALLATION
 
-These are the installation instructions for App::ShaderToy:
+These are the installation instructions for App::ShaderToy from the Github
+repository:
 
 ## Unix / Linux / Mac OS
 
