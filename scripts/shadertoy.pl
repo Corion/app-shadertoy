@@ -2,7 +2,7 @@
 use strict;
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
-use Prima qw( Application GLWidget );
+use Prima qw( Application GLWidget Label );
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
 use Filter::signatures;
@@ -10,6 +10,7 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 # TO-DO: Add FPS and "free" time between frames
+# TO-DO: Add bitmap loading via Imager -> RGBA -> buffer
 # TO-DO: Render function into bitmap (set FBO)
 #          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
 # TO-DO: Render mesh from bitmap
@@ -237,6 +238,8 @@ $window->set(
 my $status = $window->insert(
     Label => (
         alignment => ta::Center,
+        text => '00.0 fps',
+        growMode => gm::Client,
     ),
 );
 
