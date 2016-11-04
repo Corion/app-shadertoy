@@ -73,6 +73,23 @@ void main() {
 }
 VERTEX
 
+    $shader_args{ geometry } ||= <<'GEOMETRY';
+#version 330 core
+layout(triangles) in;
+layout(triangle_strip, max_vertices = 6) out;
+// Passthrough vertex shader
+
+void main() {
+   int i;
+   vec4 vertex;
+   for(i = 0; i < gl_in.length(); i++) {
+     gl_Position = gl_in[i].gl_Position;
+     EmitVertex();
+   };
+   EndPrimitive();
+}
+GEOMETRY
+
     $shader_args{ fragment } ||= <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
