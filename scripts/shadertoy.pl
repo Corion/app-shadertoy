@@ -88,7 +88,9 @@ FRAGMENT
               $frag_footer
               ;
 
-    my $pipeline = OpenGL::Shader::OpenGL4->new();
+    my $pipeline = OpenGL::Shader::OpenGL4->new(
+        strict_uniforms => 0,
+    );
     $pipeline->Load(
         %shader_args
     );
