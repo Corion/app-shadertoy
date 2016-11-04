@@ -205,65 +205,79 @@ sub Map {
 
 sub setUniform1i( $self, $name, $value ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-  glProgramUniform1i( $self->{program}, $self->{uniforms}->{$name}, $value );
-  croak_on_gl_error;
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform1i( $self->{program}, $self->{uniforms}->{$name}, $value );
+        croak_on_gl_error;
+    }
 }
 
 sub setUniform1f( $self, $name, $float ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-    glProgramUniform1f( $self->{program}, $self->{uniforms}->{$name}, $float );
-    croak_on_gl_error;
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform1f( $self->{program}, $self->{uniforms}->{$name}, $float );
+        croak_on_gl_error;
+    }
 }
 
 sub setUniform2f( $self, $name, $x, $y) {
-  return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-  glProgramUniform2f( $self->{program}, $self->{uniforms}->{$name}, $x, $y );
-  croak_on_gl_error;
+    return undef if (!$self->{program});
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform2f( $self->{program}, $self->{uniforms}->{$name}, $x, $y );
+        croak_on_gl_error;
+    }
 }
 
 sub setUniform3f( $self, $name, $x,$y,$z ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-    glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
-    croak_on_gl_error;
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
+        croak_on_gl_error;
+    }
 }
 
 sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-    glProgramUniform4f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z,$w );
-    croak_on_gl_error;
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform4f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z,$w );
+        croak_on_gl_error;
+    }
 }
 
 sub setUniform4fv( $self, $name, $vec ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(4*4), $vec );
+        croak_on_gl_error;
     };
-    glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(4*4), $vec );
-    croak_on_gl_error;
 }
 
 sub setUniform2v( $self, $name, @values ) {
     return undef if (!$self->{program});
-    if( $self->{strict_uniforms} and ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'";
-    };
-    glProgramUniform2v( $self->{program}, $self->{uniforms}->{$name}, @values );
-    croak_on_gl_error;
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'" 
+            if $self->{strict_uniforms}
+    } else {
+        glProgramUniform2v( $self->{program}, $self->{uniforms}->{$name}, @values );
+        croak_on_gl_error;
+    }
 }
 
 1;
