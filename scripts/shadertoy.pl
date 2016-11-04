@@ -168,6 +168,8 @@ use Time::HiRes 'time';
 my $frame = 1;
 my $time;
 my $started = time();
+my $frame_second=int time;
+my $frames;
 my $iMouse = pack_GLfloat(0,0,0,0);
 
 my $config = {
@@ -262,7 +264,6 @@ $glWidget = $window->insert(
             $pipeline = init_shaders($filename);
             die "Got no pipeline"
                 unless $pipeline;
-            $pipeline->Enable();
             $VBO_Quad ||= createUnitQuad($pipeline);
         };
         
@@ -270,10 +271,22 @@ $glWidget = $window->insert(
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
             updateShaderVariables($pipeline,$self->width,$self->height);
-            
+
+            $pipeline->Enable();
             drawUnitQuad_XY($pipeline);
-            #$pipeline->Disable();
+            $pipeline->Disable();
             glFlush();
+            
+            $frames++;
+            if( int(time) != $frame_second) {
+                $status->set(
+                    text => sprintf '%0.2f', $frames,
+				);
+				print $frames," fps\n";
+
+				$frames = 0;
+				$frame_second = int(time);
+            };
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },
