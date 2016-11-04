@@ -255,15 +255,18 @@ $window->set(
 );
 my $status = $window->insert(
     Label => (
+        growMode => gm::Client,
+		rect => [0, $window->height-20, $window->width, $window->height],
         alignment => ta::Center,
         text => '00.0 fps',
-        growMode => gm::Client,
     ),
 );
 
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
-    pack    => { expand => 1, fill => 'both'},
+    #pack    => { expand => 1, fill => 'both'},
+	growMode => gm::Client,
+	rect => [0, 0, $window->width, $window->height-20,],
     gl_config => {
         pixels => 'rgba',
         color_bits => 32,
@@ -301,9 +304,8 @@ $glWidget = $window->insert(
             $frames++;
             if( int(time) != $frame_second) {
                 $status->set(
-                    text => sprintf '%0.2f', $frames,
+                    text => sprintf '%0.2f fps', $frames,
 				);
-				print $frames," fps\n";
 
 				$frames = 0;
 				$frame_second = int(time);
