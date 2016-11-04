@@ -142,10 +142,9 @@ sub createUnitQuad($pipeline) {
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
     #warn sprintf "%08x", glGetError;
 
-    my $attrname = 'pos';
-    my $vpos = glGetAttribLocation($pipeline->{program}, $attrname);
+    my $vpos = glGetAttribLocation($pipeline->{program}, 'pos');
     if( $vpos < 0 ) {
-        die sprintf "Couldn't get shader attribute '%s'", $attrname;
+        die sprintf "Couldn't get shader attribute 'pos', compilation error?";
     };
     
     glEnableVertexAttribArray( $vpos );
