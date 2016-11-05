@@ -40,7 +40,6 @@ This module requires these other modules and libraries:
 
   Prima
   Prima::OpenGL 0.07
-  Imager
 
 These will all be picked up by the `cpanm` tool.
 

@@ -11,7 +11,7 @@ use OpenGL::Glew qw(glReadPixels glReadBuffer glGetIntegerv
     glPixelStorei
 );
 use OpenGL::Glew::Helpers qw(xs_buffer);
-use Imager;
+use Prima;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -24,9 +24,9 @@ no warnings 'experimental::signatures';
 =head2 C<< capture >>
 
     my $image = capture();
-    $image->write(file => 'screenshot.png');
+    $image->save('screenshot.png');
 
-Returns the current OpenGL buffer as an L<Imager> image.
+Returns the current OpenGL buffer as an L<Prima> image.
 
 =cut
 
@@ -56,24 +56,14 @@ sub capture(%options) {
         xs_buffer(my $buffer, $options{width}*$options{height}*4),
     );
     print glGetError,"\n";
-    
-    my $i = Imager->new(
-        xsize => $options{width},
-        ysize => $options{height},
-        type => 'direct',
-        bits => 8, # per channel
-        filetype => 'raw',
+
+    return Prima::Image->new(
+        width    => $options{width},
+        height   => $options{height},
+        type     => im::Color | im::bpp32 | im::fmtBGRI,
+	lineSize => $options{width}*4,
+	data     => $buffer,
     );
-    $i->read(
-        data => $buffer,
-        type => 'raw',
-        xsize => $options{width},
-        ysize => $options{height},
-        raw_datachannels => 4,
-        raw_interleave => 0,
-    );
-    $i->flip(dir => 'v');
-    $i
 }
 
 1;
