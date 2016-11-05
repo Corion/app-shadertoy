@@ -64,15 +64,17 @@ sub init_shaders($filename) {
     } @files;
     
     # Supply some defaults:
-    $shader_args{ vertex } ||= <<'VERTEX';
 #version 330 core
-layout(location = 0) in vec2 pos;
+#layout(location = 0) in vec2 pos;
+    $shader_args{ vertex } ||= <<'VERTEX';
+attribute vec2 pos;
 uniform float     iGlobalTime;
 void main() {
     gl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
 
+=for openGL 3.30 or later
     $shader_args{ geometry } ||= <<'GEOMETRY';
 #version 330 core
 layout(triangles) in;
@@ -89,6 +91,7 @@ void main() {
    EndPrimitive();
 }
 GEOMETRY
+=cut
 
     $shader_args{ fragment } ||= <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
