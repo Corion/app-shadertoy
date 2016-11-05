@@ -2,6 +2,7 @@
 use strict;
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
+use OpenGL::Texture;
 use Prima qw( Application GLWidget Label );
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
@@ -184,6 +185,23 @@ sub drawUnitQuad_XY() {
     #warn "Disabled array drawn";
 }
 
+sub loadImage($type,$filename,$program,$channelId) {
+    my $texture = OpenGL::Texture->load($filename);
+
+    glActiveTexture(GL_TEXTURE0+$channelId);
+	glBindTexture(GL_TEXTURE_2D,$texture->id);
+    $program->setUniform1i("iChannel$channelId",$texture->id);
+    
+    if( $type eq '2D') {
+    } else {
+        die "Unknown texture type '$type'";
+    };
+    
+    #                                mGL.activeTexture(mGL.TEXTURE0);
+    #                                     if (t0.mType === me.TEXTYPE.T2D) mGL.bindTexture(mGL.TEXTURE_2D, t0.mObjectID);
+    #                                else if (t0.mType === me.TEXTYPE.CUBEMAP) mGL.bindTexture(mGL.TEXTURE_CUBE_MAP, t0.mObjectID);
+}
+
 use vars qw($xres $yres);
 
 use Time::HiRes 'time';
@@ -278,6 +296,7 @@ $glWidget = $window->insert(
         my $self = shift;
         
         if( ! $pipeline ) {
+		    # Set up Glew etc.
             my $err = OpenGL::Glew::glewInit();
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
@@ -291,6 +310,9 @@ $glWidget = $window->insert(
             die "Got no pipeline"
                 unless $pipeline;
             $VBO_Quad ||= createUnitQuad($pipeline);
+			
+			# Load some textures
+			$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
         };
         
         if( $pipeline ) {
@@ -323,12 +345,12 @@ $glWidget = $window->insert(
 );
 
 # Start our timer
-$window-> insert( Timer => 
+$window->insert( Timer => 
     timeout => 5,
     onTick  => sub {
         $glWidget->repaint;
     }
-)-> start;
+)->start;
 
 Prima->run;
 
