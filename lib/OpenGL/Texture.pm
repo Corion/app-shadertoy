@@ -38,7 +38,6 @@ sub load($class,$filename,%options) {
     $options{ height } ||= $image->getheight;
 	$image->flip(dir => 'v');
     $image->write(data => \my $data, type => 'raw');
-	warn length $data;
     $options{ data } = \$data;
     $self->store(
         %options
