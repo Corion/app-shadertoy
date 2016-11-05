@@ -25,9 +25,8 @@ no warnings 'experimental::signatures';
 #        Need six-cubemap for local undirected lights
 # TO-DO: What is needed to make a tube race track from a (deformed+extruded) circle?
 
-my $header = <<HEADER;
-#version 330 core
 
+my $header = <<HEADER;
 uniform vec4      iMouse;
 uniform vec3      iResolution;
 uniform float     iGlobalTime;
