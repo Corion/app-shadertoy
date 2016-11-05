@@ -235,7 +235,7 @@ my $window = Prima::MainWindow->create(
 
         } elsif( $key == kb::F5 ) {
             my( $name ) = 'capture.png';
-            capture()->write(file => $name);
+            capture()->save($name) or die "error saving: $@";
             print "Saved to '$name'\n";
 
         } elsif( $key == kb::Esc ) {

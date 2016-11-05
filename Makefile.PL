@@ -30,7 +30,6 @@ WriteMakefile(
       'OpenGL' => '0.58',
       'Prima' => 0,
       'Prima::OpenGL' => '0.07', # not yet on CPAN as of 2016-10-31
-      'Imager' => 0, # for screenshots
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
