@@ -256,7 +256,7 @@ $window->set(
 my $status = $window->insert(
     Label => (
         growMode => gm::Client,
-		rect => [0, $window->height-20, $window->width, $window->height],
+		rect => [0, 0, $window->width, 16],
         alignment => ta::Center,
         text => '00.0 fps',
     ),
@@ -266,7 +266,7 @@ $glWidget = $window->insert(
     'Prima::GLWidget' =>
     #pack    => { expand => 1, fill => 'both'},
 	growMode => gm::Client,
-	rect => [0, 0, $window->width, $window->height-20,],
+	rect => [0, 16, $window->width, $window->height],
     gl_config => {
         pixels => 'rgba',
         color_bits => 32,
