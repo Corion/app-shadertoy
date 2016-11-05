@@ -11,6 +11,9 @@ to the OpenGL documentation for each function via
 
 L<https://www.opengl.org/sdk/docs/man/html/glShaderSource.xhtml>
 
+Also, it should parse the feature groups of OpenGL and generate a data structure
+that shows which features are associated with which functions.
+
 =cut
 
 my @headers = glob "include/GL/*.h";
