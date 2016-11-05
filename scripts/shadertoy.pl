@@ -25,6 +25,8 @@ no warnings 'experimental::signatures';
 #        Easily also for directional lights
 #        Need six-cubemap for local undirected lights
 # TO-DO: What is needed to make a tube race track from a (deformed+extruded) circle?
+# Look at IQs article for VR rendering
+# http://www.iquilezles.org/www/articles/stereo/stereo.htm
 
 
 my $header = <<HEADER;
@@ -38,6 +40,9 @@ uniform vec3      iChannelResolution[4];
 uniform int       iFrame;
 uniform float     iTimeDelta;
 uniform float     iFrameRate;
+
+uniform sampler2D iChannel0;
+
 struct Channel
 {
     vec3 resolution;
@@ -218,6 +223,8 @@ my $config = {
 
 my $pipeline;
 my $glWidget;
+
+my @channel;
 
 sub updateShaderVariables($pipeline,$xres,$yres) {
     $time = time - $started;
