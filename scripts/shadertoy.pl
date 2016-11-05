@@ -68,6 +68,7 @@ sub init_shaders($filename) {
     $shader_args{ vertex } ||= <<'VERTEX';
 #version 330 core
 layout(location = 0) in vec2 pos;
+uniform float     iGlobalTime;
 void main() {
     gl_Position = vec4(pos,0.0,1.0);
 }
