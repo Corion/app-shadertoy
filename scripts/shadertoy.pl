@@ -43,12 +43,14 @@ uniform float     iFrameRate;
 
 uniform sampler2D iChannel0;
 
+/*
 struct Channel
 {
     vec3 resolution;
     float time;
 };
 uniform Channel iChannel[4];
+*/
 HEADER
 
 my $frag_footer = <<'FRAGMENT_FOOTER';
@@ -239,7 +241,9 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
-    #$pipeline->setUniform1i( "iChannel0", $channel[0]->id );
+    $pipeline->setUniform1i( "iChannel0", $channel[0]->id );
+	# We should also set up the dimensions, also these never change
+	# so we shouldn't update these variables here
     #glSetShaderTextureUnit( "iChannel1", 1 );
     #glSetShaderTextureUnit( "iChannel2", 2 );
     #glSetShaderTextureUnit( "iChannel3", 3 );
