@@ -5,7 +5,7 @@ use OpenGL::Glew ':all';
 use OpenGL::Glew::Helpers qw(
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
-    
+
     pack_ptr
     pack_GLstrings
     pack_GLint
