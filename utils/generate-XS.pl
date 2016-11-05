@@ -83,20 +83,32 @@ my %signature_override = (
     'glVertexAttribPointerNV' => { name => 'pointer', type => 'GLsizeiptr' },
 );
 
+my %features = ();
+
 for my $file (@headers) {
+
+    my $feature_name;
+
     open my $fh, '<', $file
         or die "Couldn't read '$file': $!";
     while( my $line = <$fh>) {
-        if( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
+	    if( $line =~ /^#define (\w+) 1$/ and $1 ne 'GL_ONE' and $1 ne 'GL_TRUE') {
+		    $feature_name = $1;
+
+        } elsif( $line =~ /^typedef (\w+) \(GLAPIENTRY \* PFN(\w+)PROC\)\s*\((.*)\);/ ) {
             my( $restype, $name, $sig ) = ($1,$2,$3);
-            $signature{ $name } = { signature => $sig, restype => $restype };
+			my $s = { signature => $sig, restype => $restype, feature => $feature_name, name => $name };
+            $signature{ $name } = $s;
+			push @{ $features{ $feature_name }}, $s;
             
                           # GLAPI void GLAPIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
         } elsif( $line =~ /^GLAPI (\w+) GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
             my( $restype, $name, $sig ) = ($1,$2,$3);
-            $signature{ uc $name } = { signature => $sig, restype => $restype };
+			my $s = { signature => $sig, restype => $restype, feature => $feature_name, name => $name };
+            $signature{ uc $name } = $s;
             $case_map{ uc $name } = $name;
+			push @{ $features{ $feature_name }}, $s;
             
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
             my( $name, $impl ) = ($1,$2);
@@ -105,9 +117,22 @@ for my $file (@headers) {
         } elsif( $line =~ /^#define (\w+) GLEW_GET_FUN\(__(\w+)\)/) {
             my( $name, $impl ) = ($1,$2);
             $alias{ $impl } = $name;
-        };
+		};
     };
 }
+
+# Now rewrite the names to proper case when we only have their uppercase alias
+for my $name (sort keys %signature) {
+    my $impl = $case_map{ $name } || $name;
+    my $real_name = $alias{ $impl } || $impl;
+	
+	my $s = $signature{ $name };
+	
+	$s->{name} = $real_name;
+	if( exists $alias{ $impl }) {
+	    $s->{alias} = $alias{ $impl };
+	};
+};
 
 =head1 Automagic Perlification
 
@@ -133,8 +158,9 @@ if( ! @process) {
 };
 
 for my $upper (@process) {
-    my $impl = $case_map{ $upper } || $upper;
-    my $name = $alias{ $impl } || $impl;
+    my $item = $signature{ $upper };
+
+    my $name = $item->{name};
     
     push @exported_functions, $name;
     
@@ -144,11 +170,11 @@ for my $upper (@process) {
     };
     
     # If we didn't see this, it's likely an OpenGL 1.1 function:
-    my $aliased = exists $alias{ $impl };
+    my $aliased = $item->{alias};
     
-    my $args = $signature{ $upper }->{signature}; # XXX clean up the C arguments here
+    my $args = $item->{signature}; # XXX clean up the C arguments here
     die "No args for $upper" unless $args;
-    my $type = $signature{ $upper }->{restype}; # XXX clean up the C arguments here
+    my $type = $item->{restype}; # XXX clean up the C arguments here
     my $no_return_value;
     
     if( $type eq 'void' ) {
@@ -160,7 +186,7 @@ for my $upper (@process) {
          ($glewImpl = $name) =~ s!^gl!__glew!;
     };
     
-    my $xs_args = $signature{ $upper }->{signature};
+    my $xs_args = $item->{signature};
     if( $args eq 'void') {
         $args = '';
         $xs_args = '';
@@ -241,7 +267,22 @@ if( ! @ARGV) {
 	my $old = join '', <$old_fh>;
 	my $glFunctions = sprintf "our \@glFunctions = qw(\n    %s\n);", join "\n    ", @exported_functions;
 
-	(my $new = $old) =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
+	my %glGroups = map {
+	    $_ => [ map { $_->{name} } @{$features{$_}} ],
+	} sort keys %features;
+	use Data::Dumper;
+	$Data::Dumper::Sortkeys = 1;
+	my $gltags = Dumper \%glGroups;
+	$gltags =~ s!\$VAR1 = {!!;
+	$gltags =~ s!};$!!;
+
+	my $new = $old;
+
+	$new =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
+	# our %EXPORT_TAGS_GL = (
+    # );
+	# # end of EXPORT_TAGS_GL
+	$new =~ s!(our \%EXPORT_TAGS_GL = \().+(\);\s+# end of EXPORT_TAGS_GL)$!$1$gltags$2!sm;
 
 	if( $new ne $old ) {
 		warn "Saving new version of $module";
