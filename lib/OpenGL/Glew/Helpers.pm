@@ -18,7 +18,7 @@ use OpenGL::Glew qw(
     glGetShaderInfoLog
     glGetProgramInfoLog
 
-    _glGetShaderInfoLog
+    glGetShaderInfoLog
 );
 
 use feature 'signatures';
