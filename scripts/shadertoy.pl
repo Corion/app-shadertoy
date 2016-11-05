@@ -9,7 +9,7 @@ use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-# TO-DO: Add FPS and "free" time between frames
+# TO-DO: Add "free" time between frames
 # TO-DO: Add bitmap loading via Imager -> RGBA -> buffer
 # TO-DO: Render function into bitmap (set FBO)
 #          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
