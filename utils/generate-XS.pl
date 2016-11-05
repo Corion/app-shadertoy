@@ -231,17 +231,19 @@ XS
 };
 
 # Now rewrite OpenGL::Glew.pm if we need to:
-my $module = 'lib/OpenGL/Glew.pm';
-open my $old_fh, '<:raw', $module
-    or die "Couldn't read '$module': $!";
-my $old = join '', <$old_fh>;
-my $glFunctions = sprintf "our \@glFunctions = qw(\n    %s\n);", join "\n    ", @exported_functions;
+if( ! @ARGV) {
+	my $module = 'lib/OpenGL/Glew.pm';
+	open my $old_fh, '<:raw', $module
+		or die "Couldn't read '$module': $!";
+	my $old = join '', <$old_fh>;
+	my $glFunctions = sprintf "our \@glFunctions = qw(\n    %s\n);", join "\n    ", @exported_functions;
 
-(my $new = $old) =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
+	(my $new = $old) =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
 
-if( $new ne $old ) {
-    warn "Saving new version of $module";
-    open my $fh, '>:raw', $module
-        or die "Couldn't write new version of '$module': $!";
-    print $fh $new;
+	if( $new ne $old ) {
+		warn "Saving new version of $module";
+		open my $fh, '>:raw', $module
+			or die "Couldn't write new version of '$module': $!";
+		print $fh $new;
+	};
 };
