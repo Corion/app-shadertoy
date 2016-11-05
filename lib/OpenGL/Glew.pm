@@ -5,13 +5,10 @@ use Carp;
 use Exporter 'import';
 use AutoLoader;
 
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
+our $VERSION = '0.01';
 
-# This allows declaration	use OpenGL::Glew ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
+# ATTENTION: This array is overwritten by utils/generate-XS.pl!
+#            Manual changes will be lost.
 our @glFunctions = qw(
     glAccum
     glActiveProgramEXT
@@ -19311,8 +19308,6 @@ our @EXPORT = qw(
 	glWindowRectanglesEXT
 	glWriteMaskEXT
 );
-
-our $VERSION = '0.01';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
