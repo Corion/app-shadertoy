@@ -170,7 +170,7 @@ sub createUnitQuad($pipeline) {
 
 =cut
 
-sub drawUnitQuad_XY($pipeline) {
+sub drawUnitQuad_XY() {
     #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
 
     #warn "Bound:" . glGetError;
@@ -297,7 +297,7 @@ $glWidget = $window->insert(
             updateShaderVariables($pipeline,$self->width,$self->height);
 
             $pipeline->Enable();
-            drawUnitQuad_XY($pipeline);
+            drawUnitQuad_XY();
             $pipeline->Disable();
             glFlush();
             
