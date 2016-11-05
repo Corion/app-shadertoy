@@ -1,5 +1,7 @@
 # INSTALLATION
 
+![Ultra-Liquid Bokeh Shadertoy](https://github.com/Corion/app-shadertoy/raw/master/demo/shadertoy-01-bokeh-01.mp4)
+
 These are the installation instructions for App::ShaderToy from the Github
 repository:
 
