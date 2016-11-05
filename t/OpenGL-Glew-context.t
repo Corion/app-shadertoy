@@ -9,11 +9,13 @@ use OpenGL::Glew ':all';
 #my $xerror = Prima::XOpenDisplay;
 #plan skip_all => $xerror if defined $xerror;
 
-my $tests = 2;
+my $tests = 1;
 plan tests => $tests;
 
 glewCreateContext();
 glewInit();
 
+my $opengl_version = glGetString(GL_VERSION);
+isn't '', $opengl_version;
 
-diag glGetString(GL_VERSION);
+diag "We got OpenGL version $opengl_version";

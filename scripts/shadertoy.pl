@@ -211,7 +211,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
-    #glSetShaderTextureUnit( "iChannel0", 0 );
+    #$pipeline->setUniform1i( "iChannel0", $channel[0]->id );
     #glSetShaderTextureUnit( "iChannel1", 1 );
     #glSetShaderTextureUnit( "iChannel2", 2 );
     #glSetShaderTextureUnit( "iChannel3", 3 );
@@ -221,9 +221,8 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 }
 
 my $window = Prima::MainWindow->create(
-    width => 500,
-    height => 500,
-    height => 200,
+    width => 480,
+    height => 160,
     onKeyDown        => sub {
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
