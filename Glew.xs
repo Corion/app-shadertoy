@@ -76,6 +76,13 @@ CODE:
 OUTPUT:
     RETVAL
 
+GLenum
+glGetError();
+CODE:
+    RETVAL = glGetError();
+OUTPUT:
+    RETVAL
+
 SV *
 glShaderSource( shader, count, string, length);
     GLuint shader;
@@ -88,157 +95,6 @@ CODE:
     };
     // We come from Perl, so we have null-terminated strings
     glShaderSource( shader, count, string, NULL);
-
-SV *
-_glCompileShader( shader);
-    GLuint shader
-CODE:
-    if(! __glewCompileShader) {
-        croak("glCompileShader not available on this machine");
-    };
-    glCompileShader( shader);
-
-SV *
-_glGetShaderiv( shader,  pname, param);
-    GLuint shader;
-     GLenum pname;
-     char* param;
-CODE:
-    if(! __glewGetShaderiv) {
-        croak("glGetShaderiv not available on this machine");
-    };
-    printf("Pre Shader status: %d\n", (GLint) *param);
-    printf("Pre Shader name: %d\n", pname);
-    glGetShaderiv( shader,  pname, param);
-    printf("Shader status: %d\n", (GLint) *param);
-
-GLint
-_glGetAttribLocation( program,   name);
-     GLuint program;
-      GLchar* name;
-CODE:
-    if(! __glewGetAttribLocation) {
-        croak("glGetAttribLocation not available on this machine");
-    };
-    RETVAL = glGetAttribLocation( program,   name);
-OUTPUT:
-    RETVAL
-
-SV *
-_glGenBuffers( n,   buffers);
-     GLsizei n;
-     char* buffers;
-CODE:
-    if(! __glewGenBuffers) {
-        croak("glGenBuffers not available on this machine");
-    };
-    glGenBuffers( n,   buffers);
-
-SV *
-_glBindBuffer( target,  buffer);
-     GLenum target;
-     GLuint buffer;
-CODE:
-    if(! __glewBindBuffer) {
-        croak("glBindBuffer not available on this machine");
-    };
-    glBindBuffer( target,  buffer);
-
-SV *
-_glNamedBufferData( buffer,  size,   data,  usage);
-     GLuint buffer;
-     GLint size;
-      void *data;
-     GLenum usage;
-CODE:
-    if(! __glewNamedBufferData) {
-        croak("glNamedBufferData not available on this machine");
-    };
-    glNamedBufferData( buffer,  size,   data,  usage);
-
-GLuint
-_glCreateProgram();
-CODE:
-    if(! __glewCreateProgram) {
-        croak("glCreateProgram not available on this machine");
-    };
-    RETVAL = glCreateProgram();
-OUTPUT:
-    RETVAL
-
-SV *
-_glAttachShader( program,  shader);
-     GLuint program;
-     GLuint shader;
-CODE:
-    if(! __glewAttachShader) {
-        croak("glAttachShader not available on this machine");
-    };
-    glAttachShader( program,  shader);
-
-SV *
-_glLinkProgram( program);
-     GLuint program;
-CODE:
-    if(! __glewLinkProgram) {
-        croak("glLinkProgram not available on this machine");
-    };
-    glLinkProgram( program);
-
-SV *
-_glBufferData( target,  size,   data,  usage);
-     GLenum target;
-     GLint size;
-     const void* data;
-     GLenum usage;
-CODE:
-    if(! __glewBufferData) {
-        croak("glBufferData not available on this machine");
-    };
-    glBufferData( target,  size,   data,  usage);
-
-SV *
-_glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
-     GLuint shader;
-     GLsizei bufSize;
-     char* length;
-     char* infoLog;
-CODE:
-    if(! __glewGetShaderInfoLog) {
-        croak("glGetShaderInfoLog not available on this machine");
-    };
-    printf("length addr: %x\n", length);
-    printf("length value: %d\n", (int) *length);
-    glGetShaderInfoLog( shader,  bufSize,   length,   infoLog);
-
-SV *
-_glGetProgramiv(program, pname, param);
-     GLuint program;
-     GLenum pname;
-     char*  param;
-CODE:
-    if(! __glewGetProgramiv) {
-        croak("glGetProgramiv not available on this machine");
-    };
-    glGetProgramiv(program, pname, param);
-
-GLint
-_glCreateShader(what)
-    GLint what;
-CODE:
-    if(! __glewCreateShader) {
-        croak("glCreateShader not available on this machine");
-    };
-    RETVAL = glCreateShader(what);
-OUTPUT:
-    RETVAL
-
-GLenum
-glGetError();
-CODE:
-    RETVAL = glGetError();
-OUTPUT:
-    RETVAL
 
 GLboolean
 glewIsSupported(name);
