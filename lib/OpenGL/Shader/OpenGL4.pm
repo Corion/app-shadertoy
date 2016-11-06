@@ -174,16 +174,14 @@ sub Load($self, %shaders) {
 }
 
 # Enable shader
-sub Enable {
-  my($self) = @_;
-  glUseProgram($self->{program}) if ($self->{program});
+sub Enable($self) {
+    glUseProgram($self->{program}) if ($self->{program});
 }
 
 
 # Disable shader
-sub Disable {
-  my($self) = @_;
-  glUseProgram(0);
+sub Disable($self) {
+    glUseProgram(0);
 }
 
 
