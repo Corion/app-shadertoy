@@ -1,0 +1,10 @@
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    vec2 p = fragCoord.xy / iResolution.xy;
+    vec2 uv = p;
+	
+    //---------------------------------------------	
+	// regular texture map filtering
+    //---------------------------------------------	
+	fragColor = vec4(texture2D( iChannel0, uv ).xyz,1);
+}
