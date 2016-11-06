@@ -335,9 +335,9 @@ $glWidget = $window->insert(
         if( $pipeline ) {
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-            updateShaderVariables($pipeline,$self->width,$self->height);
-
             $pipeline->Enable();
+            updateShaderVariables($pipeline,$self->width,$self->height);
+			
             drawUnitQuad_XY();
             $pipeline->Disable();
             glFlush();
