@@ -13,7 +13,9 @@ use OpenGL::Glew qw(
     GL_STACK_UNDERFLOW
     GL_OUT_OF_MEMORY
     GL_TABLE_TOO_LARGE
+	GL_VERSION
     
+	glGetString
     glGetError
     glGetShaderInfoLog
     glGetProgramInfoLog
@@ -47,6 +49,8 @@ $VERSION = '0.01';
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
     croak_on_gl_error
+	
+    glGetVersion_p
 );
 
 
@@ -107,6 +111,12 @@ sub glGetProgramInfoLog_p( $program ) {
     glGetProgramInfoLog( $program, $bufsize, xs_buffer(my $len, 8), xs_buffer(my $buffer, $bufsize));
     $len = unpack 'I', $len;
     return substr $buffer, 0, $len;
+}
+
+sub glGetVersion_p() {
+    my $glVersion = glGetString(GL_VERSION);
+    ($glVersion) = ($glVersion =~ m!^(\d+\.\d+)!g);
+    $glVersion
 }
 
 sub croak_on_gl_error() {
