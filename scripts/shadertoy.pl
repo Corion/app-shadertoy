@@ -1,4 +1,9 @@
 #!perl -w
+BEGIN {
+   # Mostly for the benefit of Cygwin
+   $ENV{LIBGL_USE_WGL} = 1;
+}
+
 use strict;
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
