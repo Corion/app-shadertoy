@@ -10,8 +10,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
       // Stipple pattern
       if( mod(fragCoord.x+fragCoord.y, 4.0) != 0.0 ) {
         vec2 iChannelResolution = vec2(640.0, 320.);
-        vec2 tex_uv=-1.0 + 2.0*fragCoord.xy / iChannelResolution;
-        color = texture2D( iChannel0, uv ).xyz;
+        vec2 tex_uv= fragCoord.xy / iChannelResolution;
+        color = texture2D( iChannel0, tex_uv ).xyz;
 
       } else {
           for( int i=0; i<128; i++ )
