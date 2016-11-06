@@ -1,7 +1,6 @@
 // Created by inigo quilez - iq/2013 : https://www.shadertoy.com/view/4dl3zn
 // License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 // Messed up by Weyland
-
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
       vec2 uv = -1.0 + 2.0*fragCoord.xy / iResolution.xy;
@@ -10,7 +9,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	  
 	  // Stipple pattern
 	  if( mod(fragCoord.x+fragCoord.y, 4.0) != 0.0 ) {
-	    vec2 iChannelResolution = (640., 320.);
+	    vec2 iChannelResolution = vec2(640.0, 320.);
 	    vec2 tex_uv=-1.0 + 2.0*fragCoord.xy / iChannelResolution;
 		color = texture2D( iChannel0, tex_uv ).xyz;
 		
