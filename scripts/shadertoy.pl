@@ -112,6 +112,7 @@ FRAGMENT
     $shader_args{ fragment }
         = join "\n",
               $header,
+              "#line 1",
               $shader_args{ fragment },
               $frag_footer
               ;
