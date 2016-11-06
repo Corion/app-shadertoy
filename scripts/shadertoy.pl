@@ -47,6 +47,9 @@ uniform float     iTimeDelta;
 uniform float     iFrameRate;
 
 uniform sampler2D iChannel0;
+uniform sampler2D iChannel1;
+uniform sampler2D iChannel2;
+uniform sampler2D iChannel3;
 
 /*
 struct Channel
@@ -188,31 +191,10 @@ sub createUnitQuad($pipeline) {
 =cut
 
 sub drawUnitQuad_XY() {
-    #if( mDerivatives != null) mGL.hint( mDerivatives.FRAGMENT_SHADER_DERIVATIVE_HINT_OES, mGL.NICEST);
-
-    #warn "Bound:" . glGetError;
-    # We have pairs of coordinates:
     glDrawArrays( GL_TRIANGLES, 0, 6 ); # 2 times 3 elements
     #warn "Drawn: " . glGetError;
     #glDisableVertexAttribArray( $vpos );
     #warn "Disabled array drawn";
-}
-
-sub loadImage($type,$filename,$program,$channelId) {
-    my $texture = OpenGL::Texture->load($filename);
-
-    glActiveTexture(GL_TEXTURE0+$channelId);
-	glBindTexture(GL_TEXTURE_2D,$texture->id);
-    $program->setUniform1i("iChannel$channelId",$channelId);
-    
-    if( $type eq '2D') {
-    } else {
-        die "Unknown texture type '$type'";
-    };
-    
-    #                                mGL.activeTexture(mGL.TEXTURE0);
-    #                                     if (t0.mType === me.TEXTYPE.T2D) mGL.bindTexture(mGL.TEXTURE_2D, t0.mObjectID);
-    #                                else if (t0.mType === me.TEXTYPE.CUBEMAP) mGL.bindTexture(mGL.TEXTURE_CUBE_MAP, t0.mObjectID);
 }
 
 use vars qw($xres $yres);
@@ -253,7 +235,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 	# but these require OpenGL 4.4 (Works On My Machine)
 	for my $ch (0..3) {
 	    if( $channel[$ch]) {
-			glActiveTexture(GL_TEXTURE0+ $ch);
+			glActiveTexture($ch+GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
 			$pipeline->setUniform1i("iChannel$ch",$ch);
 		}
@@ -338,6 +320,7 @@ $glWidget = $window->insert(
 			
 			# Load some textures
 			$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
+			$channel[1] = OpenGL::Texture->load('demo/tex16.png');
         };
         
         if( $pipeline ) {

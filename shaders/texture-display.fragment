@@ -6,5 +6,9 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     //---------------------------------------------	
 	// regular texture map filtering
     //---------------------------------------------	
-	fragColor = vec4(texture2D( iChannel0, uv ).xyz,1);
+	if( p.x < 0.5 ) {
+		fragColor = vec4(texture2D( iChannel0, uv ).xyz,1);
+	} else {
+		fragColor = vec4(texture2D( iChannel1, uv ).xyz,1);
+	};
 }
