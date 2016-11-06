@@ -203,7 +203,7 @@ sub loadImage($type,$filename,$program,$channelId) {
 
     glActiveTexture(GL_TEXTURE0+$channelId);
 	glBindTexture(GL_TEXTURE_2D,$texture->id);
-    $program->setUniform1i("iChannel$channelId",$texture->id);
+    $program->setUniform1i("iChannel$channelId",$channelId);
     
     if( $type eq '2D') {
     } else {
@@ -247,12 +247,20 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
-    $pipeline->setUniform1i( "iChannel0", $channel[0]->id );
+	
+	# We should do that not in the per-frame setup but maybe once
+	# before we render the first frame or maybe use the stateless DSA functions,
+	# but these require OpenGL 4.4 (Works On My Machine)
+	for my $ch (0..3) {
+	    if( $channel[$ch]) {
+			glActiveTexture(GL_TEXTURE0+ $ch);
+			glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
+			$pipeline->setUniform1i("iChannel$ch",$ch);
+		}
+	};
+
 	# We should also set up the dimensions, also these never change
 	# so we shouldn't update these variables here
-    #glSetShaderTextureUnit( "iChannel1", 1 );
-    #glSetShaderTextureUnit( "iChannel2", 2 );
-    #glSetShaderTextureUnit( "iChannel3", 3 );
     #$pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
     #$pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
     #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
