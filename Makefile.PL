@@ -13,12 +13,12 @@ if( os_is('MSWin32')) {
     $define = "-D_WIN32", # XXX Platform specific
 
 } elsif( os_is('Cygwin')) {
-    @libs = '-LX11 -lopengl32 -lgdi32 -lmsimg32';
+    @libs = '-lGL -lX11';
     $define = "-D_WIN32", # XXX Platform specific
 
 } else {
     # This might not work on MacOS / OSX, but until I get other reports...
-    @libs = '-lX11 -lGL';
+    @libs = '-lGL -lX11';
 };
 
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
