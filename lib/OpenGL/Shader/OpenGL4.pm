@@ -86,12 +86,12 @@ sub DESTROY {
             };
         };
         glDeleteProgram($self->{program});
-                croak_on_gl_error;
+        croak_on_gl_error;
     }
 
     for (@delete_shaders) {
         glDeleteShader($_);
-                croak_on_gl_error;
+        croak_on_gl_error;
     };
 }
 
