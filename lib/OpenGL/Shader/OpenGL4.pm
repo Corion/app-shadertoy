@@ -11,6 +11,8 @@ use OpenGL::Glew::Helpers qw(
     pack_GLint
     xs_buffer
     croak_on_gl_error
+	
+	glGetVersion_p
 );
 use Filter::signatures;
 use feature 'signatures';
@@ -38,6 +40,8 @@ my %GL_shader_names = (
     fragment => GL_FRAGMENT_SHADER,
 );
 
+use vars qw($glVersion);
+
 # Shader constructor
 sub new ($this,@args) {
   my $class = ref($this) || $this;
@@ -45,8 +49,7 @@ sub new ($this,@args) {
   my $self = { @args };
   bless($self => $class);
   
-  my $glVersion = glGetString(GL_VERSION);
-  ($glVersion) = ($glVersion =~ m!^(\d+\.\d+)!g);
+  $glVersion ||= glGetVersion_p;
   if( $glVersion < 3.3 ) {
       warn "You have an old version of OpenGL loaded ($glVersion), you won't have much fun.";
   };
