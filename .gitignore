@@ -29,3 +29,5 @@ src/*.o
 x64/
 *.trace
 OpenGL-Glew-*
+*.base
+*.exp
