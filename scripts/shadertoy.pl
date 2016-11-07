@@ -32,6 +32,11 @@ no warnings 'experimental::signatures';
 # TO-DO: What is needed to make a tube race track from a (deformed+extruded) circle?
 # Look at IQs article for VR rendering
 # http://www.iquilezles.org/www/articles/stereo/stereo.htm
+# Tessellation / Terrain
+# https://docs.nvidia.com/gameworks/content/gameworkslibrary/graphicssamples/opengl_samples/terraintessellationsample.htm
+# http://victorbush.com/2015/01/tessellated-terrain/
+# https://github.com/tijutv/GPU-Terrain-Generation
+# https://github.com/NVIDIAGameWorks/GraphicsSamples
 
 
 my $header = <<HEADER;
