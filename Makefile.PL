@@ -30,7 +30,7 @@ WriteMakefile(
       'OpenGL' => '0.58',
       'Prima' => 0,
       'Prima::OpenGL'      => '0.07',
-      'Filter::signatures' => '0.04',
+      'Filter::signatures' => '0.06', # for empty function signatures
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
