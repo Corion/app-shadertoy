@@ -73,7 +73,7 @@ sub capture(%options) {
         return Prima::Image->new(
             width    => $options{width},
             height   => $options{height},
-            type     => im::Color | im::bpp32 | im::fmtBGRI,
+            type     => im::Color() | im::bpp32() | im::fmtBGRI(),
             lineSize => $options{width}*4,
             data     => $buffer,
         );
