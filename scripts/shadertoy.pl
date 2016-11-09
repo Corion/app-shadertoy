@@ -133,9 +133,11 @@ FRAGMENT
     my $pipeline = OpenGL::Shader::OpenGL4->new(
         strict_uniforms => 0,
     );
-    $pipeline->Load(
+    if( my $err = $pipeline->Load(
         %shader_args
-    );
+    )) {
+	    warn "Error in Shader: $err";
+	};
     
     return $pipeline;
 };
