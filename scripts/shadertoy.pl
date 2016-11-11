@@ -11,9 +11,22 @@ use OpenGL::Texture;
 use Prima qw( Application GLWidget Label );
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
+use Getopt::Long;
+use Pod::Usage;
+
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
+
+=head1 NAME
+
+shadertoy - playground for OpenGL shaders
+
+=head1 SYNOPSIS
+
+  shadertoy.pl shaders/myshader.fragment
+
+=cut
 
 # TO-DO: Add "free" time between frames
 # TO-DO: Add bitmap loading via Imager -> RGBA -> buffer
@@ -39,6 +52,21 @@ no warnings 'experimental::signatures';
 # https://github.com/NVIDIAGameWorks/GraphicsSamples
 # Geometry Clipmaps
 # http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/
+
+GetOptions(
+  'help!'      => \my $opt_help,
+  'man!'       => \my $opt_man,
+  'verbose+'   => \my $verbose,
+  'quiet'      => \my $quiet,
+) or pod2usage(-verbose => 1) && exit;
+pod2usage(-verbose => 1) && exit if defined $opt_help;
+pod2usage(-verbose => 2) && exit if defined $opt_man;
+
+sub status($message,$level=0) {
+    if( !$quiet and $level > $verbose ) {
+	    print "$message\n";
+	};
+};
 
 my $header = <<HEADER;
 uniform vec4      iMouse;
@@ -373,3 +401,13 @@ $window->insert( Timer =>
 
 Prima->run;
 
+=head1 ARGUMENTS
+
+  --help      print Options and Arguments
+  --man       print complete man page
+
+=head1 OPTIONS
+
+  --verbose
+
+=cut
