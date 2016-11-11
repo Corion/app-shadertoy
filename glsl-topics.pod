@@ -1,0 +1,28 @@
+=head1 GLSL topics
+
+These are fun things to implement in GLSL shaders
+
+    Shadow mapping for distant lights (deferred)
+       L<http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-16-shadow-mapping/>
+
+  #        Easily also for directional lights
+  #        Need six-cubemap for local undirected lights
+  
+What is needed to make a tube race track from a (deformed+extruded) circle?
+
+Look at IQs article for VR rendering
+L<http://www.iquilezles.org/www/articles/stereo/stereo.htm>
+
+=head2 Tessellation / Terrain
+
+L<https://docs.nvidia.com/gameworks/content/gameworkslibrary/graphicssamples/opengl_samples/terraintessellationsample.htm>
+
+L<http://victorbush.com/2015/01/tessellated-terrain/>
+
+L<https://github.com/tijutv/GPU-Terrain-Generation>
+
+L<https://github.com/NVIDIAGameWorks/GraphicsSamples>
+
+=head3 Geometry Clipmaps
+
+L<http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/>

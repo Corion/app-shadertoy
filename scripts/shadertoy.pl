@@ -42,20 +42,7 @@ as the vertex and tesselation shaders respectively.
 # TO-DO: Add configuration to specify which FBOs are the source for other shaders
 # TO-DO: Add live-editor for shader(s)
 # TO-DO: Add animated (modern) GIF export and automatic upload
-# TO-DO: Shadow mapping for distant lights (deferred)
-#          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-16-shadow-mapping/
-#        Easily also for directional lights
-#        Need six-cubemap for local undirected lights
-# TO-DO: What is needed to make a tube race track from a (deformed+extruded) circle?
-# Look at IQs article for VR rendering
-# http://www.iquilezles.org/www/articles/stereo/stereo.htm
-# Tessellation / Terrain
-# https://docs.nvidia.com/gameworks/content/gameworkslibrary/graphicssamples/opengl_samples/terraintessellationsample.htm
-# http://victorbush.com/2015/01/tessellated-terrain/
-# https://github.com/tijutv/GPU-Terrain-Generation
-# https://github.com/NVIDIAGameWorks/GraphicsSamples
-# Geometry Clipmaps
-# http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/
+# TO-DO: Add mp4 and webm export and automatic upload (to wherever)
 
 GetOptions(
   'fullscreen' => \my $fullscreen, # not yet implemented
