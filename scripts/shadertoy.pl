@@ -104,14 +104,17 @@ void main() {
 FRAGMENT_FOOTER
 
 sub init_shaders($filename) {
-    $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
-    my( @files ) = glob "$filename.*";
+    my %shader_args;
+    if( defined $filename ) {
+		$filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
+		my( @files ) = glob "$filename.*";
 
-    my %shader_args = map {
-        /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-        ? ($1 => do { local(@ARGV,$/) = $_; <> })
-           : () # else ignore the file
-    } @files;
+		%shader_args = map {
+			/\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
+			? ($1 => do { local(@ARGV,$/) = $_; <> })
+			   : () # else ignore the file
+		} @files;
+	};
 
     # Supply some defaults:
 #version 330 core
