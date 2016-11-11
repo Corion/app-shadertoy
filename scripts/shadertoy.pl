@@ -115,71 +115,63 @@ void main() {
 GEOMETRY
 =cut
 
-    if( ! $shader_args{ fragment }) {
-	    print "No shader program given, using default fragment shader\n";
-        $shader_args{ fragment } = <<'FRAGMENT';
+    if (!$shader_args{fragment}) {
+        print "No shader program given, using default fragment shader\n";
+        $shader_args{fragment} = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 uv = fragCoord.xy / iResolution.xy;
     fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
 }
 FRAGMENT
-    };
-    
-    $shader_args{ fragment }
-        = join "\n",
-              $header,
-              "#line 1",
-              $shader_args{ fragment },
-              $frag_footer
-              ;
+    }
 
-    my $pipeline = OpenGL::Shader::OpenGL4->new(
-        strict_uniforms => 0,
-    );
-    if( my $err = $pipeline->Load(
-        %shader_args
-    )) {
-	    warn "Error in Shader: $err";
-	};
-    
+    $shader_args{fragment} = join "\n", $header, "#line 1",
+        $shader_args{fragment}, $frag_footer;
+
+    my $pipeline = OpenGL::Shader::OpenGL4->new(strict_uniforms => 0,);
+    if (my $err = $pipeline->Load(%shader_args)) {
+        warn "Error in Shader: $err";
+    }
+
     return $pipeline;
-};
+}
 
 # We want static memory here
 # A 2x2 flat-screen set of coordinates for the triangles
-my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,    
-                  1.0, -1.0,   1.0,  1.0,    -1.0,  1.0
-               );
+my @vertices
+    = (-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0);
 my $vertices = pack_GLfloat(@vertices);
 my $VAO;
 my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad($pipeline) {
-    glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
+    glGenVertexArrays(1, xs_buffer(my $buffer, 8));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
-    glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
+    glObjectLabel(GL_VERTEX_ARRAY, $VAO, length "myVAO", "myVAO");
     warn "Created VAO: " . glGetError;
-    
-    glGenBuffers( 1, xs_buffer($buffer, 8));
+
+    glGenBuffers(1, xs_buffer($buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
-    glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
+    glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
     glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
-    glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
-    #warn sprintf "%08x", glGetError;
-    # Not supported on Win10+Intel...
-    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
-    #warn sprintf "%08x", glGetError;
+    glObjectLabel(GL_BUFFER, $VBO_Quad, length "my triangles", "my triangles");
+
+   #warn sprintf "%08x", glGetError;
+   # Not supported on Win10+Intel...
+   #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+   #warn sprintf "%08x", glGetError;
 
     my $vpos = glGetAttribLocation($pipeline->{program}, 'pos');
-    if( $vpos < 0 ) {
-        die sprintf "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
-    };
-    
-    glEnableVertexAttribArray( $vpos );
-    glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+    if ($vpos < 0) {
+        die sprintf
+            "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
+    }
+
+    glEnableVertexAttribArray($vpos);
+    glVertexAttribPointer($vpos, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
     #warn "Enabled:" . glGetError;
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
