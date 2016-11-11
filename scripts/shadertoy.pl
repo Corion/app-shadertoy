@@ -8,7 +8,6 @@ use strict;
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use OpenGL::Texture;
-use Prima qw( Application GLWidget Label );
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
 use Getopt::Long;
@@ -47,18 +46,30 @@ as the vertex and tesselation shaders respectively.
 #        ffmpeg -f image2 -framerate 9 -i image_%003d.jpg -vf scale=531x299,transpose=1,crop=299,431,0,100 out.gif
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
 
+my $fullscreen;
+my $duration;
+my $watch_file;
+my $stay_always_on_top;
+my $opt_help;
+my $opt_man;
+my $verbose;
+my $quiet;
+BEGIN {
 GetOptions(
-  'fullscreen'     => \my $fullscreen, # not yet implemented
-  'duration|d=i'   => \my $duration,   # not yet implemented
-  'watch|w'        => \my $watch_file, # not yet implemented
-  'help!'          => \my $opt_help,
-  'man!'           => \my $opt_man,
-  'verbose+'       => \my $verbose,
-  'quiet'          => \my $quiet,
+  'fullscreen'     => \$fullscreen, # not yet implemented
+  'duration|d=i'   => \$duration,   # not yet implemented
+  'watch|w'        => \$watch_file, # not yet implemented
+  'always-on-top|t'=> \$stay_always_on_top,
+  'help!'          => \$opt_help,
+  'man!'           => \$opt_man,
+  'verbose+'       => \$verbose,
+  'quiet'          => \$quiet,
 ) or pod2usage(-verbose => 1) && exit;
 pod2usage(-verbose => 1) && exit if defined $opt_help;
 pod2usage(-verbose => 2) && exit if defined $opt_man;
 $verbose ||= 0;
+};
+use Prima qw( Application GLWidget Label );
 
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
@@ -295,9 +306,10 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 }
 
 my $window = Prima::MainWindow->create(
-    width => 480,
-    height => 160,
-    onKeyDown        => sub {
+    width     => 480,
+    height    => 160,
+    onTop     => $stay_always_on_top,
+    onKeyDown => sub {
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
         # XXX handle ^O to load a new shader
