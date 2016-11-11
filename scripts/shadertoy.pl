@@ -26,6 +26,10 @@ shadertoy - playground for OpenGL shaders
 
   shadertoy.pl shaders/myshader.fragment
 
+Displays the GLSL shader loaded from C<shaders/myshader.fragment>
+in a window. Other shaders with the same basename will also be loaded
+as the vertex and tesselation shaders respectively.
+
 =cut
 
 # TO-DO: Add "free" time between frames
@@ -400,7 +404,7 @@ $glWidget = $window->insert(
                 $frame_second = int(time);
             };
         };
-		
+
 		# XXX Check if it's time to quit
     },
     onMouseDown  => sub { $config->{grab} = 1 },
@@ -431,7 +435,7 @@ Prima->run;
   --verbose       output more messages
 
   --quiet         don't output anything except errors
-  
+
   --fullscreen    display fullscreen
 
   --duration      time in seconds until to quit, default is to run forever
