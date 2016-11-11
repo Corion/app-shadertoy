@@ -54,6 +54,7 @@ shadertoy - playground for OpenGL shaders
 # http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/
 
 GetOptions(
+  'fullscreen' => \my $fullscreen,
   'help!'      => \my $opt_help,
   'man!'       => \my $opt_man,
   'verbose+'   => \my $verbose,
@@ -61,9 +62,10 @@ GetOptions(
 ) or pod2usage(-verbose => 1) && exit;
 pod2usage(-verbose => 1) && exit if defined $opt_help;
 pod2usage(-verbose => 2) && exit if defined $opt_man;
+$verbose ||= 0;
 
 sub status($message,$level=0) {
-    if( !$quiet and $level > $verbose ) {
+    if( !$quiet and $level <= $verbose ) {
 	    print "$message\n";
 	};
 };
@@ -111,7 +113,8 @@ sub init_shaders($filename) {
 
 		%shader_args = map {
 			/\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-			? ($1 => do { local(@ARGV,$/) = $_; <> })
+			? ($1 => do { status("Loading $_", 1);
+			              local(@ARGV,$/) = $_; <> })
 			   : () # else ignore the file
 		} @files;
 	};
@@ -147,7 +150,7 @@ GEOMETRY
 =cut
 
     if( ! $shader_args{ fragment }) {
-        print "No shader program given, using default fragment shader\n";
+        status("No shader program given, using default fragment shader",1);
         $shader_args{ fragment } = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
@@ -171,7 +174,8 @@ FRAGMENT
     if( my $err = $pipeline->Load(
         %shader_args
     )) {
-        warn "Error in Shader: $err";
+        status("Error in Shader: $err");
+		# XXX What should we do here? Revert to default shaders?
     };
 
     return $pipeline;
@@ -192,7 +196,7 @@ sub createUnitQuad($pipeline) {
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
     glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
-    warn "Created VAO: " . glGetError;
+    status("Created VAO: " . glGetError,2);
 
     glGenBuffers( 1, xs_buffer($buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
@@ -206,13 +210,12 @@ sub createUnitQuad($pipeline) {
 
     my $vpos = glGetAttribLocation($pipeline->{program}, 'pos');
     if( $vpos < 0 ) {
-        die sprintf "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
+        die "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
     };
 
     glEnableVertexAttribArray( $vpos );
     glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
-    #warn "Enabled:" . glGetError;
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
 }
 
@@ -297,17 +300,16 @@ my $window = Prima::MainWindow->create(
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
         if( $key == kb::F11 ) {
-            print "Fullscreen\n";
             my @wsaverect = $self-> rect;
             $self->rect( 0, 0, $self->owner->size);
 
         } elsif( $key == kb::F5 ) {
             my( $name ) = 'capture.png';
             capture()->save($name) or die "error saving: $@";
-            print "Saved to '$name'\n";
+            status("Saved to '$name'");
 
         } elsif( $key == kb::Esc ) {
-            print "Bye\n";
+            status("Bye",2);
             $::application->close
         };
     },
@@ -356,14 +358,14 @@ $glWidget = $window->insert(
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
             };
-            print sprintf "Initialized using GLEW %s\n", OpenGL::Glew::glewGetString(GLEW_VERSION);
-            print sprintf "%s\n", glGetString(GL_VERSION);
+            status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+            status( glGetString(GL_VERSION));
 
             #glClearColor(0,0,0.5,1);
 
             $pipeline = init_shaders($filename);
-            die "Got no pipeline"
-                unless $pipeline;
+            die "The shader '$filename' did not load"
+                unless $pipeline and $pipeline->{program};
             $VBO_Quad ||= createUnitQuad($pipeline);
 
             # Load some textures
