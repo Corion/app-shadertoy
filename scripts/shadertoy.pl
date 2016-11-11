@@ -37,7 +37,8 @@ no warnings 'experimental::signatures';
 # http://victorbush.com/2015/01/tessellated-terrain/
 # https://github.com/tijutv/GPU-Terrain-Generation
 # https://github.com/NVIDIAGameWorks/GraphicsSamples
-
+# Geometry Clipmaps
+# http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/
 
 my $header = <<HEADER;
 uniform vec4      iMouse;
