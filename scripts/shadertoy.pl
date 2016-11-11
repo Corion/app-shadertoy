@@ -14,10 +14,7 @@ use OpenGL::ScreenCapture 'capture';
 use Getopt::Long;
 use Pod::Usage;
 
-use threads;
-use Thread::Queue;
-use Filesys::Notify::Simple;
-use File::Basename 'dirname';
+use App::ShaderToy::FileWatcher;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -96,46 +93,6 @@ uniform Channel iChannel[4];
 */
 HEADER
 
-# Launch our watcher thread for updates to the shader program:
-use vars qw($reload $watcher @watched_files);
-
-$reload = Thread::Queue->new();
-
-sub watch_files(@files) {
-
-    my @dirs = map {dirname($_)} @files;
-    if( "@watched_files" ne "@files" and $watcher ) {
-        # We will accumulate dead threads here, because Filesys::Watcher::Simple
-        # never returns and we don't have a way to stop a thread hard
-        $watcher->kill('KILL')->detach if $watcher;
-    };
-
-    status("Watching directories @dirs",1);
-    $watcher = threads->create(sub(@dirs) {
-        $SIG{'KILL'} = sub { threads->exit(); };
-        while (1) {
-            my $fs = Filesys::Notify::Simple->new(\@dirs)->wait(sub(@events) {
-                my %affected;
-                for my $event (@events) {
-                    $affected{ $event->{path} } = 1;
-                };
-                status("Files changed: $_",1)
-                    for sort keys %affected;
-                $reload->enqueue([sort keys %affected]);
-            });
-        };
-        warn "Should never get here";
-    }, @dirs);
-};
-
-sub files_changed() {
-    my %changed;
-    while (defined(my $item = $reload->dequeue_nb())) {
-        undef @changed{ @$item };
-    };
-    sort keys %changed;
-}
-
 my $frag_footer = <<'FRAGMENT_FOOTER';
 void main() {
     vec4 color = vec4(0.0,0.0,0.0,1.0);
@@ -144,10 +101,15 @@ void main() {
 }
 FRAGMENT_FOOTER
 
+sub shader_base($filename) {
+    $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
+    $filename
+}
+
 sub init_shaders($filename) {
     my %shader_args;
+    $filename = shader_base($filename);
     if( defined $filename ) {
-        $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
         my( @files ) = glob "$filename.*";
 
         %shader_args = map {
@@ -353,10 +315,10 @@ my $window = Prima::MainWindow->create(
 
         } elsif( $key == kb::Esc ) {
             status("Bye",2);
-            if( $watcher ) {
+            if( $App::ShaderToy::FileWatcher::watcher ) {
                 status("Stopping filesystem watcher thread",2);
-                $watcher->kill('KILL')->detach;
-                undef $watcher;
+                $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
+                undef $App::ShaderToy::FileWatcher::watcher;
             };
             $::application->close
         };
@@ -381,7 +343,7 @@ set_shadername( $filename );
 
 if( $watch_file ) {
     status("Watching files is enabled");
-    watch_files( $filename );
+    App::ShaderToy::FileWatcher::watch_files( $filename );
 };
 
 my $status = $window->insert(
@@ -454,15 +416,16 @@ $glWidget = $window->insert(
         };
 
         # XXX Check if it's time to quit
-        # XXX Check if we need to reload shaders:
-        #     Accumulate all changed shaders
-        #     Reload the main shader
-        #     Recompile everything
-        # We should do double-buffering here, loading and compiling a secondary
-        # shader and only swap it out if it loaded and compiled flawlessly
-        for my $filename (files_changed()) {
-            status("$filename changed, reloading",2);
-            $next_pipeline = init_shaders($filename);
+        
+        # Maybe this should happen asynchronously
+        my %changed;
+        for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
+            $changed{ shader_base( $filename ) } = $filename;
+        };
+        if( keys %changed ) {
+            my @shader = sort { $a cmp $b } values %changed;
+            status("$shader[0] changed, reloading",2);
+            $next_pipeline = init_shaders($shader[0]);
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },
