@@ -36,7 +36,7 @@ sub load($class,$filename,%options) {
     if(! exists $options{ name }) {
         $options{ name } = $filename;
     };
-    warn "Loading $filename";
+    #warn "Loading $filename";
     my $image = Imager->new(
         file => $filename,
         %options,
