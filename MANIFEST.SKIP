@@ -27,3 +27,4 @@ demo/
 ^Glew\.def
 ^capture.*
 ^debug.*
+^.*.exe
