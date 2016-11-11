@@ -80,23 +80,23 @@ sub capture(%options) {
 
     } elsif( $options{ format } eq 'Imager' ) {
         require Imager;
-		my $i = Imager->new(
-			xsize => $options{width},
-			ysize => $options{height},
-			type => 'direct',
-			bits => 8, # per channel
-			filetype => 'raw',
-		);
-		$i->read(
-			data => $buffer,
-			type => 'raw',
-			xsize => $options{width},
-			ysize => $options{height},
-			raw_datachannels => 4,
-			raw_interleave => 0,
-		);
-		$i->flip(dir => 'v');
-		return $i
+        my $i = Imager->new(
+            xsize => $options{width},
+            ysize => $options{height},
+            type => 'direct',
+            bits => 8, # per channel
+            filetype => 'raw',
+        );
+        $i->read(
+            data => $buffer,
+            type => 'raw',
+            xsize => $options{width},
+            ysize => $options{height},
+            raw_datachannels => 4,
+            raw_interleave => 0,
+        );
+        $i->flip(dir => 'v');
+        return $i
 
     } else {
         croak "Unknown object format option '$options{format}', need 'Prima' or 'Imager'";

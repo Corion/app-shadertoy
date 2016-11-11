@@ -11,8 +11,8 @@ use OpenGL::Glew::Helpers qw(
     pack_GLint
     xs_buffer
     croak_on_gl_error
-	
-	glGetVersion_p
+
+    glGetVersion_p
 );
 use Filter::signatures;
 use feature 'signatures';
@@ -48,7 +48,7 @@ sub new ($this,@args) {
 
   my $self = { @args };
   bless($self => $class);
-  
+
   $glVersion ||= glGetVersion_p;
   if( $glVersion < 3.3 ) {
       warn "You have an old version of OpenGL loaded ($glVersion), you won't have much fun.";
@@ -64,7 +64,7 @@ sub new ($this,@args) {
   if(! exists $self->{strict_uniforms} ) {
     $self->{strict_uniforms} = 1;
 };
-  
+
   my %shaders;
   for ( keys %GL_shader_names ) {
     $shaders{ $_ } = delete $self->{$_}
@@ -106,7 +106,7 @@ sub Load($self, %shaders) {
         #warn "Creating $shader shader";
         my $id = glCreateShader($GL_shader_names{ $shader });
         warn "Couldn't create a '$shader' shader?!"
-            unless $id; 
+            unless $id;
         croak_on_gl_error;
         #warn "Got $shader shader $id, setting source";
         glShaderSource($id, 1, pack_GLstrings($shaders{$shader}), pack_ptr(my $shader_length, 8));
@@ -115,12 +115,12 @@ sub Load($self, %shaders) {
         #warn "Compiling $shader shader";
         glCompileShader($id);
         croak_on_gl_error;
-        
+
         glGetShaderiv($id, GL_COMPILE_STATUS, xs_buffer(my $ok,8));
         $ok = unpack 'I', $ok;
         if( $ok == GL_FALSE ) {
           my $log = glGetShaderInfoLog_p($id);
-		  croak $log if $log;
+          croak $log if $log;
           return "Bad $shader shader: $log" if ($log);
         };
         $self->{$shader . "_id"} = $id;
@@ -145,22 +145,22 @@ sub Load($self, %shaders) {
     if ($linked != GL_TRUE) {
         warn "Something went wrong, looking at log";
         my $log = glGetProgramInfoLog_p($sp);
-    
+
         return "Link shader to program: $log" if ($log);
         return 'Unable to link shader';
     }
     #warn "Program status OK";
 
     # Free up the shader memory, later
-	#glDetachShader(ProgramID, VertexShaderID);
-	#glDetachShader(ProgramID, FragmentShaderID);
-	
-	#glDeleteShader(VertexShaderID);
-	#glDeleteShader(FragmentShaderID);
-	
-	# Get all the uniforms and cache them:
-	glGetProgramiv($sp, GL_ACTIVE_UNIFORMS, xs_buffer(my $count, 8 ));
-	$count = unpack 'I', $count;
+    #glDetachShader(ProgramID, VertexShaderID);
+    #glDetachShader(ProgramID, FragmentShaderID);
+
+    #glDeleteShader(VertexShaderID);
+    #glDeleteShader(FragmentShaderID);
+
+    # Get all the uniforms and cache them:
+    glGetProgramiv($sp, GL_ACTIVE_UNIFORMS, xs_buffer(my $count, 8 ));
+    $count = unpack 'I', $count;
     for my $index (0..$count-1) {
         # Names are maximum 16 chars:
         glGetActiveUniform($sp, $index, 16, xs_buffer(my $length, 8), xs_buffer(my $size,8), xs_buffer(my $type,8), xs_buffer(my $name, 16));
@@ -210,7 +210,7 @@ sub Map {
 sub setUniform1i( $self, $name, $value ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform1i( $self->{program}, $self->{uniforms}->{$name}, $value );
@@ -221,7 +221,7 @@ sub setUniform1i( $self, $name, $value ) {
 sub setUniform1f( $self, $name, $float ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform1f( $self->{program}, $self->{uniforms}->{$name}, $float );
@@ -232,7 +232,7 @@ sub setUniform1f( $self, $name, $float ) {
 sub setUniform2f( $self, $name, $x, $y) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform2f( $self->{program}, $self->{uniforms}->{$name}, $x, $y );
@@ -243,7 +243,7 @@ sub setUniform2f( $self, $name, $x, $y) {
 sub setUniform3f( $self, $name, $x,$y,$z ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform3f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z );
@@ -254,7 +254,7 @@ sub setUniform3f( $self, $name, $x,$y,$z ) {
 sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform4f( $self->{program}, $self->{uniforms}->{$name}, $x,$y,$z,$w );
@@ -265,7 +265,7 @@ sub setUniform4f( $self, $name, $x,$y,$z,$w ) {
 sub setUniform4fv( $self, $name, $vec ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform4fv( $self->{program}, $self->{uniforms}->{$name}, length($vec)/(4*4), $vec );
@@ -276,7 +276,7 @@ sub setUniform4fv( $self, $name, $vec ) {
 sub setUniform2v( $self, $name, @values ) {
     return undef if (!$self->{program});
     if( ! exists $self->{uniforms}->{$name}) {
-        croak "Unknown shader uniform '$name'" 
+        croak "Unknown shader uniform '$name'"
             if $self->{strict_uniforms}
     } else {
         glProgramUniform2v( $self->{program}, $self->{uniforms}->{$name}, @values );

@@ -78,13 +78,13 @@ FRAGMENT_FOOTER
 sub init_shaders($filename) {
     $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
     my( @files ) = glob "$filename.*";
-    
+
     my %shader_args = map {
         /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
         ? ($1 => do { local(@ARGV,$/) = $_; <> })
            : () # else ignore the file
     } @files;
-    
+
     # Supply some defaults:
 #version 330 core
 #layout(location = 0) in vec2 pos;
@@ -115,63 +115,71 @@ void main() {
 GEOMETRY
 =cut
 
-    if (!$shader_args{fragment}) {
+    if( ! $shader_args{ fragment }) {
         print "No shader program given, using default fragment shader\n";
-        $shader_args{fragment} = <<'FRAGMENT';
+        $shader_args{ fragment } = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 uv = fragCoord.xy / iResolution.xy;
     fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
 }
 FRAGMENT
-    }
+    };
 
-    $shader_args{fragment} = join "\n", $header, "#line 1",
-        $shader_args{fragment}, $frag_footer;
+    $shader_args{ fragment }
+        = join "\n",
+              $header,
+              "#line 1",
+              $shader_args{ fragment },
+              $frag_footer
+              ;
 
-    my $pipeline = OpenGL::Shader::OpenGL4->new(strict_uniforms => 0,);
-    if (my $err = $pipeline->Load(%shader_args)) {
+    my $pipeline = OpenGL::Shader::OpenGL4->new(
+        strict_uniforms => 0,
+    );
+    if( my $err = $pipeline->Load(
+        %shader_args
+    )) {
         warn "Error in Shader: $err";
-    }
+    };
 
     return $pipeline;
-}
+};
 
 # We want static memory here
 # A 2x2 flat-screen set of coordinates for the triangles
-my @vertices
-    = (-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0);
+my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,
+                  1.0, -1.0,   1.0,  1.0,    -1.0,  1.0
+               );
 my $vertices = pack_GLfloat(@vertices);
 my $VAO;
 my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad($pipeline) {
-    glGenVertexArrays(1, xs_buffer(my $buffer, 8));
+    glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
-    glObjectLabel(GL_VERTEX_ARRAY, $VAO, length "myVAO", "myVAO");
+    glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
     warn "Created VAO: " . glGetError;
 
-    glGenBuffers(1, xs_buffer($buffer, 8));
+    glGenBuffers( 1, xs_buffer($buffer, 8));
     $VBO_Quad = (unpack 'I', $buffer)[0];
-    glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
+    glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
-    glObjectLabel(GL_BUFFER, $VBO_Quad, length "my triangles", "my triangles");
-
-   #warn sprintf "%08x", glGetError;
-   # Not supported on Win10+Intel...
-   #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
-   #warn sprintf "%08x", glGetError;
+    glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
+    #warn sprintf "%08x", glGetError;
+    # Not supported on Win10+Intel...
+    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
+    #warn sprintf "%08x", glGetError;
 
     my $vpos = glGetAttribLocation($pipeline->{program}, 'pos');
-    if ($vpos < 0) {
-        die sprintf
-            "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
-    }
+    if( $vpos < 0 ) {
+        die sprintf "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
+    };
 
-    glEnableVertexAttribArray($vpos);
-    glVertexAttribPointer($vpos, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    glEnableVertexAttribArray( $vpos );
+    glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
     #warn "Enabled:" . glGetError;
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
@@ -223,29 +231,29 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     $time = time - $started;
     $pipeline->setUniform1f( "iGlobalTime", $time);
     $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
-    
+
     if ( $config->{grab} ) {
         my ( $x, $y ) = $glWidget->pointerPos;
         $iMouse = pack_GLfloat($x,$y,0,0);
         $pipeline->setUniform4fv( "iMouse", $iMouse);
-    }		
+    }
 
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
     #$pipeline->setUniform1f(  "iSampleRate", 0.0 ); #this.mSampleRate);
-	
-	# We should do that not in the per-frame setup but maybe once
-	# before we render the first frame or maybe use the stateless DSA functions,
-	# but these require OpenGL 4.4 (Works On My Machine)
-	for my $ch (0..3) {
-	    if( $channel[$ch]) {
-			glActiveTexture($ch+GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
-			$pipeline->setUniform1i("iChannel$ch",$ch);
-		}
-	};
 
-	# We should also set up the dimensions, also these never change
-	# so we shouldn't update these variables here
+    # We should do that not in the per-frame setup but maybe once
+    # before we render the first frame or maybe use the stateless DSA functions,
+    # but these require OpenGL 4.4 (Works On My Machine)
+    for my $ch (0..3) {
+        if( $channel[$ch]) {
+            glActiveTexture($ch+GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
+            $pipeline->setUniform1i("iChannel$ch",$ch);
+        }
+    };
+
+    # We should also set up the dimensions, also these never change
+    # so we shouldn't update these variables here
     #$pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
     #$pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
     #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
@@ -286,7 +294,7 @@ $window->set(
 my $status = $window->insert(
     Label => (
         growMode => gm::Client,
-		rect => [0, 0, $window->width, 16],
+        rect => [0, 0, $window->width, 16],
         alignment => ta::Center,
         text => '00.0 fps',
     ),
@@ -295,8 +303,8 @@ my $status = $window->insert(
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
     #pack    => { expand => 1, fill => 'both'},
-	growMode => gm::Client,
-	rect => [0, 16, $window->width, $window->height],
+    growMode => gm::Client,
+    rect => [0, 16, $window->width, $window->height],
     gl_config => {
         pixels => 'rgba',
         color_bits => 32,
@@ -304,9 +312,9 @@ $glWidget = $window->insert(
     },
     onPaint => sub {
         my $self = shift;
-        
+
         if( ! $pipeline ) {
-		    # Set up Glew etc.
+            # Set up Glew etc.
             my $err = OpenGL::Glew::glewInit();
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
@@ -320,30 +328,30 @@ $glWidget = $window->insert(
             die "Got no pipeline"
                 unless $pipeline;
             $VBO_Quad ||= createUnitQuad($pipeline);
-			
-			# Load some textures
-			$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
-			$channel[1] = OpenGL::Texture->load('demo/tex16.png');
+
+            # Load some textures
+            #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
+            $channel[0] = OpenGL::Texture->load('demo/tex11.png');
         };
-        
+
         if( $pipeline ) {
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
             $pipeline->Enable();
             updateShaderVariables($pipeline,$self->width,$self->height);
-			
+
             drawUnitQuad_XY();
             $pipeline->Disable();
             glFlush();
-            
+
             $frames++;
             if( int(time) != $frame_second) {
                 $status->set(
                     text => sprintf '%0.2f fps', $frames,
-				);
+                );
 
-				$frames = 0;
-				$frame_second = int(time);
+                $frames = 0;
+                $frame_second = int(time);
             };
         };
     },
@@ -356,7 +364,7 @@ $glWidget = $window->insert(
 );
 
 # Start our timer
-$window->insert( Timer => 
+$window->insert( Timer =>
     timeout => 5,
     onTick  => sub {
         $glWidget->repaint;
