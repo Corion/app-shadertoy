@@ -114,13 +114,16 @@ void main() {
 GEOMETRY
 =cut
 
-    $shader_args{ fragment } ||= <<'FRAGMENT';
+    if( ! $shader_args{ fragment }) {
+	    print "No shader program given, using default fragment shader\n";
+        $shader_args{ fragment } = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 uv = fragCoord.xy / iResolution.xy;
     fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
 }
 FRAGMENT
+    };
     
     $shader_args{ fragment }
         = join "\n",

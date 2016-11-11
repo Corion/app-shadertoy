@@ -25,6 +25,7 @@ repository:
     cpanm --installdeps .
     perl Makefile.PL
     make
+	perl -Mblib -w scripts/shadertoy.pl shaders/seascape.fragment
 
 ## Windows / Strawberry Perl
 
@@ -33,6 +34,7 @@ repository:
     cpanm --installdeps .
     perl Makefile.PL
     dmake
+	perl -Mblib -w scripts/shadertoy.pl shaders/seascape.fragment
 
 # DEPENDENCIES
 
