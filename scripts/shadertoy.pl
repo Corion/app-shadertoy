@@ -314,11 +314,17 @@ my $window = Prima::MainWindow->create(
 #    left => 128,
 #);
 
+sub set_shadername( $shadername ) {
+    my $shadername_vis = defined $shadername ? $shadername : '<default shader>';
+
+	$window->set(
+		text => "$shadername_vis - ShaderToy",
+	);
+}
+
 my ($filename)= @ARGV;
 
-$window->set(
-    text => "$filename - ShaderToy",
-);
+set_shadername( $filename );
 my $status = $window->insert(
     Label => (
         growMode => gm::Client,
