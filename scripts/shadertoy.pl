@@ -14,6 +14,11 @@ use OpenGL::ScreenCapture 'capture';
 use Getopt::Long;
 use Pod::Usage;
 
+use threads;
+use Thread::Queue;
+use Filesys::Notify::Simple;
+use File::Basename 'dirname';
+
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -42,15 +47,17 @@ as the vertex and tesselation shaders respectively.
 # TO-DO: Add configuration to specify which FBOs are the source for other shaders
 # TO-DO: Add live-editor for shader(s)
 # TO-DO: Add animated (modern) GIF export and automatic upload
+#        ffmpeg -f image2 -framerate 9 -i image_%003d.jpg -vf scale=531x299,transpose=1,crop=299,431,0,100 out.gif
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
 
 GetOptions(
-  'fullscreen' => \my $fullscreen, # not yet implemented
-  'duration'   => \my $duration,   # not yet implemented
-  'help!'      => \my $opt_help,
-  'man!'       => \my $opt_man,
-  'verbose+'   => \my $verbose,
-  'quiet'      => \my $quiet,
+  'fullscreen'     => \my $fullscreen, # not yet implemented
+  'duration|d=i'   => \my $duration,   # not yet implemented
+  'watch|w'        => \my $watch_file, # not yet implemented
+  'help!'          => \my $opt_help,
+  'man!'           => \my $opt_man,
+  'verbose+'       => \my $verbose,
+  'quiet'          => \my $quiet,
 ) or pod2usage(-verbose => 1) && exit;
 pod2usage(-verbose => 1) && exit if defined $opt_help;
 pod2usage(-verbose => 2) && exit if defined $opt_man;
@@ -58,8 +65,8 @@ $verbose ||= 0;
 
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
-	    print "$message\n";
-	};
+        print "$message\n";
+    };
 };
 
 my $header = <<HEADER;
@@ -89,6 +96,46 @@ uniform Channel iChannel[4];
 */
 HEADER
 
+# Launch our watcher thread for updates to the shader program:
+use vars qw($reload $watcher @watched_files);
+
+$reload = Thread::Queue->new();
+
+sub watch_files(@files) {
+
+    my @dirs = map {dirname($_)} @files;
+    if( "@watched_files" ne "@files" and $watcher ) {
+        # We will accumulate dead threads here, because Filesys::Watcher::Simple
+        # never returns and we don't have a way to stop a thread hard
+        $watcher->kill('KILL')->detach if $watcher;
+    };
+
+    status("Watching directories @dirs",1);
+    $watcher = threads->create(sub(@dirs) {
+        $SIG{'KILL'} = sub { threads->exit(); };
+        while (1) {
+            my $fs = Filesys::Notify::Simple->new(\@dirs)->wait(sub(@events) {
+                my %affected;
+                for my $event (@events) {
+                    $affected{ $event->{path} } = 1;
+                };
+                status("Files changed: $_",1)
+                    for sort keys %affected;
+                $reload->enqueue([sort keys %affected]);
+            });
+        };
+        warn "Should never get here";
+    }, @dirs);
+};
+
+sub files_changed() {
+    my %changed;
+    while (defined(my $item = $reload->dequeue_nb())) {
+        undef @changed{ @$item };
+    };
+    sort keys %changed;
+}
+
 my $frag_footer = <<'FRAGMENT_FOOTER';
 void main() {
     vec4 color = vec4(0.0,0.0,0.0,1.0);
@@ -100,16 +147,16 @@ FRAGMENT_FOOTER
 sub init_shaders($filename) {
     my %shader_args;
     if( defined $filename ) {
-		$filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
-		my( @files ) = glob "$filename.*";
+        $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
+        my( @files ) = glob "$filename.*";
 
-		%shader_args = map {
-			/\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-			? ($1 => do { status("Loading $_", 1);
-			              local(@ARGV,$/) = $_; <> })
-			   : () # else ignore the file
-		} @files;
-	};
+        %shader_args = map {
+            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
+            ? ($1 => do { status("Loading $_", 1);
+                          local(@ARGV,$/) = $_; <> })
+               : () # else ignore the file
+        } @files;
+    };
 
     # Supply some defaults:
 #version 330 core
@@ -167,7 +214,7 @@ FRAGMENT
         %shader_args
     )) {
         status("Error in Shader: $err");
-		# XXX What should we do here? Revert to default shaders?
+        # XXX What should we do here? Revert to default shaders?
     };
 
     return $pipeline;
@@ -248,7 +295,7 @@ my $config = {
     grab => 0,
 };
 
-my $pipeline;
+my ($pipeline,$next_pipeline);
 my $glWidget;
 
 my @channel;
@@ -291,10 +338,10 @@ my $window = Prima::MainWindow->create(
     onKeyDown        => sub {
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
-		# XXX handle ^O to load a new shader
-		# XXX handle space bar to pause/play
-		# XXX Add a menu for the options
-		# XXX Move this into a separate file
+        # XXX handle ^O to load a new shader
+        # XXX handle space bar to pause/play
+        # XXX Add a menu for the options
+        # XXX Move this into a separate file
         if( $key == kb::F11 ) {
             my @wsaverect = $self-> rect;
             $self->rect( 0, 0, $self->owner->size);
@@ -306,6 +353,11 @@ my $window = Prima::MainWindow->create(
 
         } elsif( $key == kb::Esc ) {
             status("Bye",2);
+            if( $watcher ) {
+                status("Stopping filesystem watcher thread",2);
+                $watcher->kill('KILL')->detach;
+                undef $watcher;
+            };
             $::application->close
         };
     },
@@ -318,14 +370,20 @@ my $window = Prima::MainWindow->create(
 sub set_shadername( $shadername ) {
     my $shadername_vis = defined $shadername ? $shadername : '<default shader>';
 
-	$window->set(
-		text => "$shadername_vis - ShaderToy",
-	);
+    $window->set(
+        text => "$shadername_vis - ShaderToy",
+    );
 }
 
 my ($filename)= @ARGV;
 
 set_shadername( $filename );
+
+if( $watch_file ) {
+    status("Watching files is enabled");
+    watch_files( $filename );
+};
+
 my $status = $window->insert(
     Label => (
         growMode => gm::Client,
@@ -357,10 +415,6 @@ $glWidget = $window->insert(
             status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
             status( glGetString(GL_VERSION));
 
-			# We overdraw the whole area anyway, so there is no need to clear
-			# the buffer beforehand:
-            #glClearColor(0,0,0.5,1);
-
             $pipeline = init_shaders($filename);
             die "The shader '$filename' did not load"
                 unless $pipeline and $pipeline->{program};
@@ -369,6 +423,13 @@ $glWidget = $window->insert(
             # Load some textures
             #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
             $channel[0] = OpenGL::Texture->load('demo/tex11.png');
+        };
+
+        if( $next_pipeline and $next_pipeline->{program}) {
+            # We have a next shader ready to go, so swap it in and use it
+            status("Swapping in new shader",2);
+            $pipeline = $next_pipeline;
+            undef $next_pipeline;
         };
 
         if( $pipeline ) {
@@ -392,7 +453,17 @@ $glWidget = $window->insert(
             };
         };
 
-		# XXX Check if it's time to quit
+        # XXX Check if it's time to quit
+        # XXX Check if we need to reload shaders:
+        #     Accumulate all changed shaders
+        #     Reload the main shader
+        #     Recompile everything
+        # We should do double-buffering here, loading and compiling a secondary
+        # shader and only swap it out if it loaded and compiled flawlessly
+        for my $filename (files_changed()) {
+            status("$filename changed, reloading",2);
+            $next_pipeline = init_shaders($filename);
+        };
     },
     onMouseDown  => sub { $config->{grab} = 1 },
     onMouseUp    => sub { $config->{grab} = 0 },
@@ -402,7 +473,7 @@ $glWidget = $window->insert(
     },
 );
 
-# Start our timer
+# Start our timer for displaying an OpenGL frame
 $window->insert( Timer =>
     timeout => 5,
     onTick  => sub {
@@ -426,5 +497,7 @@ Prima->run;
   --fullscreen    display fullscreen
 
   --duration      time in seconds until to quit, default is to run forever
+
+  --watch         watch and reload shaders if a file changes
 
 =cut

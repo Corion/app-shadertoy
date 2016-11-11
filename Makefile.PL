@@ -27,10 +27,17 @@ WriteMakefile(
     NAME              => 'OpenGL::Glew',
     VERSION_FROM      => 'lib/OpenGL/Glew.pm',
     PREREQ_PM         => {
-      'OpenGL' => '0.58',
-      'Prima' => 0,
-      'Prima::OpenGL'      => '0.07',
-      'Filter::signatures' => '0.06', # for empty function signatures
+      'OpenGL'                  => '0.58',
+      'Prima'                   => 0,
+      'Prima::OpenGL'           => '0.07',
+      'Filter::signatures'      => '0.06', # for empty function signatures
+
+      # Hot code reloading:
+      'threads'                 => 0,
+      'Thread::Queue'           => 0,
+      'Filesys::Notify::Simple' => 0,
+      'File::Basename'          => 0,
+
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
