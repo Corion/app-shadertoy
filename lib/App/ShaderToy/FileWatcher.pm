@@ -3,6 +3,7 @@ use threads;
 use Thread::Queue;
 use Filesys::Notify::Simple;
 use File::Basename 'dirname';
+use File::Spec;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -17,9 +18,8 @@ App::ShaderToy::FileWatcher - watch files for changes
 # Launch our watcher thread for updates to the shader program:
 use vars qw($reload $watcher %watched_files);
 
-$reload = Thread::Queue->new();
-
 sub watch_files(@files) {
+    @files = map { File::Spec->rel2abs( $_, '.' ) } @files;
     my @dirs = map {dirname($_)} @files;
     my %removed_files = %watched_files;
     delete @removed_files{ @files };
@@ -31,6 +31,7 @@ sub watch_files(@files) {
         $watcher->kill('KILL')->detach if $watcher;
     };
     @watched_files{ @files } = (1) x @files;
+    $reload ||= Thread::Queue->new();
 
     #status("Watching directories @dirs",1);
     $watcher = threads->create(sub(@dirs) {
@@ -41,7 +42,7 @@ sub watch_files(@files) {
                 for my $event (@events) {
                     $affected{ $event->{path} } = 1;
                 };
-                #status("Files changed: $_",1)
+                #warn "Files changed: $_"
                 #    for sort keys %affected;
                 $reload->enqueue([sort keys %affected]);
             });

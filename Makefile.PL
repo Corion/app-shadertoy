@@ -37,6 +37,7 @@ WriteMakefile(
       'Thread::Queue'           => 0,
       'Filesys::Notify::Simple' => 0,
       'File::Basename'          => 0,
+      'File::Spec'              => 0,
 
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
