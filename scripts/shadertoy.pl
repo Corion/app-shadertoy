@@ -54,7 +54,8 @@ shadertoy - playground for OpenGL shaders
 # http://research.microsoft.com/en-us/um/people/hoppe/proj/gpugcm/
 
 GetOptions(
-  'fullscreen' => \my $fullscreen,
+  'fullscreen' => \my $fullscreen, # not yet implemented
+  'duration'   => \my $duration,   # not yet implemented
   'help!'      => \my $opt_help,
   'man!'       => \my $opt_man,
   'verbose+'   => \my $verbose,
@@ -299,6 +300,10 @@ my $window = Prima::MainWindow->create(
     onKeyDown        => sub {
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
+		# XXX handle ^O to load a new shader
+		# XXX handle space bar to pause/play
+		# XXX Add a menu for the options
+		# XXX Move this into a separate file
         if( $key == kb::F11 ) {
             my @wsaverect = $self-> rect;
             $self->rect( 0, 0, $self->owner->size);
@@ -361,6 +366,8 @@ $glWidget = $window->insert(
             status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
             status( glGetString(GL_VERSION));
 
+			# We overdraw the whole area anyway, so there is no need to clear
+			# the buffer beforehand:
             #glClearColor(0,0,0.5,1);
 
             $pipeline = init_shaders($filename);
@@ -393,6 +400,8 @@ $glWidget = $window->insert(
                 $frame_second = int(time);
             };
         };
+		
+		# XXX Check if it's time to quit
     },
     onMouseDown  => sub { $config->{grab} = 1 },
     onMouseUp    => sub { $config->{grab} = 0 },
@@ -414,11 +423,17 @@ Prima->run;
 
 =head1 ARGUMENTS
 
-  --help      print Options and Arguments
-  --man       print complete man page
+  --help          print Options and Arguments
+  --man           print complete man page
 
 =head1 OPTIONS
 
-  --verbose
+  --verbose       output more messages
+
+  --quiet         don't output anything except errors
+  
+  --fullscreen    display fullscreen
+
+  --duration      time in seconds until to quit, default is to run forever
 
 =cut
