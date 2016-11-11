@@ -1,7 +1,7 @@
 #!perl -w
 BEGIN {
-   # Mostly for the benefit of Cygwin
-   $ENV{LIBGL_USE_WGL} = 1;
+    # Mostly for the benefit of Cygwin
+    $ENV{LIBGL_USE_WGL} = 1;
 }
 
 use strict;
