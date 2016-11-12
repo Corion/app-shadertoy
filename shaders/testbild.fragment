@@ -1,0 +1,46 @@
+const vec4 nohit = vec4(0.,0.,0.,1.);
+const vec4 white = vec4(1.,1.,1.,1.);
+
+vec4 grid(vec2 ratio) {
+    vec2 center = vec2(0.5,0.5);
+	center.x *= iResolution.x / iResolution.y;
+	vec2 p = center - ratio;
+    if( abs(mod(p.x*100., 10.)-.2) <= .2 ) {
+		return white;
+	};
+	if( abs(mod(p.y*100., 10.)-.2) <= .2 ) {
+		return white;
+	};
+	
+	return nohit;
+}
+
+vec4 circle(vec2 ratio) {
+    vec2 center = vec2(0.5,0.5);
+	center.x *= iResolution.x / iResolution.y;
+	vec2 p = center - ratio;
+    if( abs(length(p)-.48) <= .003 ) {
+		return white;
+	};
+	
+	return nohit;
+}
+
+vec4 background(vec2 p) {
+    return vec4(0.1,0.1,0.1,1);
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+	vec2 ratio = fragCoord.xy / iResolution.y;
+	
+	// adjustment grid
+	vec4 color = nohit 
+	      + clamp(grid(ratio), 0., 1.)
+	      + clamp(circle(ratio), 0, 1.)
+	      + clamp(background(ratio), 0., 1.)
+		  ;
+	
+	
+    fragColor = color;
+}
