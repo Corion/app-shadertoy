@@ -53,7 +53,7 @@ sub watch_files(@files) {
 
 sub files_changed() {
     my %changed;
-    while (defined(my $item = $reload->dequeue_nb())) {
+    while ($reload and defined(my $item = $reload->dequeue_nb())) {
         undef @changed{ @$item };
     };
     return
