@@ -1,46 +1,86 @@
 const vec4 nohit = vec4(0.,0.,0.,1.);
 const vec4 white = vec4(1.,1.,1.,1.);
+float hitdistance = 1./iResolution.x;
 
-vec4 grid(vec2 ratio) {
+// Distance functions
+float grid(vec2 ratio) {
     vec2 center = vec2(0.5,0.5);
-	center.x *= iResolution.x / iResolution.y;
-	vec2 p = center - ratio;
+    center.x *= iResolution.x / iResolution.y;
+    vec2 p = center - ratio;
+    // We should mix() here to get antialiasing...
     if( abs(mod(p.x*100., 10.)-.2) <= .2 ) {
-		return white;
-	};
-	if( abs(mod(p.y*100., 10.)-.2) <= .2 ) {
-		return white;
-	};
-	
-	return nohit;
+        return 0.;
+    };
+    if( abs(mod(p.y*100., 10.)-.2) <= .2 ) {
+        return 0.;
+    };
+
+    return 1.;
 }
 
-vec4 circle(vec2 ratio) {
+float circle(vec2 ratio,float inner, float outer) {
     vec2 center = vec2(0.5,0.5);
-	center.x *= iResolution.x / iResolution.y;
-	vec2 p = center - ratio;
-    if( abs(length(p)-.48) <= .003 ) {
-		return white;
-	};
-	
-	return nohit;
+    center.x *= iResolution.x / iResolution.y;
+    vec2 p = center - ratio;
+    return
+        abs(
+            abs(length(p)-inner)
+          + abs(length(p)-outer)
+            - (outer-inner)
+        )
+    ;
 }
 
-vec4 background(vec2 p) {
-    return vec4(0.1,0.1,0.1,1);
+float colorbar(vec2 topleft, vec2 lowright, vec2 ratio) {
+    vec2 center = vec2(0.5,0.5);
+    center.x *= iResolution.x / iResolution.y;
+
+    return abs (
+             abs( ratio.x - center.x  - topleft.x )
+           + abs( ratio.x - center.x  - lowright.x )
+           + abs( ratio.y - center.y  - topleft.y )
+           + abs( ratio.y - center.y  - lowright.y )
+         - (lowright.x-topleft.x+lowright.y-topleft.y)
+         )
+    ;
 }
+
+const float sat = 0xc0/256.;
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
-	vec2 ratio = fragCoord.xy / iResolution.y;
-	
-	// adjustment grid
-	vec4 color = nohit 
-	      + clamp(grid(ratio), 0., 1.)
-	      + clamp(circle(ratio), 0, 1.)
-	      + clamp(background(ratio), 0., 1.)
-		  ;
-	
-	
+    vec2 ratio = fragCoord.xy / iResolution.y;
+
+    // adjustment grid
+    vec4 color = nohit;
+    float d;
+
+    if( (d = colorbar(vec2(-.4,0.2), vec2(-0.3,0.4), ratio)) < hitdistance ) {
+        color = mix(vec4( sat, sat, sat, 1.), nohit, d);
+
+    } else if( (d = colorbar(vec2(-.3,0.2), vec2(-0.2,0.4), ratio)) < hitdistance ) {
+        color = mix(vec4( sat, sat, 0.0, 1.), nohit, d);
+
+    } else if( (d = colorbar(vec2(-.2,0.2), vec2(-0.1,0.4), ratio)) < hitdistance ) {
+        color = mix(vec4( 0.0, sat, sat, 1.), nohit, d);
+
+    } else if( (d = circle(ratio,.48,.49)) < hitdistance ) {
+        color = mix(white, nohit, d);
+
+    } else if( (d = grid(ratio)) < hitdistance ) {
+        color = mix(white, nohit, d);
+
+    };
+          /*
+          + colorbar(vec2(-.4,0.2), vec2(-0.3,0.4), vec4( sat, sat, sat, 1), ratio)
+          + colorbar(vec2(-.3,0.2), vec2(-0.2,0.4), vec4( sat, sat, 0.0, 1), ratio)
+          + colorbar(vec2(-.2,0.2), vec2(-0.1,0.4), vec4( 0.0, sat, sat, 1), ratio)
+          + colorbar(vec2(-.1,0.2), vec2( 0.0,0.4), vec4( 0.0, sat, 0.0, 1), ratio)
+          + colorbar(vec2( .0,0.2), vec2( 0.1,0.4), vec4( sat, 0.0, sat, 1), ratio)
+          + colorbar(vec2( .1,0.2), vec2( 0.2,0.4), vec4( sat, 0.0, 0.0, 1), ratio)
+          + colorbar(vec2( .2,0.2), vec2( 0.3,0.4), vec4( 0.0, 0.0, sat, 1), ratio)
+          */
+          ;
+
     fragColor = color;
 }
