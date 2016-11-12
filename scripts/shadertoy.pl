@@ -105,15 +105,15 @@ FRAGMENT_FOOTER
 
 sub shader_base($filename) {
     if( $filename ) {
-		$filename
-		    =~ s{\.(compute
-			       |vertex
-				   |geometry
-				   |tesselation
-				   |tessellation_control
-				   |fragment
-				   )\z}!!x;
-	};
+        $filename
+            =~ s{\.(compute
+                   |vertex
+                   |geometry
+                   |tesselation
+                   |tessellation_control
+                   |fragment
+                   )\z}!!x;
+    };
     $filename
 }
 
@@ -428,7 +428,7 @@ $glWidget = $window->insert(
         };
 
         # XXX Check if it's time to quit
-        
+
         # Maybe this should happen asynchronously
         my %changed;
         for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
@@ -438,6 +438,7 @@ $glWidget = $window->insert(
             my @shader = sort { $a cmp $b } values %changed;
             status("$shader[0] changed, reloading",2);
             $next_pipeline = init_shaders($shader[0]);
+            warn $next_pipeline;
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },

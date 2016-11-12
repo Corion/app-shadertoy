@@ -120,7 +120,7 @@ sub Load($self, %shaders) {
         $ok = unpack 'I', $ok;
         if( $ok == GL_FALSE ) {
           my $log = glGetShaderInfoLog_p($id);
-          croak $log if $log;
+          #croak $log if $log;
           return "Bad $shader shader: $log" if ($log);
         };
         $self->{$shader . "_id"} = $id;
