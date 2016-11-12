@@ -188,6 +188,7 @@ FRAGMENT
     )) {
         status("Error in Shader: $err");
         # XXX What should we do here? Revert to default shaders?
+        return undef
     };
 
     return $pipeline;
