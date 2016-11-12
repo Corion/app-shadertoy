@@ -104,7 +104,16 @@ void main() {
 FRAGMENT_FOOTER
 
 sub shader_base($filename) {
-    $filename =~ s!\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$!!;
+    if( $filename ) {
+		$filename
+		    =~ s{\.(compute
+			       |vertex
+				   |geometry
+				   |tesselation
+				   |tessellation_control
+				   |fragment
+				   )\z}!!x;
+	};
     $filename
 }
 
