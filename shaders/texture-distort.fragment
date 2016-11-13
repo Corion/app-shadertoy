@@ -5,7 +5,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     vec2 origin = vec2(.5,.5);
     float intensity = 0.0;
     float rot
-      = radians(0);
+      = radians(iGlobalTime /1.);
     
     p-=.5;
     
