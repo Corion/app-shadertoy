@@ -439,7 +439,9 @@ $glWidget = $window->insert(
             my @shader = sort { $a cmp $b } values %changed;
             status("$shader[0] changed, reloading",2);
             $next_pipeline = init_shaders($shader[0]);
-            warn $next_pipeline;
+			if( $next_pipeline ) {
+				status("$shader[0] changed, reloaded",1);
+			};
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },
