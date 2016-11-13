@@ -73,7 +73,6 @@ const ColorRect colorbars[14] = ColorRect[14](
     ColorRect( vec2(-.42+1.*greyW,0.0015), vec2(-.42+2.*greyW,0.30), vec4( 0.25, 0.25, 0.25, 1.) ),
     ColorRect( vec2(-.42+2.0*greyW,0.0015), vec2(-.42+2.5*greyW-0.0015,0.30), vec4( 0.50, 0.50, 0.50, 1.) ), 	// Split this bar for the white grid line in the middle
     ColorRect( vec2(-.42+2.5*greyW+0.0015,0.0015), vec2(-.42+3.*greyW,0.30), vec4( 0.50, 0.50, 0.50, 1.) ),
-	
     ColorRect( vec2(-.42+3.*greyW,0.0015), vec2(-.42+4.*greyW,0.30), vec4( 0.75, 0.75, 0.75, 1.) ),
     ColorRect( vec2(-.42+4.*greyW,0.0015), vec2(-.42+5.*greyW,0.30), vec4( 1.00, 1.00, 1.00, 1.) )
 );
@@ -104,7 +103,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	
 	// Circle goes over the colorbars
 	if( (d = circle(ratio,.470,.472)) <= hitdistance ) {
-		color = mix(white, nohit, d);
+		color = mix(white, nohit, d*iResolution.x);
 	};
 	
 
