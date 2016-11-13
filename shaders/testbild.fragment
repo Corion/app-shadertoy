@@ -3,19 +3,23 @@ const vec4 white = vec4(1.,1.,1.,1.);
 float hitdistance = 1./iResolution.x;
 
 // Distance functions
-float grid(vec2 ratio) {
+float grid(vec2 ratio, float step, float width) {
     vec2 center = vec2(0.5,0.5);
     center.x *= iResolution.x / iResolution.y;
-    vec2 p = center - ratio;
-    // We should mix() here to get antialiasing...
-    if( abs(mod(p.x*100., 10.)-.2) <= .2 ) {
-        return 0.;
-    };
-    if( abs(mod(p.y*100., 10.)-.2) <= .2 ) {
-        return 0.;
-    };
 
-    return 1.;
+    vec2 p = center - ratio +0.002;
+	return 
+	    abs(
+            abs(mod(p.x*100., step))
+          + abs(mod(p.x*100., step)-width)
+		  - width
+		)
+		*
+	    abs(
+            abs(mod(p.y*100., step))
+          + abs(mod(p.y*100., step)-width)
+		  - width
+		);
 }
 
 float circle(vec2 ratio,float inner, float outer) {
@@ -45,7 +49,34 @@ float colorbar(vec2 topleft, vec2 lowright, vec2 ratio) {
     ;
 }
 
-const float sat = 0xc0/256.;
+const float sat = 192./256.;
+
+struct ColorRect {
+    vec2 topleft;
+	vec2 lowright;
+	vec4 color;
+};
+const float greyW = 0.84 / 5; // Width of grey bars
+const ColorRect colorbars[14] = ColorRect[14](
+    // Color saturation test
+    ColorRect( vec2(-.420,0.14), vec2(-0.315,0.35), vec4( sat, sat, sat, 1.) ),
+    ColorRect( vec2(-.315,0.14), vec2(-0.210,0.35), vec4( sat, sat, 0.0, 1.) ),
+    ColorRect( vec2(-.210,0.14), vec2(-0.105,0.35), vec4( 0.0, sat, sat, 1.) ),
+    ColorRect( vec2(-.105,0.14), vec2( 0.000,0.35), vec4( 0.0, sat, 0.0, 1.) ),
+    ColorRect( vec2( .000,0.14), vec2( 0.105,0.35), vec4( sat, 0.0, sat, 1.) ),
+    ColorRect( vec2( .105,0.14), vec2( 0.210,0.35), vec4( sat, 0.0, 0.0, 1.) ),
+    ColorRect( vec2( .210,0.14), vec2( 0.315,0.35), vec4( 0.0, 0.0, sat, 1.) ),
+    ColorRect( vec2( .315,0.14), vec2( 0.420,0.35), vec4( 0.0, 0.0, 0.0, 1.) ),
+	
+	// Grey bars
+    ColorRect( vec2(-.42+0.*greyW,0.0015), vec2(-.42+1.*greyW,0.30), vec4( 0.00, 0.00, 0.00, 1.) ),
+    ColorRect( vec2(-.42+1.*greyW,0.0015), vec2(-.42+2.*greyW,0.30), vec4( 0.25, 0.25, 0.25, 1.) ),
+    ColorRect( vec2(-.42+2.0*greyW,0.0015), vec2(-.42+2.5*greyW-0.0015,0.30), vec4( 0.50, 0.50, 0.50, 1.) ), 	// Split this bar for the white grid line in the middle
+    ColorRect( vec2(-.42+2.5*greyW+0.0015,0.0015), vec2(-.42+3.*greyW,0.30), vec4( 0.50, 0.50, 0.50, 1.) ),
+	
+    ColorRect( vec2(-.42+3.*greyW,0.0015), vec2(-.42+4.*greyW,0.30), vec4( 0.75, 0.75, 0.75, 1.) ),
+    ColorRect( vec2(-.42+4.*greyW,0.0015), vec2(-.42+5.*greyW,0.30), vec4( 1.00, 1.00, 1.00, 1.) )
+);
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
@@ -53,34 +84,29 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
     // adjustment grid
     vec4 color = nohit;
-    float d;
+    float d = hitdistance +1;
 
-    if( (d = colorbar(vec2(-.4,0.2), vec2(-0.3,0.4), ratio)) < hitdistance ) {
-        color = mix(vec4( sat, sat, sat, 1.), nohit, d);
+	// Grid is in the background
+	if( d > hitdistance) {
+		if( (d = grid(ratio, 7., .35)) <= hitdistance ) {
+			color = mix(white, nohit, d);
+		};
+	};
 
-    } else if( (d = colorbar(vec2(-.3,0.2), vec2(-0.2,0.4), ratio)) < hitdistance ) {
-        color = mix(vec4( sat, sat, 0.0, 1.), nohit, d);
-
-    } else if( (d = colorbar(vec2(-.2,0.2), vec2(-0.1,0.4), ratio)) < hitdistance ) {
-        color = mix(vec4( 0.0, sat, sat, 1.), nohit, d);
-
-    } else if( (d = circle(ratio,.48,.49)) < hitdistance ) {
-        color = mix(white, nohit, d);
-
-    } else if( (d = grid(ratio)) < hitdistance ) {
-        color = mix(white, nohit, d);
-
-    };
-          /*
-          + colorbar(vec2(-.4,0.2), vec2(-0.3,0.4), vec4( sat, sat, sat, 1), ratio)
-          + colorbar(vec2(-.3,0.2), vec2(-0.2,0.4), vec4( sat, sat, 0.0, 1), ratio)
-          + colorbar(vec2(-.2,0.2), vec2(-0.1,0.4), vec4( 0.0, sat, sat, 1), ratio)
-          + colorbar(vec2(-.1,0.2), vec2( 0.0,0.4), vec4( 0.0, sat, 0.0, 1), ratio)
-          + colorbar(vec2( .0,0.2), vec2( 0.1,0.4), vec4( sat, 0.0, sat, 1), ratio)
-          + colorbar(vec2( .1,0.2), vec2( 0.2,0.4), vec4( sat, 0.0, 0.0, 1), ratio)
-          + colorbar(vec2( .2,0.2), vec2( 0.3,0.4), vec4( 0.0, 0.0, sat, 1), ratio)
-          */
-          ;
+	// Draw the color bars over the grid
+	int i;
+	for ( i=0; i < colorbars.length(); i++ ) {
+		if( (d = colorbar(colorbars[i].topleft, colorbars[i].lowright, ratio)) <= hitdistance ) {
+			color = mix(colorbars[i].color, nohit, d);
+			break;
+		}
+	};
+	
+	// Circle goes over the colorbars
+	if( (d = circle(ratio,.470,.472)) <= hitdistance ) {
+		color = mix(white, nohit, d);
+	};
+	
 
     fragColor = color;
 }
