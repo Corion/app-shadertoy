@@ -118,17 +118,25 @@ sub shader_base($filename) {
     $filename
 }
 
+sub slurp($filename) {
+    status("Loading '$filename'", 1);
+    open my $fh, '<:bytes', $filename
+        or die "Couldn't load '$filename': $!";
+    local $/;
+    return join '', <$fh>
+}
+
 sub init_shaders($filename) {
     my %shader_args;
     $filename = shader_base($filename);
-    if( defined $filename ) {
+    if( defined $filename and length $filename) {
         my( @files ) = glob "$filename.*";
 
         %shader_args = map {
+            warn "<<$_>>";
             /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-            ? ($1 => do { status("Loading $_", 1);
-                          local(@ARGV,$/) = $_; <> })
-               : () # else ignore the file
+                ? ($1 => slurp($_) )
+                : () # else ignore the file
         } @files;
     };
 
