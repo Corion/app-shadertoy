@@ -407,13 +407,17 @@ $glWidget = $window->insert(
             status( glGetString(GL_VERSION));
 
             $pipeline = init_shaders($filename);
-            die "The shader '$filename' did not load"
-                unless $pipeline and $pipeline->{program};
+            if( !$pipeline or !$pipeline->{program}) {
+                warn "The shader '$filename' did not load, using default shader";
+                $pipeline = init_shaders('');
+                set_shadername( 'default shader' );
+            };
+
             $VBO_Quad ||= createUnitQuad($pipeline);
 
             # Load some textures
             #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
-            $channel[0] = OpenGL::Texture->load('demo/tex11.png');
+            $channel[0] = OpenGL::Texture->load('demo/IMG_7379_gray.png');
         };
 
         if( $next_pipeline and $next_pipeline->{program}) {
