@@ -362,8 +362,15 @@ if( $watch_file ) {
 
 my $status = $window->insert(
     Label => (
-        growMode => gm::Client,
-        rect => [0, 0, $window->width, 16],
+        # growMode => gm::Client,
+		geometry => gt::Place,
+        place => {
+		    x => 0,
+			y => 0,
+			anchor => 'sw',
+			relwidth => 1.0,
+			height => 16,
+		},
         alignment => ta::Center,
         text => '00.0 fps',
     ),
