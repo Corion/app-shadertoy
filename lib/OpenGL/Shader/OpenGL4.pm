@@ -79,22 +79,24 @@ sub new ($this,@args) {
 sub DESTROY {
     my($self) = @_;
 
+    # There might be no OpenGL context here anymore, so no error checking:
     my @delete_shaders;
     if ($self->{program}) {
+        glUseProgram(0);
         for (qw(fragment_id vertex_id gemoetry_id vertex_id)) {
             if( my $id = $self->{$_}) {
                 glDetachShader($self->{program},$id);
-                croak_on_gl_error;
+                #croak_on_gl_error;
                 push @delete_shaders, $id;
             };
         };
         glDeleteProgram($self->{program});
-        croak_on_gl_error;
+        #croak_on_gl_error;
     }
 
     for (@delete_shaders) {
         glDeleteShader($_);
-        croak_on_gl_error;
+        #croak_on_gl_error;
     };
 }
 
