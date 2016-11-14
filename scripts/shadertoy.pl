@@ -470,6 +470,11 @@ $glWidget = $window->insert(
         my( $self ) = @_;
         ( $xres,$yres ) = $self->size;
     },
+    onClose => sub {
+        warn "Closing window";
+        undef $pipeline;
+        undef $next_pipeline;
+    },
 );
 
 # Start our timer for displaying an OpenGL frame
