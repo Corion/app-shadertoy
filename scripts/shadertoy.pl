@@ -371,14 +371,14 @@ if( $watch_file ) {
 my $status = $window->insert(
     Label => (
         # growMode => gm::Client,
-		geometry => gt::Place,
+        geometry => gt::Place,
         place => {
-		    x => 0,
-			y => 0,
-			anchor => 'sw',
-			relwidth => 1.0,
-			height => 16,
-		},
+            x => 0,
+            y => 0,
+            anchor => 'sw',
+            relwidth => 1.0,
+            height => 16,
+        },
         alignment => ta::Center,
         text => '00.0 fps',
     ),
@@ -459,9 +459,9 @@ $glWidget = $window->insert(
             my @shader = sort { $a cmp $b } values %changed;
             status("$shader[0] changed, reloading",2);
             $next_pipeline = init_shaders($shader[0]);
-			if( $next_pipeline ) {
-				status("$shader[0] changed, reloaded",1);
-			};
+            if( $next_pipeline ) {
+                status("$shader[0] changed, reloaded",1);
+            };
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },
