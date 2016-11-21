@@ -1857,15 +1857,15 @@ CODE:
     glClientAttribDefaultEXT(mask);
 
 GLenum
-glClientWaitSync(GLsync,flags,timeout);
-     GLsync GLsync;
+glClientWaitSync(myGLsync,flags,timeout);
+     GLsync myGLsync;
     GLbitfield flags;
     GLuint64 timeout;
 CODE:
     if(! __glewClientWaitSync) {
         croak("glClientWaitSync not available on this machine");
     };
-    RETVAL = glClientWaitSync(GLsync,flags,timeout);
+    RETVAL = glClientWaitSync(myGLsync,flags,timeout);
 OUTPUT:
     RETVAL
 
@@ -4633,13 +4633,13 @@ CODE:
     glDeleteStatesNV(n, states);
 
 void
-glDeleteSync(GLsync);
-     GLsync GLsync;
+glDeleteSync(myGLsync);
+     GLsync myGLsync;
 CODE:
     if(! __glewDeleteSync) {
         croak("glDeleteSync not available on this machine");
     };
-    glDeleteSync(GLsync);
+    glDeleteSync(myGLsync);
 
 void
 glDeleteTextures(n, textures);
@@ -10961,8 +10961,8 @@ OUTPUT:
     RETVAL
 
 void
-glGetSynciv(GLsync,pname,bufSize,length, values);
-     GLsync GLsync;
+glGetSynciv(myGLsync,pname,bufSize,length, values);
+     GLsync myGLsync;
     GLenum pname;
     GLsizei bufSize;
     GLsizei* length;
@@ -10971,7 +10971,7 @@ CODE:
     if(! __glewGetSynciv) {
         croak("glGetSynciv not available on this machine");
     };
-    glGetSynciv(GLsync,pname,bufSize,length, values);
+    glGetSynciv(myGLsync,pname,bufSize,length, values);
 
 void
 glGetTexBumpParameterfvATI(pname, param);
@@ -13051,13 +13051,13 @@ OUTPUT:
     RETVAL
 
 GLboolean
-glIsSync(GLsync);
-     GLsync GLsync;
+glIsSync(myGLsync);
+     GLsync myGLsync;
 CODE:
     if(! __glewIsSync) {
         croak("glIsSync not available on this machine");
     };
-    RETVAL = glIsSync(GLsync);
+    RETVAL = glIsSync(myGLsync);
 OUTPUT:
     RETVAL
 
@@ -29426,15 +29426,15 @@ CODE:
     glViewportSwizzleNV(index, swizzlex, swizzley, swizzlez, swizzlew);
 
 void
-glWaitSync(GLsync,flags,timeout);
-     GLsync GLsync;
+glWaitSync(myGLsync,flags,timeout);
+     GLsync myGLsync;
     GLbitfield flags;
     GLuint64 timeout;
 CODE:
     if(! __glewWaitSync) {
         croak("glWaitSync not available on this machine");
     };
-    glWaitSync(GLsync,flags,timeout);
+    glWaitSync(myGLsync,flags,timeout);
 
 void
 glWaitVkSemaphoreNV(vkSemaphore);
@@ -30125,3 +30125,4 @@ CODE:
         croak("glWriteMaskEXT not available on this machine");
     };
     glWriteMaskEXT(res, in, outX, outY, outZ, outW);
+

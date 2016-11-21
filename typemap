@@ -77,7 +77,7 @@ GLsizeiptr                  T_U_INT
 GLsizeiptr *                T_PV
 const GLsizeiptr *          T_PV
 GLsizeiptrARB               T_U_INT
-GLsync                      T_CHAR
+GLsync                      T_PV
 GLbitfield		            T_INT
 GLubyte			            T_U_INT
 GLubyte *		            T_PV

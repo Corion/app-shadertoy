@@ -199,6 +199,11 @@ sub generate_glew_xs( @items ) {
             $xs_args = '';
         };
 
+        # rewrite GLsync GLsync into GLsync myGLsync:
+        for( $args, $xs_args ) {
+            s!\bGLsync(\s+)GLsync!GLsync$1myGLsync!g;
+        };
+
         my @xs_args = split /,/, $xs_args;
 
         # Patch function signatures if we want other types
