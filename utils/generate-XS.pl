@@ -156,116 +156,124 @@ sub munge_GL_args {
     # GLsizei count
 }
 
-my @process = map { uc $_ } @ARGV;
-if( ! @process) {
-    @process = sort keys %signature;
-};
-
-for my $upper (@process) {
-    my $item = $signature{ $upper };
-
-    my $name = $item->{name};
-    
-    push @exported_functions, $name;
-    
-    if( $manual{ $name }) {
-        #warn "Skipping $name, already implemented in Glew.xs";
-        next
-    };
-    
-    # If we didn't see this, it's likely an OpenGL 1.1 function:
-    my $aliased = $item->{alias};
-    
-    my $args = $item->{signature}; # XXX clean up the C arguments here
-    die "No args for $upper" unless $args;
-    my $type = $item->{restype}; # XXX clean up the C arguments here
-    my $no_return_value;
-    
-    if( $type eq 'void' ) {
-        $no_return_value = 1;
+sub generate_glew_xs( @items ) {
+    my @process = map { uc $_ } @items;
+    if( ! @process) {
+        @process = sort keys %signature;
     };
 
-    my $glewImpl;
-    if( $aliased ) {
-         ($glewImpl = $name) =~ s!^gl!__glew!;
-    };
-    
-    my $xs_args = $item->{signature};
-    if( $args eq 'void') {
-        $args = '';
-        $xs_args = '';
-    };
-    
-    my @xs_args = split /,/, $xs_args;
-    
-    # Patch function signatures if we want other types
-    if( my $sig = $signature_override{ $name }) {
-        for my $arg (@xs_args) {
-            my $name = $sig->{name};
-            my $type = $sig->{type};
-            if( $arg =~ /\b\Q$name\E$/ ) {
-                $arg = "$type $name";
+    my $content;
+
+    for my $upper (@process) {
+        my $item = $signature{ $upper };
+
+        my $name = $item->{name};
+
+        push @exported_functions, $name;
+
+        if( $manual{ $name }) {
+            #warn "Skipping $name, already implemented in Glew.xs";
+            next
+        };
+
+        # If we didn't see this, it's likely an OpenGL 1.1 function:
+        my $aliased = $item->{alias};
+
+        my $args = $item->{signature}; # XXX clean up the C arguments here
+        die "No args for $upper" unless $args;
+        my $type = $item->{restype}; # XXX clean up the C arguments here
+        my $no_return_value;
+
+        if( $type eq 'void' ) {
+            $no_return_value = 1;
+        };
+
+        my $glewImpl;
+        if( $aliased ) {
+             ($glewImpl = $name) =~ s!^gl!__glew!;
+        };
+
+        my $xs_args = $item->{signature};
+        if( $args eq 'void') {
+            $args = '';
+            $xs_args = '';
+        };
+
+        my @xs_args = split /,/, $xs_args;
+
+        # Patch function signatures if we want other types
+        if( my $sig = $signature_override{ $name }) {
+            for my $arg (@xs_args) {
+                my $name = $sig->{name};
+                my $type = $sig->{type};
+                if( $arg =~ /\b\Q$name\E$/ ) {
+                    $arg = "$type $name";
+                };
             };
         };
-    };
-    
-    $xs_args = join ";\n    ", @xs_args;
 
-    # Rewrite const GLwhatever foo[];
-    # into    const GLwhatever* foo;
-    1 while $xs_args =~ s!^\s*const (\w+)\s+(\w+)\[\d*\](;?)$!     const $1 * $2$3!m;
-    1 while $xs_args =~ s!^\s*(\w+)\s+(\w+)\[\d*\](;?)$!     $1 * $2$3!m;
-    
-    # Meh. We'll need a "proper" C type parser here and hope that we don't
-    # incur any macros
-    my $known_types = join "|", @known_type;
-    $args =~ s!\b(?:(?:const\s+)?\w+(?:(?:\s*(?:\bconst\b|\*)))*\s*(\w+))\b!$1!g;
-    
-    1 while $args =~ s!(\bconst\b|\*|\[\d*\])!!g;
-    
-    # Kill off all pointer indicators
-    $args =~ s!\*! !g;
-    
-    my $decl = <<XS;
+        $xs_args = join ";\n    ", @xs_args;
+
+        # Rewrite const GLwhatever foo[];
+        # into    const GLwhatever* foo;
+        1 while $xs_args =~ s!^\s*const (\w+)\s+(\w+)\[\d*\](;?)$!     const $1 * $2$3!m;
+        1 while $xs_args =~ s!^\s*(\w+)\s+(\w+)\[\d*\](;?)$!     $1 * $2$3!m;
+
+        # Meh. We'll need a "proper" C type parser here and hope that we don't
+        # incur any macros
+        my $known_types = join "|", @known_type;
+        $args =~ s!\b(?:(?:const\s+)?\w+(?:(?:\s*(?:\bconst\b|\*)))*\s*(\w+))\b!$1!g;
+
+        1 while $args =~ s!(\bconst\b|\*|\[\d*\])!!g;
+
+        # Kill off all pointer indicators
+        $args =~ s!\*! !g;
+
+        my $decl = <<XS;
 $type
 $name($args);
 XS
-    if( $xs_args ) {
-        $decl .= "     $xs_args;\n"
-    };
-    
-    my $res = $decl . <<XS;
+        if( $xs_args ) {
+            $decl .= "     $xs_args;\n"
+        };
+
+        my $res = $decl . <<XS;
 CODE:
 XS
-    if( $glewImpl ) {
-        $res .= <<XS;
+        if( $glewImpl ) {
+            $res .= <<XS;
     if(! $glewImpl) {
         croak("$name not available on this machine");
     };
 XS
-    };
+        };
 
-    if( $no_return_value ) {
+        if( $no_return_value ) {
         $res .= <<XS;
     $name($args);
 
 XS
 
-    } else {
-        $res .= <<XS;
+        } else {
+            $res .= <<XS;
     RETVAL = $name($args);
 OUTPUT:
     RETVAL
 
 XS
+        };
+
+        $content .= $res;
     };
+    return $content
+};
+
 sub slurp( $filename ) {
     open my $old_fh, '<:raw', $filename
         or die "Couldn't read '$filename': $!";
     join '', <$old_fh>;
 }
 
-    print $res;
 sub save_file( $filename, $new ) {
     my $old = slurp( $filename );
     if( $new ne $old ) {
@@ -276,6 +284,8 @@ sub save_file( $filename, $new ) {
     };
 };
 
+my $xs_code = generate_glew_xs( @ARGV );
+save_file( 'auto-xs.inc', $xs_code );
 
 # Now rewrite OpenGL::Glew.pm if we need to:
 if( ! @ARGV) {
