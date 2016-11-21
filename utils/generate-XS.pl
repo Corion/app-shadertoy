@@ -82,6 +82,8 @@ my @known_type = sort { $b cmp $a } qw(
 
 # Functions where we need to override the type signature
 my %signature_override = (
+    # Yes, these are rather numbers than pointers, even though glew.h+gcc
+    # complain about some typecasting that would be needed.
     'glVertexAttribPointer' => { name => 'pointer', type => 'GLsizeiptr' },
     'glVertexAttribPointerARB' => { name => 'pointer', type => 'GLsizeiptr' },
     'glVertexAttribPointerNV' => { name => 'pointer', type => 'GLsizeiptr' },
