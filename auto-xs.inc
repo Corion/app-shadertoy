@@ -30125,4 +30125,3 @@ CODE:
         croak("glWriteMaskEXT not available on this machine");
     };
     glWriteMaskEXT(res, in, outX, outY, outZ, outW);
-
