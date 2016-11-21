@@ -42,10 +42,17 @@ sub load($class,$filename,%options) {
         %options,
     )
     or die Imager->errstr;
+    $image = $image->convert(preset => 'addalpha');
     $options{ width } ||= $image->getwidth;
     $options{ height } ||= $image->getheight;
     $image->flip(dir => 'v');
-    $image->write(data => \my $data, type => 'raw');
+    $image->write(
+        data => \my $data,
+        type => 'raw',
+        xsize => $options{ width },
+        ysize => $options{ height },
+        raw_storechannels => 4,
+    );
     $options{ data } = \$data;
     $self->store(
         %options
