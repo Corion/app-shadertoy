@@ -27,6 +27,8 @@ glew-*/bin
 glew-*/glew.pc.in
 src/*.o
 x64/
+RenderDoc*
+ffmpeg.exe
 *.trace
 OpenGL-Glew-*
 *.base
