@@ -6059,7 +6059,6 @@ our %EXPORT_TAGS_GL = (
           'GL_WIN_swap_hint' => [
                                   'glAddSwapHintRectWIN'
                                 ]
-
 );
 # end of EXPORT_TAGS_GL
 

@@ -299,7 +299,7 @@ if( ! @ARGV) {
     $Data::Dumper::Sortkeys = 1;
     my $gltags = Dumper \%glGroups;
     $gltags =~ s!\$VAR1 = {!!;
-    $gltags =~ s!};$!!;
+    $gltags =~ s!\s+};$!!;
 
     my $new = slurp( $module );
     $new =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
