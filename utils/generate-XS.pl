@@ -104,7 +104,7 @@ for my $file (@headers) {
 			my $s = { signature => $sig, restype => $restype, feature => $feature_name, name => $name };
             $signature{ $name } = $s;
 			push @{ $features{ $feature_name }}, $s;
-            
+
                           # GLAPI void GLAPIENTRY glClearColor (GLclampf red, GLclampf green, GLclampf blue, GLclampf alpha);
         } elsif( $line =~ /^GLAPI (\w+) GLAPIENTRY (\w+) \((.*)\);/ ) {
             # Some external function, likely imported from libopengl / opengl32
@@ -113,7 +113,7 @@ for my $file (@headers) {
             $signature{ uc $name } = $s;
             $case_map{ uc $name } = $name;
 			push @{ $features{ $feature_name }}, $s;
-            
+
         } elsif( $line =~ /^GLEW_FUN_EXPORT PFN(\w+)PROC __(\w+)/ ) {
             my( $name, $impl ) = ($1,$2);
             $case_map{ $name } = $impl;
