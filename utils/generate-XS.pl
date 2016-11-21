@@ -129,9 +129,9 @@ for my $file (@headers) {
 for my $name (sort keys %signature) {
     my $impl = $case_map{ $name } || $name;
     my $real_name = $alias{ $impl } || $impl;
-	
+
 	my $s = $signature{ $name };
-	
+
 	$s->{name} = $real_name;
 	if( exists $alias{ $impl }) {
 	    $s->{alias} = $alias{ $impl };
@@ -259,16 +259,27 @@ OUTPUT:
 
 XS
     };
+sub slurp( $filename ) {
+    open my $old_fh, '<:raw', $filename
+        or die "Couldn't read '$filename': $!";
+    join '', <$old_fh>;
+}
 
     print $res;
+sub save_file( $filename, $new ) {
+    my $old = slurp( $filename );
+    if( $new ne $old ) {
+        warn "Saving new version of $filename";
+        open my $fh, '>:raw', $filename
+            or die "Couldn't write new version of '$filename': $!";
+        print $fh $new;
+    };
 };
+
 
 # Now rewrite OpenGL::Glew.pm if we need to:
 if( ! @ARGV) {
 	my $module = 'lib/OpenGL/Glew.pm';
-	open my $old_fh, '<:raw', $module
-		or die "Couldn't read '$module': $!";
-	my $old = join '', <$old_fh>;
 	my $glFunctions = sprintf "our \@glFunctions = qw(\n    %s\n);", join "\n    ", @exported_functions;
 
 	my %glGroups = map {
@@ -280,18 +291,13 @@ if( ! @ARGV) {
 	$gltags =~ s!\$VAR1 = {!!;
 	$gltags =~ s!};$!!;
 
-	my $new = $old;
-
 	$new =~ s!\bour \@glFunctions = qw\(.*?\);!$glFunctions!sm;
 	# our %EXPORT_TAGS_GL = (
     # );
+    # # end of EXPORT_TAGS_GL
 	# # end of EXPORT_TAGS_GL
 	$new =~ s!(our \%EXPORT_TAGS_GL = \().+(\);\s+# end of EXPORT_TAGS_GL)$!$1$gltags$2!sm;
+    $new =~ s!(our \%EXPORT_TAGS_GL = \().+(\);\s+# end of EXPORT_TAGS_GL)$!$1$gltags$2!sm;
 
-	if( $new ne $old ) {
-		warn "Saving new version of $module";
-		open my $fh, '>:raw', $module
-			or die "Couldn't write new version of '$module': $!";
-		print $fh $new;
-	};
+    save_file( $module, $new);
 };
