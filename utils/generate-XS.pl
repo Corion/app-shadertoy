@@ -1,5 +1,9 @@
 #!perl -w
 use strict;
+use Filter::signatures;
+use feature 'signatures';
+no warnings 'experimental::signatures';
+
 
 =head1 PURPOSE
 
