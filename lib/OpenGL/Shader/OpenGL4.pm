@@ -83,7 +83,7 @@ sub DESTROY {
     my @delete_shaders;
     if ($self->{program}) {
         glUseProgram(0);
-        for (qw(fragment_id vertex_id gemoetry_id vertex_id)) {
+        for (qw(fragment_id vertex_id gemoetry_id)) {
             if( my $id = $self->{$_}) {
                 glDetachShader($self->{program},$id);
                 #croak_on_gl_error;
