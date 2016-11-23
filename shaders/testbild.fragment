@@ -103,7 +103,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	
 	// Circle goes over the colorbars
 	if( (d = circle(ratio,.470,.472)) <= hitdistance ) {
-		color = mix(white, nohit, d*iResolution.x);
+		color = mix(white, color, d*iResolution.x);
 	};
 	
 
