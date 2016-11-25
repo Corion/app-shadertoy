@@ -53,6 +53,7 @@ GetOptions(
   'duration|d=i'   => \my $duration,   # not yet implemented
   'watch|w'        => \my $watch_file,
   'always-on-top|t'=> \my $stay_always_on_top,
+  'glsl-version|g:s' => \my $glsl_version,
   'help!'          => \my $opt_help,
   'man!'           => \my $opt_man,
   'verbose+'       => \my $verbose,
@@ -62,6 +63,8 @@ pod2usage(-verbose => 1) && exit if defined $opt_help;
 pod2usage(-verbose => 2) && exit if defined $opt_man;
 $verbose ||= 0;
 
+$glsl_version ||= 120;
+
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
         print "$message\n";
@@ -69,7 +72,7 @@ sub status($message,$level=0) {
 };
 
 my $header = <<HEADER;
-#version 120
+#version $glsl_version
 uniform vec4      iMouse;
 uniform vec3      iResolution;
 uniform float     iGlobalTime;
