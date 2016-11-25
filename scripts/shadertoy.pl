@@ -51,7 +51,7 @@ as the vertex and tesselation shaders respectively.
 GetOptions(
   'fullscreen'     => \my $fullscreen, # not yet implemented
   'duration|d=i'   => \my $duration,   # not yet implemented
-  'watch|w'        => \my $watch_file, # not yet implemented
+  'watch|w'        => \my $watch_file,
   'always-on-top|t'=> \my $stay_always_on_top,
   'help!'          => \my $opt_help,
   'man!'           => \my $opt_man,
