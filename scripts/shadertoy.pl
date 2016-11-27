@@ -157,7 +157,7 @@ uniform mat4      iModel;
 uniform mat4      iProjection;
 
 void main() {
-    mat4 move = (1.0,0.0,0.0,iGlobalTime*10.0,
+    mat4 move = mat4(1.0,0.0,0.0,iGlobalTime*10.0,
                  0.0,1.0,0.0,iGlobalTime*10.0,
                  0.0,0.0,1.0,iGlobalTime*10.0,
                  0.0,0.0,0.0,1.0
