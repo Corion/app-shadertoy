@@ -286,4 +286,16 @@ sub setUniform2v( $self, $name, @values ) {
     }
 }
 
+sub setUniformMatrix4fv( $self, $name, $transpose, @values ) {
+    return undef if (!$self->{program});
+    if( ! exists $self->{uniforms}->{$name}) {
+        croak "Unknown shader uniform '$name'"
+            if $self->{strict_uniforms}
+    } else {
+        my $buffer = pack 'f*', @values;
+        glProgramUniformMatrix4fv( $self->{program}, $self->{uniforms}->{$name}, 1, $transpose, $buffer );
+        croak_on_gl_error;
+    }
+}
+
 1;
