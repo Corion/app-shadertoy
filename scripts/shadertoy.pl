@@ -42,7 +42,6 @@ as the vertex and tesselation shaders respectively.
 # TO-DO: Add bitmap loader into FBO
 # TO-DO: Add "debug" shader that renders any FBO to the screen (side) as two triangles
 # TO-DO: Add configuration to specify which FBOs are the source for other shaders
-# TO-DO: Add live-editor for shader(s)
 # TO-DO: Add animated (modern) GIF export and automatic upload
 #        ffmpeg -f image2 -framerate 9 -i image_%003d.jpg -vf scale=531x299,transpose=1,crop=299,431,0,100 out.gif
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
