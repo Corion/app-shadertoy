@@ -83,6 +83,9 @@ uniform vec3      iChannelResolution[4];
 uniform int       iFrame;
 uniform float     iTimeDelta;
 uniform float     iFrameRate;
+uniform mat4      iCamera;
+uniform mat4      iModel;
+uniform mat4      iProjection;
 
 uniform sampler2D iChannel0;
 uniform sampler2D iChannel1;
@@ -149,8 +152,18 @@ sub init_shaders($filename) {
     $shader_args{ vertex } ||= <<'VERTEX';
 attribute vec2 pos;
 uniform float     iGlobalTime;
+uniform mat4      iCamera;
+uniform mat4      iModel;
+uniform mat4      iProjection;
+
 void main() {
-    gl_Position = vec4(pos,0.0,1.0);
+    mat4 move = (1.0,0.0,0.0,iGlobalTime*10.0,
+                 0.0,1.0,0.0,iGlobalTime*10.0,
+                 0.0,0.0,1.0,iGlobalTime*10.0,
+                 0.0,0.0,0.0,1.0
+                 );
+    mat4 mvp =  iProjection * iCamera * iModel * move;
+    gl_Position = mvp * vec4(pos,0.0,1.0);
 }
 VERTEX
 
@@ -290,6 +303,18 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     $time = time - $started;
     $pipeline->setUniform1f( "iGlobalTime", $time);
     $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
+    $pipeline->setUniformMatrix4fv( "iModel", 0, 1,0,0,0,
+                                                 0,1,0,0,
+                                                 0,0,1,0,
+                                                 0,0,0,1);
+    $pipeline->setUniformMatrix4fv( "iCamera", 0, 1,0,0,0,
+                                                  0,1,0,0,
+                                                  0,0,1,0,
+                                                  0,0,0,1);
+    $pipeline->setUniformMatrix4fv( "iProjection", 0, 1,0,0,0,
+                                                      0,1,0,0,
+                                                      0,0,1,0,
+                                                      0,0,0,1);
 
     if ( $config->{grab} ) {
         my ( $x, $y ) = $glWidget->pointerPos;
