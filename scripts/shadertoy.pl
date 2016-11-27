@@ -36,7 +36,6 @@ as the vertex and tesselation shaders respectively.
 =cut
 
 # TO-DO: Add "free" time between frames
-# TO-DO: Add bitmap loading via Imager -> RGBA -> buffer
 # TO-DO: Render function into bitmap (set FBO)
 #          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
 # TO-DO: Render mesh from bitmap
