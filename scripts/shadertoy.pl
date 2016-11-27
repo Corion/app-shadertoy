@@ -5,13 +5,15 @@ BEGIN {
 }
 
 use strict;
+use Time::HiRes 'time';
+use Getopt::Long;
+use Pod::Usage;
+
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
 use OpenGL::Texture;
 use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
-use Getopt::Long;
-use Pod::Usage;
 
 use Prima::noARGV;
 use Prima qw( Application GLWidget Label );
@@ -280,7 +282,6 @@ sub drawUnitQuad_XY() {
 
 use vars qw($xres $yres);
 
-use Time::HiRes 'time';
 my $frame = 1;
 my $time;
 my $started = time();
