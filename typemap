@@ -91,6 +91,7 @@ const GLuint64EXT*          T_PV
 GLhandleARB		            T_U_INT
 GLvdpauSurfaceNV            T_PV
 GLvoid *                    T_PV
+const GLvdpauSurfaceNV      T_PV
 const GLvdpauSurfaceNV*     T_PV
 GLUnurbsObj *		        T_PVOBJ
 GLUquadricObj *		        T_PVOBJ
