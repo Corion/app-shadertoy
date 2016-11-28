@@ -18,6 +18,9 @@ use OpenGL::ScreenCapture 'capture';
 use Prima::noARGV;
 use Prima qw( Application GLWidget Label );
 use App::ShaderToy::FileWatcher;
+use App::ShaderToy::Effect;
+
+use YAML;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -207,10 +210,8 @@ FRAGMENT
               $frag_footer
               ;
 
-    my $pipeline = OpenGL::Shader::OpenGL4->new(
-        strict_uniforms => 0,
-    );
-    if( my $err = $pipeline->Load(
+    my $pipeline = App::ShaderToy::Effect->new();
+    if( my $err = $pipeline->set_shaders(
         %shader_args
     )) {
         status("Error in Shader: $err");
@@ -248,7 +249,7 @@ sub createUnitQuad($pipeline) {
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
     #warn sprintf "%08x", glGetError;
 
-    my $vpos = glGetAttribLocation($pipeline->{program}, 'pos');
+    my $vpos = glGetAttribLocation($pipeline->shader->{program}, 'pos');
     if( $vpos < 0 ) {
         die "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
     };
@@ -289,30 +290,31 @@ my $time;
 my $started = time();
 my $frame_second=int time;
 my $frames;
-my $iMouse = pack_GLfloat(0,0,0,0);
+my $iMouse = pack_GLfloat(0,0,0,0); # until we click somewhere
 
 my $config = {
     grab => 0,
 };
 
-my ($pipeline,$next_pipeline);
+my ($pipeline,$next_pipeline,$default_pipeline);
 my $glWidget;
 
 my @channel;
 
 sub updateShaderVariables($pipeline,$xres,$yres) {
+    my $program = $pipeline->shader;
     $time = time - $started;
-    $pipeline->setUniform1f( "iGlobalTime", $time);
-    $pipeline->setUniform3f( "iResolution", $xres, $yres, 1.0);
-    $pipeline->setUniformMatrix4fv( "iModel", 0, 1,0,0,0,
+    $program->setUniform1f( "iGlobalTime", $time);
+    $program->setUniform3f( "iResolution", $xres, $yres, 1.0);
+    $program->setUniformMatrix4fv( "iModel", 0, 1,0,0,0,
                                                  0,1,0,0,
                                                  0,0,1,0,
                                                  0,0,0,1);
-    $pipeline->setUniformMatrix4fv( "iCamera", 0, 1,0,0,0,
+    $program->setUniformMatrix4fv( "iCamera", 0, 1,0,0,0,
                                                   0,1,0,0,
                                                   0,0,1,0,
                                                   0,0,0,1);
-    $pipeline->setUniformMatrix4fv( "iProjection", 0, 1,0,0,0,
+    $program->setUniformMatrix4fv( "iProjection", 0, 1,0,0,0,
                                                       0,1,0,0,
                                                       0,0,1,0,
                                                       0,0,0,1);
@@ -320,7 +322,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     if ( $config->{grab} ) {
         my ( $x, $y ) = $glWidget->pointerPos;
         $iMouse = pack_GLfloat($x,$y,0,0);
-        $pipeline->setUniform4fv( "iMouse", $iMouse);
+        $program->setUniform4fv( "iMouse", $iMouse);
     }
 
     #$pipeline->setUniform4fv( "iDate", 0, 0, 0, 0 );
@@ -333,7 +335,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
         if( $channel[$ch]) {
             glActiveTexture($ch+GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
-            $pipeline->setUniform1i("iChannel$ch",$ch);
+            $program->setUniform1i("iChannel$ch",$ch);
         }
     };
 
@@ -443,10 +445,12 @@ $glWidget = $window->insert(
             # Create a fallback shader so we don't just show a black screen
             $default_pipeline = init_shaders('');
         };
+
         if( ! $pipeline ) {
             # Set up our shader
+
             $pipeline = init_shaders($filename);
-            if( !$pipeline or !$pipeline->{program}) {
+            if( !$pipeline or !$pipeline->shader->{program}) {
                 warn "The shader '$filename' did not load, using default shader";
                 $pipeline = $default_pipeline;
                 set_shadername( 'default shader' );
@@ -459,7 +463,7 @@ $glWidget = $window->insert(
             $channel[0] = OpenGL::Texture->load('demo/IMG_7379_gray.png');
         };
 
-        if( $next_pipeline and $next_pipeline->{program}) {
+        if( $next_pipeline and $next_pipeline->shader->{program}) {
             # We have a next shader ready to go, so swap it in and use it
             status("Swapping in new shader",2);
             $pipeline = $next_pipeline;
@@ -469,11 +473,11 @@ $glWidget = $window->insert(
         if( $pipeline ) {
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-            $pipeline->Enable();
+            $pipeline->shader->Enable();
             updateShaderVariables($pipeline,$self->width,$self->height);
 
             drawUnitQuad_XY();
-            $pipeline->Disable();
+            $pipeline->shader->Disable();
             glFlush();
 
             my $taken = time - $render_start;
