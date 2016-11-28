@@ -139,25 +139,9 @@ sub slurp($filename) {
     return join '', <$fh>
 }
 
-sub init_shaders($effect={}) {
-    my %shader_args;
-    my $filename = shader_base($effect->{fragment});
-    if( defined $filename and length $filename) {
-        # XXX We should trust $effect here instead of re-globbing:
-        my( @files ) = glob "$filename.*";
-
-        %shader_args = map {
-            #warn "<<$_>>";
-            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-                ? ($1 => slurp($_) )
-                : () # else ignore the file
-        } @files;
-    };
-
-    # Supply some defaults:
 #version 330 core
 #layout(location = 0) in vec2 pos;
-    $shader_args{ vertex } ||= <<'VERTEX';
+my $default_vertex_shader = <<'VERTEX';
 attribute vec2 pos;
 uniform float     iGlobalTime;
 uniform mat4      iCamera;
@@ -175,6 +159,32 @@ void main() {
     //gl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
+
+my $default_fragment_shader = <<'FRAGMENT';
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    vec2 uv = fragCoord.xy / iResolution.xy;
+    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
+}
+FRAGMENT
+
+sub init_shaders($effect={}) {
+    my %shader_args;
+    my $filename = shader_base($effect->{fragment});
+    if( defined $filename and length $filename) {
+        # XXX We should trust $effect here instead of re-globbing:
+        my( @files ) = glob "$filename.*";
+
+        %shader_args = map {
+            #warn "<<$_>>";
+            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
+                ? ($1 => slurp($_) )
+                : () # else ignore the file
+        } @files;
+    };
+
+    # Supply some defaults:
+    $shader_args{ vertex } ||= $default_vertex_shader;
 
 =for openGL 3.30 or later
     $shader_args{ geometry } ||= <<'GEOMETRY';
@@ -197,15 +207,10 @@ GEOMETRY
 
     if( ! $shader_args{ fragment }) {
         status("No shader program given, using default fragment shader",1);
-        $shader_args{ fragment } = <<'FRAGMENT';
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-{
-    vec2 uv = fragCoord.xy / iResolution.xy;
-    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
-}
-FRAGMENT
+        $shader_args{ fragment } = $default_fragment_shader;
     };
 
+    # Make the error numbers line up nicely
     $shader_args{ fragment }
         = join "\n",
               $header,
