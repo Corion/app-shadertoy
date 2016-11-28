@@ -56,6 +56,7 @@ as the vertex and tesselation shaders respectively.
 GetOptions(
   'fullscreen'     => \my $fullscreen, # not yet implemented
   'duration|d=i'   => \my $duration,   # not yet implemented
+  'config|c=s'     => \my $config_file,
   'watch|w'        => \my $watch_file,
   'always-on-top|t'=> \my $stay_always_on_top,
   'glsl-version|g:s' => \my $glsl_version,
@@ -225,6 +226,10 @@ FRAGMENT
     return $pipeline;
 };
 
+sub load_config( $config_file ) {
+    Load($config_file)
+}
+
 # We want static memory here
 # A 2x2 flat-screen set of coordinates for the triangles
 my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,
@@ -352,9 +357,19 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
 }
 
+my $config = {
+    window => {
+        width => 480,
+        height => 480,
+    },
+};
+if( $config_file ) {
+    $config = load_config($config_file);
+};
+
 my $window = Prima::MainWindow->create(
-    width     => 480,
-    height    => 160,
+    width     => $config->{window}->{width},
+    height    => $config->{window}->{height},
     onTop     => $stay_always_on_top,
     onKeyDown => sub {
         my( $self, $code, $key, $mod ) = @_;
