@@ -395,6 +395,7 @@ my $config = {
         width => 480,
         height => 480,
     },
+    shaders => [],
 };
 if( $config_file ) {
     status( "Using config file '$config_file'", 1 );
@@ -454,15 +455,11 @@ sub set_shadername( $shadername ) {
 }
 
 sub config_from_filename($filename) {
-     return {
-         window => {
-             width => 480,
-             height => 480,
-         },
-         shaders => [{
-             fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
-         }],
-     },
+    my $c = $config;
+    $c->{shaders} = [{
+        fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
+    }];
+    $c
 }
 
 my ($filename)= @ARGV;
