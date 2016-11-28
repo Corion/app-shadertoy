@@ -413,6 +413,7 @@ my $status = $window->insert(
     ),
 );
 
+my $initialized;
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
     #pack    => { expand => 1, fill => 'both'},
@@ -428,19 +429,26 @@ $glWidget = $window->insert(
 
         my $render_start = Time::HiRes::time;
 
-        if( ! $pipeline ) {
-            # Set up Glew etc.
+        if( ! $initialized ) {
             my $err = OpenGL::Glew::glewInit();
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
             };
             status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
             status( glGetString(GL_VERSION));
+            $initialized = 1;
+        };
 
+        if( ! $default_pipeline ) {
+            # Create a fallback shader so we don't just show a black screen
+            $default_pipeline = init_shaders('');
+        };
+        if( ! $pipeline ) {
+            # Set up our shader
             $pipeline = init_shaders($filename);
             if( !$pipeline or !$pipeline->{program}) {
                 warn "The shader '$filename' did not load, using default shader";
-                $pipeline = init_shaders('');
+                $pipeline = $default_pipeline;
                 set_shadername( 'default shader' );
             };
 
