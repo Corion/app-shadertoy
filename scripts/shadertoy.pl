@@ -334,12 +334,15 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     # We should do that not in the per-frame setup but maybe once
     # before we render the first frame or maybe use the stateless DSA functions,
     # but these require OpenGL 4.4 (Works On My Machine)
-    for my $ch (0..3) {
-        if( $channel[$ch]) {
-            glActiveTexture($ch+GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
-            $program->setUniform1i("iChannel$ch",$ch);
-        }
+    if( $pipeline->channel_changed(0) ) {
+        my @channel = @{ $pipeline->channels };
+        for my $ch (0..3) {
+            if( $channel[$ch]) {
+                glActiveTexture($ch+GL_TEXTURE0);
+                glBindTexture(GL_TEXTURE_2D,$channel[$ch]->id);
+                $program->setUniform1i("iChannel$ch",$ch);
+            }
+        };
     };
 
     # We should also set up the dimensions, also these never change
@@ -463,7 +466,7 @@ $glWidget = $window->insert(
             #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
             if( ! eval {
                 $pipeline->set_channels(
-                    'demo/...'
+                    'demo/tex16.png'
                 );
                 1
             }) {

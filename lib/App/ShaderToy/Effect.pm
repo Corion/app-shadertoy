@@ -42,6 +42,14 @@ sub channels( $self ) {
     $self->{channels}
 }
 
+sub channel_changed( $self, $new=undef ) {
+    my $res = $self->{channels_dirty};
+    if( defined $new ) {
+        $self->{channels_dirty} = $new;
+    };
+    $res
+}
+
 sub set_shaders( $self, %shaders ) {
     $self->shader->Load( %shaders )
 }
@@ -55,6 +63,7 @@ sub set_channels( $self, @channels ) {
             push @new, OpenGL::Texture->load($ch);
         }
     };
+    $self->channel_changed(1);
     $self->{channels} = \@new;
 }
 
