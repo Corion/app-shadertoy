@@ -20,8 +20,8 @@ use Prima qw( Application GLWidget Label );
 use App::ShaderToy::FileWatcher;
 use App::ShaderToy::Effect;
 
-use YAML;
-use File::Basename 'basename';
+use YAML 'LoadFile';
+use File::Basename qw(basename dirname);
 
 use Filter::signatures;
 use feature 'signatures';
@@ -227,7 +227,21 @@ FRAGMENT
 };
 
 sub load_config( $config_file ) {
-    Load($config_file)
+    my $conf = LoadFile($config_file);
+
+    # Adjust filenames relative to directory of config file:
+    for my $effect (@{$conf->{shaders}}) {
+        for my $shader (qw(vertex fragment geometry tessellation tessellation_control)) {
+            if( $effect->{$shader}) {
+                $effect->{$shader} = File::Spec->rel2abs(
+                    $effect->{$shader},
+                    dirname( $config_file ),
+                );
+            };
+        };
+    };
+
+    $conf
 }
 
 # We want static memory here
@@ -364,6 +378,7 @@ my $config = {
     },
 };
 if( $config_file ) {
+    status( "Using config file '$config_file'", 1 );
     $config = load_config($config_file);
 };
 
@@ -412,6 +427,10 @@ sub set_shadername( $shadername ) {
 }
 
 my ($filename)= @ARGV;
+if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
+    $filename = $config->{shaders}->[0]->{fragment};
+};
+$filename ||= '';
 
 if( $watch_file ) {
     status("Watching files is enabled");
