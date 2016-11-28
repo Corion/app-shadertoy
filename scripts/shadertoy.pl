@@ -257,10 +257,9 @@ my @vertices = ( -1.0, -1.0,   1.0, -1.0,    -1.0,  1.0,
                );
 my $vertices = pack_GLfloat(@vertices);
 my $VAO;
-my $VBO_Quad;
 
 # create a 2D quad Vertex Buffer
-sub createUnitQuad($pipeline) {
+sub createUnitQuad() {
     glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
@@ -268,7 +267,7 @@ sub createUnitQuad($pipeline) {
     status("Created VAO: " . glGetError,2);
 
     glGenBuffers( 1, xs_buffer($buffer, 8));
-    $VBO_Quad = (unpack 'I', $buffer)[0];
+    my $VBO_Quad = (unpack 'I', $buffer)[0];
     glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
     glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
@@ -277,6 +276,10 @@ sub createUnitQuad($pipeline) {
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
     #warn sprintf "%08x", glGetError;
 
+    $VBO_Quad
+}
+
+sub use_quad($VBO_Quad, $pipeline) {
     my $vpos = glGetAttribLocation($pipeline->shader->{program}, 'pos');
     if( $vpos < 0 ) {
         die "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
@@ -286,7 +289,7 @@ sub createUnitQuad($pipeline) {
     glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
-}
+};
 
 =for OpenGL
 
@@ -319,6 +322,7 @@ my $started = time();
 my $frame_second=int time;
 my $frames;
 my $iMouse = pack_GLfloat(0,0,0,0); # until we click somewhere
+my $VBO_Quad;
 
 my $state = {
     grab => 0,
@@ -509,12 +513,11 @@ $glWidget = $window->insert(
             };
             set_shadername( $pipeline->title );
 
-            $VBO_Quad ||= createUnitQuad($pipeline);
+            $VBO_Quad ||= createUnitQuad();
 
+            use_quad($VBO_Quad,$pipeline);
             # Load some textures
-            #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
             if( $pipeline->channels and ! eval {
-                warn "Loading textures";
                 $pipeline->set_channels(
                     @{ $pipeline->{channels}}
                 );
@@ -577,7 +580,6 @@ $glWidget = $window->insert(
         ( $xres,$yres ) = $self->size;
     },
     onClose => sub {
-        warn "Closing window";
         undef $pipeline;
         undef $next_pipeline;
     },
