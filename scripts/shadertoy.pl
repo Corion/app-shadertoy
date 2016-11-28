@@ -300,7 +300,7 @@ my $frame_second=int time;
 my $frames;
 my $iMouse = pack_GLfloat(0,0,0,0); # until we click somewhere
 
-my $config = {
+my $state = {
     grab => 0,
 };
 
@@ -327,7 +327,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
                                                       0,0,1,0,
                                                       0,0,0,1);
 
-    if ( $config->{grab} ) {
+    if ( $state->{grab} ) {
         my ( $x, $y ) = $glWidget->pointerPos;
         $iMouse = pack_GLfloat($x,$y,0,0);
         $program->setUniform4fv( "iMouse", $iMouse);
