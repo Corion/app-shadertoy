@@ -143,10 +143,11 @@ sub init_shaders($effect={}) {
     my %shader_args;
     my $filename = shader_base($effect->{fragment});
     if( defined $filename and length $filename) {
+        # XXX We should trust $effect here instead of re-globbing:
         my( @files ) = glob "$filename.*";
 
         %shader_args = map {
-            warn "<<$_>>";
+            #warn "<<$_>>";
             /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
                 ? ($1 => slurp($_) )
                 : () # else ignore the file
