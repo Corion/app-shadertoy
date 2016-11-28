@@ -22,6 +22,7 @@ use App::ShaderToy::Effect;
 
 use YAML 'LoadFile';
 use File::Basename qw(basename dirname);
+use Cwd;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -454,23 +455,24 @@ sub set_shadername( $shadername ) {
 
 sub config_from_filename($filename) {
      return {
-         fragment => $filename,
+         window => {
+             width => 480,
+             height => 480,
+         },
+         shaders => [{
+             fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
+         }],
      },
 }
 
 my ($filename)= @ARGV;
 my $effect;
 if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
-    $effect = $config->{shaders}->[0];
+    # nothing to do
 } else {
-    $effect = config_from_filename( $filename )
+    $config = config_from_filename( $filename );
 };
-
-# XXX per-effect
-if( $watch_file ) {
-    status("Watching files is enabled");
-    App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
-};
+$effect = $config->{shaders}->[0];
 
 my $status = $window->insert(
     Label => (
@@ -509,6 +511,12 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
     }) {
         warn "Couldn't load all textures: $@";
     };
+
+    if( $watch_file ) {
+        status("Watching files is enabled");
+        App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
+    };
+
     $res
 }
 
@@ -590,10 +598,11 @@ $glWidget = $window->insert(
         };
         if( keys %changed ) {
             my @shader = sort { $a cmp $b } values %changed;
-            # Now, find our current shader needs reloading:
-            if( $pipeline->{fragment} eq $shader[0]) {
+            # Now, find our current shader/effect configuration needs reloading:
+            my( $effect ) = grep { $_->{fragment} eq $shader[0] } @{ $config->{shaders} };
+            if( $effect ) {
                 status("$shader[0] changed, reloading",2);
-                $next_pipeline = activate_shader($shader[0], undef);
+                $next_pipeline = activate_shader($effect, undef);
                 if( $next_pipeline ) {
                     status("$shader[0] changed, reloaded",1);
                 };
