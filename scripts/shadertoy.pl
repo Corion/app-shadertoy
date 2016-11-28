@@ -427,7 +427,7 @@ $glWidget = $window->insert(
     onPaint => sub {
         my $self = shift;
 
-        my $render_start = Time::HiRes::time;
+        my $render_start = time;
 
         if( ! $initialized ) {
             my $err = OpenGL::Glew::glewInit();
@@ -476,7 +476,7 @@ $glWidget = $window->insert(
             $pipeline->Disable();
             glFlush();
 
-            my $taken = Time::HiRes::time - $render_start;
+            my $taken = time - $render_start;
 
             $frames++;
             if( int(time) != $frame_second) {
