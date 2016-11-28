@@ -3,14 +3,14 @@ window:
     width: 480
     height: 480
 shaders:
+    - title: Orbital Flights by ???
+      fragment: orbital-flight.fragment
+      duration: 240
+      channels:
+          - ../demo/tex16.png
     - title: Seascape by TDM
       fragment: seascape.fragment
       duration: 240
     - title: Testcard by Max Maischein
       fragment: testbild.fragment
       duration: 240
-    - title: Orbital Flights by ???
-      fragment: orbital-flights.fragment
-      duration: 240
-      channels:
-          - ../demo/tex16.png
