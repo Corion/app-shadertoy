@@ -21,6 +21,7 @@ use App::ShaderToy::FileWatcher;
 use App::ShaderToy::Effect;
 
 use YAML;
+use File::Basename 'basename';
 
 use Filter::signatures;
 use feature 'signatures';
@@ -210,7 +211,9 @@ FRAGMENT
               $frag_footer
               ;
 
-    my $pipeline = App::ShaderToy::Effect->new();
+    my $pipeline = App::ShaderToy::Effect->new(
+        title => basename($filename),
+    );
     if( my $err = $pipeline->set_shaders(
         %shader_args
     )) {
@@ -392,8 +395,6 @@ sub set_shadername( $shadername ) {
 
 my ($filename)= @ARGV;
 
-set_shadername( $filename );
-
 if( $watch_file ) {
     status("Watching files is enabled");
     App::ShaderToy::FileWatcher::watch_files( $filename );
@@ -453,8 +454,8 @@ $glWidget = $window->insert(
             if( !$pipeline or !$pipeline->shader->{program}) {
                 warn "The shader '$filename' did not load, using default shader";
                 $pipeline = $default_pipeline;
-                set_shadername( 'default shader' );
             };
+            set_shadername( $pipeline->title );
 
             $VBO_Quad ||= createUnitQuad($pipeline);
 

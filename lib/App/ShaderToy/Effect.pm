@@ -30,6 +30,10 @@ sub shader( $self ) {
     $self->{shader}
 }
 
+sub title( $self ) {
+    $self->{title} || '<untitled>'
+}
+
 sub channels( $self ) {
     $self->{channels}
 }
