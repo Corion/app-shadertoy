@@ -19,14 +19,6 @@ sub new( $class, %config ) {
     );
     my $self = bless (\%config => $class);
 
-    if( @config{ qw{vertex fragment tessellation tessellation_control geometry}} ) {
-        $self->set_shaders( %config );
-    };
-
-    if( $self->{channels}) {
-        $self->set_channels( @{ $self->{channels} });
-    }
-
     $self
 }
 
