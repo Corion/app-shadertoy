@@ -158,13 +158,14 @@ uniform mat4      iModel;
 uniform mat4      iProjection;
 
 void main() {
-    mat4 move = mat4(1.0,0.0,0.0,iGlobalTime*10.0,
-                 0.0,1.0,0.0,iGlobalTime*10.0,
-                 0.0,0.0,1.0,iGlobalTime*10.0,
-                 0.0,0.0,0.0,1.0
+    mat4 move = mat4(1.0,0.0,0.0,0.0,
+                     0.0,1.0,0.0,0.0,
+                     0.0,0.0,1.0,0.0,
+                     0.0,0.0,0.0,1.0
                  );
     mat4 mvp =  iProjection * iCamera * iModel * move;
     gl_Position = mvp * vec4(pos,0.0,1.0);
+    //sgl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
 
