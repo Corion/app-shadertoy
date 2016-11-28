@@ -327,6 +327,7 @@ my $VBO_Quad;
 
 my $state = {
     grab => 0,
+    effect => 0,
 };
 
 my ($pipeline,$next_pipeline,$default_pipeline);
@@ -413,6 +414,14 @@ my $window = Prima::MainWindow->create(
             capture()->save($name) or die "error saving: $@";
             status("Saved to '$name'");
 
+        } elsif( $key == kb::Left ) {
+            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+
+        } elsif( $key == kb::Right ) {
+            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+
         } elsif( $key == kb::Esc ) {
             status("Bye",2);
             if( $App::ShaderToy::FileWatcher::watcher ) {
@@ -421,7 +430,7 @@ my $window = Prima::MainWindow->create(
                 undef $App::ShaderToy::FileWatcher::watcher;
             };
             $::application->close
-        };
+        }
     },
 );
 #$window->set(
@@ -473,6 +482,30 @@ my $status = $window->insert(
     ),
 );
 
+sub activate_shader( $effect, $fallback_default = 1 ) {
+    my $res = init_shaders( $effect );
+    if( !$res or !$res->shader->{program}) {
+        if( $fallback_default ) {
+            status( sprintf( "The shader '%s' did not load, using default shader", $effect->{fragment} ),0 );
+            $res = $default_pipeline;
+        } else {
+            return undef
+        }
+    };
+    set_shadername( $effect->{title} );
+
+    # Load some textures if they are configured for the shader
+    if( $res->channels and ! eval {
+        $res->set_channels(
+            @{ $res->{channels}}
+        );
+        1
+    }) {
+        warn "Couldn't load all textures: $@";
+    };
+    $res
+}
+
 my $initialized;
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
@@ -506,26 +539,10 @@ $glWidget = $window->insert(
 
         if( ! $pipeline ) {
             # Set up our shader
-
-            $pipeline = init_shaders($effect);
-            if( !$pipeline or !$pipeline->shader->{program}) {
-                status( sprintf( "The shader '%s' did not load, using default shader", $effect->{fragment} ),0 );
-                $pipeline = $default_pipeline;
-            };
-            set_shadername( $pipeline->title );
-
+            $pipeline = activate_shader($effect);
             $VBO_Quad ||= createUnitQuad();
 
             use_quad($VBO_Quad,$pipeline);
-            # Load some textures
-            if( $pipeline->channels and ! eval {
-                $pipeline->set_channels(
-                    @{ $pipeline->{channels}}
-                );
-                1
-            }) {
-                warn "Couldn't load all textures: $@";
-            };
         };
 
         if( $next_pipeline and $next_pipeline->shader->{program}) {
@@ -567,10 +584,13 @@ $glWidget = $window->insert(
         };
         if( keys %changed ) {
             my @shader = sort { $a cmp $b } values %changed;
-            status("$shader[0] changed, reloading",2);
-            $next_pipeline = init_shaders($shader[0]);
-            if( $next_pipeline ) {
-                status("$shader[0] changed, reloaded",1);
+            # Now, find our current shader needs reloading:
+            if( $pipeline->{fragment} eq $shader[0]) {
+                status("$shader[0] changed, reloading",2);
+                $next_pipeline = activate_shader($shader[0], undef);
+                if( $next_pipeline ) {
+                    status("$shader[0] changed, reloaded",1);
+                };
             };
         };
     },
@@ -606,6 +626,8 @@ Prima->run;
   --verbose       output more messages
 
   --quiet         don't output anything except errors
+
+  --config        configuration file of shader(s) to display
 
   --fullscreen    display fullscreen
 
