@@ -168,7 +168,7 @@ void main() {
                  );
     mat4 mvp =  iProjection * iCamera * iModel * move;
     gl_Position = mvp * vec4(pos,0.0,1.0);
-    //sgl_Position = vec4(pos,0.0,1.0);
+    //gl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
 
