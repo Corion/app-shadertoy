@@ -138,9 +138,9 @@ sub slurp($filename) {
     return join '', <$fh>
 }
 
-sub init_shaders($filename) {
+sub init_shaders($effect={}) {
     my %shader_args;
-    $filename = shader_base($filename);
+    my $filename = shader_base($effect->{fragment});
     if( defined $filename and length $filename) {
         my( @files ) = glob "$filename.*";
 
@@ -213,7 +213,7 @@ FRAGMENT
               ;
 
     my $pipeline = App::ShaderToy::Effect->new(
-        title => basename($filename),
+        %$effect,
     );
     if( my $err = $pipeline->set_shaders(
         %shader_args
@@ -239,8 +239,14 @@ sub load_config( $config_file ) {
                 );
             };
         };
+        for my $texture (@{ $effect->{channels}}) {
+            $texture = File::Spec->rel2abs(
+                $texture,
+                dirname( $config_file ),
+            );
+        };
     };
-
+    
     $conf
 }
 
@@ -426,15 +432,24 @@ sub set_shadername( $shadername ) {
     );
 }
 
-my ($filename)= @ARGV;
-if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
-    $filename = $config->{shaders}->[0]->{fragment};
-};
-$filename ||= '';
+sub config_from_filename($filename) {
+     return {
+         fragment => $filename,
+     },
+}
 
+my ($filename)= @ARGV;
+my $effect;
+if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
+    $effect = $config->{shaders}->[0];
+} else {
+    $effect = config_from_filename( $filename )
+};
+
+# XXX per-effect
 if( $watch_file ) {
     status("Watching files is enabled");
-    App::ShaderToy::FileWatcher::watch_files( $filename );
+    App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
 };
 
 my $status = $window->insert(
@@ -481,15 +496,15 @@ $glWidget = $window->insert(
 
         if( ! $default_pipeline ) {
             # Create a fallback shader so we don't just show a black screen
-            $default_pipeline = init_shaders('');
+            $default_pipeline = init_shaders();
         };
 
         if( ! $pipeline ) {
             # Set up our shader
 
-            $pipeline = init_shaders($filename);
+            $pipeline = init_shaders($effect);
             if( !$pipeline or !$pipeline->shader->{program}) {
-                warn "The shader '$filename' did not load, using default shader";
+                status( sprintf( "The shader '%s' did not load, using default shader", $effect->{fragment} ),0 );
                 $pipeline = $default_pipeline;
             };
             set_shadername( $pipeline->title );
@@ -498,9 +513,10 @@ $glWidget = $window->insert(
 
             # Load some textures
             #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
-            if( ! eval {
+            if( $pipeline->channels and ! eval {
+                warn "Loading textures";
                 $pipeline->set_channels(
-                    'demo/tex16.png'
+                    @{ $pipeline->{channels}}
                 );
                 1
             }) {
