@@ -460,7 +460,14 @@ $glWidget = $window->insert(
 
             # Load some textures
             #$channel[0] = OpenGL::Texture->load('demo/shadertoy-01-seascape-still.png');
-            $channel[0] = OpenGL::Texture->load('demo/IMG_7379_gray.png');
+            if( ! eval {
+                $pipeline->set_channels(
+                    'demo/...'
+                );
+                1
+            }) {
+                warn "Couldn't load all textures: $@";
+            };
         };
 
         if( $next_pipeline and $next_pipeline->shader->{program}) {
