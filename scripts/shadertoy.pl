@@ -135,7 +135,7 @@ sub slurp($filename) {
     open my $fh, '<:bytes', $filename
         or die "Couldn't load '$filename': $!";
     local $/;
-    return join '', <$fh>
+    return join '', <$fh>;
 }
 
 sub init_shaders($effect={}) {
