@@ -34,9 +34,9 @@ shadertoy - playground for OpenGL shaders
 
 =head1 SYNOPSIS
 
-  shadertoy.pl shaders/myshader.fragment
+  shadertoy.pl shaders/myshader.frag
 
-Displays the GLSL shader loaded from C<shaders/myshader.fragment>
+Displays the GLSL shader loaded from C<shaders/myshader.frag>
 in a window. Other shaders with the same basename will also be loaded
 as the vertex and tesselation shaders respectively.
 
@@ -121,11 +121,11 @@ FRAGMENT_FOOTER
 sub shader_base($filename) {
     if($filename) {
         $filename =~ s{\.(compute
-                   |vertex
-                   |geometry
+                   |vert
+                   |geom
                    |tesselation
                    |tessellation_control
-                   |fragment
+                   |frag
                    )\z}!!x;
     }
     $filename;
@@ -175,10 +175,16 @@ sub init_shaders($effect={}) {
         # XXX We should trust $effect here instead of re-globbing:
         my( @files ) = glob "$filename.*";
 
+        my %param_name = (
+            frag => 'fragment',
+            geom => 'geometry',
+            vert => 'vertex',
+        );
+
         %shader_args = map {
             #warn "<<$_>>";
-            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-                ? ($1 => slurp($_) )
+            /\.(compute|vert|geom|tesselation|tessellation_control|frag)$/
+                ? (( $param_name{ $1 } || $1 ) => slurp($_) )
                 : () # else ignore the file
         } @files;
     };
@@ -253,7 +259,7 @@ sub load_config( $config_file ) {
             );
         };
     };
-    
+
     $conf
 }
 
