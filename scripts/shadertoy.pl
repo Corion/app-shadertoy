@@ -268,11 +268,8 @@ sub createUnitQuad() {
     my $VBO_Quad = (unpack 'I', $buffer)[0];
     glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
     glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
+    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );     # Not supported on Win10+Intel...
     glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
-    #warn sprintf "%08x", glGetError;
-    # Not supported on Win10+Intel...
-    #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );
-    #warn sprintf "%08x", glGetError;
 
     $VBO_Quad
 }
