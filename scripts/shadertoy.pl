@@ -144,7 +144,6 @@ sub init_shaders($effect={}) {
         my( @files ) = glob "$filename.*";
 
         %shader_args = map {
-            warn "<<$_>>";
             /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
                 ? ($1 => slurp($_) )
                 : () # else ignore the file
