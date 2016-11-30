@@ -22,6 +22,7 @@ use App::ShaderToy::Effect;
 
 use YAML 'LoadFile';
 use File::Basename qw(basename dirname);
+use Cwd;
 
 use Filter::signatures;
 use feature 'signatures';
@@ -52,6 +53,7 @@ as the vertex and tesselation shaders respectively.
 # TO-DO: Add animated (modern) GIF export and automatic upload
 #        ffmpeg -f image2 -framerate 9 -i image_%003d.jpg -vf scale=531x299,transpose=1,crop=299,431,0,100 out.gif
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
+# TO-DO: Load shadertoys from the web API: https://www.shadertoy.com/api
 
 GetOptions(
     'fullscreen'       => \my $fullscreen,           # not yet implemented
@@ -137,23 +139,9 @@ sub slurp($filename) {
     return join '', <$fh>;
 }
 
-sub init_shaders($effect={}) {
-    my %shader_args;
-    my $filename = shader_base($effect->{fragment});
-    if( defined $filename and length $filename) {
-        my( @files ) = glob "$filename.*";
-
-        %shader_args = map {
-            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
-                ? ($1 => slurp($_) )
-                : () # else ignore the file
-        } @files;
-    };
-
-    # Supply some defaults:
 #version 330 core
 #layout(location = 0) in vec2 pos;
-    $shader_args{ vertex } ||= <<'VERTEX';
+my $default_vertex_shader = <<'VERTEX';
 attribute vec2 pos;
 uniform float     iGlobalTime;
 uniform mat4      iCamera;
@@ -171,6 +159,32 @@ void main() {
     //gl_Position = vec4(pos,0.0,1.0);
 }
 VERTEX
+
+my $default_fragment_shader = <<'FRAGMENT';
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    vec2 uv = fragCoord.xy / iResolution.xy;
+    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
+}
+FRAGMENT
+
+sub init_shaders($effect={}) {
+    my %shader_args;
+    my $filename = shader_base($effect->{fragment});
+    if( defined $filename and length $filename) {
+        # XXX We should trust $effect here instead of re-globbing:
+        my( @files ) = glob "$filename.*";
+
+        %shader_args = map {
+            #warn "<<$_>>";
+            /\.(compute|vertex|geometry|tesselation|tessellation_control|fragment)$/
+                ? ($1 => slurp($_) )
+                : () # else ignore the file
+        } @files;
+    };
+
+    # Supply some defaults:
+    $shader_args{ vertex } ||= $default_vertex_shader;
 
 =for openGL 3.30 or later
     $shader_args{ geometry } ||= <<'GEOMETRY';
@@ -193,15 +207,10 @@ GEOMETRY
 
     if( ! $shader_args{ fragment }) {
         status("No shader program given, using default fragment shader",1);
-        $shader_args{ fragment } = <<'FRAGMENT';
-void mainImage( out vec4 fragColor, in vec2 fragCoord )
-{
-    vec2 uv = fragCoord.xy / iResolution.xy;
-    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
-}
-FRAGMENT
+        $shader_args{ fragment } = $default_fragment_shader;
     };
 
+    # Make the error numbers line up nicely
     $shader_args{ fragment }
         = join "\n",
               $header,
@@ -321,6 +330,7 @@ my $VBO_Quad;
 
 my $state = {
     grab => 0,
+    effect => 0,
 };
 
 my ($pipeline,$next_pipeline,$default_pipeline);
@@ -381,6 +391,7 @@ my $config = {
         width => 480,
         height => 480,
     },
+    shaders => [],
 };
 if( $config_file ) {
     status( "Using config file '$config_file'", 1 );
@@ -415,6 +426,14 @@ my $window = Prima::MainWindow->create(
                 or die "error saving screen to '$name': $@";
             status("Saved to '$name'");
 
+        } elsif( $key == kb::Left ) {
+            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+
+        } elsif( $key == kb::Right ) {
+            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+
         } elsif( $key == kb::Esc ) {
             status("Bye",2);
             if( $App::ShaderToy::FileWatcher::watcher ) {
@@ -423,7 +442,7 @@ my $window = Prima::MainWindow->create(
                 undef $App::ShaderToy::FileWatcher::watcher;
             };
             $::application->close
-        };
+        }
     },
 );
 #$window->set(
@@ -440,24 +459,21 @@ sub set_shadername( $shadername ) {
 }
 
 sub config_from_filename($filename) {
-     return {
-         fragment => $filename,
-     },
+    my $c = $config;
+    $c->{shaders} = [{
+        fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
+    }];
+    $c
 }
 
 my ($filename)= @ARGV;
 my $effect;
 if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
-    $effect = $config->{shaders}->[0];
+    # nothing to do
 } else {
-    $effect = config_from_filename( $filename )
+    $config = config_from_filename( $filename );
 };
-
-# XXX per-effect
-if( $watch_file ) {
-    status("Watching files is enabled");
-    App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
-};
+$effect = $config->{shaders}->[0];
 
 my $status = $window->insert(
     Label => (
@@ -474,6 +490,36 @@ my $status = $window->insert(
         text => '00.0 fps',
     ),
 );
+
+sub activate_shader( $effect, $fallback_default = 1 ) {
+    my $res = init_shaders( $effect );
+    if( !$res or !$res->shader->{program}) {
+        if( $fallback_default ) {
+            status( sprintf( "The shader '%s' did not load, using default shader", $effect->{fragment} ),0 );
+            $res = $default_pipeline;
+        } else {
+            return undef
+        }
+    };
+    set_shadername( $effect->{title} );
+
+    # Load some textures if they are configured for the shader
+    if( $res->channels and ! eval {
+        $res->set_channels(
+            @{ $res->{channels}}
+        );
+        1
+    }) {
+        warn "Couldn't load all textures: $@";
+    };
+
+    if( $watch_file ) {
+        status("Watching files is enabled");
+        App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
+    };
+
+    $res
+}
 
 my $initialized;
 $glWidget = $window->insert(
@@ -508,26 +554,10 @@ $glWidget = $window->insert(
 
         if( ! $pipeline ) {
             # Set up our shader
-
-            $pipeline = init_shaders($effect);
-            if( !$pipeline or !$pipeline->shader->{program}) {
-                status( sprintf( "The shader '%s' did not load, using default shader", $effect->{fragment} ),0 );
-                $pipeline = $default_pipeline;
-            };
-            set_shadername( $pipeline->title );
-
+            $pipeline = activate_shader($effect);
             $VBO_Quad ||= createUnitQuad();
 
             use_quad($VBO_Quad,$pipeline);
-            # Load some textures
-            if( $pipeline->channels and ! eval {
-                $pipeline->set_channels(
-                    @{ $pipeline->{channels}}
-                );
-                1
-            }) {
-                warn "Couldn't load all textures: $@";
-            };
         };
 
         if( $next_pipeline and $next_pipeline->shader->{program}) {
@@ -569,10 +599,14 @@ $glWidget = $window->insert(
         };
         if( keys %changed ) {
             my @shader = sort { $a cmp $b } values %changed;
-            status("$shader[0] changed, reloading",2);
-            $next_pipeline = init_shaders($shader[0]);
-            if( $next_pipeline ) {
-                status("$shader[0] changed, reloaded",1);
+            # Now, find our current shader/effect configuration needs reloading:
+            my( $effect ) = grep { $_->{fragment} eq $shader[0] } @{ $config->{shaders} };
+            if( $effect ) {
+                status("$shader[0] changed, reloading",2);
+                $next_pipeline = activate_shader($effect, undef);
+                if( $next_pipeline ) {
+                    status("$shader[0] changed, reloaded",1);
+                };
             };
         };
     },
@@ -608,6 +642,8 @@ Prima->run;
   --verbose       output more messages
 
   --quiet         don't output anything except errors
+
+  --config        configuration file of shader(s) to display
 
   --fullscreen    display fullscreen
 
