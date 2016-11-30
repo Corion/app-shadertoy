@@ -408,8 +408,16 @@ my $window = Prima::MainWindow->create(
             $self->rect( 0, 0, $self->owner->size);
 
         } elsif( $key == kb::F5 ) {
-            my( $name ) = 'capture.png';
-            capture()->save($name) or die "error saving: $@";
+            my $template = 'capture%03d.png';
+            my $idx = 1;
+
+            my $name;
+            do {
+                $name = sprintf $template, $idx++;
+            } until not -f $name;
+
+            capture()->save($name)
+                or die "error saving screen to '$name': $@";
             status("Saved to '$name'");
 
         } elsif( $key == kb::Esc ) {
