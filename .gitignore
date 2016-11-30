@@ -10,6 +10,8 @@ Glew.c
 Glew.o
 *.def
 *.bs
+*.tdy
+*.ERR
 Filter-signatures-*/
 .releaserc
 cover_db
