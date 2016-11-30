@@ -1,4 +1,5 @@
 package App::ShaderToy::FileWatcher;
+use strict;
 use threads;
 use Thread::Queue;
 use Filesys::Notify::Simple;
