@@ -1,7 +1,7 @@
 #!perl -w
 BEGIN {
     # Mostly for the benefit of Cygwin
-    $ENV{LIBGL_USE_WGL} = 1;
+    $ENV{ LIBGL_USE_WGL } = 1;
 }
 
 use strict;
@@ -54,19 +54,19 @@ as the vertex and tesselation shaders respectively.
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
 
 GetOptions(
-  'fullscreen'     => \my $fullscreen, # not yet implemented
-  'duration|d=i'   => \my $duration,   # not yet implemented
-  'config|c=s'     => \my $config_file,
-  'watch|w'        => \my $watch_file,
-  'always-on-top|t'=> \my $stay_always_on_top,
-  'glsl-version|g:s' => \my $glsl_version,
-  'help!'          => \my $opt_help,
-  'man!'           => \my $opt_man,
-  'verbose+'       => \my $verbose,
-  'quiet'          => \my $quiet,
-) or pod2usage(-verbose => 1) && exit;
-pod2usage(-verbose => 1) && exit if defined $opt_help;
-pod2usage(-verbose => 2) && exit if defined $opt_man;
+    'fullscreen'       => \my $fullscreen,           # not yet implemented
+    'duration|d=i'     => \my $duration,             # not yet implemented
+    'config|c=s'       => \my $config_file,
+    'watch|w'          => \my $watch_file,
+    'always-on-top|t'  => \my $stay_always_on_top,
+    'glsl-version|g:s' => \my $glsl_version,
+    'help!'            => \my $opt_help,
+    'man!'             => \my $opt_man,
+    'verbose+'         => \my $verbose,
+    'quiet'            => \my $quiet,
+) or pod2usage( -verbose => 1 ) && exit;
+pod2usage( -verbose => 1 ) && exit if defined $opt_help;
+pod2usage( -verbose => 2 ) && exit if defined $opt_man;
 $verbose ||= 0;
 
 $glsl_version ||= 120;
@@ -74,8 +74,8 @@ $glsl_version ||= 120;
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
         print "$message\n";
-    };
-};
+    }
+}
 
 my $header = <<HEADER;
 #version $glsl_version
@@ -117,21 +117,20 @@ void main() {
 FRAGMENT_FOOTER
 
 sub shader_base($filename) {
-    if( $filename ) {
-        $filename
-            =~ s{\.(compute
+    if($filename) {
+        $filename =~ s{\.(compute
                    |vertex
                    |geometry
                    |tesselation
                    |tessellation_control
                    |fragment
                    )\z}!!x;
-    };
-    $filename
+    }
+    $filename;
 }
 
 sub slurp($filename) {
-    status("Loading '$filename'", 1);
+    status( "Loading '$filename'", 1 );
     open my $fh, '<:bytes', $filename
         or die "Couldn't load '$filename': $!";
     local $/;
