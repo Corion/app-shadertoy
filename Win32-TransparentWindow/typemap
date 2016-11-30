@@ -1,0 +1,28 @@
+BOOL			T_IV
+LONG			T_IV
+HANDLE			T_IV
+HWND                    T_IV
+HRESULT                 T_IV
+HMENU                   T_IV
+HKEY			T_IV
+SECURITY_INFORMATION	T_UV
+DWORD			T_UV
+UINT                    T_UV
+REGSAM			T_UV
+WPARAM                  T_UV
+LPARAM                  T_IV
+LPVOID                  T_UV
+HANDLE                  T_UV
+SIZE_T                  T_UV
+DibSect *         O_OBJECT
+DWM_BLURBEHIND*         T_PV
+
+#############################################################################
+INPUT
+T_UV
+	$var = ($type)SvUV($arg)
+
+#############################################################################
+OUTPUT
+T_UV
+	sv_setuv($arg, (UV)$var);

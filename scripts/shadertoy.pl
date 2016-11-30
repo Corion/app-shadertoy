@@ -26,6 +26,8 @@ use File::Basename qw(basename dirname);
 use Cwd;
 use FindBin qw($Bin);
 
+use Win32::TransparentWindow;
+
 use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
@@ -510,7 +512,132 @@ my $window = Prima::MainWindow->create(
             closeWindow( $self );
         }
     },
+    onPaint => sub {
+        my $self = shift;
+
+        my $render_start = time;
+
+        if( ! $glInitialized++ ) {
+            my $err = OpenGL::Glew::glewInit();
+            if( $err != GLEW_OK ) {
+                die "Couldn't initialize Glew: ".glewGetErrorString($err);
+            };
+            status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+            status( glGetString(GL_VERSION));
+            #glClearColor(0.1,0.1,0,0.4);
+    #glEnable(GL_ALPHA_TEST);        
+    #glEnable(GL_DEPTH_TEST);        
+    #glEnable(GL_COLOR_MATERIAL);
+    #glEnable(GL_BLEND);             
+    #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_ALPHA_TEST);        
+    glEnable(GL_DEPTH_TEST);        
+    glEnable(GL_COLOR_MATERIAL);
+
+    glEnable(GL_LIGHTING);          
+    glEnable(GL_LIGHT0);            
+
+    glEnable(GL_BLEND);             
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glClearColor(0, 0, 0, 0);
+            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    #glViewport(0,0,$window->width,$window->height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    glMatrixMode(GL_MODELVIEW );
+    glLoadIdentity();
+        };
+
+        if( ! $default_pipeline ) {
+            # Create a fallback shader so we don't just show a black screen
+            $default_pipeline = init_shaders();
+        };
+
+        if( ! $pipeline ) {
+            # Set up our shader
+            #$pipeline = activate_shader($effect);
+            #$VBO_Quad ||= createUnitQuad();
+
+            #use_quad($VBO_Quad,$pipeline);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+    glPushMatrix();
+
+    glColor3f(0, 1, 1);
+    glBegin(GL_TRIANGLES);                             
+        glColor3f(1.0,0.0,0.0);                     
+        glVertex3f( 0.0, 1.0, 0.0);                 
+        glColor3f(0.0,1.0,0.0);                     
+        glVertex3f(-1.0,-1.0, 0.0);                 
+        glColor3f(0.0,0.0,1.0);                     
+        glVertex3f( 1.0,-1.0, 0.0);                 
+    glEnd();
+
+    glPopMatrix();
+    glFlush();
+        };
+
+        if( $next_pipeline and $next_pipeline->shader->{program}) {
+            # We have a next shader ready to go, so swap it in and use it
+            status("Swapping in new shader",2);
+            $pipeline = $next_pipeline;
+            undef $next_pipeline;
+        };
+
+        if( $pipeline ) {
+            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+            $pipeline->shader->Enable();
+            updateShaderVariables($pipeline,$self->width,$self->height);
+
+            drawUnitQuad_XY();
+            $pipeline->shader->Disable();
+            glFlush();
+
+            my $taken = time - $render_start;
+
+            $frames++;
+            if( int(time) != $frame_second) {
+                #$status->set(
+                #    text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
+                #);
+
+                $frames = 0;
+                $frame_second = int(time);
+            };
+        };
+
+        # XXX Check if it's time to quit
+
+        # Maybe this should happen asynchronously
+        my %changed;
+        for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
+            $changed{ shader_base( $filename ) } = $filename;
+        };
+        if( keys %changed ) {
+            my @shader = sort { $a cmp $b } values %changed;
+            # Now, find our current shader/effect configuration needs reloading:
+            my( $effect ) = grep { $_->{fragment} eq $shader[0] } @{ $config->{shaders} };
+            if( $effect ) {
+                status("$shader[0] changed, reloading",2);
+                $next_pipeline = activate_shader($effect, undef);
+                if( $next_pipeline ) {
+                    status("$shader[0] changed, reloaded",1);
+                };
+            };
+        };
+    },
 );
+
+my $h = $window->get_handle;
+warn $window->get_handle;
+$h =~ s!^0x!!;
+$h = hex $h;
+warn "Unhexed: $h";
+if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
+    warn sprintf "Windows error: %08x / %s", $err, $^E;
+};
 
 sub set_shadername( $effect ) {
     my $shadername_vis = exists $effect->{title}
@@ -539,7 +666,9 @@ if( $filename ) {
 };
 $state->{effect} = 0;
 
-my $status = $window->insert(
+my $status;
+if(0) {
+$status = $window->insert(
     Label => (
         # growMode => gm::Client,
         geometry => gt::Place,
@@ -554,6 +683,7 @@ my $status = $window->insert(
         text => '00.0 fps',
     ),
 );
+};
 
 sub activate_shader( $effect, $fallback_default = 1 ) {
     my $res = init_shaders( $effect );
@@ -636,6 +766,16 @@ sub create_gl_widget {
                 status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
+                
+        warn $glWidget->get_handle;
+        $h = $glWidget->get_handle;
+        $h =~ s!^0x!!;
+        $h = hex $h;
+        warn sprintf "Unhexed glWidget: %d / %08x", $h, $h;
+if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
+    warn sprintf "Windows error: %08x / %s", $err, $^E;
+};
+
             };
 
             if( ! $default_pipeline ) {
@@ -738,7 +878,8 @@ $window->insert( Timer =>
     timeout => 10,
     name    => 'Timer',
     onTick  => sub {
-        $glWidget->repaint;
+        #$glWidget->repaint;
+        $window->repaint;
     }
 )->start;
 
