@@ -267,7 +267,7 @@ sub createUnitQuad() {
     glGenBuffers( 1, xs_buffer($buffer, 8));
     my $VBO_Quad = (unpack 'I', $buffer)[0];
     glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
-    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
     glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
     #warn sprintf "%08x", glGetError;
     # Not supported on Win10+Intel...
