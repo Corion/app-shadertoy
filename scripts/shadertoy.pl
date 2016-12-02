@@ -405,9 +405,19 @@ if( $config_file ) {
     $config = load_config($config_file);
 };
 
+my $initialized;
+
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
     	[ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
+        [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub { 
+            my ( $window, $menu ) = @_;
+            recreate_gl_widget( sub {  $window->onTop( $window->menu->toggle($menu))});
+        } ],
+        [ ( $fullscreen ? '*' : '') . 'fullscreen', '~Fullscreen', 'Alt+Enter', km::Alt|kb::Enter, sub { 
+            my ( $window, $menu ) = @_;
+            recreate_gl_widget( sub { $fullscreen = $window->menu->toggle($menu)});
+        } ],
         [],
     	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift-> close }],
     ]]],
@@ -496,7 +506,7 @@ my $status = $window->insert(
             y => 0,
             anchor => 'sw',
             relwidth => 1.0,
-            height => 16,
+            height => $window->font->height + 4,
         },
         alignment => ta::Center,
         text => '00.0 fps',
@@ -533,106 +543,145 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
     $res
 }
 
-my $initialized;
-$glWidget = $window->insert(
-    'Prima::GLWidget' =>
-    #pack    => { expand => 1, fill => 'both'},
-    growMode => gm::Client,
-    rect => [0, 16, $window->width, $window->height],
-    gl_config => {
-        pixels => 'rgba',
-        color_bits => 32,
-        depth_bits => 24,
-    },
-    onPaint => sub {
-        my $self = shift;
+sub leave_fullscreen
+{
+     $fullscreen = 0;
+     $window->menu->uncheck('fullscreen');
+     recreate_gl_widget();
+}
 
-        my $render_start = time;
+sub create_gl_widget
+{
+    my %param;
 
-        if( ! $initialized ) {
-            my $err = OpenGL::Glew::glewInit();
-            if( $err != GLEW_OK ) {
-                die "Couldn't initialize Glew: ".glewGetErrorString($err);
+    unless ( $fullscreen ) {
+        %param = (
+            owner      => $window,
+            growMode   => gm::Client,
+            rect       => [0, $window->font->height + 4, $window->width, $window->height],
+        );
+    } else {
+	    my $primary = $::application->get_monitor_rects->[0];
+        %param = (
+            owner      => $::application,
+		    origin     => [@{$primary}[0,1]],
+		    size       => [@{$primary}[2,3]],
+            onLeave    => \&leave_fullscreen,
+            accelItems => [[ 'fs', '', km::Alt|kb::Enter, \&leave_fullscreen ]],
+            selectable => 1,
+        );
+    }
+   
+    $glWidget = Prima::GLWidget->new(
+        #pack    => { expand => 1, fill => 'both'},
+        %param,
+        gl_config => {
+            pixels => 'rgba',
+            color_bits => 32,
+            depth_bits => 24,
+        },
+        onPaint => sub {
+            my $self = shift;
+    
+            my $render_start = time;
+    
+            if( ! $initialized ) {
+                my $err = OpenGL::Glew::glewInit();
+                if( $err != GLEW_OK ) {
+                    die "Couldn't initialize Glew: ".glewGetErrorString($err);
+                };
+                status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+                status( glGetString(GL_VERSION));
+                $initialized = 1;
             };
-            status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
-            status( glGetString(GL_VERSION));
-            $initialized = 1;
-        };
-
-        if( ! $default_pipeline ) {
-            # Create a fallback shader so we don't just show a black screen
-            $default_pipeline = init_shaders();
-        };
-
-        if( ! $pipeline ) {
-            # Set up our shader
-            $pipeline = activate_shader($effect);
-            $VBO_Quad ||= createUnitQuad();
-
-            use_quad($VBO_Quad,$pipeline);
-        };
-
-        if( $next_pipeline and $next_pipeline->shader->{program}) {
-            # We have a next shader ready to go, so swap it in and use it
-            status("Swapping in new shader",2);
-            $pipeline = $next_pipeline;
-            undef $next_pipeline;
-        };
-
-        if( $pipeline ) {
-            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-            $pipeline->shader->Enable();
-            updateShaderVariables($pipeline,$self->width,$self->height);
-
-            drawUnitQuad_XY();
-            $pipeline->shader->Disable();
-            glFlush();
-
-            my $taken = time - $render_start;
-
-            $frames++;
-            if( int(time) != $frame_second) {
-                $status->set(
-                    text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
-                );
-
-                $frames = 0;
-                $frame_second = int(time);
+            if( ! $default_pipeline ) {
+                # Create a fallback shader so we don't just show a black screen
+                $default_pipeline = init_shaders();
             };
-        };
-
-        # XXX Check if it's time to quit
-
-        # Maybe this should happen asynchronously
-        my %changed;
-        for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
-            $changed{ shader_base( $filename ) } = $filename;
-        };
-        if( keys %changed ) {
-            my @shader = sort { $a cmp $b } values %changed;
-            # Now, find our current shader/effect configuration needs reloading:
-            my( $effect ) = grep { $_->{fragment} eq $shader[0] } @{ $config->{shaders} };
-            if( $effect ) {
-                status("$shader[0] changed, reloading",2);
-                $next_pipeline = activate_shader($effect, undef);
-                if( $next_pipeline ) {
-                    status("$shader[0] changed, reloaded",1);
+    
+            if( ! $pipeline ) {
+                # Set up our shader
+                $pipeline = activate_shader($effect);
+                $VBO_Quad ||= createUnitQuad();
+    
+                use_quad($VBO_Quad,$pipeline);
+            };
+    
+            if( $next_pipeline and $next_pipeline->shader->{program}) {
+                # We have a next shader ready to go, so swap it in and use it
+                status("Swapping in new shader",2);
+                $pipeline = $next_pipeline;
+                undef $next_pipeline;
+            };
+    
+            if( $pipeline ) {
+                glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    
+                $pipeline->shader->Enable();
+                updateShaderVariables($pipeline,$self->width,$self->height);
+    
+                drawUnitQuad_XY();
+                $pipeline->shader->Disable();
+                glFlush();
+    
+                my $taken = time - $render_start;
+    
+                $frames++;
+                if( int(time) != $frame_second) {
+                    $status->set(
+                        text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
+                    );
+    
+                    $frames = 0;
+                    $frame_second = int(time);
                 };
             };
-        };
-    },
-    onMouseDown  => sub { $config->{grab} = 1 },
-    onMouseUp    => sub { $config->{grab} = 0 },
-    onSize => sub {
-        my( $self ) = @_;
-        ( $xres,$yres ) = $self->size;
-    },
-    onClose => sub {
-        undef $pipeline;
-        undef $next_pipeline;
-    },
-);
+    
+            # XXX Check if it's time to quit
+    
+            # Maybe this should happen asynchronously
+            my %changed;
+            for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
+                $changed{ shader_base( $filename ) } = $filename;
+            };
+            if( keys %changed ) {
+                my @shader = sort { $a cmp $b } values %changed;
+                # Now, find our current shader/effect configuration needs reloading:
+                my( $effect ) = grep { $_->{fragment} eq $shader[0] } @{ $config->{shaders} };
+                if( $effect ) {
+                    status("$shader[0] changed, reloading",2);
+                    $next_pipeline = activate_shader($effect, undef);
+                    if( $next_pipeline ) {
+                        status("$shader[0] changed, reloaded",1);
+                    };
+                };
+            };
+        },
+        onMouseDown  => sub { $state->{grab} = 1 },
+        onMouseUp    => sub { $state->{grab} = 0 },
+        onSize => sub {
+            my( $self ) = @_;
+            ( $xres,$yres ) = $self->size;
+        },
+        onClose => sub {
+            undef $pipeline;
+            undef $next_pipeline;
+        },
+    );
+
+    $glWidget->focus if $fullscreen;
+}
+
+sub recreate_gl_widget
+{
+    $glWidget->destroy;
+    undef $pipeline;
+    undef $VBO_Quad;
+    shift->() if $_[0];
+    create_gl_widget();
+}
+
+create_gl_widget();
 
 # Start our timer for displaying an OpenGL frame
 $window->insert( Timer =>
@@ -652,13 +701,13 @@ sub open_file
             ['Shaders' => '*.frag*'],
             ['All files' => '*'],
         ],
-	directory => "$Bin/../shaders",
+        directory => "$Bin/../shaders",
     );
     return unless $opendlg->execute;
     $filename = $opendlg->fileName;
     return message("Not found") unless -f $filename;
 
-    $config = config_from_filename( $filename );
+    config_from_filename( $filename );
     $effect = $config->{shaders}->[0];
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
