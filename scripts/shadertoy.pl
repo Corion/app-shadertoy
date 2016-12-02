@@ -16,7 +16,7 @@ use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
-use Prima qw( Application GLWidget Label );
+use Prima qw( Application GLWidget Label FileDialog MsgBox);
 use App::ShaderToy::FileWatcher;
 use App::ShaderToy::Effect;
 
@@ -405,6 +405,11 @@ if( $config_file ) {
 };
 
 my $window = Prima::MainWindow->create(
+    menuItems => [['~File' => [
+    	[ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
+        [],
+    	[ 'E~xit' => 'Alt+X' => '@X' => 'close' ],
+    ]]],
     width     => $config->{window}->{width},
     height    => $config->{window}->{height},
     onTop     => $stay_always_on_top,
@@ -637,6 +642,25 @@ $window->insert( Timer =>
 )->start;
 
 Prima->run;
+
+my $opendlg;
+sub open_file
+{
+    $opendlg //= Prima::OpenDialog->new(
+        filter => [
+            ['Shaders' => '*.shader'],
+            ['All files' => '*'],
+        ],
+    );
+    return unless $opendlg->execute;
+    $filename = $opendlg->fileName;
+    return message("Not found") unless -f $filename;
+
+    $config = config_from_filename( $filename );
+    $effect = $config->{shaders}->[0];
+    $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+    $pipeline = undef;
+}
 
 =head1 ARGUMENTS
 
