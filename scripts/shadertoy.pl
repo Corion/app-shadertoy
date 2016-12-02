@@ -23,6 +23,7 @@ use App::ShaderToy::Effect;
 use YAML 'LoadFile';
 use File::Basename qw(basename dirname);
 use Cwd;
+use FindBin qw($Bin);
 
 use Filter::signatures;
 use feature 'signatures';
@@ -408,7 +409,7 @@ my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
     	[ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
         [],
-    	[ 'E~xit' => 'Alt+X' => '@X' => 'close' ],
+    	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift-> close }],
     ]]],
     width     => $config->{window}->{width},
     height    => $config->{window}->{height},
@@ -648,9 +649,10 @@ sub open_file
 {
     $opendlg //= Prima::OpenDialog->new(
         filter => [
-            ['Shaders' => '*.shader'],
+            ['Shaders' => '*.frag*'],
             ['All files' => '*'],
         ],
+	directory => "$Bin/../shaders",
     );
     return unless $opendlg->execute;
     $filename = $opendlg->fileName;
