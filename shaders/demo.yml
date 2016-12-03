@@ -15,3 +15,10 @@ shaders:
     - title: Testcard by Max Maischein
       fragment: testbild.fragment
       duration: 240
+    - title: Ultra Liquid Bokeh by Weyland
+      fragment: ultra-liquid-bokeh.fragment
+      duration: 240
+    - title: Foggy Mountain by ???
+      fragment: foggy-mountain.fragment
+      channels:
+          - ../demo/tex11.png
