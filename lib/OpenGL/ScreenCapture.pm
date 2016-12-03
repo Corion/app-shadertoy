@@ -70,14 +70,16 @@ sub capture(%options) {
 
     if( $options{ format } eq 'Prima' ) {
         require Prima;
-        return Prima::Image->new(
+        my $i = Prima::Image->new(
             width    => $options{width},
             height   => $options{height},
+	);
+	$i->set(
             type     => im::Color() | im::bpp32() | im::fmtBGRI(),
             lineSize => $options{width}*4,
             data     => $buffer,
         );
-
+	return $i;
     } elsif( $options{ format } eq 'Imager' ) {
         require Imager;
         my $i = Imager->new(
