@@ -47,8 +47,6 @@ These will all be picked up by the `cpanm` tool.
 
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
 Copyright (C) 2016 by Max Maischein
 
 This library is free software; you can redistribute it and/or modify
