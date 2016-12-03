@@ -16,9 +16,9 @@ shaders:
       fragment: testbild.frag
       duration: 240
     - title: Ultra Liquid Bokeh by Weyland
-      fragment: ultra-liquid-bokeh.fragment
+      fragment: ultra-liquid-bokeh.frag
       duration: 240
     - title: Foggy Mountain by ???
-      fragment: foggy-mountain.fragment
+      fragment: foggy-mountain.frag
       channels:
           - ../demo/tex11.png
