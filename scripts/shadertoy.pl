@@ -428,6 +428,19 @@ my $window = Prima::MainWindow->create(
                 $window->Timer->start;
             }
         } ],
+        [ '~Save screenshot' => 'F5' => 'F5' => sub {
+            my $template = 'capture%03d.png';
+            my $idx = 1;
+
+            my $name;
+            do {
+                $name = sprintf $template, $idx++;
+            } until not -f $name;
+
+            capture()->save($name)
+                or die "error saving screen to '$name': $@";
+            status("Saved to '$name'");
+        } ],
         [],
     	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift-> close }],
     ]]],
@@ -444,19 +457,6 @@ my $window = Prima::MainWindow->create(
         if( $key == kb::F11 ) {
             my @wsaverect = $self-> rect;
             $self->rect( 0, 0, $self->owner->size);
-
-        } elsif( $key == kb::F5 ) {
-            my $template = 'capture%03d.png';
-            my $idx = 1;
-
-            my $name;
-            do {
-                $name = sprintf $template, $idx++;
-            } until not -f $name;
-
-            capture()->save($name)
-                or die "error saving screen to '$name': $@";
-            status("Saved to '$name'");
 
         } elsif( $key == kb::Left ) {
             $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
@@ -567,34 +567,23 @@ sub create_gl_widget
 
     unless ( $fullscreen ) {
         %param = (
-            owner      => $window,
             growMode   => gm::Client,
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
     } else {
         my $primary = $::application->get_monitor_rects->[0];
         %param = (
-            owner      => $::application,
+	    clipOwner  => 0,
             origin     => [@{$primary}[0,1]],
             size       => [@{$primary}[2,3]],
             onLeave    => \&leave_fullscreen,
-            accelItems => [
-                [ 'fs', '', km::Alt|kb::Enter, \&leave_fullscreen ],
-                [ 'pp', '', kb::Space, sub {
-                   if ( $paused = $window->menu->toggle('pause') ) {
-                       $window->Timer->stop;
-                   } else {
-                       $window->Timer->start;
-                   }
-                } ],
-            ],
-            selectable => 1,
         );
     }
    
     $glWidget = Prima::GLWidget->new(
         #pack    => { expand => 1, fill => 'both'},
         %param,
+        owner      => $window,
         gl_config => {
             pixels => 'rgba',
             color_bits => 32,
