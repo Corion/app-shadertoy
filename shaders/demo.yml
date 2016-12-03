@@ -5,15 +5,15 @@ window:
 duration: 180
 shaders:
     - title: Orbital Flight by Jerome Liard, August 2016
-      fragment: orbital-flight.fragment
+      fragment: orbital-flight.frag
       duration: 240
       channels:
           - ../demo/tex16.png
     - title: Seascape by TDM
-      fragment: seascape.fragment
+      fragment: seascape.frag
       duration: 240
     - title: Testcard by Max Maischein
-      fragment: testbild.fragment
+      fragment: testbild.frag
       duration: 240
     - title: Ultra Liquid Bokeh by Weyland
       fragment: ultra-liquid-bokeh.fragment
