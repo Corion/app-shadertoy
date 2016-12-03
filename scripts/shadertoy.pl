@@ -555,14 +555,15 @@ $glWidget = $window->insert(
 
         my $render_start = time;
 
-        if( ! $initialized ) {
+        if( ! $glInitialized ) {
+            # Initialize Glew. onCreate is too early unfortunately
             my $err = OpenGL::Glew::glewInit();
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
             };
             status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
             status( glGetString(GL_VERSION));
-            $initialized = 1;
+            $glInitialized = 1;
         };
 
         if( ! $default_pipeline ) {
