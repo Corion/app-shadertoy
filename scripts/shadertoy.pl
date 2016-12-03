@@ -538,6 +538,7 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
         status("Watching files is enabled");
         App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
     };
+    $started = time();
 
     $res
 }
