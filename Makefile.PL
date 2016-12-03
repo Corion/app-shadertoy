@@ -43,7 +43,7 @@ WriteMakefile(
       'Time::Slideshow'         => '0.01',
 
       'Carp' => 0,
-    }, # e.g., Module::Name => 1.1
+    },
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
     AUTHOR            => 'Max Maischein <corion@cpan.org>',
     LICENSE           => 'perl',
@@ -57,7 +57,9 @@ WriteMakefile(
     },
     XSPROTOARG => '-prototypes',
     depend => {
-      'Glew.c' => 'Glew.xs auto-xs.inc src/glew.c include/GL/glew.h include/GL/wglew.h',
+      'Glew.c' => join( ' ',
+                    'Glew.xs','auto-xs.inc','src/glew.c',
+                    'include/GL/glew.h','include/GL/wglew.h')
     },
 );
 if  (eval {require ExtUtils::Constant; 1}) {
