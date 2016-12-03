@@ -470,9 +470,10 @@ my $window = Prima::MainWindow->create(
     },
 );
 
-sub set_shadername( $shadername ) {
-    my $shadername_vis = defined $shadername ? $shadername : '<default shader>';
-
+sub set_shadername( $effect ) {
+    my $shadername_vis = exists $effect->{title} 
+                       ? $effect->{title}
+                       : '<default shader>';
     $window->set(
         text => "$shadername_vis - ShaderToy",
     );
@@ -521,7 +522,7 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
             return undef
         }
     };
-    set_shadername( $effect->{title} );
+    set_shadername( $effect );
 
     # Load some textures if they are configured for the shader
     if( $res->channels and ! eval {
