@@ -462,10 +462,6 @@ my $window = Prima::MainWindow->create(
         }
     },
 );
-#$window->set(
-#    top => 1000,
-#    left => 128,
-#);
 
 sub set_shadername( $shadername ) {
     my $shadername_vis = defined $shadername ? $shadername : '<default shader>';
