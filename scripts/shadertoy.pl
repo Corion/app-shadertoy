@@ -405,7 +405,7 @@ if( $config_file ) {
     $config = load_config($config_file);
 };
 
-my $initialized;
+my ($initialized, $paused);
 
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
@@ -417,6 +417,14 @@ my $window = Prima::MainWindow->create(
         [ ( $fullscreen ? '*' : '') . 'fullscreen', '~Fullscreen', 'Alt+Enter', km::Alt|kb::Enter, sub { 
             my ( $window, $menu ) = @_;
             recreate_gl_widget( sub { $fullscreen = $window->menu->toggle($menu)});
+        } ],
+        [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
+            my ( $window, $menu ) = @_;
+            if ( $paused = $window->menu->toggle($menu) ) {
+                $window->Timer->stop;
+            } else {
+                $window->Timer->start;
+            }
         } ],
         [],
     	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift-> close }],
@@ -686,6 +694,7 @@ create_gl_widget();
 # Start our timer for displaying an OpenGL frame
 $window->insert( Timer =>
     timeout => 5,
+    name    => 'Timer',
     onTick  => sub {
         $glWidget->repaint;
     }
