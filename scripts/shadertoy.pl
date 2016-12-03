@@ -8,6 +8,7 @@ use strict;
 use Time::HiRes 'time';
 use Getopt::Long;
 use Pod::Usage;
+use Time::Slideshow;
 
 use OpenGL::Glew ':all';
 use OpenGL::Shader::OpenGL4;
@@ -42,7 +43,6 @@ as the vertex and tesselation shaders respectively.
 
 =cut
 
-# TO-DO: Add playlist (and other configuration) support using Time::Slideshow
 # TO-DO: Add "free" time between frames
 # TO-DO: Render function into bitmap (set FBO)
 #          http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
@@ -392,10 +392,25 @@ my $config = {
         height => 480,
     },
     shaders => [],
+    delay => 0,
 };
 if( $config_file ) {
     status( "Using config file '$config_file'", 1 );
     $config = load_config($config_file);
+};
+
+sub get_slideshow( $config ) {
+    my $slideshow= Time::Slideshow->new(
+        starttime => 0,
+        slides    => $config->{shaders},
+        shuffle   => 0, # pseudo-rng
+        duration  => $config->{duration},
+    );
+    $slideshow
+};
+
+if( @{ $config->{shaders}} > 1 ) {
+    $state->{slideshow} = get_slideshow( $config );
 };
 
 my $window = Prima::MainWindow->create(
@@ -428,10 +443,12 @@ my $window = Prima::MainWindow->create(
 
         } elsif( $key == kb::Left ) {
             $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
 
         } elsif( $key == kb::Right ) {
             $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
 
         } elsif( $key == kb::Esc ) {
@@ -592,7 +609,8 @@ $glWidget = $window->insert(
 
         # XXX Check if it's time to quit
 
-        # Maybe this should happen asynchronously
+        # Maybe this should happen asynchronously instead of in
+        # the 16ms paint loop
         my %changed;
         for my $filename (App::ShaderToy::FileWatcher::files_changed()) {
             $changed{ shader_base( $filename ) } = $filename;
@@ -608,6 +626,10 @@ $glWidget = $window->insert(
                     status("$shader[0] changed, reloaded",1);
                 };
             };
+        } elsif( $state->{slideshow} and $state->{slideshow}->current_slide != $effect) {
+            $effect = $state->{slideshow}->current_slide;
+            $next_pipeline = activate_shader($effect, undef);
+            status("Changing to next shader",1);
         };
     },
     onMouseDown  => sub { $config->{grab} = 1 },

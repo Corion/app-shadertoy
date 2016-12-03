@@ -39,6 +39,9 @@ WriteMakefile(
       'File::Basename'          => 0,
       'File::Spec'              => 0,
 
+      # Switching between shaders
+      'Time::Slideshow'         => '0.01',
+
       'Carp' => 0,
     }, # e.g., Module::Name => 1.1
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
