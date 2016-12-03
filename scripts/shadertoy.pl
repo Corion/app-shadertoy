@@ -488,10 +488,10 @@ sub config_from_filename($filename) {
 
 my ($filename)= @ARGV;
 my $effect;
-if( !$filename and $config->{shaders} and $config->{shaders}->[0]) {
-    # nothing to do
-} else {
+if( $filename) {
     $config = config_from_filename( $filename );
+} else {
+    # nothing to do
 };
 $effect = $config->{shaders}->[0];
 
