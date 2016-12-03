@@ -47,8 +47,6 @@ WriteMakefile(
     ABSTRACT_FROM     => 'lib/OpenGL/Glew.pm', # retrieve abstract from module
     AUTHOR            => 'Max Maischein <corion@cpan.org>',
     LICENSE           => 'perl',
-    #Value must be from legacy list of licenses here
-    #http://search.cpan.org/perldoc?Module%3A%3ABuild%3A%3AAPI
 
     LIBS              => "@libs", # e.g., '-lm'
     DEFINE            => $define,
