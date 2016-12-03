@@ -669,4 +669,6 @@ Prima->run;
 
   --watch         watch and reload shaders if a file changes
 
+  --glsl-version  specify version header for shaders
+
 =cut
