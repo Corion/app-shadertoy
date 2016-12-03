@@ -286,7 +286,10 @@ sub createUnitQuad() {
 sub use_quad($VBO_Quad, $pipeline) {
     my $vpos = glGetAttribLocation($pipeline->shader->{program}, 'pos');
     if( $vpos < 0 ) {
-        die "Couldn't get shader attribute 'pos'. Likely your OpenGL version is below 3.3, or there is a compilation error in the shader programs?";
+        die join " ",
+            "Couldn't get shader attribute 'pos'.",
+            "Likely your OpenGL version is below 3.3,",
+            "or there is a compilation error in the shader programs?";
     };
 
     glEnableVertexAttribArray( $vpos );
