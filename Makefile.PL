@@ -8,11 +8,17 @@ my $include = "-I. -Iinclude -Isrc";
 my @libs;
 my $define;
 
-if( os_is('MSWin32')) {
+# We use this to support overriding via %ENV
+sub compile_target {
+    my( $name ) = @_;
+    ($ENV{GLEW_CC_TARGET} eq $name) || os_is( $name );
+}
+
+if( compile_target('MSWin32')) {
     @libs = '-lopengl32 -lgdi32 -lmsimg32';
     $define = "-D_WIN32", # XXX Platform specific
 
-} elsif( os_is('Cygwin')) {
+} elsif( compile_target('Cygwin')) {
     @libs = '-lGL -lX11';
     $define = "-D_WIN32", # XXX Platform specific
 
