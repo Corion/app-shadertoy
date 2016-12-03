@@ -344,17 +344,17 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     $program->setUniform1f( "iGlobalTime", $time);
     $program->setUniform3f( "iResolution", $xres, $yres, 1.0);
     $program->setUniformMatrix4fv( "iModel", 0, 1,0,0,0,
+                                                0,1,0,0,
+                                                0,0,1,0,
+                                                0,0,0,1);
+    $program->setUniformMatrix4fv( "iCamera", 0, 1,0,0,0,
                                                  0,1,0,0,
                                                  0,0,1,0,
                                                  0,0,0,1);
-    $program->setUniformMatrix4fv( "iCamera", 0, 1,0,0,0,
-                                                  0,1,0,0,
-                                                  0,0,1,0,
-                                                  0,0,0,1);
     $program->setUniformMatrix4fv( "iProjection", 0, 1,0,0,0,
-                                                      0,1,0,0,
-                                                      0,0,1,0,
-                                                      0,0,0,1);
+                                                     0,1,0,0,
+                                                     0,0,1,0,
+                                                     0,0,0,1);
 
     if ( $state->{grab} ) {
         my ( $x, $y ) = $glWidget->pointerPos;
