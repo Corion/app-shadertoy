@@ -540,9 +540,9 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
 my $initialized;
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
-    #pack    => { expand => 1, fill => 'both'},
-    growMode => gm::Client,
-    rect => [0, 16, $window->width, $window->height],
+    #pack      => { expand => 1, fill => 'both'},
+    growMode  => gm::Client,
+    rect      => [0, 16, $window->width, $window->height],
     gl_config => {
         pixels => 'rgba',
         color_bits => 32,
