@@ -409,14 +409,16 @@ my ($initialized, $paused);
 
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
-    	[ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
+        [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
         [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub { 
             my ( $window, $menu ) = @_;
-            recreate_gl_widget( sub {  $window->onTop( $window->menu->toggle($menu))});
+            recreate_gl_widget( sub { $window->onTop( $stay_always_on_top = $window->menu->toggle($menu))});
         } ],
         [ ( $fullscreen ? '*' : '') . 'fullscreen', '~Fullscreen', 'Alt+Enter', km::Alt|kb::Enter, sub { 
             my ( $window, $menu ) = @_;
-            recreate_gl_widget( sub { $fullscreen = $window->menu->toggle($menu)});
+            $fullscreen = $window->menu->toggle($menu);
+            $fullscreen ? $window->hide : $window->show if $stay_always_on_top;
+            recreate_gl_widget();
         } ],
         [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
             my ( $window, $menu ) = @_;
@@ -555,6 +557,7 @@ sub leave_fullscreen
 {
      $fullscreen = 0;
      $window->menu->uncheck('fullscreen');
+     $window->show if $stay_always_on_top;
      recreate_gl_widget();
 }
 
