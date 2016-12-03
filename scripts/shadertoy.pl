@@ -541,7 +541,7 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
     $res
 }
 
-my $initialized;
+my $glInitialized;
 $glWidget = $window->insert(
     'Prima::GLWidget' =>
     #pack      => { expand => 1, fill => 'both'},
