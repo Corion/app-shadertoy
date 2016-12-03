@@ -572,13 +572,22 @@ sub create_gl_widget
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
     } else {
-	    my $primary = $::application->get_monitor_rects->[0];
+        my $primary = $::application->get_monitor_rects->[0];
         %param = (
             owner      => $::application,
-		    origin     => [@{$primary}[0,1]],
-		    size       => [@{$primary}[2,3]],
+            origin     => [@{$primary}[0,1]],
+            size       => [@{$primary}[2,3]],
             onLeave    => \&leave_fullscreen,
-            accelItems => [[ 'fs', '', km::Alt|kb::Enter, \&leave_fullscreen ]],
+            accelItems => [
+                [ 'fs', '', km::Alt|kb::Enter, \&leave_fullscreen ],
+                [ 'pp', '', kb::Space, sub {
+                   if ( $paused = $window->menu->toggle('pause') ) {
+                       $window->Timer->stop;
+                   } else {
+                       $window->Timer->start;
+                   }
+                } ],
+            ],
             selectable => 1,
         );
     }
