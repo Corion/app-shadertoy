@@ -233,7 +233,9 @@ GEOMETRY
     return $pipeline;
 };
 
-sub relative_name( $filename, $base_file ) {
+sub absolute_name( $filename, $base_file ) {
+    return unless defined $filename;
+    return $filename unless defined $base_file;
     return File::Spec->rel2abs(
         $filename,
         dirname( $base_file ),
@@ -248,11 +250,11 @@ sub load_config( $config_file ) {
         for my $shader (qw(vertex fragment geometry tessellation tessellation_control)) {
             if( $effect->{$shader}) {
                 $effect->{$shader} 
-                    = relative_name( $effect->{$shader}, $config_file );
+                    = absolute_name( $effect->{$shader}, $config_file );
             };
         };
         for my $texture (@{ $effect->{channels}}) {
-            $texture = relative_name( $texture, $config_file );
+            $texture = absolute_name( $texture, $config_file );
         };
     };
     
