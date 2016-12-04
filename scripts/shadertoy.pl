@@ -571,8 +571,7 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
     $res
 }
 
-sub leave_fullscreen
-{
+sub leave_fullscreen {
      $fullscreen = 0;
      $window->menu->uncheck('fullscreen');
      $window->show if $stay_always_on_top;
@@ -581,8 +580,7 @@ sub leave_fullscreen
 
 my $glInitialized;
 
-sub create_gl_widget
-{
+sub create_gl_widget {
     my %param;
 
     unless ( $fullscreen ) {
@@ -708,12 +706,11 @@ sub create_gl_widget
     $glWidget->focus if $fullscreen;
 }
 
-sub recreate_gl_widget
-{
+sub recreate_gl_widget( $cb ) {
     $glWidget->destroy;
     undef $pipeline;
     undef $VBO_Quad;
-    shift->() if $_[0];
+    $cb->() if $cb;
     create_gl_widget();
 }
 
