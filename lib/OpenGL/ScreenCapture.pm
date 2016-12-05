@@ -27,6 +27,7 @@ no warnings 'experimental::signatures';
 
 =head2 C<< capture >>
 
+    use OpenGL::ScreenCapture 'capture';
     my $image = capture();
     $image->save('screenshot.png');
 
@@ -40,7 +41,7 @@ C<Imager> as an option to get an L<Imager> object back:
 Note that the method names are different between Imager and Prima!
 
 L<Imager> is not a prerequisite of this module and thus is not automatically
-installed.
+installed. It is automatically loaded if you request it.
 
 =cut
 
