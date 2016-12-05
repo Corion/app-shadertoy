@@ -463,6 +463,26 @@ my $window = Prima::MainWindow->create(
                 $window->Timer->start;
             }
         } ],
+        [ 'next' => '~Next shader' => 'Right' => kb::Right => sub($window,$menu,@stuff) {
+            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
+            warn "Setting up next shader $state->{effect}";
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+        } ],
+        [ 'prev' => 'P~revious shader' => 'Left' => kb::Left => sub($window,$menu,@stuff) {
+            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
+            warn "Setting up prev shader $state->{effect}";
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+        } ],
+        [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
+            my ( $window, $menu ) = @_;
+            if ( $paused = $window->menu->toggle($menu) ) {
+                $window->Timer->stop;
+            } else {
+                $window->Timer->start;
+            }
+        } ],
         [ '~Save screenshot' => 'F5' => 'F5' => sub {
             my $template = 'capture%03d.png';
             my $idx = 1;
@@ -486,24 +506,14 @@ my $window = Prima::MainWindow->create(
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
         # XXX Move this into a separate file
-        if( $key == kb::Left ) {
-            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
-            undef $state->{slideshow};
-            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
-
-        } elsif( $key == kb::Right ) {
-            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
-            undef $state->{slideshow};
-            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
-
-        } elsif( $key == kb::Esc ) {
+        if( $key == kb::Esc ) {
             closeWindow( $self );
         }
     },
 );
 
 sub set_shadername( $effect ) {
-    my $shadername_vis = exists $effect->{title} 
+    my $shadername_vis = exists $effect->{title}
                        ? $effect->{title}
                        : '<default shader>';
     $window->set(
@@ -514,19 +524,21 @@ sub set_shadername( $effect ) {
 sub config_from_filename($filename) {
     my $c = $config;
     $c->{shaders} = [{
+        id => 0,
         fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
     }];
     $c
 }
 
 my ($filename)= @ARGV;
-my $effect;
+#my $effect;
 if( $filename ) {
     $config = config_from_filename( $filename );
 } else {
     # nothing to do
 };
-$effect = $config->{shaders}->[0];
+$state->{current_effect} = 0;
+#$effect = $config->{shaders}->[0];
 
 my $status = $window->insert(
     Label => (
