@@ -78,13 +78,14 @@ sub capture(%options) {
         my $i = Prima::Image->new(
             width    => $options{width},
             height   => $options{height},
-	);
-	$i->set(
+        );
+        $i->set(
             type     => im::Color() | im::bpp32() | im::fmtBGRI(),
             lineSize => $options{width}*4,
             data     => $buffer,
         );
-	return $i;
+        return $i;
+
     } elsif( $options{ format } eq 'Imager' ) {
         require Imager;
         my $i = Imager->new(
@@ -106,7 +107,9 @@ sub capture(%options) {
         return $i
 
     } else {
-        croak "Unknown object format option '$options{format}', need 'Prima' or 'Imager'";
+        croak join " ",
+            "Unknown object format option '$options{format}',",
+            "need 'Prima' or 'Imager'";
     };
 }
 
