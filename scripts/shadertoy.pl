@@ -430,6 +430,16 @@ if( @{ $config->{shaders}} > 1 ) {
 };
 my $paused;
 
+sub closeWindow($window) {
+    status("Bye",2);
+    if( $App::ShaderToy::FileWatcher::watcher ) {
+        status("Stopping filesystem watcher thread",2);
+        $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
+        undef $App::ShaderToy::FileWatcher::watcher;
+    };
+    $window->close;
+}
+
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
         [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
@@ -465,7 +475,7 @@ my $window = Prima::MainWindow->create(
             status("Saved to '$name'");
         } ],
         [],
-    	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift->close }],
+    	[ 'E~xit' => 'Alt+X' => '@X' => sub { closeWindow(shift) }],
     ]]],
     width     => $config->{window}->{width},
     height    => $config->{window}->{height},
@@ -485,13 +495,7 @@ my $window = Prima::MainWindow->create(
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
 
         } elsif( $key == kb::Esc ) {
-            status("Bye",2);
-            if( $App::ShaderToy::FileWatcher::watcher ) {
-                status("Stopping filesystem watcher thread",2);
-                $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
-                undef $App::ShaderToy::FileWatcher::watcher;
-            };
-            $::application->close
+            closeWindow( $self );
         }
     },
 );
