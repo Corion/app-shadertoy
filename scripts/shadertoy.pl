@@ -585,18 +585,18 @@ my $glInitialized;
 sub create_gl_widget {
     my %param;
 
-    unless ( $fullscreen ) {
-        %param = (
-            growMode   => gm::Client,
-            rect       => [0, $window->font->height + 4, $window->width, $window->height],
-        );
-    } else {
+    if( $fullscreen ) {
         my $primary = $::application->get_monitor_rects->[0];
         %param = (
 	    clipOwner  => 0,
             origin     => [@{$primary}[0,1]],
             size       => [@{$primary}[2,3]],
             onLeave    => \&leave_fullscreen,
+        );
+    } else {
+        %param = (
+            growMode   => gm::Client,
+            rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
     }
    
