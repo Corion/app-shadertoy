@@ -706,7 +706,7 @@ sub create_gl_widget {
     $glWidget->focus if $fullscreen;
 }
 
-sub recreate_gl_widget( $cb ) {
+sub recreate_gl_widget( $cb=undef ) {
     $glWidget->destroy;
     undef $pipeline;
     undef $VBO_Quad;
