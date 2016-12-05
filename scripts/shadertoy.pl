@@ -55,6 +55,8 @@ as the vertex and tesselation shaders respectively.
 #        ffmpeg -f image2 -framerate 9 -i image_%003d.jpg -vf scale=531x299,transpose=1,crop=299,431,0,100 out.gif
 # TO-DO: Add mp4 and webm export and automatic upload (to wherever)
 # TO-DO: Load shadertoys from the web API: https://www.shadertoy.com/api
+# TO-DO: Keep a configuration per-shader (maybe ${shader}.json) so we can store
+#        textures there. Basically a fragment of the general configuration
 
 GetOptions(
     'fullscreen'       => \my $fullscreen,           # not yet implemented
