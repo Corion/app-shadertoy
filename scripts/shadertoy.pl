@@ -720,7 +720,7 @@ create_gl_widget();
 
 # Start our timer for displaying an OpenGL frame
 $window->insert( Timer =>
-    timeout => 5,
+    timeout => 10,
     name    => 'Timer',
     onTick  => sub {
         $glWidget->repaint;
