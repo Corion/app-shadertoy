@@ -255,10 +255,12 @@ sub load_config( $config_file ) {
     my $conf = LoadFile($config_file);
 
     # Adjust filenames relative to directory of config file:
+    my $id = 0;
     for my $effect (@{$conf->{shaders}}) {
+        $effect->{id} = $id++;
         for my $shader (qw(vertex fragment geometry tessellation tessellation_control)) {
             if( $effect->{$shader}) {
-                $effect->{$shader} 
+                $effect->{$shader}
                     = absolute_name( $effect->{$shader}, $config_file );
             };
         };
