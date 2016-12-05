@@ -740,7 +740,7 @@ sub open_file {
     $filename = $opendlg->fileName;
     return message("Not found") unless -f $filename;
 
-    config_from_filename( $filename );
+    $config = config_from_filename( $filename );
     $effect = $config->{shaders}->[0];
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
