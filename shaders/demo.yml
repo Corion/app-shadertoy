@@ -22,3 +22,11 @@ shaders:
       fragment: foggy-mountain.frag
       channels:
           - ../demo/tex11.png
+    - title: Train Ride by dr2
+      fragment: train-ride.frag
+    - title: Matrix Rain by ???
+      fragment: matrix-rain.frag
+      channels:
+          - ../demo/IMG_3060.jpg
+    - title: Kaliset by ???
+      fragment: kaliset.frag
