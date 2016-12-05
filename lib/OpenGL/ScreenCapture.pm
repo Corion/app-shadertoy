@@ -3,7 +3,7 @@ use strict;
 use Carp 'croak';
 use Exporter 'import';
 use vars qw($VERSION @EXPORT_OK);
-use OpenGL::Modern qw(
+use OpenGL::Glew qw(
     GL_RGBA GL_VIEWPORT
     GL_RGB
     GL_UNSIGNED_BYTE
