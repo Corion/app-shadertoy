@@ -59,7 +59,7 @@ as the vertex and tesselation shaders respectively.
 #        textures there. Basically a fragment of the general configuration
 
 GetOptions(
-    'fullscreen'       => \my $fullscreen,           # not yet implemented
+    'fullscreen'       => \my $fullscreen,
     'duration|d=i'     => \my $duration,             # not yet implemented
     'config|c=s'       => \my $config_file,
     'watch|w'          => \my $watch_file,
