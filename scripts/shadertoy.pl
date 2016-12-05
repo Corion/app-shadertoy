@@ -588,10 +588,10 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
 }
 
 sub leave_fullscreen {
-     $fullscreen = 0;
-     $window->menu->uncheck('fullscreen');
-     $window->show if $stay_always_on_top;
-     recreate_gl_widget();
+    $fullscreen = 0;
+    $window->menu->uncheck('fullscreen');
+    $window->show if $stay_always_on_top;
+    recreate_gl_widget();
 }
 
 my $glInitialized;
@@ -613,7 +613,7 @@ sub create_gl_widget {
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
     }
-   
+
     $glWidget = Prima::GLWidget->new(
         #pack    => { expand => 1, fill => 'both'},
         %param,
