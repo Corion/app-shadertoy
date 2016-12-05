@@ -611,9 +611,9 @@ sub create_gl_widget {
         },
         onPaint => sub {
             my $self = shift;
-    
+
             my $render_start = time;
-    
+
             if( ! $glInitialized ) {
                 # Initialize Glew. onCreate is too early unfortunately
                 my $err = OpenGL::Glew::glewInit();
@@ -624,18 +624,10 @@ sub create_gl_widget {
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
             };
-    
+
             if( ! $default_pipeline ) {
                 # Create a fallback shader so we don't just show a black screen
                 $default_pipeline = init_shaders();
-            };
-
-            if( ! $pipeline ) {
-                # Set up our shader
-                $pipeline = activate_shader($effect);
-                $VBO_Quad ||= createUnitQuad();
-    
-                use_quad($VBO_Quad,$pipeline);
             };
 
             if( $next_pipeline and $next_pipeline->shader->{program}) {
@@ -644,32 +636,41 @@ sub create_gl_widget {
                 $pipeline = $next_pipeline;
                 undef $next_pipeline;
             };
-    
+
+            if( ! $pipeline ) {
+                # Set up our shader
+                my $effect = $config->{ shaders }->[ $state->{current_effect} ];
+                $pipeline = activate_shader($effect);
+                $VBO_Quad ||= createUnitQuad();
+
+                use_quad($VBO_Quad,$pipeline);
+            };
+
             if( $pipeline ) {
                 glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    
+
                 $pipeline->shader->Enable();
                 updateShaderVariables($pipeline,$self->width,$self->height);
-    
+
                 drawUnitQuad_XY();
                 $pipeline->shader->Disable();
                 glFlush();
-    
+
                 my $taken = time - $render_start;
-    
+
                 $frames++;
                 if( int(time) != $frame_second) {
                     $status->set(
                         text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
                     );
-    
+
                     $frames = 0;
                     $frame_second = int(time);
                 };
             };
-    
+
             # XXX Check if it's time to quit
-    
+
             # Maybe this should happen asynchronously instead of in
             # the 16ms paint loop
             my %changed;
