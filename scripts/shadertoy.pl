@@ -465,7 +465,7 @@ my $window = Prima::MainWindow->create(
             status("Saved to '$name'");
         } ],
         [],
-    	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift-> close }],
+    	[ 'E~xit' => 'Alt+X' => '@X' => sub { shift->close }],
     ]]],
     width     => $config->{window}->{width},
     height    => $config->{window}->{height},
@@ -474,11 +474,7 @@ my $window = Prima::MainWindow->create(
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
         # XXX Move this into a separate file
-        if( $key == kb::F11 ) {
-            my @wsaverect = $self-> rect;
-            $self->rect( 0, 0, $self->owner->size);
-
-        } elsif( $key == kb::Left ) {
+        if( $key == kb::Left ) {
             $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
             undef $state->{slideshow};
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
