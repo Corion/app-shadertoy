@@ -537,8 +537,7 @@ if( $filename ) {
 } else {
     # nothing to do
 };
-$state->{current_effect} = 0;
-#$effect = $config->{shaders}->[0];
+$state->{effect} = 0;
 
 my $status = $window->insert(
     Label => (
@@ -653,7 +652,7 @@ sub create_gl_widget {
 
             if( ! $pipeline ) {
                 # Set up our shader
-                my $effect = $config->{ shaders }->[ $state->{current_effect} ];
+                my $effect = $config->{ shaders }->[ $state->{effect} ];
                 $pipeline = activate_shader($effect);
                 $VBO_Quad ||= createUnitQuad();
 
@@ -702,8 +701,9 @@ sub create_gl_widget {
                         status("$shader[0] changed, reloaded",1);
                     };
                 };
-            } elsif( $state->{slideshow} and $state->{slideshow}->current_slide != $effect) {
-                $effect = $state->{slideshow}->current_slide;
+            } elsif( $state->{slideshow} and $state->{slideshow}->current_slide->{id} != $state->{effect}) {
+                my $effect = $state->{slideshow}->current_slide;
+                $state->{effect} = $effect->{id};
                 $next_pipeline = activate_shader($effect, undef);
                 status("Changing to next shader",1);
             };
@@ -758,7 +758,7 @@ sub open_file {
     return message("Not found") unless -f $filename;
 
     $config = config_from_filename( $filename );
-    $effect = $config->{shaders}->[0];
+    $state->{effect} = 0;
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
 }
