@@ -255,10 +255,12 @@ sub load_config( $config_file ) {
     my $conf = LoadFile($config_file);
 
     # Adjust filenames relative to directory of config file:
+    my $id = 0;
     for my $effect (@{$conf->{shaders}}) {
+        $effect->{id} = $id++;
         for my $shader (qw(vertex fragment geometry tessellation tessellation_control)) {
             if( $effect->{$shader}) {
-                $effect->{$shader} 
+                $effect->{$shader}
                     = absolute_name( $effect->{$shader}, $config_file );
             };
         };
@@ -443,15 +445,35 @@ sub closeWindow($window) {
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
         [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
-        [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub { 
+        [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub {
             my ( $window, $menu ) = @_;
             recreate_gl_widget( sub { $window->onTop( $stay_always_on_top = $window->menu->toggle($menu))});
         } ],
-        [ ( $fullscreen ? '*' : '') . 'fullscreen', '~Fullscreen', 'Alt+Enter', km::Alt|kb::Enter, sub { 
+        [ ( $fullscreen ? '*' : '') . 'fullscreen', '~Fullscreen', 'Alt+Enter', km::Alt|kb::Enter, sub {
             my ( $window, $menu ) = @_;
             $fullscreen = $window->menu->toggle($menu);
             $fullscreen ? $window->hide : $window->show if $stay_always_on_top;
             recreate_gl_widget();
+        } ],
+        [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
+            my ( $window, $menu ) = @_;
+            if ( $paused = $window->menu->toggle($menu) ) {
+                $window->Timer->stop;
+            } else {
+                $window->Timer->start;
+            }
+        } ],
+        [ 'next' => '~Next shader' => 'Right' => kb::Right => sub($window,$menu,@stuff) {
+            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
+            warn "Setting up next shader $state->{effect}";
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
+        } ],
+        [ 'prev' => 'P~revious shader' => 'Left' => kb::Left => sub($window,$menu,@stuff) {
+            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
+            undef $state->{slideshow};
+            warn "Setting up prev shader $state->{effect}";
+            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
         } ],
         [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
             my ( $window, $menu ) = @_;
@@ -484,24 +506,14 @@ my $window = Prima::MainWindow->create(
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
         # XXX Move this into a separate file
-        if( $key == kb::Left ) {
-            $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
-            undef $state->{slideshow};
-            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
-
-        } elsif( $key == kb::Right ) {
-            $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
-            undef $state->{slideshow};
-            $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
-
-        } elsif( $key == kb::Esc ) {
+        if( $key == kb::Esc ) {
             closeWindow( $self );
         }
     },
 );
 
 sub set_shadername( $effect ) {
-    my $shadername_vis = exists $effect->{title} 
+    my $shadername_vis = exists $effect->{title}
                        ? $effect->{title}
                        : '<default shader>';
     $window->set(
@@ -512,19 +524,20 @@ sub set_shadername( $effect ) {
 sub config_from_filename($filename) {
     my $c = $config;
     $c->{shaders} = [{
+        id => 0,
         fragment => File::Spec->rel2abs( $filename, Cwd::getcwd() ),
     }];
     $c
 }
 
 my ($filename)= @ARGV;
-my $effect;
+#my $effect;
 if( $filename ) {
     $config = config_from_filename( $filename );
 } else {
     # nothing to do
 };
-$effect = $config->{shaders}->[0];
+$state->{effect} = 0;
 
 my $status = $window->insert(
     Label => (
@@ -574,10 +587,10 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
 }
 
 sub leave_fullscreen {
-     $fullscreen = 0;
-     $window->menu->uncheck('fullscreen');
-     $window->show if $stay_always_on_top;
-     recreate_gl_widget();
+    $fullscreen = 0;
+    $window->menu->uncheck('fullscreen');
+    $window->show if $stay_always_on_top;
+    recreate_gl_widget();
 }
 
 my $glInitialized;
@@ -599,7 +612,7 @@ sub create_gl_widget {
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
     }
-   
+
     $glWidget = Prima::GLWidget->new(
         #pack    => { expand => 1, fill => 'both'},
         %param,
@@ -611,9 +624,9 @@ sub create_gl_widget {
         },
         onPaint => sub {
             my $self = shift;
-    
+
             my $render_start = time;
-    
+
             if( ! $glInitialized ) {
                 # Initialize Glew. onCreate is too early unfortunately
                 my $err = OpenGL::Glew::glewInit();
@@ -624,18 +637,10 @@ sub create_gl_widget {
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
             };
-    
+
             if( ! $default_pipeline ) {
                 # Create a fallback shader so we don't just show a black screen
                 $default_pipeline = init_shaders();
-            };
-
-            if( ! $pipeline ) {
-                # Set up our shader
-                $pipeline = activate_shader($effect);
-                $VBO_Quad ||= createUnitQuad();
-    
-                use_quad($VBO_Quad,$pipeline);
             };
 
             if( $next_pipeline and $next_pipeline->shader->{program}) {
@@ -644,32 +649,41 @@ sub create_gl_widget {
                 $pipeline = $next_pipeline;
                 undef $next_pipeline;
             };
-    
+
+            if( ! $pipeline ) {
+                # Set up our shader
+                my $effect = $config->{ shaders }->[ $state->{effect} ];
+                $pipeline = activate_shader($effect);
+                $VBO_Quad ||= createUnitQuad();
+
+                use_quad($VBO_Quad,$pipeline);
+            };
+
             if( $pipeline ) {
                 glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    
+
                 $pipeline->shader->Enable();
                 updateShaderVariables($pipeline,$self->width,$self->height);
-    
+
                 drawUnitQuad_XY();
                 $pipeline->shader->Disable();
                 glFlush();
-    
+
                 my $taken = time - $render_start;
-    
+
                 $frames++;
                 if( int(time) != $frame_second) {
                     $status->set(
                         text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
                     );
-    
+
                     $frames = 0;
                     $frame_second = int(time);
                 };
             };
-    
+
             # XXX Check if it's time to quit
-    
+
             # Maybe this should happen asynchronously instead of in
             # the 16ms paint loop
             my %changed;
@@ -687,8 +701,9 @@ sub create_gl_widget {
                         status("$shader[0] changed, reloaded",1);
                     };
                 };
-            } elsif( $state->{slideshow} and $state->{slideshow}->current_slide != $effect) {
-                $effect = $state->{slideshow}->current_slide;
+            } elsif( $state->{slideshow} and $state->{slideshow}->current_slide->{id} != $state->{effect}) {
+                my $effect = $state->{slideshow}->current_slide;
+                $state->{effect} = $effect->{id};
                 $next_pipeline = activate_shader($effect, undef);
                 status("Changing to next shader",1);
             };
@@ -743,7 +758,7 @@ sub open_file {
     return message("Not found") unless -f $filename;
 
     $config = config_from_filename( $filename );
-    $effect = $config->{shaders}->[0];
+    $state->{effect} = 0;
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
 }
