@@ -466,13 +466,13 @@ my $window = Prima::MainWindow->create(
         [ 'next' => '~Next shader' => 'Right' => kb::Right => sub($window,$menu,@stuff) {
             $state->{effect} = ($state->{effect} + 1) % @{ $config->{shaders} };
             undef $state->{slideshow};
-            warn "Setting up next shader $state->{effect}";
+            status("Setting up next shader $state->{effect}",2);
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
         } ],
         [ 'prev' => 'P~revious shader' => 'Left' => kb::Left => sub($window,$menu,@stuff) {
             $state->{effect} = ($state->{effect} + @{$config->{shaders}} -1) % @{ $config->{shaders} };
             undef $state->{slideshow};
-            warn "Setting up prev shader $state->{effect}";
+            status("Setting up prev shader $state->{effect}",2);
             $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
         } ],
         [ 'pause' => '~Play/Pause' => 'Space' => kb::Space => sub {
