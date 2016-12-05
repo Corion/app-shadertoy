@@ -22,6 +22,7 @@ use feature 'signatures';
 no warnings 'experimental::signatures';
 
 @EXPORT_OK=('capture');
+$VERSION = '0.01';
 
 =head1 FUNCTIONS
 
