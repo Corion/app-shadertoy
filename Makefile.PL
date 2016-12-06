@@ -64,7 +64,7 @@ WriteMakefile(
     XSPROTOARG => '-prototypes',
     depend => {
       'Glew.c' => join( ' ',
-                    'Glew.xs','auto-xs.inc','src/glew.c',
+                    'Glew.xs','auto-xs.inc','src/glew.c', 'src/glew-context.c',
                     'include/GL/glew.h','include/GL/wglew.h')
     },
 );
