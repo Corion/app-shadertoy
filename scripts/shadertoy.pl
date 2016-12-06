@@ -432,8 +432,7 @@ if( @{ $config->{shaders}} > 1 ) {
 };
 my $paused;
 
-sub unwatch
-{
+sub unwatch {
     if( $App::ShaderToy::FileWatcher::watcher ) {
         status("Stopping filesystem watcher thread",2);
         $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
@@ -441,14 +440,12 @@ sub unwatch
     };
 }
 
-sub watch
-{
+sub watch {
     unwatch();
     my $effect = $config->{ shaders }->[ $state->{effect} ];
     return unless defined $effect->{fragment};
     App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
 }
-
 
 sub closeWindow($window) {
     status("Bye",2);
