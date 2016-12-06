@@ -432,13 +432,27 @@ if( @{ $config->{shaders}} > 1 ) {
 };
 my $paused;
 
-sub closeWindow($window) {
-    status("Bye",2);
+sub unwatch
+{
     if( $App::ShaderToy::FileWatcher::watcher ) {
         status("Stopping filesystem watcher thread",2);
         $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
         undef $App::ShaderToy::FileWatcher::watcher;
     };
+}
+
+sub watch
+{
+    unwatch();
+    my $effect = $config->{ shaders }->[ $state->{effect} ];
+    return unless defined $effect->{fragment};
+    App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
+}
+
+
+sub closeWindow($window) {
+    status("Bye",2);
+    unwatch;
     $window->close;
 }
 
@@ -496,6 +510,10 @@ my $window = Prima::MainWindow->create(
                 or die "error saving screen to '$name': $@";
             status("Saved to '$name'");
         } ],
+        [ ( $watch_file ? '*' : '') . 'watch' => '~Watch for file changes' => sub {
+            my ( $window, $menu ) = @_;
+            ($watch_file = $window->menu->toggle($menu)) ? watch : unwatch;
+        } ],
         [],
     	[ 'E~xit' => 'Alt+X' => '@X' => sub { closeWindow(shift) }],
     ]]],
@@ -510,6 +528,7 @@ my $window = Prima::MainWindow->create(
             closeWindow( $self );
         }
     },
+    onDestroy => sub { unwatch() },
 );
 
 sub set_shadername( $effect ) {
@@ -534,6 +553,10 @@ my ($filename)= @ARGV;
 #my $effect;
 if( $filename ) {
     $config = config_from_filename( $filename );
+    if( $watch_file ) {
+        status("Watching files is enabled");
+        watch();
+    };
 } else {
     # nothing to do
 };
@@ -577,10 +600,6 @@ sub activate_shader( $effect, $fallback_default = 1 ) {
         warn "Couldn't load all textures: $@";
     };
 
-    if( $watch_file ) {
-        status("Watching files is enabled");
-        App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
-    };
     $started = time();
 
     $res
@@ -761,6 +780,7 @@ sub open_file {
     $state->{effect} = 0;
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
+    watch if $watch_file;
 }
 
 =head1 ARGUMENTS
