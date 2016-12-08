@@ -4,9 +4,15 @@ use ExtUtils::MakeMaker;
 use Config '%Config';
 use Devel::CheckOS 'os_is';
 
-my $include = "-I. -Iinclude -Isrc";
-my @libs;
-my $define;
+use Getopt::Long;
+GetOptions(
+    'libs:s' => \my @libs,
+    'include:s' => \my $include,
+    'define:s' => \my $define,
+);
+
+$include = $ENV{INCLUDE} || "-I. -Iinclude -Isrc"
+    if ! defined $include;
 
 # We use this to support overriding via %ENV
 sub compile_target {
@@ -15,16 +21,16 @@ sub compile_target {
 }
 
 if( compile_target('MSWin32')) {
-    @libs = '-lopengl32 -lgdi32 -lmsimg32';
-    $define = "-D_WIN32", # XXX Platform specific
+    @libs = '-lopengl32 -lgdi32 -lmsimg32' if !@libs;
+    $define ||= "-D_WIN32", # XXX Platform specific
 
 } elsif( compile_target('Cygwin')) {
-    @libs = '-lGL -lX11';
-    $define = "-D_WIN32", # XXX Platform specific
+    @libs = '-lGL -lX11' if !@libs;
+    $define ||= "-D_WIN32", # XXX Platform specific
 
 } else {
     # This might not work on MacOS / OSX, but until I get other reports...
-    @libs = '-lGL -lX11';
+    @libs = '-lGL -lX11' if !@libs;
 };
 
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
