@@ -1,7 +1,7 @@
 package OpenGL::Texture;
 use strict;
 use Imager;
-use OpenGL::Glew qw(
+use OpenGL::Modern qw(
     glGenTextures
     glActiveTexture
     glBindTexture
@@ -20,7 +20,7 @@ use OpenGL::Glew qw(
     GL_TEXTURE_BASE_LEVEL
     GL_TEXTURE_MAX_LEVEL
 );
-use OpenGL::Glew::Helpers (qw(xs_buffer croak_on_gl_error glGetVersion_p));
+use OpenGL::Modern::Helpers (qw(xs_buffer croak_on_gl_error glGetVersion_p));
 
 use Filter::signatures;
 use feature 'signatures';

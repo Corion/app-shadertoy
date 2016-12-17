@@ -1,5 +1,5 @@
 {
-   "abstract" : "Perl extension for blah blah blah",
+   "abstract" : "Prima application for displaying shader toys",
    "author" : [
       "Max Maischein <corion@cpan.org>"
    ],
@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "OpenGL-Glew",
+   "name" : "App-ShaderToy",
    "no_index" : {
       "directory" : [
          "t",
@@ -27,19 +27,38 @@
       },
       "configure" : {
          "requires" : {
-            "Devel::CheckOS" : "0",
             "ExtUtils::MakeMaker" : "0"
          }
       },
       "runtime" : {
          "requires" : {
             "Carp" : "0",
-            "OpenGL" : "0.58",
-            "Prima" : "0",
-            "Prima::OpenGL" : "0.07"
+            "File::Basename" : "0",
+            "File::Spec" : "0",
+            "Filesys::Notify::Simple" : "0",
+            "Filter::signatures" : "0.06",
+            "OpenGL::Modern" : "0.01",
+            "Prima" : "1.49",
+            "Prima::OpenGL" : "0.07",
+            "Thread::Queue" : "0",
+            "Time::Slideshow" : "0.01",
+            "perl" : "5.006",
+            "threads" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Test::More" : "0"
          }
       }
    },
    "release_status" : "stable",
+   "resources" : {
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/Corion/app-shadertoy.git",
+         "web" : "https://github.com/Corion/app-shadertoy"
+      }
+   },
    "version" : "0.01"
 }

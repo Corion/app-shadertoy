@@ -10,10 +10,10 @@ use Getopt::Long;
 use Pod::Usage;
 use Time::Slideshow;
 
-use OpenGL::Glew ':all';
+use OpenGL::Modern ':all';
 use OpenGL::Shader::OpenGL4;
 use OpenGL::Texture;
-use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
+use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
 use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
@@ -644,12 +644,12 @@ sub create_gl_widget {
             my $render_start = time;
 
             if( ! $glInitialized ) {
-                # Initialize Glew. onCreate is too early unfortunately
-                my $err = OpenGL::Glew::glewInit();
+                # Initialize OpenGL::Modern. onCreate is too early unfortunately
+                my $err = OpenGL::Modern::glewInit();
                 if( $err != GLEW_OK ) {
                     die "Couldn't initialize Glew: ".glewGetErrorString($err);
                 };
-                status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+                status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
             };

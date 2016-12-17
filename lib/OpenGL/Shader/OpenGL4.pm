@@ -1,8 +1,8 @@
 package OpenGL::Shader::OpenGL4;
 use strict;
 use Carp qw(croak);
-use OpenGL::Glew ':all';
-use OpenGL::Glew::Helpers qw(
+use OpenGL::Modern ':all';
+use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
 

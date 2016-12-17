@@ -3,7 +3,7 @@ use strict;
 use Carp 'croak';
 use Exporter 'import';
 use vars qw($VERSION @EXPORT_OK);
-use OpenGL::Glew qw(
+use OpenGL::Modern qw(
     GL_RGBA GL_VIEWPORT
     GL_RGB
     GL_UNSIGNED_BYTE
@@ -15,7 +15,7 @@ use OpenGL::Glew qw(
     glGetIntegerv
     glPixelStorei
 );
-use OpenGL::Glew::Helpers qw(xs_buffer);
+use OpenGL::Modern::Helpers qw(xs_buffer);
 
 use Filter::signatures;
 use feature 'signatures';

@@ -12,7 +12,8 @@ Glew.o
 *.bs
 *.tdy
 *.ERR
-Filter-signatures-*/
+App-ShaderToy-*/
+App-ShaderToy-*
 .releaserc
 cover_db
 firefox-versions/
