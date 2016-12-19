@@ -10,6 +10,21 @@ use Future;
 use Future::HTTP;
 use URI::Escape;
 
+=head1 NAME
+
+WWW::ShaderToy - access the https://www.shadertoy.com API
+
+=head1 SYNOPSIS
+
+  my $api = WWW::ShaderToy->new(
+    api_key => $ENV{SHADERTOY_API_KEY},
+  );
+
+  my $seascape = $api->by_shader_id('MdcSzX')->get;
+  print $seascape->{Shader}->{info}->{name}, "\n"; # Seascape VR
+
+=cut
+
 $base_url = 'https://www.shadertoy.com/';
 
 has base_url => (
