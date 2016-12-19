@@ -50,7 +50,7 @@ WriteMakefile1(
       'OpenGL::Modern'          => '0.01',
       'Prima'                   => '1.49',
       'Prima::OpenGL'           => '0.07',
-      'Filter::signatures'      => '0.06', # for empty function signatures
+      'Filter::signatures'      => '0.08', # for functions without signatures
 
       # Hot code reloading:
       'threads'                 => 0,
