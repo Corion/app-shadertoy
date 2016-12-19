@@ -24,3 +24,4 @@ shaders/seascape.frag
 shaders/texture-display.frag
 shaders/texture-mix.frag
 shaders/ultra-liquid-bokeh.frag
+t/www-shadertoy-02-basic.t

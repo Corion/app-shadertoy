@@ -1,12 +1,14 @@
 package WWW::ShaderToy;
 use strict;
-use JSON;
-use Moo => 2.0; # we don't want fatal warnings
+use JSON 'from_json';
+use Moo 2.0; # we don't want fatal warnings
 use vars qw($VERSION $base_url);
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
+use Future;
 use Future::HTTP;
+use URI::Escape;
 
 $base_url = 'https://www.shadertoy.com/';
 
@@ -41,26 +43,28 @@ sub add_key( $self, $url ) {
     $url . '?key=' . $self->api_key
 }
 
-sub process_result( $self, $response ) {
-    json_decode( $response )
-}
-
-sub request( $self, $endpoint, %options ) {
-    my $uri = $self->api_endpoint( $endpoint ) . 
-    $self->ua->request( $uri )
+sub request( $self, $method, $endpoint, %options ) {
+    my $uri = $self->api_endpoint( $endpoint );
+    $uri = $self->add_key($uri);
+    $self->ua->http_request( $method, $uri )
+    ->then(sub($body, $headers) {
+        my @decoded = from_json($body);
+        Future->done(@decoded);
+    })
 }
 
 sub shaders( $self, %options ) {
-    $self->request( 'shaders', %options )
+    $self->request( 'GET', 'shaders', %options )
 }
 
-sub by_shader_id( $self, $id ) {
-    $self->request( 'shaders', %options )
+sub by_shader_id( $self, $id, %options ) {
+    my $str = sprintf 'shaders/%s', uri_escape($id);
+    $self->request( 'GET', $str, %options )
 }
 
 sub find_shaders( $self, $string, %options ) {
     my $str = sprintf 'shaders/query/%s', uri_escape($string);
-    $self->request( $str, %options )
+    $self->request( 'GET', $str, %options )
 }
 
 1;
