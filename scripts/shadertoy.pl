@@ -18,8 +18,12 @@ use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
 use Prima qw( Application GLWidget Label FileDialog MsgBox);
+use Prima::Application;
 use App::ShaderToy::FileWatcher;
 use App::ShaderToy::Effect;
+
+use AnyEvent::Impl::Prima;
+use WWW::ShaderToy;
 
 use YAML 'LoadFile';
 use File::Basename qw(basename dirname);
@@ -167,7 +171,7 @@ my $default_fragment_shader = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 uv = fragCoord.xy / iResolution.xy;
-    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
+    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),cos(iGlobalTime)); // 1.0
 }
 FRAGMENT
 
@@ -453,6 +457,8 @@ sub closeWindow($window) {
     $window->close;
 }
 
+my $window;
+=for later
 my $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
         [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
@@ -527,14 +533,18 @@ my $window = Prima::MainWindow->create(
     },
     onDestroy => sub { unwatch() },
 );
+=cut
+
 
 sub set_shadername( $effect ) {
     my $shadername_vis = exists $effect->{title}
                        ? $effect->{title}
                        : '<default shader>';
-    $window->set(
-        text => "$shadername_vis - ShaderToy",
-    );
+    if( $window ) {
+        $window->set(
+            text => "$shadername_vis - ShaderToy",
+        );
+    };
 }
 
 sub config_from_filename($filename) {
@@ -546,9 +556,46 @@ sub config_from_filename($filename) {
     $c
 }
 
+my $next_web_shader;
+sub config_from_shader($id) {
+    my $api = WWW::ShaderToy->new(
+        api_key => $ENV{SHADERTOY_API_KEY},
+    );
+    $next_web_shader = $api->by_shader_id($id)->on_ready(sub($f) {
+        status("Retrieving shader",0);
+        my $s = $f->get;
+        my $shader = $s->{Shader};
+        eval {
+        status( "Received web shader $shader->{Shader}->{info}->{name}", 0 );
+        use Data::Dumper;
+        #warn "Shader: ". Dumper $shader->{Shader};
+            my $c = $config;
+            $c->{shaders} = [{
+                id => 0,
+                fragment => $shader->{renderpass}->[0]->{code},
+                channels => $shader->{renderpass}->[0]->{inputs},
+                title    => $shader->{info}->{name},
+            }];
+            $state->{effect} = 0;
+            status( "Activating $id from web",0 );
+            warn Dumper $c;
+            activate_shader($c->{shaders}->[0]);
+            undef $next_web_shader;
+        };
+        warn "Web error: $@" if $@;
+        return ()
+    });
+    return $config;
+};
+
 my ($filename)= @ARGV;
-#my $effect;
-if( $filename ) {
+if( $filename and length($filename) == 6 ) {
+    # Well, that's a shadertoy shader id, isn't it?!
+    status( "Loading shader $filename from web",0 );
+    $config = config_from_shader( $filename );
+
+} elsif( $filename ) {
+    # Must be a file
     $config = config_from_filename( $filename );
     if( $watch_file ) {
         status("Watching files is enabled");
@@ -559,7 +606,9 @@ if( $filename ) {
 };
 $state->{effect} = 0;
 
-my $status = $window->insert(
+my $status;
+if($window) {
+ $status = $window->insert(
     Label => (
         # growMode => gm::Client,
         geometry => gt::Place,
@@ -574,6 +623,7 @@ my $status = $window->insert(
         text => '00.0 fps',
     ),
 );
+};
 
 sub activate_shader( $effect, $fallback_default = 1 ) {
     my $res = init_shaders( $effect );
@@ -623,21 +673,32 @@ sub create_gl_widget {
             onLeave    => \&leave_fullscreen,
         );
     } else {
+    if( $window) {
         %param = (
             growMode   => gm::Client,
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
+        };
     }
 
-    $glWidget = Prima::GLWidget->new(
+%param = (size => [480,320]);
+
+	#$win->effects({ dwm_blur => {
+	#	enable  => 1,
+	#	mask    => $i,
+	#}});
+
+    $glWidget = $::application->insert( GLWidget =>
         #pack    => { expand => 1, fill => 'both'},
         %param,
-        owner      => $window,
-        gl_config => {
-            pixels => 'rgba',
-            color_bits => 32,
-            depth_bits => 24,
-        },
+        #owner      => $window,
+        #layered => 1,
+        #owner      => $::application,
+        #gl_config => {
+        #    pixels => 'rgba',
+        #    color_bits => 32,
+        #    depth_bits => 24,
+        #},
         onPaint => sub {
             my $self = shift;
 
@@ -676,19 +737,20 @@ sub create_gl_widget {
             };
 
             if( $pipeline ) {
-                glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+                #glClearColor(0,0,0,1);
+                #glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
                 $pipeline->shader->Enable();
                 updateShaderVariables($pipeline,$self->width,$self->height);
 
                 drawUnitQuad_XY();
                 $pipeline->shader->Disable();
-                glFlush();
+                #glFlush();
 
                 my $taken = time - $render_start;
 
                 $frames++;
-                if( int(time) != $frame_second) {
+                if( int(time) != $frame_second and $status) {
                     $status->set(
                         text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
                     );
@@ -750,13 +812,21 @@ sub recreate_gl_widget( $cb=undef ) {
 create_gl_widget();
 
 # Start our timer for displaying an OpenGL frame
-$window->insert( Timer =>
+#$window->insert( Timer =>
+$::application->insert( Timer =>
     timeout => 10,
     name    => 'Timer',
     onTick  => sub {
         $glWidget->repaint;
     }
 )->start;
+
+my $t = AnyEvent->timer(
+    after => 1,
+    interval => 1,
+    cb => sub {
+        print ".\n";
+});
 
 Prima->run;
 
