@@ -1,7 +1,25 @@
 package OpenGL::Shader::OpenGL4;
 use strict;
 use Carp qw(croak);
-use OpenGL::Modern ':all';
+use OpenGL::Modern qw(
+    GL_ACTIVE_UNIFORMS
+    GL_COMPILE_STATUS
+    GL_LINK_STATUS
+    GL_FALSE
+    GL_TRUE
+    GL_COMPUTE_SHADER
+    GL_FRAGMENT_SHADER
+    GL_GEOMETRY_SHADER
+    GL_TESS_CONTROL_SHADER
+    GL_TESS_EVALUATION_SHADER
+    GL_VERTEX_SHADER
+    
+    glShaderSource_p
+    glCreateShader
+    glCompileShader
+    glGetShaderiv_c
+    glGetError
+);
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
@@ -121,10 +139,9 @@ sub Load($self, %shaders) {
         croak_on_gl_error;
 
         #warn "Got $shader shader $id, setting source";
-        glShaderSource(
-            $id, 1,
-            pack_GLstrings( $shaders{ $shader } ),
-            pack_ptr( my $shader_length, 8 )
+        glShaderSource_p(
+            $id,
+            $shaders{ $shader },
         );
         croak_on_gl_error;
 
@@ -132,7 +149,7 @@ sub Load($self, %shaders) {
         glCompileShader($id);
         croak_on_gl_error;
 
-        glGetShaderiv( $id, GL_COMPILE_STATUS, xs_buffer( my $ok, 8 ) );
+        glGetShaderiv_c( $id, GL_COMPILE_STATUS, xs_buffer( $ok, 8 ) );
         $ok = unpack 'I', $ok;
         if( $ok == GL_FALSE ) {
             my $log = glGetShaderInfoLog_p($id);

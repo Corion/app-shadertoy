@@ -2,11 +2,11 @@ package OpenGL::Texture;
 use strict;
 use Imager;
 use OpenGL::Modern qw(
-    glGenTextures
+    glGenTextures_c
     glActiveTexture
     glBindTexture
-    glTexImage2D
-    glTexSubImage2D
+    glTexImage2D_c
+    glTexSubImage2D_c
     glTexStorage2D
     GL_TEXTURE_2D
     GL_TEXTURE
@@ -70,7 +70,7 @@ sub new($class,%options) {
 sub id($self) {
     my $id = $self->{id};
     if( ! defined $id ) {
-        glGenTextures( 1, xs_buffer(my $new_id,8 ));
+        glGenTextures_c( 1, xs_buffer(my $new_id,8 ));
         croak_on_gl_error;
         $self->{id} = unpack 'I', $new_id;
         $id = $self->{id};
@@ -102,7 +102,7 @@ sub store($self,%options) {
                        $options{width},
                        $options{height}
         );
-        glTexSubImage2D(GL_TEXTURE_2D,
+        glTexSubImage2D_c(GL_TEXTURE_2D,
                      0,
                      0,
                      0,
@@ -117,7 +117,7 @@ sub store($self,%options) {
         # OpenGL 1.2 to OpenGL 3
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_BASE_LEVEL, 0);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAX_LEVEL, 0);
-        glTexImage2D(GL_TEXTURE_2D,
+        glTexImage2D_c(GL_TEXTURE_2D,
                      0,
                      $options{ target_format } || $self->{target_format},
                      $options{ width },

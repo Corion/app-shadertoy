@@ -10,9 +10,9 @@ use OpenGL::Modern qw(
     GL_UNPACK_ALIGNMENT
     GL_PACK_ALIGNMENT
     glGetError
-    glReadPixels
+    glReadPixels_c
     glReadBuffer
-    glGetIntegerv
+    glGetIntegerv_c
     glPixelStorei
 );
 use OpenGL::Modern::Helpers qw(xs_buffer);
@@ -54,7 +54,7 @@ sub capture(%options) {
     $options{ format } ||= 'Prima';
 
     if( not exists $options{ width } or not exists $options{height} ) {
-        glGetIntegerv( GL_VIEWPORT, xs_buffer(my $viewport, 32 ));
+        glGetIntegerv_c( GL_VIEWPORT, xs_buffer(my $viewport, 32 ));
         my($x,$y,$w,$h) = unpack 'IIII', $viewport;
         $options{width} ||= $w;
         $options{height} ||= $h;
@@ -64,7 +64,7 @@ sub capture(%options) {
     };
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glPixelStorei(GL_PACK_ALIGNMENT, 1);
-    glReadPixels(
+    glReadPixels_c(
         $options{x},
         $options{y},
         $options{width},

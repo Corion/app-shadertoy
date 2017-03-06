@@ -9,6 +9,7 @@ no warnings 'experimental::signatures';
 use Future;
 use Future::HTTP;
 use URI::Escape;
+use Data::Dumper;
 
 =head1 NAME
 
@@ -61,6 +62,7 @@ sub add_key( $self, $url ) {
 sub request( $self, $method, $endpoint, %options ) {
     my $uri = $self->api_endpoint( $endpoint );
     $uri = $self->add_key($uri);
+    warn $uri;
     $self->ua->http_request( $method, $uri )
     ->then(sub($body, $headers) {
         my @decoded = from_json($body);

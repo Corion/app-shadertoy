@@ -42,6 +42,7 @@ This module requires these other modules and libraries:
 
   Prima
   Prima::OpenGL 0.07
+  OpenGL::Modern 0.03
 
 These will all be picked up by the `cpanm` tool.
 
