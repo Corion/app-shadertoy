@@ -4,8 +4,10 @@ use Test::More tests => 6;
 use WWW::ShaderToy;
 use Data::Dumper;
 
-skip BAIL_OUT, ""
-    unless $ENV{SHADERTOY_API_KEY};
+if( !$ENV{SHADERTOY_API_KEY} ) {
+    diag "No Shadertoy.org API key found in \%ENV";
+    skip BAIL_OUT;
+};
 
 my $api = WWW::ShaderToy->new(
     api_key => $ENV{SHADERTOY_API_KEY},
