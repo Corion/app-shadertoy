@@ -149,6 +149,7 @@ sub Load($self, %shaders) {
         glCompileShader($id);
         croak_on_gl_error;
 
+        my $ok;
         glGetShaderiv_c( $id, GL_COMPILE_STATUS, xs_buffer( $ok, 8 ) );
         $ok = unpack 'I', $ok;
         if( $ok == GL_FALSE ) {
