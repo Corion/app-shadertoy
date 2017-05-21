@@ -19,7 +19,7 @@ regen_README($main_file);
 
 my @tests = map { glob $_ } 't/*.t', 't/*/*.t';
 
-WriteMakefile1(
+my %module = (
     NAME                => $module,
     AUTHOR              => q{Max Maischein <corion@cpan.org>},
     VERSION_FROM        => $main_file,
@@ -33,8 +33,10 @@ WriteMakefile1(
                 type => 'git',
             }
         },
+        dynamic_config   => 0, # we promise to keep META.* up-to-date
+        x_static_install => 1, # we are pure Perl and don't do anything fancy
     },
-    
+
     MIN_PERL_VERSION => '5.006',
 
     ($eumm_version >= 6.3001
@@ -62,6 +64,10 @@ WriteMakefile1(
       # Switching between shaders
       'Time::Slideshow'         => '0.01',
 
+      # Download shaders via HTTP
+      'Future' => 0,
+      'Future::HTTP' => 0,
+
       'Carp' => 0,
     },
     TEST_REQUIRES => {
@@ -73,6 +79,19 @@ WriteMakefile1(
 
     test            => { TESTS => join( ' ', @tests ) },
 );
+
+# This is so that we can do
+#     require 'Makefile.PL'
+# and then call get_module_info
+
+sub get_module_info { %module }
+
+if( ! caller ) {
+    # I should maybe use something like Shipwright...
+    regen_README($main_file);
+    #regen_EXAMPLES();
+    WriteMakefile1(get_module_info);
+};
 
 1;
 
@@ -99,7 +118,7 @@ sub WriteMakefile1 {  #Written by Alexandr Ciornii, version 0.21. Added by eumm-
     delete $params{AUTHOR} if $] < 5.005;
     delete $params{ABSTRACT_FROM} if $] < 5.005;
     delete $params{BINARY_LOCATION} if $] < 5.005;
-    
+
     WriteMakefile(%params);
 }
 
