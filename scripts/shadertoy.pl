@@ -13,7 +13,7 @@ use Time::Slideshow;
 use OpenGL::Modern ':all';
 use OpenGL::Shader::OpenGL4;
 use OpenGL::Texture;
-use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
+use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat iv_ptr );
 use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
@@ -286,24 +286,24 @@ my $VAO;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad() {
-    glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
+    glGenVertexArrays_c( 1,  iv_ptr(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
-    glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
+    glObjectLabel_c(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
     status("Created VAO: " . glGetError,2);
 
-    glGenBuffers( 1, xs_buffer($buffer, 8));
+    glGenBuffers_c( 1, iv_ptr($buffer, 8));
     my $VBO_Quad = (unpack 'I', $buffer)[0];
     glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
-    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
+    glBufferData_c(GL_ARRAY_BUFFER, length $vertices, iv_ptr($vertices), GL_STATIC_DRAW);
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );     # Not supported on Win10+Intel...
-    glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
+    glObjectLabel_c(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
 
     $VBO_Quad
 }
 
 sub use_quad($VBO_Quad, $pipeline) {
-    my $vpos = glGetAttribLocation($pipeline->shader->{program}, 'pos');
+    my $vpos = glGetAttribLocation_c($pipeline->shader->{program}, 'pos');
     if( $vpos < 0 ) {
         die join " ",
             "Couldn't get shader attribute 'pos'.",
@@ -312,7 +312,7 @@ sub use_quad($VBO_Quad, $pipeline) {
     };
 
     glEnableVertexAttribArray( $vpos );
-    glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+    glVertexAttribPointer_c( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
 };

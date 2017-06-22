@@ -17,20 +17,29 @@ use OpenGL::Modern qw(
     glShaderSource_p
     glCreateShader
     glCompileShader
-    glGetShaderiv_c
     glGetError
+    glCreateProgram
+    glAttachShader
+    glLinkProgram
+    glGetActiveUniform_c
+    glUseProgram
+    glProgramUniform1f
+    glProgramUniform3f
 );
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
 
     pack_ptr
+    iv_ptr
     pack_GLstrings
     pack_GLint
     xs_buffer
     croak_on_gl_error
 
     glGetVersion_p
+    glGetShaderiv_p
+    glGetProgramiv_p
 );
 use Filter::signatures;
 use feature 'signatures';
@@ -149,10 +158,7 @@ sub Load($self, %shaders) {
         glCompileShader($id);
         croak_on_gl_error;
 
-        my $ok;
-        glGetShaderiv_c( $id, GL_COMPILE_STATUS, xs_buffer( $ok, 8 ) );
-        $ok = unpack 'I', $ok;
-        if( $ok == GL_FALSE ) {
+        if( glGetShaderiv_p( $id, GL_COMPILE_STATUS) == GL_FALSE ) {
             my $log = glGetShaderInfoLog_p($id);
 
             #croak $log if $log;
@@ -176,9 +182,7 @@ sub Load($self, %shaders) {
     };
     glLinkProgram($sp);
     my $err = glGetError;
-    glGetProgramiv( $sp, GL_LINK_STATUS, xs_buffer( my $linked, 8 ) );
-    $linked = unpack 'I', $linked;
-    if( $linked != GL_TRUE ) {
+    if( glGetProgramiv_p( $sp, GL_LINK_STATUS) != GL_TRUE ) {
         warn "Something went wrong, looking at log";
         my $log = glGetProgramInfoLog_p($sp);
 
@@ -196,16 +200,15 @@ sub Load($self, %shaders) {
     #glDeleteShader(FragmentShaderID);
 
     # Get all the uniforms and cache them:
-    glGetProgramiv( $sp, GL_ACTIVE_UNIFORMS, xs_buffer( my $count, 8 ) );
-    $count = unpack 'I', $count;
+    my $count = glGetProgramiv_p( $sp, GL_ACTIVE_UNIFORMS);
     for my $index ( 0 .. $count-1 ) {
 
         # Names are maximum 16 chars:
-        glGetActiveUniform(
+        glGetActiveUniform_c(
             $sp, $index, 16,
-            xs_buffer( my $length, 8 ),
-            xs_buffer( my $size,   8 ),
-            xs_buffer( my $type,   8 ),
+            iv_ptr( my $length, 8 ),
+            iv_ptr( my $size,   8 ),
+            iv_ptr( my $type,   8 ),
             xs_buffer( my $name,   16 )
         );
         $length = unpack 'I', $length;
@@ -354,11 +357,11 @@ sub setUniformMatrix4fv( $self, $name, $transpose, @values ) {
             if $self->{ strict_uniforms };
     } else {
         my $buffer = pack 'f*', @values;
-        glProgramUniformMatrix4fv(
-            $self->{ program },
-            $self->{ uniforms }->{ $name },
-            1, $transpose, $buffer
-        );
+        #glProgramUniformMatrix4fv(
+        #    $self->{ program },
+        #    $self->{ uniforms }->{ $name },
+        #    1, $transpose, $buffer
+        #);
         croak_on_gl_error;
     }
 }
