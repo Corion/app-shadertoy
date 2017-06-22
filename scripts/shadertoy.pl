@@ -745,7 +745,7 @@ sub create_gl_widget {
 
                 drawUnitQuad_XY();
                 $pipeline->shader->Disable();
-                #glFlush();
+                glFlush();
 
                 my $taken = time - $render_start;
 
