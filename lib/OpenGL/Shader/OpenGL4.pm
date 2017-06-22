@@ -28,7 +28,7 @@ use OpenGL::Modern qw(
     glDetachShader
     glProgramUniformMatrix4fv_c
     glDeleteProgram
-    glDeleteProgram
+    glDeleteShader
 );
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
