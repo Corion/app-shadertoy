@@ -25,6 +25,7 @@ use OpenGL::Modern qw(
     glUseProgram
     glProgramUniform1f
     glProgramUniform3f
+    glProgramUniform4fv_c
     glDetachShader
     glProgramUniformMatrix4fv_c
     glDeleteProgram
@@ -332,10 +333,10 @@ sub setUniform4fv( $self, $name, $vec ) {
         croak "Unknown shader uniform '$name'"
             if $self->{ strict_uniforms };
     } else {
-        glProgramUniform4fv(
+        glProgramUniform4fv_c(
             $self->{ program },
             $self->{ uniforms }->{ $name },
-            length($vec)/( 4*4 ), $vec
+            length($vec)/( 4*4 ), iv_ptr($vec)
         );
         croak_on_gl_error;
     }
