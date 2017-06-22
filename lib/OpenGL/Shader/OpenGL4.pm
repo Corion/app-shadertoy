@@ -25,6 +25,10 @@ use OpenGL::Modern qw(
     glUseProgram
     glProgramUniform1f
     glProgramUniform3f
+    glDetachShader
+    glProgramUniformMatrix4fv_c
+    glDeleteProgram
+    glDeleteProgram
 );
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
@@ -357,11 +361,11 @@ sub setUniformMatrix4fv( $self, $name, $transpose, @values ) {
             if $self->{ strict_uniforms };
     } else {
         my $buffer = pack 'f*', @values;
-        #glProgramUniformMatrix4fv(
-        #    $self->{ program },
-        #    $self->{ uniforms }->{ $name },
-        #    1, $transpose, $buffer
-        #);
+        glProgramUniformMatrix4fv_c(
+            $self->{ program },
+            $self->{ uniforms }->{ $name },
+            1, $transpose, iv_ptr($buffer)
+        );
         croak_on_gl_error;
     }
 }
