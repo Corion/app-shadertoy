@@ -259,7 +259,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
         float ss3=max(0.0,ringRayNoise(ray,(sposr)*imr,0.001,10.0,mr,time));
         fragColor.xyz += vec3(ss3);*/
-    }
+    };
 
     //fragColor = max( vec4(0.0), fragColor );
     //s+=noiseSpere(ray,vec3(0.0,0.0,3.0),0.96,vec2(mx+1.4,my),vec3(83.23,34.34,67.453));
@@ -267,6 +267,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
     fragColor = max( vec4(0.0), fragColor );
 	fragColor = min( vec4(1.0), fragColor );
+    fragColor.w = 0.5;
 }
 
 //
