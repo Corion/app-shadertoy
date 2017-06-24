@@ -30,6 +30,7 @@ use OpenGL::Modern qw(
     glProgramUniformMatrix4fv_c
     glDeleteProgram
     glDeleteShader
+    glGetUniformLocation_c
 );
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
@@ -218,7 +219,7 @@ sub Load($self, %shaders) {
         );
         $length = unpack 'I', $length;
         $name = substr $name, 0, $length;
-        $self->{ uniforms }->{ $name } = $index;
+        $self->{ uniforms }->{ $name } = glGetUniformLocation_c( $sp, $name);
 
         #warn "$index [$name]";
     };
