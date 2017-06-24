@@ -17,20 +17,35 @@ use OpenGL::Modern qw(
     glShaderSource_p
     glCreateShader
     glCompileShader
-    glGetShaderiv_c
     glGetError
+    glCreateProgram
+    glAttachShader
+    glLinkProgram
+    glGetActiveUniform_c
+    glUseProgram
+    glProgramUniform1f
+    glProgramUniform3f
+    glProgramUniform4fv_c
+    glDetachShader
+    glProgramUniformMatrix4fv_c
+    glDeleteProgram
+    glDeleteShader
+    glGetUniformLocation_c
 );
 use OpenGL::Modern::Helpers qw(
     glGetShaderInfoLog_p
     glGetProgramInfoLog_p
 
     pack_ptr
+    iv_ptr
     pack_GLstrings
     pack_GLint
     xs_buffer
     croak_on_gl_error
 
     glGetVersion_p
+    glGetShaderiv_p
+    glGetProgramiv_p
 );
 use Filter::signatures;
 use feature 'signatures';
@@ -104,7 +119,7 @@ sub DESTROY {
     my @delete_shaders;
     if( $self->{ program } ) {
         glUseProgram(0);
-        for(qw(fragment_id vertex_id gemoetry_id)) {
+        for(qw(fragment_id vertex_id geometry_id)) {
             if( my $id = $self->{ $_ } ) {
                 glDetachShader( $self->{ program }, $id );
 
@@ -149,10 +164,7 @@ sub Load($self, %shaders) {
         glCompileShader($id);
         croak_on_gl_error;
 
-        my $ok;
-        glGetShaderiv_c( $id, GL_COMPILE_STATUS, xs_buffer( $ok, 8 ) );
-        $ok = unpack 'I', $ok;
-        if( $ok == GL_FALSE ) {
+        if( glGetShaderiv_p( $id, GL_COMPILE_STATUS) == GL_FALSE ) {
             my $log = glGetShaderInfoLog_p($id);
 
             #croak $log if $log;
@@ -176,9 +188,7 @@ sub Load($self, %shaders) {
     };
     glLinkProgram($sp);
     my $err = glGetError;
-    glGetProgramiv( $sp, GL_LINK_STATUS, xs_buffer( my $linked, 8 ) );
-    $linked = unpack 'I', $linked;
-    if( $linked != GL_TRUE ) {
+    if( glGetProgramiv_p( $sp, GL_LINK_STATUS) != GL_TRUE ) {
         warn "Something went wrong, looking at log";
         my $log = glGetProgramInfoLog_p($sp);
 
@@ -196,21 +206,20 @@ sub Load($self, %shaders) {
     #glDeleteShader(FragmentShaderID);
 
     # Get all the uniforms and cache them:
-    glGetProgramiv( $sp, GL_ACTIVE_UNIFORMS, xs_buffer( my $count, 8 ) );
-    $count = unpack 'I', $count;
+    my $count = glGetProgramiv_p( $sp, GL_ACTIVE_UNIFORMS);
     for my $index ( 0 .. $count-1 ) {
 
         # Names are maximum 16 chars:
-        glGetActiveUniform(
+        glGetActiveUniform_c(
             $sp, $index, 16,
-            xs_buffer( my $length, 8 ),
-            xs_buffer( my $size,   8 ),
-            xs_buffer( my $type,   8 ),
+            iv_ptr( my $length, 8 ),
+            iv_ptr( my $size,   8 ),
+            iv_ptr( my $type,   8 ),
             xs_buffer( my $name,   16 )
         );
         $length = unpack 'I', $length;
         $name = substr $name, 0, $length;
-        $self->{ uniforms }->{ $name } = $index;
+        $self->{ uniforms }->{ $name } = glGetUniformLocation_c( $sp, $name);
 
         #warn "$index [$name]";
     };
@@ -325,10 +334,10 @@ sub setUniform4fv( $self, $name, $vec ) {
         croak "Unknown shader uniform '$name'"
             if $self->{ strict_uniforms };
     } else {
-        glProgramUniform4fv(
+        glProgramUniform4fv_c(
             $self->{ program },
             $self->{ uniforms }->{ $name },
-            length($vec)/( 4*4 ), $vec
+            length($vec)/( 4*4 ), iv_ptr($vec)
         );
         croak_on_gl_error;
     }
@@ -354,10 +363,10 @@ sub setUniformMatrix4fv( $self, $name, $transpose, @values ) {
             if $self->{ strict_uniforms };
     } else {
         my $buffer = pack 'f*', @values;
-        glProgramUniformMatrix4fv(
+        glProgramUniformMatrix4fv_c(
             $self->{ program },
             $self->{ uniforms }->{ $name },
-            1, $transpose, $buffer
+            1, $transpose, iv_ptr($buffer)
         );
         croak_on_gl_error;
     }
