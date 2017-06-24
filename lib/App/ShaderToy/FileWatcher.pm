@@ -1,7 +1,11 @@
 package App::ShaderToy::FileWatcher;
 use strict;
-eval "use threads;";
-our $enabled = !defined($@);
+
+our $enabled;
+BEGIN {
+    eval "use threads;";
+    $enabled = !defined($@);
+}
 use Thread::Queue;
 use Filesys::Notify::Simple;
 use File::Basename 'dirname';
