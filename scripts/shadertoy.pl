@@ -62,6 +62,7 @@ as the vertex and tesselation shaders respectively.
 
 GetOptions(
     'fullscreen'       => \my $fullscreen,
+    'desktop'          => \my $desktop,
     'duration|d=i'     => \my $duration,             # not yet implemented
     'config|c=s'       => \my $config_file,
     'watch|w'          => \my $watch_file,
@@ -456,8 +457,8 @@ sub closeWindow($window) {
 }
 
 my $window;
-=for later
-my $window = Prima::MainWindow->create(
+if( ! $desktop) {
+    $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
         [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
         [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub {
@@ -530,9 +531,8 @@ my $window = Prima::MainWindow->create(
         }
     },
     onDestroy => sub { unwatch() },
-);
-=cut
-
+    );
+};
 
 sub set_shadername( $effect ) {
     my $shadername_vis = exists $effect->{title}
@@ -679,18 +679,25 @@ sub create_gl_widget {
         };
     }
 
-%param = (size => [480,320]);
 
 	#$win->effects({ dwm_blur => {
 	#	enable  => 1,
 	#	mask    => $i,
 	#}});
 
-    $glWidget = $::application->insert( GLWidget =>
-        #pack    => { expand => 1, fill => 'both'},
+my $parent = $desktop ? $::application : $window;
+
+if( $desktop ) {
+    %param = (size => [640,320]);
+} else {
+    %param = (pack    => { expand => 1, fill => 'both'}),
+}
+
+#    $glWidget = $::application->insert( GLWidget =>
+    $glWidget = $parent->insert( GLWidget =>
         %param,
         #owner      => $window,
-        layered => 1,
+        #layered => 1,
         #owner      => $::application,
         #gl_config => {
         #    pixels => 'rgba',
