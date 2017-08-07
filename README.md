@@ -4,12 +4,9 @@ OpenGL-Glew / App-Shadertoy version 0.01
 ![Seascape Shadertoy](https://github.com/Corion/app-shadertoy/raw/master/demo/shadertoy-01-seascape.gif)
 
 This Perl distribution contains an offline runner for shader toys
-from https://www.shadertoy.com . It also currently includes the
-OpenGL::Glew library, at least until that is merged into the
-mainline OpenGL distribution.
+from https://www.shadertoy.com .
 
-The program requires an OpenGL 4 compatible graphics card. Users of
-Intel integrated graphics will likely not be able to enjoy this.
+The program requires an OpenGL 4 compatible graphics card.
 
 # INSTALLATION
 
@@ -42,7 +39,7 @@ This module requires these other modules and libraries:
 
   Prima
   Prima::OpenGL 0.07
-  OpenGL::Modern 0.03
+  OpenGL::Modern 0.04
 
 These will all be picked up by the `cpanm` tool.
 
