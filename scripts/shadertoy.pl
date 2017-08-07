@@ -821,13 +821,6 @@ $::application->insert( Timer =>
     }
 )->start;
 
-my $t = AnyEvent->timer(
-    after => 1,
-    interval => 1,
-    cb => sub {
-        print ".\n";
-});
-
 Prima->run;
 
 my $opendlg;
