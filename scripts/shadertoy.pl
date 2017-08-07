@@ -11,8 +11,6 @@ use Pod::Usage;
 use Time::Slideshow;
 
 use OpenGL::Modern ':all';
-use OpenGL::Shader::OpenGL4;
-use OpenGL::Texture;
 use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat iv_ptr );
 use OpenGL::ScreenCapture 'capture';
 
