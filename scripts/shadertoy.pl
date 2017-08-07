@@ -692,7 +692,7 @@ sub create_gl_widget {
         #pack    => { expand => 1, fill => 'both'},
         %param,
         #owner      => $window,
-        #layered => 1,
+        layered => 1,
         #owner      => $::application,
         #gl_config => {
         #    pixels => 'rgba',
