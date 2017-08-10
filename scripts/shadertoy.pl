@@ -446,7 +446,11 @@ sub unwatch {
 sub watch {
     unwatch();
     my $effect = $config->{ shaders }->[ $state->{effect} ];
-    return unless defined $effect->{fragment};
+    if( ! $effect->{fragment}) {
+        status("No fragment, nothing to watch");
+        return;
+    };
+    status("Watching '$effect->{fragment}'");
     App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
 }
 
