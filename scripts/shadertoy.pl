@@ -586,6 +586,7 @@ sub config_from_shader($id) {
     return $config;
 };
 
+$state->{effect} = 0;
 my ($filename)= @ARGV;
 if( $filename and length($filename) == 6 ) {
     # Well, that's a shadertoy shader id, isn't it?!
@@ -602,7 +603,6 @@ if( $filename and length($filename) == 6 ) {
 } else {
     # nothing to do
 };
-$state->{effect} = 0;
 
 my $status;
 if($window) {
