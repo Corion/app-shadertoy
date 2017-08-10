@@ -848,6 +848,10 @@ sub open_file {
     watch if $watch_file;
 }
 
+END {
+    unwatch()
+}
+
 =head1 ARGUMENTS
 
   --help          print Options and Arguments
