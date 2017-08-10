@@ -2,7 +2,6 @@ package OpenGL::Texture;
 use strict;
 use Imager;
 use OpenGL::Modern qw(
-    glGenTextures_c
     glActiveTexture
     glBindTexture
     glTexImage2D_c
@@ -20,7 +19,11 @@ use OpenGL::Modern qw(
     GL_TEXTURE_BASE_LEVEL
     GL_TEXTURE_MAX_LEVEL
 );
-use OpenGL::Modern::Helpers (qw(xs_buffer croak_on_gl_error glGetVersion_p));
+use OpenGL::Modern::Helpers (qw(xs_buffer croak_on_gl_error glGetVersion_p
+glGenTextures_p
+pack_ptr
+iv_ptr
+));
 
 use Filter::signatures;
 use feature 'signatures';
@@ -70,9 +73,8 @@ sub new($class,%options) {
 sub id($self) {
     my $id = $self->{id};
     if( ! defined $id ) {
-        glGenTextures_c( 1, xs_buffer(my $new_id,8 ));
+        my $new_id = glGenTextures_p( 1 );
         croak_on_gl_error;
-        $self->{id} = unpack 'I', $new_id;
         $id = $self->{id};
     }
     $id
