@@ -1,10 +1,14 @@
 package App::ShaderToy::FileWatcher;
 use strict;
+    use threads;
 
 our $enabled;
 BEGIN {
-    eval "use threads;";
-    $enabled = !defined($@);
+    $enabled = eval {
+        require threads;
+        threads->import();
+        1
+    };
 }
 use Thread::Queue;
 use Filesys::Notify::Simple;
@@ -25,7 +29,10 @@ App::ShaderToy::FileWatcher - watch files for changes
 use vars qw($reload $watcher %watched_files);
 
 sub watch_files(@files) {
-    return unless $enabled;
+    if( ! $enabled) {
+        warn "Watching not available, threads.pm not loaded";
+        return
+    };
     @files = map { File::Spec->rel2abs( $_, '.' ) } @files;
     my @dirs = map {dirname($_)} @files;
     my %removed_files = %watched_files;
