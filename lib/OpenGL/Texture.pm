@@ -112,7 +112,7 @@ sub store($self,%options) {
                      $options{ height },
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
-                     $buf
+                     unpack 'I', pack 'p', $buf
         );
 
     } else {
@@ -127,13 +127,13 @@ sub store($self,%options) {
                      0,
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
-                     $buf
+                     iv_ptr $buf
         );
     };
 
     # This should also only be done if the GL version is high enough
     if( $options{ name }) {
-        glObjectLabel(GL_TEXTURE,$id, length $options{name},$options{name});
+        #glObjectLabel(GL_TEXTURE,$id, length $options{name},$options{name});
     };
     glBindTexture(GL_TEXTURE_2D,0);
 }
