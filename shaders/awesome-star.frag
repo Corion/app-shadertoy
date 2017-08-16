@@ -267,7 +267,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
     fragColor = max( vec4(0.0), fragColor );
 	fragColor = min( vec4(1.0), fragColor );
-    fragColor.w = 0.5;
+    fragColor.a = length(fragColor.rgb) / 10;
 }
 
 //
