@@ -692,7 +692,9 @@ sub create_gl_widget {
 my $parent = $desktop ? $::application : $window;
 
 if( $desktop ) {
-    %param = (size => [640,320]);
+    my @size = $::application->size;
+    warn $_ for @size;
+    %param = (size => [640,640], origin => [$size[0]-680,$size[1]-680]);
 } else {
     %param = (pack    => { expand => 1, fill => 'both'}),
 }
