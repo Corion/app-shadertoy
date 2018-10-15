@@ -16,6 +16,12 @@ DwmEnableBlurBehindWindow(hWnd, pBlurBehind)
     DWM_BLURBEHIND*  pBlurBehind;
 CODE:
     DWM_BLURBEHIND   test;
+    
+    DWORD style = GetWindowLong(hWnd, GWL_STYLE);
+    style &= ~WS_OVERLAPPEDWINDOW;
+    style |= WS_POPUP;
+    printf("%08x\n", SetWindowLong(hWnd, GWL_STYLE, style));
+    
     HBRUSH bg = (HBRUSH)CreateSolidBrush(0x00000000);
     SetClassLongPtr(hWnd, GCLP_HBRBACKGROUND, (LONG)bg);
     HRGN hRgn = CreateRectRgn(0, 0, -1, -1);
@@ -23,6 +29,9 @@ CODE:
     test.dwFlags = DWM_BB_ENABLE | DWM_BB_BLURREGION;
     test.fEnable = true;
     test.hRgnBlur = hRgn;
+    test.fTransitionOnMaximized = false;
+    //MARGINS margins = {-1};
+    //DwmExtendFrameIntoClientArea(hWnd, &margins);
     //printf("%d\n",sizeof(test));
     //printf("%d\n",sizeof(test.fEnable)); // 4!
     printf("Making hWnd %08x transparent\n", hWnd);

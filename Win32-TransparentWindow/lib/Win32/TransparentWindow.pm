@@ -19,7 +19,7 @@ Win32::TransparentWindow - transparent/translucent windows for Windows 7+
 
 my $initialized;
 sub installDwmEnableBlurBehindWindow() {
-    return if $initialized++;
+    return; # if $initialized++;
     
     $DwmEnableBlurBehindWindow = Win32::API::More->new(
       'dwmapi.dll', 'DwmEnableBlurBehindWindow', 'IP', 'I'
@@ -34,8 +34,8 @@ sub installDwmEnableBlurBehindWindow() {
 # } DWM_BLURBEHIND, *PDWM_BLURBEHIND;
 
 sub enableAlphaChannel( $hDC, %options ) {
-    installDwmEnableBlurBehindWindow();
-    if( $DwmEnableBlurBehindWindow ) {
+    #installDwmEnableBlurBehindWindow();
+    #if( $DwmEnableBlurBehindWindow ) {
         # Remove window Style as well:
         
         #$options{dwFlags} = 7 if not exists $options{ dwFlags };
@@ -50,7 +50,7 @@ sub enableAlphaChannel( $hDC, %options ) {
                        "\x01"
                        ;
         DwmEnableBlurBehindWindow($hDC, $buf);
-    };
+    #};
     return 0
 }
 
