@@ -178,11 +178,12 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     vec3 light = normalize(vec3(0.0,1.0,0.8)); 
              
     // color
-    vec3 color = mix(
-        getSkyColor(dir),
-        getSeaColor(p,n,light,dir,dist),
+    vec4 color = mix(
+        // getSkyColor(dir),
+        vec4( 0,0,0,0 ),
+        vec4(getSeaColor(p,n,light,dir,dist),1.0),
     	pow(smoothstep(0.0,-0.05,dir.y),0.3));
         
     // post
-	fragColor = vec4(pow(color,vec3(0.75)), 1.0);
+	fragColor = color; // vec4(pow(color,vec3(0.75)), 1.0);
 }

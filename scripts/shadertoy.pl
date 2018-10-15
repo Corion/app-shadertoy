@@ -458,6 +458,7 @@ sub closeWindow($window) {
 }
 
 my $window;
+my $glInitialized;
 if( ! $desktop) {
     $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
@@ -536,41 +537,41 @@ if( ! $desktop) {
 
         my $render_start = time;
 
-        if( ! $glInitialized++ ) {
-            my $err = OpenGL::Modern::glewInit();
-            if( $err != GLEW_OK ) {
-                die "Couldn't initialize Glew: ".glewGetErrorString($err);
-            };
-            status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
-            status( glGetString(GL_VERSION));
-            #glClearColor(0.1,0.1,0,0.4);
-    #glEnable(GL_ALPHA_TEST);
-    #glEnable(GL_DEPTH_TEST);
-    #glEnable(GL_COLOR_MATERIAL);
-    #glEnable(GL_BLEND);
-    #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_ALPHA_TEST);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_COLOR_MATERIAL);
-
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glClearColor(0, 0, 0, 0);
-            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    #glViewport(0,0,$window->width,$window->height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    glMatrixMode(GL_MODELVIEW );
-    glLoadIdentity();
-        };
+        #if( !$glInitialized ) {
+        #    my $err = OpenGL::Modern::glewInit();
+        #    if( $err != GLEW_OK ) {
+        #        die "Couldn't initialize Glew: ".glewGetErrorString($err);
+        #    };
+        #    status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
+        #    status( glGetString(GL_VERSION));
+        #    #glClearColor(0.1,0.1,0,0.4);
+        #    #glEnable(GL_ALPHA_TEST);
+        #    #glEnable(GL_DEPTH_TEST);
+        #    #glEnable(GL_COLOR_MATERIAL);
+        #    #glEnable(GL_BLEND);
+        #    #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        #    glEnable(GL_ALPHA_TEST);
+        #    glEnable(GL_DEPTH_TEST);
+        #    glEnable(GL_COLOR_MATERIAL);
+        #
+        #    glEnable(GL_LIGHTING);
+        #    glEnable(GL_LIGHT0);
+        #
+        #    glEnable(GL_BLEND);
+        #    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        #    glClearColor(0, 0, 0, 0);
+        #            glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+        #    #glViewport(0,0,$window->width,$window->height);
+        #    glMatrixMode(GL_PROJECTION);
+        #    glLoadIdentity();
+        #
+        #    glMatrixMode(GL_MODELVIEW );
+        #    glLoadIdentity();
+        #};
 
         if( ! $default_pipeline ) {
             # Create a fallback shader so we don't just show a black screen
-            $default_pipeline = init_shaders();
+            # $default_pipeline = init_shaders();
         };
 
         if( ! $pipeline ) {
@@ -579,22 +580,22 @@ if( ! $desktop) {
             #$VBO_Quad ||= createUnitQuad();
 
             #use_quad($VBO_Quad,$pipeline);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    glPushMatrix();
+            glPushMatrix();
 
-    glColor3f(0, 1, 1);
-    glBegin(GL_TRIANGLES);
-        glColor3f(1.0,0.0,0.0);
-        glVertex3f( 0.0, 1.0, 0.0);
-        glColor3f(0.0,1.0,0.0);
-        glVertex3f(-1.0,-1.0, 0.0);
-        glColor3f(0.0,0.0,1.0);
-        glVertex3f( 1.0,-1.0, 0.0);
-    glEnd();
+            glColor3f(0, 1, 1);
+            glBegin(GL_TRIANGLES);
+                glColor3f(1.0,0.0,0.0);
+                glVertex3f( 0.0, 1.0, 0.0);
+                glColor3f(0.0,1.0,0.0);
+                glVertex3f(-1.0,-1.0, 0.0);
+                glColor3f(0.0,0.0,1.0);
+                glVertex3f( 1.0,-1.0, 0.0);
+            glEnd();
 
-    glPopMatrix();
-    glFlush();
+            glPopMatrix();
+            glFlush();
         };
 
         if( $next_pipeline and $next_pipeline->shader->{program}) {
@@ -647,16 +648,7 @@ if( ! $desktop) {
             };
         };
     },
-);
-
-my $h = $window->get_handle;
-warn $window->get_handle;
-$h =~ s!^0x!!;
-$h = hex $h;
-warn "Unhexed: $h";
-if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
-    warn sprintf "Windows error: %08x / %s", $err, $^E;
-};
+)};
 
 sub set_shadername( $effect ) {
     my $shadername_vis = exists $effect->{title}
@@ -785,34 +777,41 @@ sub leave_fullscreen {
     recreate_gl_widget();
 }
 
-my $glInitialized;
+sub enable_alpha_transparency {
+    my( $item, $description ) = @_;
+    my $h = $item->get_handle;
+    warn sprintf "$description window handle %s", $item->get_handle;
+    $h =~ s!^0x!!;
+    $h = hex $h;
+    if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
+        warn sprintf "Windows error: %08x / %s", $err, $^E;
+    };
+};
+
+my $parent = $desktop ? $::application : $window;
+
 sub create_gl_widget {
     my %param;
 
     if( $fullscreen ) {
         my $primary = $::application->get_monitor_rects->[0];
         %param = (
-	    clipOwner  => 0,
+            clipOwner  => 0,
             origin     => [@{$primary}[0,1]],
             size       => [@{$primary}[2,3]],
             onLeave    => \&leave_fullscreen,
         );
+    } elsif( $desktop ) {
+        %param = (size => [640,320]);
     } else {
-    if( $window) {
-        %param = (
-            growMode   => gm::Client,
-            rect       => [0, $window->font->height + 4, $window->width, $window->height],
-        );
+        if( $window) {
+            %param = (
+                growMode   => gm::Client,
+                rect       => [0, $window->font->height + 4, $window->width, $window->height],
+            );
         };
-    }
-
-my $parent = $desktop ? $::application : $window;
-
-if( $desktop ) {
-    %param = (size => [640,320]);
-} else {
-    %param = (pack    => { expand => 1, fill => 'both'}),
-}
+    };
+    
     $glWidget = $parent->insert( GLWidget =>
         %param,
         owner      => $window,
@@ -826,25 +825,17 @@ if( $desktop ) {
 
             my $render_start = time;
 
-            if( ! $glInitialized ) {
+            if( ! $glInitialized++ ) {
                 # Initialize OpenGL::Modern. onCreate is too early unfortunately
-                my $err = OpenGL::Modern::glewInit();
-                if( $err != GLEW_OK ) {
-                    die "Couldn't initialize Glew: ".glewGetErrorString($err);
-                };
+                #my $err = OpenGL::Modern::glewInit();
+                #if( $err != GLEW_OK ) {
+                #    die "Couldn't initialize Glew: ".glewGetErrorString($err);
+                #};
                 status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
-
-        warn $glWidget->get_handle;
-        $h = $glWidget->get_handle;
-        $h =~ s!^0x!!;
-        $h = hex $h;
-        warn sprintf "Unhexed glWidget: %d / %08x", $h, $h;
-if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
-    warn sprintf "Windows error: %08x / %s", $err, $^E;
-};
-
+                enable_alpha_transparency( $parent, "Parent" );
+                enable_alpha_transparency( $glWidget, "GL Widget" );
             };
 
             if( ! $default_pipeline ) {
@@ -930,7 +921,7 @@ if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
     );
 
     $glWidget->focus if $fullscreen;
-}
+};
 
 sub recreate_gl_widget( $cb=undef ) {
     $glWidget->destroy;
@@ -947,8 +938,8 @@ $::application->insert( Timer =>
     timeout => 10,
     name    => 'Timer',
     onTick  => sub {
-        #$glWidget->repaint;
-        $window->repaint;
+        $glWidget->repaint;
+        #$window->repaint;
     }
 )->start;
 
