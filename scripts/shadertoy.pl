@@ -10,10 +10,10 @@ use Getopt::Long;
 use Pod::Usage;
 use Time::Slideshow;
 
-use OpenGL::Glew ':all';
+use OpenGL::Modern ':all';
 use OpenGL::Shader::OpenGL4;
 use OpenGL::Texture;
-use OpenGL::Glew::Helpers qw( xs_buffer pack_GLint pack_GLfloat );
+use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat iv_ptr );
 use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
@@ -62,6 +62,7 @@ as the vertex and tesselation shaders respectively.
 
 GetOptions(
     'fullscreen'       => \my $fullscreen,
+    'desktop'          => \my $desktop,
     'duration|d=i'     => \my $duration,             # not yet implemented
     'config|c=s'       => \my $config_file,
     'watch|w'          => \my $watch_file,
@@ -169,7 +170,7 @@ my $default_fragment_shader = <<'FRAGMENT';
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
     vec2 uv = fragCoord.xy / iResolution.xy;
-    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),1.0);
+    fragColor = vec4(uv,0.5+0.5*sin(iGlobalTime),cos(iGlobalTime)); // 1.0
 }
 FRAGMENT
 
@@ -284,24 +285,24 @@ my $VAO;
 
 # create a 2D quad Vertex Buffer
 sub createUnitQuad() {
-    glGenVertexArrays( 1,  xs_buffer(my $buffer, 8 ));
+    glGenVertexArrays_c( 1,  iv_ptr(my $buffer, 8 ));
     $VAO = (unpack 'I', $buffer)[0];
     glBindVertexArray($VAO);
-    glObjectLabel(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
+    glObjectLabel_c(GL_VERTEX_ARRAY,$VAO,length "myVAO","myVAO");
     status("Created VAO: " . glGetError,2);
 
-    glGenBuffers( 1, xs_buffer($buffer, 8));
+    glGenBuffers_c( 1, iv_ptr($buffer, 8));
     my $VBO_Quad = (unpack 'I', $buffer)[0];
     glBindBuffer( GL_ARRAY_BUFFER, $VBO_Quad );
-    glBufferData(GL_ARRAY_BUFFER, length $vertices, $vertices, GL_STATIC_DRAW);
+    glBufferData_c(GL_ARRAY_BUFFER, length $vertices, iv_ptr($vertices), GL_STATIC_DRAW);
     #glNamedBufferData( $VBO_Quad, length $vertices, $vertices, GL_STATIC_DRAW );     # Not supported on Win10+Intel...
-    glObjectLabel(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
+    glObjectLabel_c(GL_BUFFER,$VBO_Quad,length "my triangles","my triangles");
 
     $VBO_Quad
 }
 
 sub use_quad($VBO_Quad, $pipeline) {
-    my $vpos = glGetAttribLocation($pipeline->shader->{program}, 'pos');
+    my $vpos = glGetAttribLocation_c($pipeline->shader->{program}, 'pos');
     if( $vpos < 0 ) {
         die join " ",
             "Couldn't get shader attribute 'pos'.",
@@ -310,7 +311,7 @@ sub use_quad($VBO_Quad, $pipeline) {
     };
 
     glEnableVertexAttribArray( $vpos );
-    glVertexAttribPointer( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
+    glVertexAttribPointer_c( $vpos, 2, GL_FLOAT, GL_FALSE, 0, 0 );
 
     glBindBuffer(GL_ARRAY_BUFFER, $VBO_Quad);
 };
@@ -434,17 +435,31 @@ if( @{ $config->{shaders}} > 1 ) {
 };
 my $paused;
 
-sub closeWindow($window) {
+sub unwatch {
     status("Bye",2);
     if( $App::ShaderToy::FileWatcher::watcher ) {
         status("Stopping filesystem watcher thread",2);
         $App::ShaderToy::FileWatcher::watcher->kill('KILL')->detach;
         undef $App::ShaderToy::FileWatcher::watcher;
     };
+}
+
+sub watch {
+    unwatch();
+    my $effect = $config->{ shaders }->[ $state->{effect} ];
+    return unless defined $effect->{fragment};
+    App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
+}
+
+sub closeWindow($window) {
+    status("Bye",2);
+    unwatch;
     $window->close;
 }
 
-my $window = Prima::MainWindow->create(
+my $window;
+if( ! $desktop) {
+    $window = Prima::MainWindow->create(
     menuItems => [['~File' => [
         [ '~Open' => 'Ctrl+O' => '^O' => \&open_file ],
         [ ( $stay_always_on_top ? '*' : '') . 'top', 'Stay on ~top', sub {
@@ -498,6 +513,10 @@ my $window = Prima::MainWindow->create(
                 or die "error saving screen to '$name': $@";
             status("Saved to '$name'");
         } ],
+        [ ( $watch_file ? '*' : '') . 'watch' => '~Watch for file changes' => sub {
+            my ( $window, $menu ) = @_;
+            ($watch_file = $window->menu->toggle($menu)) ? watch : unwatch;
+        } ],
         [],
     	[ 'E~xit' => 'Alt+X' => '@X' => sub { closeWindow(shift) }],
     ]]],
@@ -518,26 +537,26 @@ my $window = Prima::MainWindow->create(
         my $render_start = time;
 
         if( ! $glInitialized++ ) {
-            my $err = OpenGL::Glew::glewInit();
+            my $err = OpenGL::Modern::glewInit();
             if( $err != GLEW_OK ) {
                 die "Couldn't initialize Glew: ".glewGetErrorString($err);
             };
-            status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+            status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
             status( glGetString(GL_VERSION));
             #glClearColor(0.1,0.1,0,0.4);
-    #glEnable(GL_ALPHA_TEST);        
-    #glEnable(GL_DEPTH_TEST);        
+    #glEnable(GL_ALPHA_TEST);
+    #glEnable(GL_DEPTH_TEST);
     #glEnable(GL_COLOR_MATERIAL);
-    #glEnable(GL_BLEND);             
+    #glEnable(GL_BLEND);
     #glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_ALPHA_TEST);        
-    glEnable(GL_DEPTH_TEST);        
+    glEnable(GL_ALPHA_TEST);
+    glEnable(GL_DEPTH_TEST);
     glEnable(GL_COLOR_MATERIAL);
 
-    glEnable(GL_LIGHTING);          
-    glEnable(GL_LIGHT0);            
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
 
-    glEnable(GL_BLEND);             
+    glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0, 0, 0, 0);
             glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -565,13 +584,13 @@ my $window = Prima::MainWindow->create(
     glPushMatrix();
 
     glColor3f(0, 1, 1);
-    glBegin(GL_TRIANGLES);                             
-        glColor3f(1.0,0.0,0.0);                     
-        glVertex3f( 0.0, 1.0, 0.0);                 
-        glColor3f(0.0,1.0,0.0);                     
-        glVertex3f(-1.0,-1.0, 0.0);                 
-        glColor3f(0.0,0.0,1.0);                     
-        glVertex3f( 1.0,-1.0, 0.0);                 
+    glBegin(GL_TRIANGLES);
+        glColor3f(1.0,0.0,0.0);
+        glVertex3f( 0.0, 1.0, 0.0);
+        glColor3f(0.0,1.0,0.0);
+        glVertex3f(-1.0,-1.0, 0.0);
+        glColor3f(0.0,0.0,1.0);
+        glVertex3f( 1.0,-1.0, 0.0);
     glEnd();
 
     glPopMatrix();
@@ -643,9 +662,11 @@ sub set_shadername( $effect ) {
     my $shadername_vis = exists $effect->{title}
                        ? $effect->{title}
                        : '<default shader>';
+    if( $window ) {
     $window->set(
         text => "$shadername_vis - ShaderToy",
     );
+    };
 }
 
 sub config_from_filename($filename) {
@@ -657,17 +678,58 @@ sub config_from_filename($filename) {
     $c
 }
 
+my $next_web_shader;
+sub config_from_shader($id) {
+    my $api = WWW::ShaderToy->new(
+        api_key => $ENV{SHADERTOY_API_KEY},
+    );
+    $next_web_shader = $api->by_shader_id($id)->on_ready(sub($f) {
+        status("Retrieving shader",0);
+        my $s = $f->get;
+        my $shader = $s->{Shader};
+        eval {
+        status( "Received web shader $shader->{Shader}->{info}->{name}", 0 );
+        use Data::Dumper;
+        #warn "Shader: ". Dumper $shader->{Shader};
+            my $c = $config;
+            $c->{shaders} = [{
+                id => 0,
+                fragment => $shader->{renderpass}->[0]->{code},
+                channels => $shader->{renderpass}->[0]->{inputs},
+                title    => $shader->{info}->{name},
+            }];
+            $state->{effect} = 0;
+            status( "Activating $id from web",0 );
+            warn Dumper $c;
+            activate_shader($c->{shaders}->[0]);
+            undef $next_web_shader;
+        };
+        warn "Web error: $@" if $@;
+        return ()
+    });
+    return $config;
+};
+
 my ($filename)= @ARGV;
-#my $effect;
-if( $filename ) {
+if( $filename and length($filename) == 6 ) {
+    # Well, that's a shadertoy shader id, isn't it?!
+    status( "Loading shader $filename from web",0 );
+    $config = config_from_shader( $filename );
+
+} elsif( $filename ) {
+    # Must be a file
     $config = config_from_filename( $filename );
+    if( $watch_file ) {
+        status("Watching files is enabled");
+        watch();
+    };
 } else {
     # nothing to do
 };
 $state->{effect} = 0;
 
 my $status;
-if(0) {
+if($window) {
 $status = $window->insert(
     Label => (
         # growMode => gm::Client,
@@ -724,7 +786,6 @@ sub leave_fullscreen {
 }
 
 my $glInitialized;
-
 sub create_gl_widget {
     my %param;
 
@@ -737,14 +798,22 @@ sub create_gl_widget {
             onLeave    => \&leave_fullscreen,
         );
     } else {
+    if( $window) {
         %param = (
             growMode   => gm::Client,
             rect       => [0, $window->font->height + 4, $window->width, $window->height],
         );
+        };
     }
 
-    $glWidget = Prima::GLWidget->new(
-        #pack    => { expand => 1, fill => 'both'},
+my $parent = $desktop ? $::application : $window;
+
+if( $desktop ) {
+    %param = (size => [640,320]);
+} else {
+    %param = (pack    => { expand => 1, fill => 'both'}),
+}
+    $glWidget = $parent->insert( GLWidget =>
         %param,
         owner      => $window,
         gl_config => {
@@ -758,15 +827,15 @@ sub create_gl_widget {
             my $render_start = time;
 
             if( ! $glInitialized ) {
-                # Initialize Glew. onCreate is too early unfortunately
-                my $err = OpenGL::Glew::glewInit();
+                # Initialize OpenGL::Modern. onCreate is too early unfortunately
+                my $err = OpenGL::Modern::glewInit();
                 if( $err != GLEW_OK ) {
                     die "Couldn't initialize Glew: ".glewGetErrorString($err);
                 };
-                status( sprintf ("Initialized using GLEW %s", OpenGL::Glew::glewGetString(GLEW_VERSION)));
+                status( sprintf ("Initialized using GLEW %s", OpenGL::Modern::glewGetString(GLEW_VERSION)));
                 status( glGetString(GL_VERSION));
                 $glInitialized = 1;
-                
+
         warn $glWidget->get_handle;
         $h = $glWidget->get_handle;
         $h =~ s!^0x!!;
@@ -812,7 +881,7 @@ if( my $err = Win32::TransparentWindow::enableAlphaChannel($h, dwFlags => 7)) {
                 my $taken = time - $render_start;
 
                 $frames++;
-                if( int(time) != $frame_second) {
+                if( int(time) != $frame_second and $status) {
                     $status->set(
                         text => sprintf '%0.2f fps / %d ms taken rendering', $frames, 1000*$taken
                     );
@@ -874,7 +943,7 @@ sub recreate_gl_widget( $cb=undef ) {
 create_gl_widget();
 
 # Start our timer for displaying an OpenGL frame
-$window->insert( Timer =>
+$::application->insert( Timer =>
     timeout => 10,
     name    => 'Timer',
     onTick  => sub {
@@ -902,6 +971,7 @@ sub open_file {
     $state->{effect} = 0;
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
+    watch if $watch_file;
 }
 
 =head1 ARGUMENTS
