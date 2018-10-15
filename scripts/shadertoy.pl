@@ -697,7 +697,7 @@ if( $desktop ) {
     $glWidget = $parent->insert( GLWidget =>
         %param,
         #owner      => $window,
-        #layered => 1,
+        layered => 1,
         #owner      => $::application,
         #gl_config => {
         #    pixels => 'rgba',
