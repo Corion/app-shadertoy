@@ -112,7 +112,7 @@ sub store($self,%options) {
                      $options{ height },
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
-                     $buf
+                     \$buf
         );
 
     } else {
