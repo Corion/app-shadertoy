@@ -100,6 +100,7 @@ uniform float     iSampleRate;
 uniform vec3      iChannelResolution[4];
 uniform int       iFrame;
 uniform float     iTimeDelta;
+uniform float     iTime;
 uniform float     iFrameRate;
 uniform mat4      iCamera;
 uniform mat4      iModel;
@@ -408,6 +409,7 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
     # so we shouldn't update these variables here
     #$pipeline->setUniform1i(  "iFrame", $frame++ ); # this.mFrame );
     #$pipeline->setUniform1f(  "iTimeDelta", 0 ); # dtime);
+    $program->setUniform1f(  "iTime", $time);
     #$pipeline->setUniform1f(  "iFrameRate", 60 ); # weeeell
 }
 
