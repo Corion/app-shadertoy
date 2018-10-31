@@ -26,8 +26,8 @@ use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-use vars qw($VERSION $glVersion);
-$VERSION = '0.01';
+our $glVersion;
+our $VERSION = '0.01';
 
 # This should also use Prima as default instead of Imager, at least
 # for App::ShaderToy
