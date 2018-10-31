@@ -2,6 +2,7 @@ package App::ShaderToy::Effect;
 use strict;
 
 use OpenGL::Shader::OpenGL4;
+use OpenGL::Texture;
 
 use Filter::signatures;
 use feature 'signatures';
