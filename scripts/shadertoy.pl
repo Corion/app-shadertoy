@@ -702,12 +702,12 @@ my $parent = $desktop ? $::application : $window;
         %param,
         #owner      => $window,
         layered => 1,
-        #owner      => $::application,
-        #gl_config => {
-        #    pixels => 'rgba',
-        #    color_bits => 32,
-        #    depth_bits => 24,
-        #},
+        gl_config => {
+            pixels => 'rgba',
+            color_bits => 32,
+            alpha_bits => 8,
+            depth_bits => 24,
+        },
         onPaint => sub {
             my $self = shift;
 
