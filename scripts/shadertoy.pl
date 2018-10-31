@@ -684,12 +684,7 @@ sub create_gl_widget {
     }
 
 
-	#$win->effects({ dwm_blur => {
-	#	enable  => 1,
-	#	mask    => $i,
-	#}});
-
-my $parent = $desktop ? $::application : $window;
+    my $parent = $desktop ? $::application : $window;
 
     if( $desktop ) {
         %param = (size => [$window_width,$window_height]);
@@ -697,10 +692,8 @@ my $parent = $desktop ? $::application : $window;
         %param = (pack    => { expand => 1, fill => 'both'}),
     }
 
-#    $glWidget = $::application->insert( GLWidget =>
     $glWidget = $parent->insert( GLWidget =>
         %param,
-        #owner      => $window,
         layered => 1,
         gl_config => {
             pixels => 'rgba',
