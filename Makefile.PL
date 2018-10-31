@@ -50,7 +50,7 @@ my %module = (
 
     PREREQ_PM => {
       'OpenGL::Modern'          => '0.04',
-      'Prima'                   => '1.49',
+      'Prima'                   => '1.53',
       'Prima::OpenGL'           => '0.07',
       'Filter::signatures'      => '0.08', # for functions without signatures
 
