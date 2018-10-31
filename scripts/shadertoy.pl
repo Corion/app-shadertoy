@@ -63,6 +63,8 @@ as the vertex and tesselation shaders respectively.
 GetOptions(
     'fullscreen'       => \my $fullscreen,
     'desktop'          => \my $desktop,
+    'width=i'          => \my $window_width,
+    'height=i'         => \my $window_height,
     'duration|d=i'     => \my $duration,             # not yet implemented
     'config|c=s'       => \my $config_file,
     'watch|w'          => \my $watch_file,
@@ -78,6 +80,8 @@ pod2usage( -verbose => 2 ) && exit if defined $opt_man;
 $verbose ||= 0;
 
 $glsl_version ||= 120;
+$window_width ||= 640;
+$window_height ||= 480;
 
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
@@ -409,8 +413,8 @@ sub updateShaderVariables($pipeline,$xres,$yres) {
 
 my $config = {
     window => {
-        width => 480,
-        height => 480,
+        width => $window_width,
+        height => $window_height,
     },
     shaders => [],
     delay => 0,
@@ -687,11 +691,11 @@ sub create_gl_widget {
 
 my $parent = $desktop ? $::application : $window;
 
-if( $desktop ) {
-    %param = (size => [640,320]);
-} else {
-    %param = (pack    => { expand => 1, fill => 'both'}),
-}
+    if( $desktop ) {
+        %param = (size => [$window_width,$window_height]);
+    } else {
+        %param = (pack    => { expand => 1, fill => 'both'}),
+    }
 
 #    $glWidget = $::application->insert( GLWidget =>
     $glWidget = $parent->insert( GLWidget =>
