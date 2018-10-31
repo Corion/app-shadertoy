@@ -526,6 +526,7 @@ if( ! $desktop) {
     width     => $config->{window}->{width},
     height    => $config->{window}->{height},
     onTop     => $stay_always_on_top,
+    layered => 1,
     onKeyDown => sub {
         my( $self, $code, $key, $mod ) = @_;
         #print "@_\n";
