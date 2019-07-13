@@ -23,6 +23,7 @@ use OpenGL::Modern qw(
     glLinkProgram
     glGetActiveUniform_c
     glUseProgram
+    glProgramUniform1i
     glProgramUniform1f
     glProgramUniform3f
     glProgramUniform4fv_c
