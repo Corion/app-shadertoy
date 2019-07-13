@@ -26,7 +26,9 @@ App::ShaderToy::FileWatcher - watch files for changes
 =cut
 
 # Launch our watcher thread for updates to the shader program:
-use vars qw($reload $watcher %watched_files);
+our $reload;
+our $watcher;
+our %watched_files;
 
 sub watch_files(@files) {
     if( ! $enabled) {

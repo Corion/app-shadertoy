@@ -2,7 +2,6 @@ package OpenGL::ScreenCapture;
 use strict;
 use Carp 'croak';
 use Exporter 'import';
-use vars qw($VERSION @EXPORT_OK);
 use OpenGL::Modern qw(
     GL_RGBA GL_VIEWPORT
     GL_RGB
@@ -21,8 +20,8 @@ use Filter::signatures;
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
-@EXPORT_OK=('capture');
-$VERSION = '0.01';
+our @EXPORT_OK=('capture');
+our $VERSION = '0.01';
 
 =head1 FUNCTIONS
 

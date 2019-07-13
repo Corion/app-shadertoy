@@ -1,8 +1,7 @@
 package App::ShaderToy;
 
 use strict;
-use vars '$VERSION';
-$VERSION = '0.01';
+our $VERSION = '0.01';
 
 =head1 NAME
 

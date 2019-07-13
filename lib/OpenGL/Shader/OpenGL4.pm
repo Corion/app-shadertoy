@@ -73,7 +73,7 @@ my %GL_shader_names = (
     fragment             => GL_FRAGMENT_SHADER,
 );
 
-use vars qw($glVersion);
+our $glVersion;
 
 # Shader constructor
 sub new ($this,@args) {

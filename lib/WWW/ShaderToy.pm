@@ -2,7 +2,6 @@ package WWW::ShaderToy;
 use strict;
 use JSON 'from_json';
 use Moo 2.0; # we don't want fatal warnings
-use vars qw($VERSION $base_url);
 use feature 'signatures';
 no warnings 'experimental::signatures';
 
@@ -10,6 +9,8 @@ use Future;
 use Future::HTTP;
 use URI::Escape;
 use Data::Dumper;
+
+our $VERSION = '0.01';
 
 =head1 NAME
 
@@ -26,7 +27,7 @@ WWW::ShaderToy - access the https://www.shadertoy.com API
 
 =cut
 
-$base_url = 'https://www.shadertoy.com/';
+our $base_url = 'https://www.shadertoy.com/';
 
 has base_url => (
     is      => 'rw',

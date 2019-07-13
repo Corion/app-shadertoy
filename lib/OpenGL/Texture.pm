@@ -114,7 +114,7 @@ sub store($self,%options) {
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
                      \$buf
-                     unpack 'I', pack 'p', $buf
+                     #unpack 'I', pack 'p', $buf
         );
 
     } else {

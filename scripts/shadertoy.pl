@@ -344,7 +344,7 @@ sub drawUnitQuad_XY() {
     #warn "Disabled array drawn";
 }
 
-use vars qw($xres $yres);
+our ($xres, $yres);
 
 my $frame = 1;
 my $time;
