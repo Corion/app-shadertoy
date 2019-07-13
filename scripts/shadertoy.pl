@@ -69,6 +69,7 @@ GetOptions(
     'config|c=s'       => \my $config_file,
     'watch|w'          => \my $watch_file,
     'always-on-top|t'  => \my $stay_always_on_top,
+    'alpha'            => \my $alpha,                # window alpha channel transparency
     'glsl-version|g:s' => \my $glsl_version,
     'help!'            => \my $opt_help,
     'man!'             => \my $opt_man,
@@ -82,6 +83,7 @@ $verbose ||= 0;
 $glsl_version ||= 120;
 $window_width ||= 640;
 $window_height ||= 480;
+$alpha = 1 if $alpha;
 
 sub status($message,$level=0) {
     if( !$quiet and $level <= $verbose ) {
@@ -701,7 +703,7 @@ sub create_gl_widget {
 
     $glWidget = $parent->insert( GLWidget =>
         %param,
-        layered => 1,
+        layered => $alpha,
         gl_config => {
             pixels => 'rgba',
             color_bits => 32,
