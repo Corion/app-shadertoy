@@ -53,6 +53,13 @@ my %module = (
       'Prima'                   => '1.53',
       'Prima::OpenGL'           => '0.07',
       'Filter::signatures'      => '0.08', # for functions without signatures
+      'Imager'                  => 0,
+      'Imager::File::JPEG'      => 0,
+      'Imager::File::GIF'       => 0,
+
+      'AnyEvent::Impl::Prima'   => 0,
+      'JSON'                    => 0,
+      'YAML'                    => 0,
 
       # Hot code reloading:
       'threads'                 => 0,
