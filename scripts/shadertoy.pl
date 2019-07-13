@@ -452,7 +452,11 @@ sub unwatch {
 sub watch {
     unwatch();
     my $effect = $config->{ shaders }->[ $state->{effect} ];
-    return unless defined $effect->{fragment};
+    if( ! $effect->{fragment}) {
+        status("No fragment, nothing to watch");
+        return;
+    };
+    status("Watching '$effect->{fragment}'");
     App::ShaderToy::FileWatcher::watch_files( $effect->{fragment} );
 }
 
@@ -593,6 +597,7 @@ sub config_from_shader($id) {
     return $config;
 };
 
+$state->{effect} = 0;
 my ($filename)= @ARGV;
 if( $filename and length($filename) == 6 ) {
     # Well, that's a shadertoy shader id, isn't it?!
@@ -609,7 +614,6 @@ if( $filename and length($filename) == 6 ) {
 } else {
     # nothing to do
 };
-$state->{effect} = 0;
 
 my $status;
 if($window) {
@@ -846,6 +850,10 @@ sub open_file {
     $next_pipeline = activate_shader( $config->{shaders}->[ $state->{effect} ] );
     $pipeline = undef;
     watch if $watch_file;
+}
+
+END {
+    unwatch()
 }
 
 =head1 ARGUMENTS

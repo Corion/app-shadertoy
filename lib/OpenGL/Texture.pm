@@ -21,6 +21,8 @@ use OpenGL::Modern qw(
 );
 use OpenGL::Modern::Helpers (qw(xs_buffer croak_on_gl_error glGetVersion_p
     glGenTextures_p
+    pack_ptr
+    iv_ptr
 ));
 
 use Filter::signatures;
@@ -71,7 +73,6 @@ sub new($class,%options) {
 sub id($self) {
     my $id = $self->{id};
     if( ! defined $id ) {
-
         my $new_id = glGenTextures_p( 1 );
         croak_on_gl_error;
         $self->{id} = $new_id;
@@ -113,6 +114,7 @@ sub store($self,%options) {
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
                      \$buf
+                     unpack 'I', pack 'p', $buf
         );
 
     } else {
@@ -127,13 +129,13 @@ sub store($self,%options) {
                      0,
                      $options{ source_format } || $self->{source_format },
                      GL_UNSIGNED_BYTE,
-                     $buf
+                     iv_ptr $buf
         );
     };
 
     # This should also only be done if the GL version is high enough
     if( $options{ name }) {
-        glObjectLabel(GL_TEXTURE,$id, length $options{name},$options{name});
+        #glObjectLabel(GL_TEXTURE,$id, length $options{name},$options{name});
     };
     glBindTexture(GL_TEXTURE_2D,0);
 }
