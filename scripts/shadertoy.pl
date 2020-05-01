@@ -717,6 +717,7 @@ sub create_gl_widget {
 
             if( ! $glInitialized ) {
                 # Initialize OpenGL::Modern. onCreate is too early unfortunately
+                OpenGL::Modern::glewCreateContext();
                 my $err = OpenGL::Modern::glewInit();
                 if( $err != GLEW_OK ) {
                     die "Couldn't initialize Glew: ".glewGetErrorString($err);
