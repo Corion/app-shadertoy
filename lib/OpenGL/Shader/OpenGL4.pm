@@ -221,6 +221,7 @@ sub Load($self, %shaders) {
         $length = unpack 'I', $length;
         $name = substr $name, 0, $length;
         $self->{ uniforms }->{ $name } = glGetUniformLocation_c( $sp, $name);
+        croak_on_gl_error;
 
         #warn "$index [$name]";
     };
