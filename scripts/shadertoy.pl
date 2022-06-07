@@ -15,7 +15,7 @@ use OpenGL::Modern::Helpers qw( xs_buffer pack_GLint pack_GLfloat iv_ptr );
 use OpenGL::ScreenCapture 'capture';
 
 use Prima::noARGV;
-use Prima qw( Application GLWidget Label FileDialog MsgBox);
+use Prima qw( Application GLWidget Label Dialog::FileDialog MsgBox);
 use Prima::Application;
 use App::ShaderToy::FileWatcher;
 use App::ShaderToy::Effect;
